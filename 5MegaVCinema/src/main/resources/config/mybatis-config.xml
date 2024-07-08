@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+	<typeAliases>
+		<typeAlias type="com.itwillbs.vCinema.vo.MemberVO" alias="member"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.ReviewVO" alias="review"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.OrderTicketVO" alias="orderTicket"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.ItemVO" alias="item"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.MovieVO" alias="movie"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.CsVO" alias="cs"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.ReviewVO" alias="review"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.NoticeVO" alias="notice"/>
+	</typeAliases>
+ </configuration>

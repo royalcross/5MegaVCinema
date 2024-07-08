@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.itwillbs.vCinema.mapper.ReviewMapper">
+    <insert id="insertReview">
+		INSERT
+		INTO review
+		VALUES (
+			null
+			, #{review_num}
+			, #{review_rating}
+			, #{review_content}
+			, #{review_date}
+			, #{review_movie_code}
+			, #{member_num}	  
+		)
+	</insert>
+    
+    </mapper>
