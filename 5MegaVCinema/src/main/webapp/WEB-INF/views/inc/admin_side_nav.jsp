@@ -3,7 +3,6 @@
 <nav class="side_nav">
 	<ul>
 		<li><a href="AdminHome" id="GoHome">관리자페이지 홈</a></li>
-		<!-- 해원 -->
 		<li class="depth01">
 			<a href="AdminMemberList">회원관리</a>
 			<ul class="depth02">
@@ -12,35 +11,27 @@
 				<li><a href="AdminMemberBook">예매내역</a></li>
 			</ul>			
 		</li>
-		
-		<!-- 연진 -->
 		<li class="depth01">
-			<a href="#">영화관리</a>
+			<a href="AdminMovieList">영화관리</a>
 			<ul class="depth02">
-				<li><a href="#">영화정보관리</a></li>
-<!-- 				<li><a href="#">박스오피스</a></li> -->
-				<li><a href="#">상영시간표</a></li>
+				<li><a href="AdminMovieList">영화정보관리</a></li>
+<!-- 				<li><a href="AdminBoxOffice">박스오피스</a></li> -->
+				<li><a href="AdminPlayList">상영시간표</a></li>
 			</ul>			
 		</li>
-		
-		<!-- 연진 -->
 		<li class="depth01">
-			<a href="#">극장관리</a>
+			<a href="AdminTheaterList">극장관리</a>
 			<ul class="depth02">
-				<li><a href="#">영화관관리</a></li>
-				<li><a href="#">상영관관리</a></li>
+				<li><a href="AdminTheaterList">영화관관리</a></li>
+				<li><a href="AdminRoomList">상영관관리</a></li>
 			</ul>			
 		</li>
-		
-		<!-- 해원 -->		
 		<li class="depth01">
-			<a href="AdminStore">스토어관리</a>
+			<a href="#">스토어관리</a>
 			<ul class="depth02">
-				<li><a href="AdminStore">스토어</a></li>
+				<li><a href="#">스토어</a></li>
 			</ul>			
 		</li>
-		
-		<!-- 해원&연진 -->
 		<li class="depth01">
 			<a href="#">게시판관리</a>
 			<ul class="depth02">

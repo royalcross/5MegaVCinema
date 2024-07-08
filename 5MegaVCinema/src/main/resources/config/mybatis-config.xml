@@ -13,5 +13,6 @@
 		<typeAlias type="com.itwillbs.vCinema.vo.CsVO" alias="cs"/>
 		<typeAlias type="com.itwillbs.vCinema.vo.ReviewVO" alias="review"/>
 		<typeAlias type="com.itwillbs.vCinema.vo.NoticeVO" alias="notice"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.TheaterVO" alias="theater"/>
 	</typeAliases>
  </configuration>

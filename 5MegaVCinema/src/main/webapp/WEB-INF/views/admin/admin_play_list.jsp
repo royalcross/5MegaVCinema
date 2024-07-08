@@ -32,9 +32,9 @@
 				position: absolute;
 				left: 40%;
 			}
-			
 			.main .content {
 				width: 100%;
+				margin-bottom: 50px;
 			}
 			
 			.main .content table {
@@ -45,6 +45,9 @@
 				background-color: #eee;
 			}
 			
+			.main .content table #yAdmin {
+				background-color:  orange;
+			}
 			
 			/* 페이징 처리 */
 			.main #pageList {
@@ -52,22 +55,49 @@
 			}
 		</style>
 		<script>
-			function confirmDelete(review_num){
-				if(confirm("리뷰를 삭제하시겠습니까?")){
-					location.href="MemberReviewDelete?review_num=" + review_num;
-				}
+		// 팝업창 띄우기
+		var popupWidth = 1000;
+		var popupHeight = 800;
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		var popupY= (window.screen.height / 2) - (popupHeight / 2);
+		
+// 			function confirmAdmin(id, isadmin, isAuthorize){
+// 				let msg = "";
+				
+// 				if(isAuthorize == 'Y') {
+// 					msg = "부여";
+// 				} else {
+// 					msg = "해제";
+// 				}
+				
+// 				if(confirm("관리자 권한을 " + msg + "하시겠습니까?")){
+// 					location.href="ChangeAdminAuthorize?member_id=" + id + "&member_isAdmin=" + isadmin + "&isAuthorize=" + isAuthorize;
+// 				}
+// 			}
+			
+			function insertPlay() {
+				window.open('adminInsertPlay', 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 			}
+			function detailMovie(movie_code) {
+				window.open('adminMovieDetail?movie_code=' + movie_code, 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+			}
+			
+			
+			
+			
+			
+			
 		</script>
 	</head>
 	<body>
 		<header>
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-		</header>	
+		</header>
 		<div class="inner">
 			<section class="wrapper">
 				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
 				<article class="main">
-					<h3>회원리뷰</h3>
+					<h3>상영시간표 관리 페이지</h3>
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
@@ -79,8 +109,11 @@
 							</select>
 							<span>entries</span>
 						</div>
+								<!-- 영화 등록버튼 -->
+	<section id="buttonArea" >
+		<input type="button" value="등록" onclick="insertPlay()">
 						
-						<form action="AdminMemberReview">
+						<form action="AdminPlayList">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -95,51 +128,52 @@
 					</div>
 						
 					<div class="content">
-						<table border="1">
-							<tr>
-								<th>글번호</th>
-								<th>별점</th>
-								<th>영화코드</th>
-								<th>영화제목</th>
-								<th>리뷰내용</th>
-								<th>작성일</th>
-								<th>작성자(회원 번호)</th>
-								<th>삭제</th>
-							</tr>
-							
-							<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
-							<c:set var="pageNum" value="1" />
-							<%-- pageNum 파라미터 존재할 경우(= 비어있지 않음) 판별 --%>
-							<c:if test="${not empty param.pageNum}">
-								<%-- pageNum 변수에 pageNum 파라미터값 저장 --%>
-								<c:set var="pageNum" value="${param.pageNum}" />
-							</c:if>
-							
-							<c:forEach var="review" items="${reviewList}">
-								<tr>
-									<td>${review.review_num}</td>
-									<td>${review.review_rating}</td>
-									<td>${review.review_movie_code}</td>
-									<td>${review.review_movie_name_kr}</td>
-									<td>${review.review_content}</td>
-									<td>${review.review_date}</td>
-									<td>${review.member_num}</td>
-									<td>
-										<input type="button" value="삭제" id="delete" onclick="confirmDelete(${review.review_num})">
-									</td>
-								</tr>
-							</c:forEach>
-							<c:if test="${empty reviewList}">
-								<tr>
-									<td align="center" colspan="8">검색결과가 없습니다.</td>
-								</tr>
-							</c:if>
-						</table>
-					</div>
+<!-- 영화정보관리 게시판 -->
+	<table border="1">
+		<tr>
+			<th>상영기간</th>
+			<th>영화관명</th>
+			<th>상영관</th>
+			<th>영화명</th>
+			<th>시작시간</th>
+			<th>종료시간</th>
+			<th>수정 및 삭제</th>
+			</tr>
+			
+			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
+			<c:set var="pageNum" value="1"/>
+			
+			<%-- pageNum 파라미터 존재할 경우(비어있지 않음) 판별 --%>
+			<c:if test="${not empty param.pageNum}">
+				<c:set var="pageNum" value="${param.pageNum}"/>
+			</c:if>
+			
+			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
+			<c:forEach var="play" items="${playList}">
+			<tr>
+			<td>${play.movie_date}</td>
+			<td>${play.theater_name}</td>
+			<td>${play.room_num}</td>
+			<td>${play.movie_name_kr}</td>
+			<td>${play.play_start_time}</td>
+			<td>${play.play_end_time}</td>
+			<td>
+			<input type="button" value="상세보기">
+			<input type="button" value="상영종료">
+			
+			</td>
+			</tr>
+			</c:forEach>
+			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
+			<c:if test="${empty playList}">
+				<tr><td colspan="7">게시물이 존재하지 않습니다.</td></tr>
+			</c:if>
+	</table>
+</div>
 					
 					<div id="pageList">
 						<input type="button" value="이전" 
-								onclick="location.href='AdminMemberReview?pageNum=${pageNum - 1}'">
+								onclick="location.href='AdminMemberList?pageNum=${pageNum - 1}'">
 						
 						<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo)를 통해 페이지 번호 출력 --%>
 						<%-- 시작페이지(startPage = begin) 부터 끝페이지(endPage = end)까지 1씩 증가하면서 표시 --%>
@@ -151,7 +185,7 @@
 									<b>${i}</b> <%-- 현재 페이지 번호 --%>
 								</c:when>
 								<c:otherwise>
-									<a href="AdminMemberReview?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+									<a href="AdminMemberList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -162,7 +196,7 @@
 						<%-- 두 가지 경우의 수에 따라 버튼을 달리 생성하지 않고, disabled 만 추가 여부 설정 --%>
 						<%-- pageNum 파라미터값이 최대 페이지번호 이상일 때 disabled 속성 추가 --%>
 						<input type="button" value="다음" 
-								onclick="location.href='AdminMemberReview?pageNum=${pageNum + 1}'">
+								onclick="location.href='AdminMemberList?pageNum=${pageNum + 1}'">
 					</div>
 				</article>
 			</section>
@@ -172,23 +206,41 @@
 		</footer>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	<%-- ========================== 페이징 처리 영역 ========================== --%>
+	<section id="pageList">
+		<input type="button" value="이전" 
+				onclick="location.href='movieList?pageNum=${pageNum - 1}'"
+				<c:if test="${pageNum <= 1}">disabled</c:if>
+		>
+		
+		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+			<c:choose>
+				<c:when test="${i eq pageNum}">
+					<b>${i}</b> <%-- 현재 페이지 번호 --%>
+				</c:when>
+				<c:otherwise>
+					<a href="movieList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		
+		<input type="button" value="다음" 
+				onclick="location.href='movieList?pageNum=${pageNum + 1}'"
+				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
+		>
+	</section>
+	
+</body>
+<footer>
+			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
+		</footer>
+	</body>
+</html>
 
 
