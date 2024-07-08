@@ -94,7 +94,7 @@
 			</li>
 			
 			<li class="depth1">
-				<a href="#">스토어</a>
+				<a href="Store">스토어</a>
 				<ul class="depth2">
 					<li><a href="#">새로운 상품</a></li>
 					<li><a href="#">브이티켓</a></li>
