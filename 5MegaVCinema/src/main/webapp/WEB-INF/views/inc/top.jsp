@@ -30,7 +30,7 @@
 			</c:when>
 			<c:otherwise>
 				<%-- 아이디 클릭 시 회원 상세정보 조회를 위한 "MemberInfo.me" 서블릿 요청 --%>
-				| <a href="MemberInfo">${sName}</a>님
+				| <a href="MyPageMain">${sName}</a>님
 				<%-- 하이퍼링크 상에서 자바스크립트 함수 호출 시
 				"javascript:함수명()" 형태로 호출 --%>
 				| <a href="javascript:confirmLogout()">로그아웃 </a>
@@ -59,35 +59,35 @@
 					<li>
 						<a href="#">서울/경기/인천</a>
 						<ul class="depth3">
-							<li><a href="#">신도림</a></li>
-							<li><a href="#">청라</a></li>
-							<li><a href="#">동탄</a></li>
-							<li><a href="#">남양주다산</a></li>
+							<li><a href="sindorim">신도림</a></li>
+							<li><a href="chungra">청라</a></li>
+							<li><a href="dongtan">동탄</a></li>
+							<li><a href="namyang">남양주다산</a></li>
 						</ul>
 					</li>
 					
 					<li>
 						<a href="#">충청</a>
 						<ul class="depth3">
-							<li><a href="#">천안불당</a></li>
+							<li><a href="chunan">천안불당</a></li>
 						</ul>
 					</li>
 					
 					<li>
 						<a href="#">경상</a>
 						<ul class="depth3">
-							<li><a href="#">경주보문</a></li>
-							<li><a href="#">구미봉곡</a></li>
-							<li><a href="#">대구이시아</a></li>
+							<li><a href="kyungjoo">경주보문</a></li>
+							<li><a href="gumi">구미봉곡</a></li>
+							<li><a href="daegu">대구이시아</a></li>
 						</ul>
 					</li>
 					
 					<li>
 						<a href="#">작은 영화관</a>
 						<ul class="depth3">
-							<li><a href="#">칠곡호이</a></li>
-							<li><a href="#">보은</a></li>
-							<li><a href="#">영덕예주</a></li>
+							<li><a href="chilgok">칠곡호이</a></li>
+							<li><a href="bosilver">보은</a></li>
+							<li><a href="youngduck">영덕예주</a></li>
 						</ul>
 					</li>
 				</ul>
