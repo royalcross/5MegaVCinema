@@ -89,10 +89,9 @@ public class AdminStoreController {
 	}
 	
 	// =================================================================================================
-	
 	// 아이템 등록
 	@PostMapping("AdminItemRegist")
-	public String AdminItemRegist(ItemVO item, Model model) {
+	public String adminItemRegist(ItemVO item, Model model, String item_type) {
 //		System.out.println(item);
 		// AdminStoreService - AdminStoreRegist(item) -- int;
 		int insertCount = service.adminItemRegist(item);
@@ -115,7 +114,7 @@ public class AdminStoreController {
 	// 첫번째 수정 버튼은 팝업은 뜨지만 파라미터가 전달되지 않고,
 	// 나머지 수정 버튼은 파라미터는 전달되지만 팝업이 안 뜬다 ,,,, 모지 ,,,,
 	@GetMapping("AdminStoreModify")
-	public String AdminStoreModify(@RequestParam(defaultValue = "") String item_id, Model model) {
+	public String adminStoreModify(@RequestParam(defaultValue = "") String item_id, Model model) {
 		System.out.println("item_id : " + item_id);
 		
 		// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기

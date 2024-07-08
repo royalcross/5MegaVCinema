@@ -15,7 +15,6 @@
 			<a href="AdminMovieList">영화관리</a>
 			<ul class="depth02">
 				<li><a href="AdminMovieList">영화정보관리</a></li>
-<!-- 				<li><a href="AdminBoxOffice">박스오피스</a></li> -->
 				<li><a href="AdminPlayList">상영시간표</a></li>
 			</ul>			
 		</li>
@@ -27,9 +26,9 @@
 			</ul>			
 		</li>
 		<li class="depth01">
-			<a href="#">스토어관리</a>
+			<a href="AdminStore">스토어관리</a>
 			<ul class="depth02">
-				<li><a href="#">스토어</a></li>
+				<li><a href="AdminStore">스토어</a></li>
 			</ul>			
 		</li>
 		<li class="depth01">

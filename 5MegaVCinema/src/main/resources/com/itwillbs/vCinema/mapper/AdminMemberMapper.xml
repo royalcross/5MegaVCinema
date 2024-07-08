@@ -120,18 +120,14 @@
 	</select>
 	
 	<select id="selectBookList" resultType="hashmap">
-		SELECT 
-			o.order_ticket_id
-			, o.order_ticket_member_num
-			, v.movie_name_kr
-			, o.order_ticket_date
-			, t.theater_name
-			, o.order_ticket_status
+		SELECT *		
 		FROM order_ticket o 
 		JOIN theater t 
 		ON o.order_ticket_theater_num = t.theater_num 
 		JOIN movie v 
-		ON o.order_ticket_movie_code = v.movie_code
+		ON o.order_ticket_movie_code = v.movie_code 
+		JOIN ticket tk
+		ON o.order_ticket_type = tk.ticket_num
 		<if test="!searchKeyword.equals('')">
 		WHERE 
 			order_ticket_id like concat('%',#{searchKeyword},'%')
