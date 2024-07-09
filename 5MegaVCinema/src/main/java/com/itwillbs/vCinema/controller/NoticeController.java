@@ -7,21 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.itwillbs.vCinema.service.CsService;
-import com.itwillbs.vCinema.vo.CsVO;
+import com.itwillbs.vCinema.service.NoticeService;
+import com.itwillbs.vCinema.vo.NoticeVO;
 
 @Controller
-public class CsController {
+public class NoticeController {
 	@Autowired
-	private CsService service;
+	private NoticeService service;
 	
-	@GetMapping("Cs3")
-	public String cs3(CsVO cs, Model model) {
-		List<CsVO> csList = service.getCs(cs);
+	@GetMapping("Cs1")
+	public String cs1(NoticeVO notice, Model model) {
+		List<NoticeVO> noticeList = service.getNotice(notice);
 		// StoreVO 객체를 모델 객체에 저장
-		model.addAttribute("csList", csList);
-		return "cs/cs3";
+		model.addAttribute("noticeList", noticeList);
+		return "cs/cs1";
 	}
+
 	
 
 	

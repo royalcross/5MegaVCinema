@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>  
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -67,15 +67,34 @@ h2 {
     text-decoration: underline;
     cursor: pointer;
 }
+
+/* 영화 상세 정보 스타일 */
+.movie-details {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* 줄거리 스타일 */
+.synopsis {
+    margin-top: 20px;
+}
+
+/* 리뷰 스타일 */
+.review {
+    margin-top: 20px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    getInfo(); // 페이지 로드 시 영화 데이터 가져오기
+    getInfo(); 
 });
 
 function getInfo() {
-    let strDate = "20240705"; // 2024년 7월 5일
+    let strDate = "20240705"; 
 
     $.ajax({
         type : "GET",
@@ -92,8 +111,8 @@ function getInfo() {
     });
 }
 
-// TMDB에서 영화 포스터 이미지 가져오기
-function getTMDBMoviePoster(movieNm, callback) {
+// TMDB에서 영화 상세 정보 가져오기
+function getTMDBMovieDetails(movieNm, callback) {
     let tmdbApiKey = '29a6c0fd07e598399091aed24796eaf2'; // TMDB API 키
     let searchUrl = 'https://api.themoviedb.org/3/search/movie';
     let params = {
@@ -110,7 +129,7 @@ function getTMDBMoviePoster(movieNm, callback) {
         success: function(response) {
             if (response.results && response.results.length > 0) {
                 let movieInfo = response.results[0]; // 가장 첫 번째 검색 결과의 영화 정보 사용
-                callback(movieInfo.poster_path); // 포스터 이미지 URL 전달
+                callback(movieInfo); // 영화 정보 전달
             } else {
                 console.error('No movie found for the given title:', movieNm);
                 callback(null); // 검색 결과가 없을 경우 null 
@@ -133,35 +152,24 @@ function displayBoxOfficeData(movies) {
         let movieNm = movie.movieNm;
         let rank = i + 1; // 순위
 
-        // TMDB에서 포스터 이미지 가져오기
-        getTMDBMoviePoster(movieNm, function(posterPath) {
+        // TMDB에서 영화 상세 정보 가져오기
+        getTMDBMovieDetails(movieNm, function(movieInfo) {
             let movieElement = $('<div>').addClass('movie');
             let rankElement = $('<div>').addClass('rank').text(rank); // 순위 표시
             let titleElement = $('<div>').addClass('title').text(movieNm); // 영화 제목 추가
 
-            if (posterPath) {
-                let posterUrl = 'https://image.tmdb.org/t/p/w200' + posterPath; // 포스터 이미지 URL 설정 (w200 크기)
+            if (movieInfo) {
+                let posterUrl = 'https://image.tmdb.org/t/p/w200' + movieInfo.poster_path; // 포스터 이미지 URL 설정 (w200 크기)
                 let posterElement = $('<img>').addClass('movie-poster').attr('src', posterUrl).attr('alt', 'Movie Poster');
-                let detailLink = $('<div>').addClass('content-link').text('상세 정보 보기'); // 상세 정보 링크 추가
-
-                
-                detailLink.on('click', function() {
-                    window.location.href = '${pageContext.request.contextPath}/content?movieCd=' + movie.movieCd;
-                });
+                let detailLink = $('<a>').addClass('content-link').text('상세 정보 보기').attr('href', 'Content?movieId=' + movieInfo.id); // 상세 정보 링크 추가
 
                 movieElement.append(rankElement, posterElement, titleElement, $('<br>'), detailLink);
             } else {
-                // 포스터 이미지가 없는 경우 기본 이미지 사용
+                // TMDB에서 정보를 찾지 못한 경우의 처리
                 let defaultPosterUrl = '${pageContext.request.contextPath}/resources/images/default-poster.jpg';
-                let posterElement = $('<img>').addClass('movie-poster').attr('src', defaultPosterUrl).attr('alt', 'Default Movie Poster');
-                let detailLink = $('<div>').addClass('content-link').text('상세 정보 보기'); // 상세 정보 링크 추가
+                let posterElement = $('<img>').addClass('movie-poster').attr('src', defaultPosterUrl).attr('alt', 'Default Poster');
 
-                // 상세 정보 링크 클릭 시 content.jsp로 이동
-                detailLink.on('click', function() {
-                    window.location.href = '${pageContext.request.contextPath}/content?movieCd=' + movie.movieCd;
-                });
-
-                movieElement.append(rankElement, posterElement, titleElement, $('<br>'), detailLink);
+                movieElement.append(rankElement, posterElement, titleElement);
             }
 
             container.append(movieElement);

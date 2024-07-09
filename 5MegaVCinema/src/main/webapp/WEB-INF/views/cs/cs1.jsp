@@ -58,6 +58,11 @@
 	 	margin: 0 10px;
 	}
 </style>
+<script>
+	function showNoticeDetail(notice_num) {
+		alert("공지사항 상세 페이지로 이동: " + notice_num);
+	}
+</script>
 </head>
 <body>
 	<header>
@@ -87,15 +92,12 @@
 			<c:if test="${not empty param.pageNum}">
 				<c:set var="pageNum" value="${param.pageNum}" />
 			</c:if>
-			<c:forEach var="board" items="${boardList}">
+			<c:forEach var="notice" items="${noticeList}">
 				<tr>
-					<td>${board.board_num}</td>
-					<td id="subject">
-<%-- 						<a href="BoardDetail.bo?board_num=${}&pageNum=${}">${}</a> --%>
-					</td>
-					<td input type="button" value="공지사항상세" onclick="detailNotice(${notice_num})">${notice_subject}</td>
+					<td>${notice_num}</td>
+					<td>${theater_name}</td>
+					<td>${theater_subject}</td>					
 					<td>${notice_date}</td>
-<%-- 	상세페이지에 넣기				<td>${notice_content}</td> --%>
 				</tr>
 			</c:forEach>
 		</table>

@@ -19,6 +19,9 @@
 			, #{cs_theater_name}		  
 		)
 	</insert>
-		
-    
+		<select id="selectCs" resultType="cs">
+		SELECT *
+		FROM cs
+		WHERE cs_num = #{cs_num}	
+	</select>     
     </mapper>

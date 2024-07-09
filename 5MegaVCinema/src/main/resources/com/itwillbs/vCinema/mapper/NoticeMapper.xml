@@ -7,16 +7,18 @@
 		INSERT
 		INTO notice
 		VALUES (
-			null
-			, #{notice_num}
+			 #{notice_num}
 			, #{notice_type}
 			, #{notice_subject}
 			, #{notice_content}
 			,now()
-<!-- 			, #{notice_date} -->
 			  
 		)
 	</insert>
-
+	<select id="selectNotice" resultType="hashmap">
+		select *
+		from notice n join theater t
+		on n.notice_theater_name = t.theater_name;
+	</select>
     
     </mapper>

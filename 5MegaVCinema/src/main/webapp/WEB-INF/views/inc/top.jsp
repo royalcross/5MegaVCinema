@@ -47,9 +47,9 @@
 			<li class="depth1">
 				<a href="#">영화</a>
 				<ul class="depth2">
-					<li><a href="#">박스오피스</a></li>
-					<li><a href="#">최신개봉작</a></li>
-					<li><a href="#">상영예정작</a></li>
+					<li><a href="Boxoffice">박스오피스</a></li>
+					<li><a href="Latest">최신개봉작</a></li>
+					<li><a href="Comming">상영예정작</a></li>
 				</ul>	
 			</li>
 			

@@ -15,5 +15,6 @@
 		<typeAlias type="com.itwillbs.vCinema.vo.NoticeVO" alias="notice"/>
 		<typeAlias type="com.itwillbs.vCinema.vo.TheaterVO" alias="theater"/>
 		<typeAlias type="com.itwillbs.vCinema.vo.StoreVO" alias="store"/>
+		<typeAlias type="com.itwillbs.vCinema.vo.FaqVO" alias="faq"/>
 	</typeAliases>
  </configuration>

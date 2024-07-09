@@ -1,16 +1,18 @@
 package com.itwillbs.vCinema.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.itwillbs.vCinema.vo.CsVO;
-import com.itwillbs.vCinema.vo.NoticeVO;
+
 @Mapper
 public interface CsMapper {
+	
+	int insertCs(CsVO cs);
+	List<CsVO> selectCs(CsVO cs);
 
-	public int insertCs(CsVO cs);
-
-	public int insertNotice(NoticeVO notice);
-
+	
 	
 
 }
