@@ -120,9 +120,10 @@
 									<td>${review.review_num}</td>
 									<td>${review.review_rating}</td>
 									<td>${review.review_movie_code}</td>
-									<td>${review.review_movie_name_kr}</td>
+									<td>${review.movie_name_kr}</td>
 									<td>${review.review_content}</td>
-									<td>${review.review_date}</td>
+									<td><fmt:parseDate value="${review.review_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> <!-- 2024-07-13 의 형식 -->
 									<td>${review.member_num}</td>
 									<td>
 										<input type="button" value="삭제" id="delete" onclick="confirmDelete(${review.review_num})">

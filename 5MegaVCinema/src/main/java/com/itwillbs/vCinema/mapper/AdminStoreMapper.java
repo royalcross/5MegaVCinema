@@ -20,5 +20,6 @@ public interface AdminStoreMapper {
 	ItemVO selectItem(String item_id);
 
 	int insertItem(ItemVO item);
+
 	
 }

@@ -72,10 +72,11 @@
         <a href="Cs3" >1:1문의</a> 
     </div>
     <br>
-    </section>
+    </section>   
 	<section id="listForm">
 		<table>
-			<tr id="tr_top">
+			<tr id="tr_top">			
+				<td width="100px">글번호</td>
 				<td width="100px">영화관</td>
 				<td>제목</td>
 				<td width="150px">등록일</td>
@@ -90,11 +91,11 @@
 				<tr>
 					<td>${board.board_num}</td>
 					<td id="subject">
-						<a href="BoardDetail.bo?board_num=${board.board_num}&pageNum=${pageNum}">${board.board_subject}</a>
+<%-- 						<a href="BoardDetail.bo?board_num=${}&pageNum=${}">${}</a> --%>
 					</td>
-					<td>${board.board_name}</td>
-					<td>${board.board_date}</td>
-					<td>${board.board_readcount}</td>
+					<td input type="button" value="공지사항상세" onclick="detailNotice(${notice_num})">${notice_subject}</td>
+					<td>${notice_date}</td>
+<%-- 	상세페이지에 넣기				<td>${notice_content}</td> --%>
 				</tr>
 			</c:forEach>
 		</table>

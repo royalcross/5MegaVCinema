@@ -38,6 +38,4 @@ public class AdminStoreService {
 	public int adminItemRegist(ItemVO item) {
 		return mapper.insertItem(item);
 	}
-	
-	
 }
