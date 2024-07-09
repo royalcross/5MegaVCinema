@@ -12,18 +12,18 @@ public class MemberService {
    private MemberMapper mapper;
 
    public int registMember(MemberVO member) {
-      return this.mapper.insertMember(member);
+      return mapper.insertMember(member);
    }
 
    public MemberVO getMember(MemberVO member) {
-      return this.mapper.selectMember(member);
+      return mapper.selectMember(member);
    }
 
    public int modifyMember(Map<String, String> map) {
-      return this.mapper.updateMember(map);
+      return mapper.updateMember(map);
    }
 
    public int withdrawMember(MemberVO member) {
-      return this.mapper.updateWithdrawMember(member);
+      return mapper.updateWithdrawMember(member);
    }
 }

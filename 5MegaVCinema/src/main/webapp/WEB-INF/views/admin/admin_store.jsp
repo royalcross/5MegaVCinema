@@ -158,7 +158,7 @@
 						<!-- 우측 상단 버튼 들어가는 자리 -->			
 						<div>
 							<button type="button" class="registBtn">등록</button>
-<!-- 							<button type="button" class="popupBtn">카테고리 관리</button> -->
+							<button type="button" class="categoryBtn">카테고리 관리</button>
 						</div>
 					</div>
 						
@@ -189,7 +189,8 @@
 									<td>${item.item_content}</td>
 									<td>${item.item_price}</td>
 									<td>
-										<input type="button" class="modifyBtn" value="수정" onclick="location.href='AdminStoreModify?item_id=${item.item_id }'">
+<%-- 										<input type="button" class="modifyBtn" value="수정" onclick="location.href='AdminStoreModify?item_id=${item.item_id }'"> --%>
+										<input type="button" class="modifyBtn" value="수정" onclick="console.log('location.href')"> <!-- 뭐가 먼저 작동되는지 확인용 -->
 <%-- 										<button value="${item.item_id}" class="modifyBtn">수정</button> --%>
 										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${item.item_id}')">
 									</td>
@@ -231,6 +232,7 @@
 		        	<form action="AdminItemRegist" method="post" name="registForm">
 				        <div>
 					        <select class="category" name="item_type" onchange="selectCategory(this.value)">
+					        	<option value="">선택</option>
 					        	<option value="Ticket">티켓</option>
 					        	<option value="Popcorn">팝콘</option>
 					        	<option value="Drinks">음료</option>
@@ -277,6 +279,40 @@
 				</div>
 		    </div>
 		</div>
+		
+		<div class="modal"> <!-- 카테고리 관리 -->
+		    <div class="modal_popup">
+		        <h3>카테고리 관리</h3>
+		        <div class="content">
+		        	<h4>카테고리 조회</h4>
+		        	<form action="AdminItemCategoryManage" method="post" name="categoryManage">
+				        <table border="1">
+					        <tr>
+					        	<th>카테고리 명</th>
+					        	<th>삭제</th>
+					        </tr>
+					        
+					        <!-- AJAX 로 수정 -->
+					        <c:forEach var="item" items="${itemList}">
+						        <tr>
+						        	<td>${item.item_type}</td>
+						        	<td>
+						        		<input type="button" value="삭제" id="delete" onclick="confirmDelete(${review.review_num})">
+						        	</td>
+						        </tr>
+						    </c:forEach>
+				        </table>
+				        
+						<div class="btnArea" style="text-align : center">
+				        	<input type="submit" class="regist_btn" value="등록">
+				        	<input type="reset" class="reset_btn" value="초기화">
+				        	<input type="button" class="close_btn" value="취소">
+				        </div>
+			        </form>
+				</div>
+		    </div>
+		</div>
+		
 		<div class="modal"> <!-- 수정 -->
 		    <div class="modal_popup">
 		        <h3>스토어 수정</h3>
@@ -321,6 +357,7 @@
 			let registBtn = document.querySelector('.registBtn');
 			let modifyBtn = document.querySelector('.modifyBtn');
 			let closeBtn = document.querySelectorAll('.close_btn');
+			let categoryBtn = document.querySelector('.categoryBtn');
 			
 			// 아이템 삭제
 			function confirmDelete(itemId){
@@ -337,48 +374,42 @@
 			}
 			
 			// 아이템 등록 (카테고리 선택 -> 상품 아이디에 값 들어감)
-			// 등록할 때마다 num + 1 됨 ( 이게 안 됨 ....................................... 여쭤보기)
-			// 숫자 기본 값 (계속 초기화 되는 것도 아니네 .....)
-			let tNum = 0;
-			let pNum = 0;
-			let dNum = 0;
-	 		let gNum = 0;
-	 		
+			
 			function selectCategory(category) {
-		 		if(category == "Ticket"){ //equals 가 안 먹어서 일단 .. == .. 
-		 			tNum = tNum + 1;
-		 			document.registForm.item_id.value = category + tNum;
+				
+		 		if(category == "Ticket"){ //equals 가 안 먹어서 일단 .. == .. / 왜 안먹노 ? 오타났나 ?
+		 			document.registForm.item_id.value = category;
 		 		}
 		 		
 		 		if(category == "Popcorn"){
-		 			pNum = pNum + 1;
-		 			document.registForm.item_id.value = category + pNum;
+		 			document.registForm.item_id.value = category;
 		 		}
 		 		
 		 		if(category == "Drinks"){
-		 			dNum = dNum + 1;
-		 			document.registForm.item_id.value = category + dNum;
+		 			document.registForm.item_id.value = category;
 		 		}
 		 		
 		 		if(category == "Goods"){
-		 			gNum = gNum + 1;
-		 			document.registForm.item_id.value = category + gNum;
+		 			document.registForm.item_id.value = category;
 		 		}
-		 		
-// 		 		let num = 1;
-		 		
-// 			 	if(category != null) {
-// 					document.registForm.item_id.value = category + num;
-// 					num++;
-// 			 	}
-			 	
+			}
+			
+			// -------------------------------------------------------------------------
+			// 카테고리 관리
+			categoryBtn.onclick = function(){
+				modal[1].classList.add('on');
 			}
 			
 			// -------------------------------------------------------------------------
 			
 			// 아이템 수정
 			modifyBtn.onclick = function(){
-				modal[1].classList.add('on');
+				// Ajex 듣고 작업하기 (0708 - 해원)
+				// -> location 이 먼저 작동해야하는데 modal 이 먼저 작동해서 값을 가져올 수가 없음 ㅇㅇ
+				// 수업 들으면 할 수 있을거야 ....
+				
+				console.log("modal")
+				modal[2].classList.add('on');
 			}
 			
 			// -------------------------------------------------------------------------
