@@ -26,4 +26,9 @@ public class MemberService {
    public int withdrawMember(MemberVO member) {
       return mapper.updateWithdrawMember(member);
    }
+
+   // 아이디 찾기
+   public MemberVO getMemberSearchId(MemberVO member) {
+	  return mapper.selectMemberSearchId(member);
+   }
 }
