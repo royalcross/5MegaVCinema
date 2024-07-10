@@ -31,6 +31,12 @@
 		font-size: 20px;
 		padding: 10px;
 	}
+	#gift_list {
+		background-color: #eee;
+		margin: auto;
+		width: 990px;
+		height: 40px;
+	}
 	#cancelAndPayment {
 		position: relative;
 		left: 290px;
@@ -45,20 +51,35 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script type="text/javascript">
 	$(function() {
-// 		let recipient = $("#recipient").val();
-// 		let phone = $("#phone").val();
-// 		let recipientInfo = recipient + phone;
-// 		$("#add_recipient").click(function() {
-// 			console.log(recipientInfo);
-// 			$("#gift_list").text(recipientInfo);
-// 		});
-// 		$('#payment').click(function() {
-// 			if($('#gift_list').text() == "") {
-// 				alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
-// 			} else if($('#message').text() == "") {
-// 				alert("선물메세지를 확인해주세요.")
-// 			}
-// 		});
+		$("#add_recipient").click(function() {
+			if($("#recipient").val() == "") {
+				alert("받는 분을 확인해주세요.");
+			} else if($("#quantity").val() == "선택") {
+				alert("수량을 확인해주세요.");
+			} else if($("#phone").val() == "") {
+				alert("휴대폰번호를 확인해주세요.");
+			} else {
+				let recipient = $("#recipient").val();
+				let quantity = $("#quantity").val();
+				let phone = $("#phone").val();
+				$("#gift_list").text($("#gift_list").text() + " " + quantity + " " + recipient + " " + phone);
+				$("#recipient").val("");
+				$("#quantity").val("선택");
+				$("#phone").val("");
+			}
+		});
+		$("#message").blur(function() {
+			if($("#message").val().length > 70) {
+				alert("최대 70자까지 입력 가능합니다.");
+			}
+		});
+		$('#payment').click(function() {
+			if($('#gift_list').val() == "") {
+				alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
+			} else if($('#message').val() == "") {
+				alert("선물메세지를 확인해주세요.")
+			}
+		});
 		$('#cancel').click(function() {
 			location.href = "Store";
 		});
@@ -70,7 +91,7 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
 	<section>
-		<form>
+		<form action="StorePaymentPro" method="post">
 			<table id="payment_page">
 				<tr>
 					<td colspan="5" id="payment_title">결제</td>
@@ -100,7 +121,7 @@
 					</tr>
 					<tr>
 						<th>받는 분</th>
-						<td><input type="text" id="recipient" value=""></td>
+						<td><input type="text" id="recipient"></td>
 						<th rowspan="2">선물메세지<br>(0자/70자)</th>
 						<td rowspan="2"><textarea rows="5" cols="40" id="message" placeholder="전달하고자 하는 메세지를 남겨보세요(최대 70자)"></textarea></td>
 					</tr>
@@ -118,14 +139,13 @@
 								<option>7</option>
 								<option>8</option>
 							</select>
-							<input type="text" id="phone" placeholder="'-'없이 입력해 주세요" value="">
+							<input type="text" id="phone" placeholder="'-'없이 입력해 주세요">
 							<input type="button" id="add_recipient" value="추가">
 						</td>
 					</tr>
-					<tr>
-						<td colspan="4"><textarea rows="2" cols="100" id="gift_list"></textarea></td>
-					</tr>
 				</table>
+				<br>
+				<div id="gift_list"></div>
 				<br>
 			</c:if>
 			<table>
