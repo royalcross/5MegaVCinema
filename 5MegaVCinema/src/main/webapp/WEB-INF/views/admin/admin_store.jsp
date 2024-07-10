@@ -120,11 +120,7 @@
 			}
 			
 		</style>
-		
-		<script type="text/javascript">
-			
-		
-		</script>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	</head>
 	<body>
 		<header>
@@ -157,15 +153,15 @@
 			
 						<!-- 우측 상단 버튼 들어가는 자리 -->			
 						<div>
-							<button type="button" class="registBtn">등록</button>
-							<button type="button" class="categoryBtn">카테고리 관리</button>
+							<button type="button" id="registBtn">등록</button>
+							<button type="button" id="categoryBtn">카테고리 관리</button>
 						</div>
 					</div>
 						
 					<div class="content">
 						<table border="1" >
 							<tr>
-								<th width="80px">번호</th>
+								<th width="80px">상품 번호</th>
 								<th width="120px">카테고리</th>
 								<th width="120px">상품명</th>
 								<th width="300px">부연설명</th>
@@ -189,9 +185,9 @@
 									<td>${item.item_content}</td>
 									<td>${item.item_price}</td>
 									<td>
-<%-- 										<input type="button" class="modifyBtn" value="수정" onclick="location.href='AdminStoreModify?item_id=${item.item_id }'"> --%>
-										<input type="button" class="modifyBtn" value="수정" onclick="console.log('location.href')"> <!-- 뭐가 먼저 작동되는지 확인용 -->
-<%-- 										<button value="${item.item_id}" class="modifyBtn">수정</button> --%>
+<!-- 										<input type="button" class="modifyBtn" value="수정" > -->
+<!-- 										<input type="button" id="modifyBtn" value="수정" onclick="console.log('location.href')"> 뭐가 먼저 작동되는지 확인용 -->
+										<button value="${item.item_id}" class="modifyBtn">수정</button>
 										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${item.item_id}')">
 									</td>
 								</tr>
@@ -305,7 +301,6 @@
 				        
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">
-				        	<input type="reset" class="reset_btn" value="초기화">
 				        	<input type="button" class="close_btn" value="취소">
 				        </div>
 			        </form>
@@ -317,34 +312,10 @@
 		    <div class="modal_popup">
 		        <h3>스토어 수정</h3>
 		        <div class="content">
-		        	<form action="AdminStore" method="post" name="modifyForm">
-					        <div>
-						        <select class="category">
-						        	<option>티켓</option>
-						        	<option>팝콘</option>
-						        	<option>음료</option>
-						        	<option>굿즈</option>
-						        </select>
-					        </div>
-					        
-					        <div>
-					        	<span>상품명</span> <br>
-					        	<input type="text" value="${selectedItem.item_name}">
-					        </div>
-					        
-					        <div>
-					        	<span>부연설명</span> <br>
-					        	<textarea rows="1" cols="40" name="motivation" required>${selectedItem.item_content}</textarea>
-					        </div>
-					        
-					        <div>
-					        	<span>가격</span> <br>
-					        	<input type="text" value="${selectedItem.item_price}">
-					        </div>
-				        
+		        	<form action="AdminStoreModify" method="post" name="modifyForm">
+		        		<div id="resultArea"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">
-				        	<input type="reset" class="reset_btn" value="초기화">
 				        	<input type="button" class="close_btn" value="취소">
 				        </div>
 			        </form>
@@ -354,10 +325,10 @@
 		
 		<script>
 			let modal = document.querySelectorAll('.modal');
-			let registBtn = document.querySelector('.registBtn');
-			let modifyBtn = document.querySelector('.modifyBtn');
+			let registBtn = document.querySelector('#registBtn');
+			let modifyBtn = document.querySelectorAll('.modifyBtn'); // 반복문으로 버튼이 여러 개 뜨니까 버튼도 여러개임을 인지하고, 팝업 뜨는 것도 반복문 작성필요
 			let closeBtn = document.querySelectorAll('.close_btn');
-			let categoryBtn = document.querySelector('.categoryBtn');
+			let categoryBtn = document.querySelector('#categoryBtn');
 			
 			// 아이템 삭제
 			function confirmDelete(itemId){
@@ -402,15 +373,29 @@
 			
 			// -------------------------------------------------------------------------
 			
-			// 아이템 수정
-			modifyBtn.onclick = function(){
-				// Ajex 듣고 작업하기 (0708 - 해원)
-				// -> location 이 먼저 작동해야하는데 modal 이 먼저 작동해서 값을 가져올 수가 없음 ㅇㅇ
-				// 수업 들으면 할 수 있을거야 ....
-				
-				console.log("modal")
-				modal[2].classList.add('on');
+			// 아이템 수정 팝업 띄우기
+			for(let i = 0; i < modifyBtn.length ; i++) {
+				modifyBtn[i].onclick = function(){
+// 					console.log("modal")
+					modal[2].classList.add('on');
+				}
 			}
+			
+			// 아이템 상세 내용 가져오는 AJAX - resources 에 js 있어야함 (script 태그에 주소 연결도 해야함)
+			$(function() {
+				$(modifyBtn).click(function() {
+					$.ajax({
+						url:"AdminStoreModify",
+	    				data:{
+	    					"item_id": $(this).val()
+	    					},
+	    				method:"get",
+	    				success: function (response) {
+	    					$("#resultArea").html(response);
+	    				}
+					});
+				});
+			});
 			
 			// -------------------------------------------------------------------------
 			
@@ -420,8 +405,6 @@
 					modal[i].classList.remove('on');
 				}
 			}
-			
-			
 		</script>
 		
 		<footer>

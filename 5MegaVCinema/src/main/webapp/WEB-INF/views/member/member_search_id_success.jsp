@@ -96,42 +96,18 @@
 			<a href="./" class="main_logo"><img src="resources/images/main_logo.png"></a>
 		</div>
 		
-		<div class="tab">
-			<ul>
-				<li class="tabMenu on"><a href="MemberSearchId">아이디 찾기</a></li>
-				<li class="tabMenu"><a href="MemberSearchPw">비밀번호 찾기</a></li>
-			</ul>
-		</div>
-		
 		<article>
 			<div align="center">
-				<!-- id 찾기 -->
-				<h4>등록한 정보로 아이디 찾기</h4>
-				<form class="search" name="searchIdForm" action="SearchIdPro" method="post">
-					<div class="info">
-						<span>이름</span>
-						<input type="text" name="member_name" placeholder="이름을 입력해주세요" required> <br>
-					</div>
-					
-					<div class="info">
-						<span>생년월일</span>
-						<input type="text" name="member_birth" placeholder="예) 1999-01-01" required> <br>
-					</div>
-					
-					<div class="info">
-						<span>휴대폰번호</span>
-						<input type="text" name="member_phonenumber" placeholder=" - 없이 숫자만 입력해주세요." required> <br>
-					</div>
-					
-					<input type="submit" value="아이디찾기" class="submitBtn">
-					
-				</form>
-				
-				<span class="alert">이메일, 비밀번호, 휴대폰 번호 등 입력 정보를 <br>전부 다 모르실 경우
-				고객센터 이메일 <br> 또는 ARS(1000-1000)로 문의주시기 바랍니다.
-				</span>
+				<!-- id 알려주기 -->
+				<span>회원님의 아이디는 <b>${member_id}</b> 입니다.</span>
+			</div>
+			
+			<div align="center">
+				<input type="button" value ="홈으로" onclick="location.href='./'">
+				<input type="button" value ="로그인" onclick="location.href='MemberLogin'">
 			</div>
 		</article>
+		
 		<footer>
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 		</footer>

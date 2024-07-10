@@ -42,7 +42,7 @@
 		WHERE item_id = #{item_id}
 	</delete>
 	
-	<!-- 아이템 수정 -->
+	<!-- 아이템 상세정보 가져오기 -->
 	<select id="selectItem" resultType="item">
 		SELECT *
 		FROM item
@@ -63,4 +63,14 @@
 		)
 	</insert>
 	
+	<!-- 아이템 수정 -->
+	<update id="updateItem">
+		UPDATE item
+		SET 
+			item_name = #{item_name}
+			, item_content = #{item_content}
+			, item_price = #{item_price}
+		WHERE 
+			item_id = #{item_id}
+	</update>
 </mapper>
