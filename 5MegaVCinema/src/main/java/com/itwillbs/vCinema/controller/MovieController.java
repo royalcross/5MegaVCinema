@@ -79,6 +79,14 @@ public class MovieController {
 	public String dongtan() {
 		return"theater/theater_dongtan";
 	}
+	@GetMapping("sindorim_map")
+	public String sindorimMap() {
+		return"theater/theater_sindorim_map";
+	}
+	@GetMapping("sindorim_price")
+	public String sindorimPrice() {
+		return"theater/theater_sindorim_price";
+	}
 
 	
 		
