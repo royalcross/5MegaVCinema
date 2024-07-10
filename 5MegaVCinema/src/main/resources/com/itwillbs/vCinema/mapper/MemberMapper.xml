@@ -29,6 +29,7 @@
 		from member
 		where member_id = #{member_id}
 	</select>
+	
 	<!--  회원 정보 수정 -->
 	<update id="updateMember">
 		UPDATE member
@@ -39,6 +40,7 @@
 			member_id = #{member_id}
 			
 	</update>
+	
 	<!--  회원 탈퇴 -->
 	<update id="updateWithdrawMember">
 		UPDATE member
@@ -47,4 +49,16 @@
 		WHERE
 			member_id = #{member_id}
 	</update>
+	
+	<!-- 회원 아이디 찾기 -->
+	<select id="selectMemberSearchId" resultType="member">
+		SELECT *
+		FROM member
+		WHERE 
+			member_name = #{member_name} 
+			AND member_birth = #{member_birth}
+			AND member_phonenumber = #{member_phonenumber}
+	</select>
+	
+	
 </mapper>

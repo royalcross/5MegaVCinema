@@ -52,7 +52,7 @@
 			}
 			
 			article .search{
-				width: 600px;
+				width: 400px;
 				padding-top: 30px;
 			}
 			
@@ -63,23 +63,26 @@
 			}
 			
 			article .search .info span {
-				width: 20%;
+				width: 40%;
 				text-align: left;
 			}
 			
 			article .search .info input {
-				width: 50%;
+				width: 60%;
+			}
+ 			article .search .info .auth_btn {
+ 				width: 100px; 
+ 				margin-left: 10px; 
+ 			} 
+			
+			article .search .alert {
+				display: block;
+				width: 100%;
 			}
 			
-			article .search .info .auth_btn {
-				width: 100px;
-				margin-left: 10px;
+			article .search .submitBtn {
+				width: 100%;
 			}
-			
-			article .search .auth {
-				display: none;
-			}
-			
 		</style>
 	</head>
 	<body>
@@ -102,7 +105,7 @@
 			<div align="center">
 				<!-- pw 찾기 -->
 				<h4>등록한 정보로 비밀번호 찾기</h4>
-				<div class="pw search">
+				<form class="search" name="searchPwForm" action="SearchPwPro" method="post">
 					<div class="info">
 						<span>이름</span>
 						<input type="text" name="name" placeholder="이름을 입력해주세요" required> <br>
@@ -121,10 +124,12 @@
 						<input type="button" class="auth_btn" value ="확인">
 					</div>
 					
-					<span>이메일, 비밀번호, 휴대폰 번호 등 입력 정보를 전부 다 모르실 경우 <br>
-					고객센터 이메일 또는 ARS(1000-1000)로 문의주시기 바랍니다.
-					</span>
-				</div>
+					<input type="submit" value="비밀번호 찾기" class="submitBtn">
+					
+				</form>
+				<span class="alert">이메일, 비밀번호, 휴대폰 번호 등 입력 정보를 <br>전부 다 모르실 경우
+				고객센터 이메일 <br> 또는 ARS(1000-1000)로 문의주시기 바랍니다.
+				</span>
 			</div>
 		</article>
 		<footer>

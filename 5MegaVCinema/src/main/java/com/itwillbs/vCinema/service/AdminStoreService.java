@@ -29,7 +29,7 @@ public class AdminStoreService {
 		return mapper.deleteItem(item_id);
 	}
 
-	// 아이템 수정
+	// 아이템 상세 정보 가져오기
 	public ItemVO getItem(String item_id) {
 		return mapper.selectItem(item_id);
 	}
@@ -37,5 +37,10 @@ public class AdminStoreService {
 	// 아이템 등록
 	public int adminItemRegist(ItemVO item) {
 		return mapper.insertItem(item);
+	}
+
+	// 아이템 수정
+	public int adminItemModify(String item_id, String item_name, String item_content, int item_price) {
+		return mapper.updateItem(item_id, item_name, item_content, item_price);
 	}
 }

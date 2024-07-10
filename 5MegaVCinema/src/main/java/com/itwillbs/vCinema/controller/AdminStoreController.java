@@ -102,31 +102,51 @@ public class AdminStoreController {
 			
 			return "result/success";
 		} else {
-			model.addAttribute("msg", "리뷰 삭제에 실패했습니다.");
+			model.addAttribute("msg", "아이템 등록에 실패했습니다.");
 			
 			return "result/fail";
 		}
 		
 	}
 	
-	
 	// 아이템 수정 ...
 	// 첫번째 수정 버튼은 팝업은 뜨지만 파라미터가 전달되지 않고,
 	// 나머지 수정 버튼은 파라미터는 전달되지만 팝업이 안 뜬다 ,,,, 모지 ,,,,
+	// 0709 성공
 	@GetMapping("AdminStoreModify")
 	public String adminStoreModify(@RequestParam(defaultValue = "") String item_id, Model model) {
 		System.out.println("item_id : " + item_id);
 		
 		// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
 		ItemVO selectedItem = service.getItem(item_id);
-		System.out.println("선택된 item 정보 : " + selectedItem);
+//		System.out.println("선택된 item 정보 : " + selectedItem);
 		
 		// model 객체에 저장해서 전달
 		model.addAttribute("selectedItem", selectedItem);
 		
-		return "redirect:/AdminStore";
+		return "admin/admin_store_modify_popup";
 	}
 	
+	@PostMapping("AdminStoreModify")
+	public String adminStoreModifyPro (Model model, @RequestParam(defaultValue = "") String item_id, 
+										@RequestParam(defaultValue = "") String item_name, 
+										@RequestParam(defaultValue = "") String item_content,
+										@RequestParam(defaultValue = "0") int item_price) {
+		// 스토어 아이템 수정 (update)
+		// AdminStoreService - adminStoreModify();
+		int updateCount = service.adminItemModify(item_id,item_name,item_content,item_price);
+		
+		if(updateCount > 0) {
+			model.addAttribute("msg", "수정되었습니다.");
+			model.addAttribute("targetURL", "AdminStore?pageNum=1");
+			
+			return "result/success";
+		} else {
+			model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+			
+			return "result/fail";
+		}
+	}
 }
 
 

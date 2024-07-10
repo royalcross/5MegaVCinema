@@ -62,31 +62,31 @@
 	$(function() {
 		// 수량/금액 기본값 출력
 		let count = 1;
-		$('#count').text(count);
+		$("#count").text(count);
 		let amountNum = count*${store.item_price};
-		$('#amount').text(amountNum.toLocaleString() + '원');
+		$("#amount").text(amountNum.toLocaleString() + '원');
 		// 수량 증가 버튼
-		$('#plus').click(function() {
+		$("#plus").click(function() {
 			if(count < 8) {
-				$('#count').text(++count);
+				$("#count").text(++count);
 				amountNum = count*${store.item_price};
-				$('#amount').text(amountNum.toLocaleString() + '원');
+				$("#amount").text(amountNum.toLocaleString() + '원');
 			}
 		});
 		// 수량 감소 버튼
-		$('#minus').click(function() {
+		$("#minus").click(function() {
 			if(count > 1) {
-				$('#count').text(--count);
+				$("#count").text(--count);
 				amountNum = count*${store.item_price};
-				$('#amount').text(amountNum.toLocaleString() + '원');
+				$("#amount").text(amountNum.toLocaleString() + '원');
 			}
 		});
 		// 선물 버튼
-		$('#gift').click(function() {
+		$("#gift").click(function() {
 			location.href = "StorePayment?paymentType=gift&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text();
 		});
 		// 구매 버튼
-		$('#purchase').click(function() {
+		$("#purchase").click(function() {
 			location.href = "StorePayment?paymentType=purchase&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text();
 		});
 	});

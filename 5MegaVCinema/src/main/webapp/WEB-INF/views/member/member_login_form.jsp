@@ -51,13 +51,13 @@
 			<%-- 회원 로그인 --%>
 			
 			article {
-				width: 720px;
+				width: 500px;
 				margin: 0 auto;
 			}
 			
 			article form {
-				width: 600px;
 				padding-top: 30px;
+				margin: o auto;
 			}
 			
 			article form .info {
@@ -109,7 +109,7 @@
 			  
 			article .login.on {
 				display: block;
-			}  
+			}   
 		</style>
 		<script type="text/javascript">
 			function alert(){
@@ -161,7 +161,7 @@
 						</div>
 					</div>
 					<!--  체크박스 생성 시 value 속성 지정하지 않으면 체크값이 "on", 미체크는 "null" -->
-					<input type="submit" value="로그인" id="login_btn" onclick="alert()">
+					<input type="submit" value="로그인" id="login_btn">
 					
 					<ul>
 						<li><a href="MemberSearchId">아이디 찾기</a></li>
@@ -182,7 +182,7 @@
 				</div>
 				
 				<div class="right">
-					<form action="">
+					<form action="MemberLoginUnregisted" method="post">
 						<div class="info">
 							<span>이름</span>
 							<input type="text" name="name" placeholder= "본명을 입력해주세요." required><br>
@@ -202,6 +202,8 @@
 							<span>비밀번호(4자리)</span>
 							<input type="text" name="passwd" placeholder= "4자리 숫자를 입력해주세요." required><br>
 						</div>
+						
+						<input type="submit" value="로그인" id="login_btn">
 					</form>
 				</div>
 			</div>

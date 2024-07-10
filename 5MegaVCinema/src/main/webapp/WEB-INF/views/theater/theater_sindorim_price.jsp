@@ -106,125 +106,8 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
             flex-direction: column;
             justify-content: space-between;
         }
-.cal {
-        text-align: left; /* 가로 정렬을 왼쪽으로 설정 */
-    }
 
-    .cal ul {
-        list-style-type: none;
-        padding: 0;
-        text-align: left; /* 리스트 아이템들을 왼쪽으로 정렬 */
-    }
-
-    .cal ul li {
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-    }
-    
-     .desc {
-        list-style-type: none;
-        padding: 0;
-        text-align: right; /* 전체를 오른쪽 정렬 */
-    }
-
-    .desc li {
-        display: inline-block;
-        margin-left: 10px; /* 각 항목 사이의 간격 설정 */
-    }
-    
-     .selector-sub {
-        text-align: right; /* 오른쪽 정렬 */
-    }
-
-    .selector-sub a {
-        text-decoration: none; /* 링크 밑줄 제거 */
-        color: #000; /* 링크 색상 */
-        margin-left: 10px; /* 링크 간격 */
-    }
-  .each-movie-time {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    .title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .rate-15 {
-        background-color: #ffd700;
-        color: #333;
-        padding: 2px 5px;
-        margin-right: 5px;
-        border-radius: 3px;
-    }
-    .title {
-    	text-align: left;
-    }
-
-    .screen {
-        display: flex;
-        align-items: center;
-    }
-
-    .screen-name {
-        font-size: 15px;
-        line-height: 20px;
-        margin-right: 10px;
-    }
-
-  .timetable {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    .timetable th, .timetable td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .timetable .title {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .timetable .rate {
-        background-color: #ffd700;
-        color: #333;
-        padding: 2px 5px;
-        margin-right: 5px;
-        border-radius: 3px;
-    }
-
-    .timetable .screen {
-        font-size: 15px;
-        line-height: 20px;
-    }
-
-    .timetable .time {
-        margin-bottom: 5px;
-    }
-
-    .timetable .time a {
-        text-decoration: none;
-        color: #333;
-    }
-
-    .timetable .seats-status {
-        color: green; /* 좌석 상태에 따라 색상을 조정할 수 있습니다 */
-    }
-
-    .timetable .timetable-attrib-gv {
-        background-color: #f0f0f0;
-        color: #333;
-        padding: 2px 5px;
-        border-radius: 3px;
-    }
+		
 		</style>
 	</head>
 	<body>
@@ -252,9 +135,9 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
     
     <div class="section group section-theater-select">
 			<ul class="selector-summary">
-				<li><a href="sindorim" class="selected">상영시간표</a></li>
+				<li><a href="sindorim" class="">상영시간표</a></li>
 				<li><a href="sindorim_map" class="">약도/교통</a></li>
-				<li><a href="sindorim_price" class="">관람료</a></li>
+				<li><a href="sindorim_price" class=" selected">관람료</a></li>
 			</ul>
 		</div>    
     
@@ -289,9 +172,11 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 
     <div class="wrap-special-box">
 
-       
+        <img src="/images/theaters/theater_special_dummy.jpg" style="border:none; width:1020px; height:auto">
 
-        
+        <div class="section-theater-speicalbtnbox">
+            <a href="/Theater/Movie?TheaterCode=1001" class="btninspecial">상영시간표</a>
+        </div>
         
         <ul class="desc">
                 <li><span class="rate-all">전체</span> 전체 관람가</li>
@@ -310,83 +195,6 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 
         </div>
     </div>
-		<div align="center" class="datelist19 registed on">
-<div class="each-movie-time">
-    <div class="title">
-        <span class="rate-15">15</span> [atQ필름] 마미
-    </div>
-
-    <div class="screen">
-        <div class="screen-name">
-            1 관
-        </div>
-        <div class="time-block">
-            <div class="time" data-playdate="20240709" data-theatercode="1001"
-                data-moviecode="201416210" data-screenplanid="813753"
-                data-playnumber="6">
-                <a href="#"> 19:00<span class="to"> ~ 21:26</span> </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="each-movie-time">
-    <div class="title">
-        <span class="rate-15">15</span> [atQ필름] 마미
-    </div>
-
-    <div class="screen">
-        <div class="screen-name">
-            1 관
-        </div>
-        <div class="time-block">
-            <div class="time" data-playdate="20240709" data-theatercode="1001"
-                data-moviecode="201416210" data-screenplanid="813753"
-                data-playnumber="6">
-                <a href="#"> 19:00<span class="to"> ~ 21:26</span> </a>
-            </div>
-        </div>
-    </div>
-</div>
-		</div>
-		<div align="center" class="datelist20 unregisted">
-    
-     </div>
-    <div align="center" class="datelist21 unregisted">
-    
-     </div>
-    <div align="center" class="datelist22 unregisted">
-    
-     </div>
-    <div align="center" class="datelist23 unregisted">
-    
-     </div>
-    <div align="center" class="datelist24  unregisted">
-    
-     </div>
-    <div align="center" class="datelist25  unregisted">
-    
-     </div>
-    <div align="center" class="datelist26 unregisted ">
-    
-     </div>
-    <div align="center" class="datelist27 unregisted ">
-    
-     </div>
-    <div align="center" class="datelist28 unregisted ">
-    
-     </div>
-    <div align="center" class="datelist29 unregisted ">
-    
-     </div>
-    <div align="center" class="datelist30 unregisted ">
-    
-     </div>
-    <div align="center" class="datelist31 unregisted ">
-    
-     </div>
-    
-    
 		</article>
 	<script type="text/javascript">
 
