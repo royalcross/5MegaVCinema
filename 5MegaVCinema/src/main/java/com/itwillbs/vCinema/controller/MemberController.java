@@ -145,14 +145,6 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 마이페이지 -------------------------------------------------------------------------------
    @GetMapping("MyPageMain")
    public String MyPage() {

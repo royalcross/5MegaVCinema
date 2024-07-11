@@ -37,8 +37,23 @@ public class MovieController {
 	}
 	@GetMapping("sindorim")
 	public String sindorim() {
+	
+		
 		return"theater/theater_sindorim";
 	}
+	@GetMapping("sindorim2")
+	public String sindorim2(MovieVO movie, Model model) {
+
+		MovieVO DBmovie =  service.getMovie(movie);
+		model.addAttribute("DBmovie", DBmovie);
+		
+			return "theater/theater_sindorim";
+		
+
+	}
+
+
+
 	@GetMapping("chungra")
 	public String chungra() {
 		return"theater/theater_chungra";
@@ -87,6 +102,15 @@ public class MovieController {
 	public String sindorimPrice() {
 		return"theater/theater_sindorim_price";
 	}
+	@GetMapping("chungra_map")
+	public String chungraMap() {
+		return"theater/theater_chungra_map";
+	}
+	@GetMapping("chungra_price")
+	public String chungraPrice() {
+		return"theater/theater_chungra_price";
+	}
+	
 
 	
 		

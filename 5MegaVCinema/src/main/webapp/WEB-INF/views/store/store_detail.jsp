@@ -27,7 +27,10 @@
 		text-align: center;
 		font-size: 20px;
 	}
-	#minus, #plus {width: 30px; height: 30px;}
+	#minus, #plus {
+		width: 30px; height: 30px;
+		cursor: pointer;
+	}
 	#amount {
 		text-align: right;
 		font-size: 30px;
@@ -35,6 +38,7 @@
 	#gift, #purchase {
 		text-align: center;
 		width: 330px; height: 40px;
+		cursor: pointer;
 	}
 	#refundAndGuide {
 		border-top: 1px solid black;
@@ -47,11 +51,8 @@
 		cursor:pointer;
 	}
 	details[open]>summary {
-		border: 0;
+		border: 1px solid #ccc;
 		background-color: #ccc;
-		border-radius:5px;
-		padding:10px;
-		cursor:pointer;
 	}
 	details>ul>li {list-style: square;}
 	
@@ -145,7 +146,7 @@
 						<summary>구매 후 취소</summary>
 						<ul>
 							<c:choose>
-								<c:when test="${param.item_type eq '티켓'}">
+								<c:when test="${param.item_type eq 'Ticket'}">
 									<li>본 상품은 구매일로부터 10일 이내에 취소 가능합니다.</li>
 									<li>유효기간은 본 상품의 유효기간 내에서 연장 신청이 가능하며, 1회 연장 시 3개월(92일) 단위로 연장됩니다.</li>
 									<li>구매일로부터 5년까지 유효기간 연장이 가능합니다.</li>
@@ -157,7 +158,7 @@
 									</li>
 									<li>본 상품은 현금으로 환불이 불가합니다.</li>
 								</c:when>
-								<c:when test="${param.item_type eq '팝콘' or param.item_type eq '음료' or param.item_type eq '굿즈'}">
+								<c:when test="${param.item_type eq 'Popcorn' or param.item_type eq 'Drinks' or param.item_type eq 'Goods'}">
 									<li>
 										이용 안내<br>
 										본 상품의 사용 기한은 구매일로부터 92일까지입니다.
@@ -189,7 +190,7 @@
 						<summary>상품이용안내</summary>
 						<ul>
 							<c:choose>
-								<c:when test="${param.item_type eq '티켓'}">
+								<c:when test="${param.item_type eq 'Ticket'}">
 									<li>
 										본 권은 구매 시 계정으로 자동 등록되며, 등록된 계정에서만 사용 가능합니다.<br>
 										(단! 선물 받은 PIN번호는 계정 내 스토어 교환권 등록 후 사용 가능합니다.)
@@ -201,7 +202,7 @@
 									<li>어플 및 홈페이지 예매방법 : 지점 > 영화명 > 시간 > 인원 > 관람권/모바일상품권 > 스토어 관람권으로 전송 받은 PIN번호 16자리 입력 > 결제</li>
 									<li>오메가V시네마 홈페이지 스토어 구매내역에서 PIN 번호 확인이 가능합니다.</li>
 								</c:when>
-								<c:when test="${param.item_type eq '팝콘' or param.item_type eq '음료' or param.item_type eq '굿즈'}">
+								<c:when test="${param.item_type eq 'Popcorn' or param.item_type eq 'Drinks' or param.item_type eq 'Goods'}">
 									<li>
 										사용가능지점
 										<ul>

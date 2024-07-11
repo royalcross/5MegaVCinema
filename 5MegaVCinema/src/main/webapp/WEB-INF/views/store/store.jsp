@@ -107,180 +107,86 @@
 		<div class="item_photo">
 			<p id="new_product1">V티켓</p>
 			<p class="see_more">더보기&gt;</p>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[0].item_id}&item_type=${store_ticket[0].item_type}'">
-					<img alt="${store_ticket[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[0].item_name}</b></p>
-					<p class="item_content">${store_ticket[0].item_content}</p>
-					<p class="item_price">${store_ticket[0].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[1].item_id}&item_type=${store_ticket[1].item_type}'">
-					<img alt="${store_ticket[1].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[1].item_name}</b></p>
-					<p class="item_content">${store_ticket[1].item_content}</p>
-					<p class="item_price">${store_ticket[1].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[2].item_id}&item_type=${store_ticket[2].item_type}'">
-					<img alt="${store_ticket[2].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[2].item_name}</b></p>
-					<p class="item_content">${store_ticket[2].item_content}</p>
-					<p class="item_price">${store_ticket[2].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[3].item_id}&item_type=${store_ticket[3].item_type}'">
-					<img alt="${store_ticket[3].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[3].item_name}</b></p>
-					<p class="item_content">${store_ticket[3].item_content}</p>
-					<p class="item_price">${store_ticket[3].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[4].item_id}&item_type=${store_ticket[4].item_type}'">
-					<img alt="${store_ticket[4].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[4].item_name}</b></p>
-					<p class="item_content">${store_ticket[4].item_content}</p>
-					<p class="item_price">${store_ticket[4].item_price}원</p>
-				</button>
-			</div>
+			<c:forEach var="i" begin="0" end="4">
+				<div class="photo">
+					<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[i].item_id}&item_type=${Ticket[i].item_type}'">
+						<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+						<p class="item_name"><b>${Ticket[i].item_name}</b></p>
+						<p class="item_content">${Ticket[i].item_content}</p>
+						<p class="item_price">${Ticket[i].item_price}원</p>
+					</button>
+				</div>
+			</c:forEach>
 		</div>
 		<div class="item_photo">
 			<p id="new_product2">팝콘/음료/굿즈</p>
 			<p class="see_more">더보기&gt;</p>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[0].item_id}&item_type=${store_popcorn[0].item_type}'">
-					<img alt="${store_popcorn[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[0].item_name}</b></p>
-					<p class="item_content">${store_popcorn[0].item_content}</p>
-					<p class="item_price">${store_popcorn[0].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[1].item_id}&item_type=${store_popcorn[1].item_type}'">
-					<img alt="${store_popcorn[1].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[1].item_name}</b></p>
-					<p class="item_content">${store_popcorn[1].item_content}</p>
-					<p class="item_price">${store_popcorn[1].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[2].item_id}&item_type=${store_popcorn[2].item_type}'">
-					<img alt="${store_popcorn[2].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[2].item_name}</b></p>
-					<p class="item_content">${store_popcorn[2].item_content}</p>
-					<p class="item_price">${store_popcorn[2].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[3].item_id}&item_type=${store_popcorn[3].item_type}'">
-					<img alt="${store_popcorn[3].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[3].item_name}</b></p>
-					<p class="item_content">${store_popcorn[3].item_content}</p>
-					<p class="item_price">${store_popcorn[3].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[4].item_id}&item_type=${store_popcorn[4].item_type}'">
-					<img alt="${store_popcorn[4].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[4].item_name}</b></p>
-					<p class="item_content">${store_popcorn[4].item_content}</p>
-					<p class="item_price">${store_popcorn[4].item_price}원</p>
-				</button>
-			</div>
+			<c:forEach var="i" begin="0" end="4">
+				<div class="photo">
+					<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[i].item_id}&item_type=${Popcorn[i].item_type}'">
+						<img alt="${Popcorn[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+						<p class="item_name"><b>${Popcorn[i].item_name}</b></p>
+						<p class="item_content">${Popcorn[i].item_content}</p>
+						<p class="item_price">${Popcorn[i].item_price}원</p>
+					</button>
+				</div>
+			</c:forEach>
 		</div>
 	</section>
 	<%-- V티켓 목록 --%>
 	<section class="listForm">
 		<div class="item_photo">
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[0].item_id}&item_type=${store_ticket[0].item_type}'">
-					<img alt="${store_ticket[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[0].item_name}</b></p>
-					<p class="item_content">${store_ticket[0].item_content}</p>
-					<p class="item_price">${store_ticket[0].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[1].item_id}&item_type=${store_ticket[1].item_type}'">
-					<img alt="${store_ticket[1].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[1].item_name}</b></p>
-					<p class="item_content">${store_ticket[1].item_content}</p>
-					<p class="item_price">${store_ticket[1].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[2].item_id}&item_type=${store_ticket[2].item_type}'">
-					<img alt="${store_ticket[2].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[2].item_name}</b></p>
-					<p class="item_content">${store_ticket[2].item_content}</p>
-					<p class="item_price">${store_ticket[2].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[3].item_id}&item_type=${store_ticket[3].item_type}'">
-					<img alt="${store_ticket[3].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[3].item_name}</b></p>
-					<p class="item_content">${store_ticket[3].item_content}</p>
-					<p class="item_price">${store_ticket[3].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_ticket[4].item_id}&item_type=${store_ticket[4].item_type}'">
-					<img alt="${store_ticket[4].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_ticket[4].item_name}</b></p>
-					<p class="item_content">${store_ticket[4].item_content}</p>
-					<p class="item_price">${store_ticket[4].item_price}원</p>
-				</button>
-			</div>
+			<c:forEach items="${Ticket}" varStatus="status">
+				<div class="photo">
+					<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[status.index].item_id}&item_type=${Ticket[status.index].item_type}'">
+						<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+						<p class="item_name"><b>${Ticket[status.index].item_name}</b></p>
+						<p class="item_content">${Ticket[status.index].item_content}</p>
+						<p class="item_price">${Ticket[status.index].item_price}원</p>
+					</button>
+				</div>
+			</c:forEach>
 		</div>
 	</section>
 	<%-- 팝콘/음료/굿즈 목록 --%>
 	<section class="listForm">
 		<div class="item_photo">
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[0].item_id}&item_type=${store_popcorn[0].item_type}'">
-					<img alt="${store_popcorn[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[0].item_name}</b></p>
-					<p class="item_content">${store_popcorn[0].item_content}</p>
-					<p class="item_price">${store_popcorn[0].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[1].item_id}&item_type=${store_popcorn[1].item_type}'">
-					<img alt="${store_popcorn[1].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[1].item_name}</b></p>
-					<p class="item_content">${store_popcorn[1].item_content}</p>
-					<p class="item_price">${store_popcorn[1].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[2].item_id}&item_type=${store_popcorn[2].item_type}'">
-					<img alt="${store_popcorn[2].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[2].item_name}</b></p>
-					<p class="item_content">${store_popcorn[2].item_content}</p>
-					<p class="item_price">${store_popcorn[2].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[3].item_id}&item_type=${store_popcorn[3].item_type}'">
-					<img alt="${store_popcorn[3].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[3].item_name}</b></p>
-					<p class="item_content">${store_popcorn[3].item_content}</p>
-					<p class="item_price">${store_popcorn[3].item_price}원</p>
-				</button>
-			</div>
-			<div class="photo">
-				<button type="button" onclick="location.href='StoreDetail?item_id=${store_popcorn[4].item_id}&item_type=${store_popcorn[4].item_type}'">
-					<img alt="${store_popcorn[4].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-					<p class="item_name"><b>${store_popcorn[4].item_name}</b></p>
-					<p class="item_content">${store_popcorn[4].item_content}</p>
-					<p class="item_price">${store_popcorn[4].item_price}원</p>
-				</button>
-			</div>
+			<c:forEach items="${Popcorn}" varStatus="status">
+				<c:if test="${Popcorn[status.index] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[status.index].item_id}&item_type=${Popcorn[status.index].item_type}'">
+							<img alt="${Popcorn[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Popcorn[status.index].item_name}</b></p>
+							<p class="item_content">${Popcorn[status.index].item_content}</p>
+							<p class="item_price">${Popcorn[status.index].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
+			</c:forEach>
+			<c:forEach items="${Drinks}" varStatus="status">
+				<c:if test="${Drinks[status.index] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Drinks[status.index].item_id}&item_type=${Drinks[status.index].item_type}'">
+							<img alt="${Drinks[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Drinks[status.index].item_name}</b></p>
+							<p class="item_content">${Drinks[status.index].item_content}</p>
+							<p class="item_price">${Drinks[status.index].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
+			</c:forEach>
+			<c:forEach items="${Goods}" varStatus="status">
+				<c:if test="${Goods[status.index] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[status.index].item_id}&item_type=${Goods[status.index].item_type}'">
+							<img alt="${Goods[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Goods[status.index].item_name}</b></p>
+							<p class="item_content">${Goods[status.index].item_content}</p>
+							<p class="item_price">${Goods[status.index].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
+			</c:forEach>
 		</div>
 	</section>
 	<footer>		
