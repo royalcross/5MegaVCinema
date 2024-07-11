@@ -14,65 +14,35 @@
 <script src="../js/jquery-3.7.1.js"></script>
 
 		<style>
-			.tab_content {width: 600px;
-			border: 1px solid red;
-			margin: 30px auto;
+		
+			/* 탭 메뉴 */
+			
+			.tab{
+				width: 720px;
+				margin: 0 auto;
+				text-align: center;
 			}
-
-			.tab_menu1 ul {
+			.tab > ul {
 				display: flex;
-				border-bottom: 1px solid oragered;
-				height: 45px;
+				justify-content: space-between;
 			}
-
-			.tab_menu1 ul li {
-				flex: 1; /* 균등배치 */
+			.tab > ul > li {
+				width:50%;
+				background-color: #eee;
+			}
+			.tab > ul > li a {
+				display: block;
+				width: 100%;
 			}
 			
-			.tab_menu1 ul li a {
- 				border: 1px solid #E1E1E1; 
- 				border-left:0;
- 				border-bottom: 0;
- 				height: 45px; 
- 				display: block; 
- 				font-size: 14px; 
- 				color: lightgray; 
- 				text-align: center; 
- 				line-height: 45px; 
-			}
-		
-			.tab_menu1 ul li:first-child {
-				border-left: 1px solid lightgray;
-			}
-		
-			.tab_menu1 ul li a.on {
-				border-color: orangered;
-				border-bottom: 1px solid white;
-				border-left: 1px solid orange;
-				border-top-width: 3px;
-				height: 43px;
-			}
-		
-			.tab_menu1 ul li a.on::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 1px;
-				height: 1px;
-				background-color: orangered;
+			.tab > ul > li.on {
+				background-color: #ccc;
+				color: rgb(211, 84, 0);
+				font-weight: bold;
 			}
 		
 		
-			article .location {
-				display: none;
-			}
 		
-			article .location.on {
-				display: block;
-			}
-		
-	/*--------------------------------------------------------------------------------------------------*/	
 		
 			.main {
 				padding: 1.8rem;
@@ -129,6 +99,49 @@
 		}
 			
 			
+			let tabMenu = document.querySelectorAll('.tabMenu');
+			let loginCon = document.querySelectorAll('.login');
+			
+			for(let i = 0; i < tabMenu.length; i++){
+		        tabMenu[i].onclick = function () {
+		            tabMenu[0].classList.remove('on');
+		            tabMenu[1].classList.remove('on');
+		            tabMenu[2].classList.remove('on');
+		                  
+		            tabMenu[i].classList.add('on');
+		
+		            loginCon[0].classList.remove('on');
+		            loginCon[1].classList.remove('on');
+		            loginCon[2].classList.remove('on');
+		
+		            loginCon[i].classList.add('on');
+		        }
+	    	}
+			
+			$(function() {
+				$("#seoul").on("click", function() {
+					$.ajax({
+						type : "GET",
+						url : "getTheater",
+						data : {theater_location_num : }
+					}
+				}
+			})
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</script>
 	</head>
 	<body>
@@ -141,31 +154,13 @@
 				<article class="main">
 					<h3>극장 조회 페이지</h3>
 					
-					<div class="tab_content">
-						<nav class="tab_menu1">
-							<ul>
-								<li><a href="#" class="tabmenu on">전국</a></li>
-								<li><a href="#" class="tabmenu">서울/경기/인천</a></li>
-								<li><a href="#" class="tabmenu">충청</a></li>
-								<li><a href="#" class="tabmenu">경상</a></li>
-							</ul>
-						</nav>
-					</div>
-		
-		<article>
-			<div align="left" class="location on ">
-<!-- 				<h1>전국</h1> -->
-			</div>
-			<div align="left" class="location">
-<!-- 				<h1>서울</h1> -->
-			</div>
-			<div align="left" class="location">
-<!-- 				<h1>충청</h1> -->
-			</div>
-			<div align="left" class="location">
-<!-- 				<h1>경상</h1> -->
-			</div>
-		</article>
+						<div class="tab">
+			<ul>
+				<li class="tabMenu on" id="seoul" value="1000" name=""><a href="#">서울/경기/인천</a></li>
+				<li class="tabMenu" id="chung" value="1001" name><a href="#">충청</a></li>
+				<li class="tabMenu" id="kyung" value="1002"><a href="#">경상</a></li>
+			</ul>
+		</div>
 		
 					
 					<div class="wrapper_top">
@@ -219,7 +214,7 @@
 			
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
 			<c:forEach var="theater" items="${theaterList}">
-			<tr class="theater_location_num_${theater.theater_location_num}">
+			<tr>
 			<td>${theater.theater_num}</td>
 			<td>${theater.theater_name}</td>
 			<td>${theater.theater_content}</td>
@@ -271,6 +266,8 @@
 		<footer>
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 		</footer>
+	</body>
+</html>
 	
 	
 	
@@ -300,55 +297,21 @@
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
 	</section>
-	<script>
-	let tabMenu = document.querySelectorAll('.tabmenu');
-	let loginCon = document.querySelectorAll('.location');
-	
-	for(let i = 0; i < tabMenu.length; i++){
-        tabMenu[i].onclick = function () {
-            tabMenu[0].classList.remove('on');
-            tabMenu[1].classList.remove('on');
-            tabMenu[2].classList.remove('on');
-            tabMenu[3].classList.remove('on');
-                  
-            tabMenu[i].classList.add('on');
-
-            loginCon[0].classList.remove('on');
-            loginCon[1].classList.remove('on');
-            loginCon[2].classList.remove('on');
-            loginCon[3].classList.remove('on');
-
-            loginCon[i].classList.add('on');
-            
-            // theater_location_num_xxx 요소 숨김 처리
-            if(i == 0) {
-            	$(".theater_location_num_1000").show();
-            	$(".theater_location_num_1001").show();
-            	$(".theater_location_num_1002").show();
-            } else if(i == 1) {
-            	$(".theater_location_num_1000").show();
-            	$(".theater_location_num_1001").hide();
-            	$(".theater_location_num_1002").hide();
-            } else if(i == 2) {
-            	$(".theater_location_num_1000").hide();
-            	$(".theater_location_num_1001").show();
-            	$(".theater_location_num_1002").hide();
-            } else if(i == 3) {
-            	$(".theater_location_num_1000").hide();
-            	$(".theater_location_num_1001").hide();
-            	$(".theater_location_num_1002").show();
-            }
-        }
-	}
 	
 	
 	
 	
 	
-	</script>
+	
+	
+	
+	
+	
+	
+	
 	
 </body>
-			<footer>
+<footer>
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 		</footer>
 	</body>

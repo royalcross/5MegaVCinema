@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.mapper;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,12 @@ public interface AdminMapper {
 			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
 
 	List<MovieVO> selectMovieList2();
+
+	List<TheaterVO> selectTheaterList();
+
+	int insertTheater(TheaterVO theater);
+
+	int selectMovieEndTime(String movie_name_kr);
 	
 	
 }

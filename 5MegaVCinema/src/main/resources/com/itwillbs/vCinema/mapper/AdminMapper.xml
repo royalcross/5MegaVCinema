@@ -221,7 +221,7 @@ SELECT COUNT(*)
 		JOIN theater t
 		ON p.play_theater_num = t.theater_num
 		JOIN room r
-		ON p.play_room_num = r.room_theater_num
+		ON p.play_room_num = r.room_num
 		<if test="!searchKeyword.equals('')">
 			WHERE 
 			t.theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -246,7 +246,7 @@ SELECT COUNT(*)
 		JOIN theater t
 		ON p.play_theater_num = t.theater_num
 		JOIN room r
-		ON p.play_room_num = r.room_theater_num
+		ON p.play_room_num = r.room_num
 	</select>
 	
 	<select id="selectMovieList2" resultType="movie">
@@ -256,6 +256,30 @@ SELECT COUNT(*)
 		where now() < movie_close_date AND now() > movie_release_date
 		 ]]> 
 	</select>
+
+	<insert id="insertTheater">
+		INSERT INTO theater
+		VALUES (
+		IFNULL(#{theater_num},0)
+		IFNULL(#{theater_name},'')
+		, IFNULL(#{theater_location_num},0)
+		, IFNULL(#{theater_location},'') 
+		, IFNULL(#{theater_content},'') 
+		, IFNULL(#{theater_post_code},0) 
+		, IFNULL(#{theater_address},'') 
+		, IFNULL(#{theater_address_detail},'') 
+		)
+		
+	</insert>	
+	
+	<select id="selectMovieEndTime" resultType="int">
+		SELECT movie_running_time
+		FROM movie
+		WHERE movie_name_kr = #{movie_name_kr}
+	</select>
+	
+	
+	
 	
 	
 </mapper>

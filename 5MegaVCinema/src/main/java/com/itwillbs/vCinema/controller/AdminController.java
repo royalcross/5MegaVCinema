@@ -1,5 +1,7 @@
 package com.itwillbs.vCinema.controller;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.vCinema.service.AdminService;
 import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.PageInfo;
+import com.itwillbs.vCinema.vo.PlayVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
 @Controller
@@ -119,7 +123,7 @@ public class AdminController {
 		//연진) 관리자 - 영화관리 - 영화정보관리 - 영화등록
 		@PostMapping("adminInsertMovie")
 		public String adminInsertMovieForm(MovieVO movie, HttpSession session, Model model) {
-			
+			System.out.println(movie);
 			int insertCount = AdminService.insertMovie(movie);
 //			System.out.println(insertCount);
 			if(insertCount > 0) {
@@ -230,7 +234,7 @@ public class AdminController {
 		
 		//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록
 			@GetMapping("adminInsertPlay")
-			public String adminInsertPlayForm(@RequestParam("movie_name_kr") String movie_name_kr, HttpSession session, Model model, HttpServletRequest request, MovieVO movie) {
+			public String adminInsertPlayForm(HttpSession session, Model model, HttpServletRequest request, MovieVO movie) {
 //				if(session.getAttribute("sId") == null || session.getAttribute("sIsAdmin") == 0) {
 //					model.addAttribute("msg", "로그인 필수 ")
 //				}
@@ -241,9 +245,9 @@ public class AdminController {
 			}
 			
 			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록
-			@PostMapping("adminInsertPlay")
-			public String adminInsertPlayForm(MovieVO movie, HttpSession session, Model model) {
-				
+//			@PostMapping("adminInsertPlay")
+//			public String adminInsertPlayForm(MovieVO movie, HttpSession session, Model model) {
+//				
 //				int insertCount = AdminService.insertPlay(play);
 //				System.out.println(insertCount);
 //				if(insertCount > 0) {
@@ -252,18 +256,46 @@ public class AdminController {
 //					model.addAttribute("msg", "영화등록에 실패하였습니다. 정보를 확인해주세요.");
 //					return "result/fail";
 //				}
+//				
+//				return"";
+//			}
+			
+			@GetMapping("getEndTime")
+			public String getEndTime(@RequestParam String movie_name_kr, String play_start_time, Model model) {
+//				System.out.println(play_start_time);
+				int startHour = Integer.parseInt(play_start_time.split(":")[0]);
+				int startMin = Integer.parseInt(play_start_time.split(":")[1]);
+				LocalTime startTime = LocalTime.of(startHour, startMin);
 				
-				return"";
+				
+				int runtime = AdminService.getEndTime(movie_name_kr);
+				int hour = runtime / 60;
+				int minute = runtime % 60;
+//				LocalTime runtime = LocalTime.of(hour, minute);
+//				System.out.println(runtime);
+				
+				
+				LocalTime endTime = startTime.plusHours(hour).plusMinutes(minute);
+//				System.out.println("endTime : " + endTime.toString());
+				String endTimeStr = endTime.toString();
+				System.out.println(endTimeStr);
+				
+//				String runtime2 = runtime.toString();
+//				System.out.println(runtime2);
+//				model.addAttribute("runtime2", runtime2);
+//				return runtime2;
+//				return endTimeStr;
+				
+//				model.addAttribute("endTimeStr", endTimeStr);
+				return endTimeStr;
 			}
-			
-			
-			
-			
 		
 		
-		
-		
-		
+//		@GetMapping("getTheater")
+//		public TheaterVO getTheater() {
+//			return "";
+//		}
+//		
 		
 		
 		
@@ -334,19 +366,44 @@ public class AdminController {
 			PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 			
 			//게시물 목록과 페이징 정보를 Model 객체에 저장
-			model.addAttribute("TheaterList", theaterList);
+			model.addAttribute("theaterList", theaterList);
 			model.addAttribute("pageInfo", pageInfo);
 			
 			return "admin/admin_theater_list";
 		}
 		
 		
+		//연진) 관리자 - 극장관리 - 영화관 관리 - 영화관 등록
+		@GetMapping("adminInsertTheater")
+		public String adminInsertTheaterForm(HttpSession session, Model model, HttpServletRequest request, MovieVO movie) {
+//			if(session.getAttribute("sId") == null || session.getAttribute("sIsAdmin") == 0) {
+//				model.addAttribute("msg", "로그인 필수 ")
+//			}
+			System.out.println("adminInsertTheaterForm - getmapping");
+			return "admin/admin_insert_theater";
+		}
+		
+		//연진) 관리자 - 극장관리 - 영화관 관리 - 영화관 등록
+		@PostMapping("adminInsertTheater")
+		public String adminInsertTheaterForm(TheaterVO theater, HttpSession session, Model model) {
+			System.out.println("adminInsertTheaterForm - postmapping");
+			int insertCount = AdminService.insertTheater(theater);
+			System.out.println(insertCount);
+			if(insertCount > 0) {
+				return "redirect:/AdminTheaterList";
+			} else {
+				model.addAttribute("msg", "영화등록에 실패하였습니다. 정보를 확인해주세요.");
+				return "result/fail";
+			}
+			
+		}
 		
 		
 		
-		
-		
-		
+		@GetMapping("AdminFAQ")
+		public String adminFAQ() {
+			return "admin/admin_faq_list";
+		}
 		
 		
 	}
