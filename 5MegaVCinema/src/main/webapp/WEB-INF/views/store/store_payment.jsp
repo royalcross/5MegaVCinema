@@ -51,6 +51,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$("#")
 		$("#add_recipient").click(function() {
 			if($("#recipient").val() == "") {
 				alert("받는 분을 확인해주세요.");
@@ -68,13 +69,15 @@
 				$("#phone").val("");
 			}
 		});
-		$("#message").blur(function() {
+		$("#message_length").text("(" + $("#message").val().length + "자/70자)");
+		$("#message").keyup(function() {
+			$("#message_length").text("(" + $("#message").val().length + "자/70자)");
 			if($("#message").val().length > 70) {
 				alert("최대 70자까지 입력 가능합니다.");
 			}
 		});
 		$('#payment').click(function() {
-			if($('#gift_list').val() == "") {
+			if($('#gift_list').text() == "") {
 				alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
 			} else if($('#message').val() == "") {
 				alert("선물메세지를 확인해주세요.")
@@ -106,7 +109,7 @@
 					<th>총 상품금액</th>
 				</tr>
 				<tr>
-					<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg"></td>
+					<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
 					<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
 					<td><a href="#">사용가능극장 확인</a></td>
 					<td>${param.count}</td>
@@ -122,8 +125,8 @@
 					<tr>
 						<th>받는 분</th>
 						<td><input type="text" id="recipient"></td>
-						<th rowspan="2">선물메세지<br>(0자/70자)</th>
-						<td rowspan="2"><textarea rows="5" cols="40" id="message" placeholder="전달하고자 하는 메세지를 남겨보세요(최대 70자)"></textarea></td>
+						<th rowspan="2" width="100">선물메세지<br><p id="message_length"></p></th>
+						<td rowspan="2"><textarea rows="5" cols="50" id="message" placeholder="전달하고자 하는 메세지를 남겨보세요(최대 70자)"></textarea></td>
 					</tr>
 					<tr>
 						<th>수량/휴대폰번호</th>
@@ -131,13 +134,27 @@
 							<select id="quantity">
 								<option>선택</option>
 								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-								<option>6</option>
-								<option>7</option>
-								<option>8</option>
+								<c:if test="${param.count >= 2}">
+									<option>2</option>
+									<c:if test="${param.count >= 3}">
+										<option>3</option>
+										<c:if test="${param.count >= 4}">
+											<option>4</option>
+											<c:if test="${param.count >= 5}">
+												<option>5</option>
+												<c:if test="${param.count >= 6}">
+													<option>6</option>
+													<c:if test="${param.count >= 7}">
+														<option>7</option>
+														<c:if test="${param.count eq 8}">
+															<option>8</option>
+														</c:if>
+													</c:if>
+												</c:if>
+											</c:if>
+										</c:if>
+									</c:if>
+								</c:if>
 							</select>
 							<input type="text" id="phone" placeholder="'-'없이 입력해 주세요">
 							<input type="button" id="add_recipient" value="추가">
