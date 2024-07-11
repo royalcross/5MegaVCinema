@@ -27,9 +27,9 @@
 		)
 	</insert>
 	<select id="selectMovie" resultType="movie">
-		select *
-		from movie
-		where movie_code = #{movie_code}
+		SELECT *
+		FROM movie
+		WHERE movie_code = #{movie_code}
 	</select>
 	
     

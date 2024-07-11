@@ -18,7 +18,7 @@ public class MovieService {
 		return mapper.insertReview(review);
 	}
 	
-	public int getMovie(MovieVO movie) {
+	public MovieVO getMovie(MovieVO movie) {
 		return mapper.selectMovie(movie);
 	}
 
