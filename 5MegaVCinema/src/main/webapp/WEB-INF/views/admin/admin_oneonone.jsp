@@ -32,9 +32,9 @@
 				position: absolute;
 				left: 40%;
 			}
-			
 			.main .content {
 				width: 100%;
+				margin-bottom: 50px;
 			}
 			
 			.main .content table {
@@ -45,19 +45,15 @@
 				background-color: #eee;
 			}
 			
+			.main .content table #yAdmin {
+				background-color:  orange;
+			}
 			
 			/* 페이징 처리 */
 			.main #pageList {
 				text-align: center;
 			}
 		</style>
-		<script>
-			function confirmDelete(review_num){
-				if(confirm("리뷰를 삭제하시겠습니까?")){
-					location.href="MemberReviewDelete?review_num=" + review_num;
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<header>
@@ -67,7 +63,7 @@
 			<section class="wrapper">
 				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
 				<article class="main">
-					<h3>회원리뷰</h3>
+					<h3>공지사항</h3>
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
@@ -80,7 +76,7 @@
 							<span>entries</span>
 						</div>
 						
-						<form action="AdminMemberReview">
+						<form action="AdminNotice">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -97,16 +93,12 @@
 					<div class="content">
 						<table border="1">
 							<tr>
-								<th>글번호</th>
-								<th>별점</th>
-								<th>영화코드</th>
-								<th>영화제목</th>
-								<th>리뷰내용</th>
-								<th>작성일</th>
-								<th>작성자(회원 번호)</th>
-								<th>삭제</th>
+								<th width="80px">글번호</th>
+								<th width="80px">극장</th>
+								<th width="300px">제목</th>
+								<th width="120px">작성일</th>
+								<th width="120px">수정 및 삭제</th>
 							</tr>
-							
 							<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
 							<c:set var="pageNum" value="1" />
 							<%-- pageNum 파라미터 존재할 경우(= 비어있지 않음) 판별 --%>
@@ -115,24 +107,24 @@
 								<c:set var="pageNum" value="${param.pageNum}" />
 							</c:if>
 							
-							<c:forEach var="review" items="${reviewList}">
+							<c:forEach var="notice" items="${noticeList}">
 								<tr align="center">
-									<td>${review.review_num}</td>
-									<td>${review.review_rating}</td>
-									<td>${review.review_movie_code}</td>
-									<td>${review.movie_name_kr}</td>
-									<td>${review.review_content}</td>
-									<td><fmt:parseDate value="${review.review_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> <!-- 2024-07-13 의 형식 -->
-									<td>${review.member_num}</td>
+									<td>${notice.notice_num}</td>
+									<td>${notice.notice_theater_name}</td>
+									<td>${notice.notice_subject}</td>
+									<td>${notice.notice_content}</td>
 									<td>
-										<input type="button" value="삭제" id="delete" onclick="confirmDelete(${review.review_num})">
+<!-- 										<input type="button" class="modifyBtn" value="수정" > -->
+<!-- 										<input type="button" id="modifyBtn" value="수정" onclick="console.log('location.href')"> 뭐가 먼저 작동되는지 확인용 -->
+										<button value="${item.item_id}" class="modifyBtn">수정</button>
+										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${item.item_id}')">
 									</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${empty reviewList}">
+							
+							<c:if test="${empty noticeList}">
 								<tr>
-									<td align="center" colspan="8">검색결과가 없습니다.</td>
+									<td align="center" colspan="7">검색결과가 없습니다.</td>
 								</tr>
 							</c:if>
 						</table>
@@ -140,7 +132,7 @@
 					
 					<div id="pageList">
 						<input type="button" value="이전" 
-								onclick="location.href='AdminMemberReview?pageNum=${pageNum - 1}'">
+								onclick="location.href='AdminNotice?pageNum=${pageNum - 1}'">
 						
 						<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo)를 통해 페이지 번호 출력 --%>
 						<%-- 시작페이지(startPage = begin) 부터 끝페이지(endPage = end)까지 1씩 증가하면서 표시 --%>
@@ -152,7 +144,7 @@
 									<b>${i}</b> <%-- 현재 페이지 번호 --%>
 								</c:when>
 								<c:otherwise>
-									<a href="AdminMemberReview?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+									<a href="AdminNotice?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -163,7 +155,7 @@
 						<%-- 두 가지 경우의 수에 따라 버튼을 달리 생성하지 않고, disabled 만 추가 여부 설정 --%>
 						<%-- pageNum 파라미터값이 최대 페이지번호 이상일 때 disabled 속성 추가 --%>
 						<input type="button" value="다음" 
-								onclick="location.href='AdminMemberReview?pageNum=${pageNum + 1}'">
+								onclick="location.href='AdminNotice?pageNum=${pageNum + 1}'">
 					</div>
 				</article>
 			</section>

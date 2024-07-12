@@ -81,7 +81,7 @@
 			    top:0;
 			    left: 0;
 			    width: 100%;
-			    height: 100vh;
+			    height: 140vh;
 			    overflow: hidden;
 			    background: rgba(0,0,0,0.5);
 			}
@@ -89,7 +89,7 @@
 			/*팝업*/
 			    position: absolute;
 			    width: 500px;
-			    top: 50%;
+			    top: 35%;
 			    left: 50%;
 			    transform: translate(-50%, -50%);
 			    padding: 20px;
@@ -154,7 +154,6 @@
 						<!-- 우측 상단 버튼 들어가는 자리 -->			
 						<div>
 							<button type="button" id="registBtn">등록</button>
-							<button type="button" id="categoryBtn">카테고리 관리</button>
 						</div>
 					</div>
 						
@@ -178,15 +177,13 @@
 							</c:if>
 							
 							<c:forEach var="item" items="${itemList}">
-								<tr>
+								<tr align="center">
 									<td>${item.item_id}</td>
 									<td>${item.item_type}</td>
 									<td>${item.item_name}</td>
 									<td>${item.item_content}</td>
 									<td>${item.item_price}</td>
 									<td>
-<!-- 										<input type="button" class="modifyBtn" value="수정" > -->
-<!-- 										<input type="button" id="modifyBtn" value="수정" onclick="console.log('location.href')"> 뭐가 먼저 작동되는지 확인용 -->
 										<button value="${item.item_id}" class="modifyBtn">수정</button>
 										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${item.item_id}')">
 									</td>
@@ -275,39 +272,6 @@
 				</div>
 		    </div>
 		</div>
-		
-		<div class="modal"> <!-- 카테고리 관리 -->
-		    <div class="modal_popup">
-		        <h3>카테고리 관리</h3>
-		        <div class="content">
-		        	<h4>카테고리 조회</h4>
-		        	<form action="AdminItemCategoryManage" method="post" name="categoryManage">
-				        <table border="1">
-					        <tr>
-					        	<th>카테고리 명</th>
-					        	<th>삭제</th>
-					        </tr>
-					        
-					        <!-- AJAX 로 수정 -->
-					        <c:forEach var="item" items="${itemList}">
-						        <tr>
-						        	<td>${item.item_type}</td>
-						        	<td>
-						        		<input type="button" value="삭제" id="delete" onclick="confirmDelete(${review.review_num})">
-						        	</td>
-						        </tr>
-						    </c:forEach>
-				        </table>
-				        
-						<div class="btnArea" style="text-align : center">
-				        	<input type="submit" class="regist_btn" value="등록">
-				        	<input type="button" class="close_btn" value="취소">
-				        </div>
-			        </form>
-				</div>
-		    </div>
-		</div>
-		
 		<div class="modal"> <!-- 수정 -->
 		    <div class="modal_popup">
 		        <h3>스토어 수정</h3>
@@ -328,7 +292,6 @@
 			let registBtn = document.querySelector('#registBtn');
 			let modifyBtn = document.querySelectorAll('.modifyBtn'); // 반복문으로 버튼이 여러 개 뜨니까 버튼도 여러개임을 인지하고, 팝업 뜨는 것도 반복문 작성필요
 			let closeBtn = document.querySelectorAll('.close_btn');
-			let categoryBtn = document.querySelector('#categoryBtn');
 			
 			// 아이템 삭제
 			function confirmDelete(itemId){
@@ -348,7 +311,7 @@
 			
 			function selectCategory(category) {
 				
-		 		if(category == "Ticket"){ //equals 가 안 먹어서 일단 .. == .. / 왜 안먹노 ? 오타났나 ?
+		 		if(category == "Ticket"){ 
 		 			document.registForm.item_id.value = category;
 		 		}
 		 		
@@ -364,20 +327,13 @@
 		 			document.registForm.item_id.value = category;
 		 		}
 			}
-			
-			// -------------------------------------------------------------------------
-			// 카테고리 관리
-			categoryBtn.onclick = function(){
-				modal[1].classList.add('on');
-			}
-			
 			// -------------------------------------------------------------------------
 			
 			// 아이템 수정 팝업 띄우기
 			for(let i = 0; i < modifyBtn.length ; i++) {
 				modifyBtn[i].onclick = function(){
 // 					console.log("modal")
-					modal[2].classList.add('on');
+					modal[1].classList.add('on');
 				}
 			}
 			

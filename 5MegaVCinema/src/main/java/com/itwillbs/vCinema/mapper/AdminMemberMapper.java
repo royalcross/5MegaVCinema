@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.vCinema.vo.MemberVO;
-import com.itwillbs.vCinema.vo.OrderTicketVO;
-import com.itwillbs.vCinema.vo.ReviewVO;
 
 @Mapper
 public interface AdminMemberMapper {
@@ -44,6 +42,10 @@ public interface AdminMemberMapper {
 	// 관리자 - 예매 내역 목록 가져오기
 //	List<OrderTicketVO> selectBookList(@Param("startRow") int startRow, @Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
 	List<Map<String,String>> selectBookList(@Param("startRow") int startRow, @Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+
+	// 관리자 - 예매 상세 내역 가져오기
+//	OrderTicketVO selectBook(String order_ticket_id);
+	Map<String, String> selectBook(int order_ticket_id);
 
 	
 }

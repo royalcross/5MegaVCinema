@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.vCinema.service.AdminMemberService;
-import com.itwillbs.vCinema.service.MemberService;
 import com.itwillbs.vCinema.vo.MemberVO;
-import com.itwillbs.vCinema.vo.OrderTicketVO;
 import com.itwillbs.vCinema.vo.PageInfo;
-import com.itwillbs.vCinema.vo.ReviewVO;
 
 @Controller
 public class AdminMemberController {
@@ -229,6 +226,22 @@ public class AdminMemberController {
 		model.addAttribute("orderTicketList", orderTicketList);
 		
 		return "admin/admin_member_book_list";
+	}
+	
+	// 예매내역 상세보기
+	@GetMapping("AdminMemberBookDetail")
+	public String adminMemberBookDetail (@RequestParam(defaultValue = "0") int order_ticket_id, Model model) {
+//		System.out.println("order_ticket_id : " + order_ticket_id);
+		
+		// 전달 받은 order_ticket_id 를 활용해 예매내역 가져오기
+//		OrderTicketVO selectedBook = service.getBook(order_ticket_id);
+		Map<String, String> selectedBook = service.getBook(order_ticket_id);
+//		System.out.println("선택된 예매 정보 : " + selectedBook);
+		
+		// model 객체에 저장해서 전달
+		model.addAttribute("selectedBook", selectedBook);
+		
+		return "admin/admin_member_book_detail_popup";
 	}
 }
 

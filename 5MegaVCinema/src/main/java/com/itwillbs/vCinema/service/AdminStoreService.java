@@ -43,4 +43,5 @@ public class AdminStoreService {
 	public int adminItemModify(String item_id, String item_name, String item_content, int item_price) {
 		return mapper.updateItem(item_id, item_name, item_content, item_price);
 	}
+
 }
