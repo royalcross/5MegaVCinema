@@ -108,20 +108,22 @@
 			<p id="new_product1">V티켓</p>
 			<p class="see_more">더보기&gt;</p>
 			<c:forEach var="i" begin="0" end="4">
-				<div class="photo">
-					<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[i].item_id}&item_type=${Ticket[i].item_type}'">
-						<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-						<p class="item_name"><b>${Ticket[i].item_name}</b></p>
-						<p class="item_content">${Ticket[i].item_content}</p>
-						<p class="item_price">${Ticket[i].item_price}원</p>
-					</button>
-				</div>
+				<c:if test="${Ticket[i] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[i].item_id}&item_type=${Ticket[i].item_type}'">
+							<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Ticket[i].item_name}</b></p>
+							<p class="item_content">${Ticket[i].item_content}</p>
+							<p class="item_price">${Ticket[i].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
 			</c:forEach>
 		</div>
 		<div class="item_photo">
 			<p id="new_product2">팝콘/음료/굿즈</p>
 			<p class="see_more">더보기&gt;</p>
-			<c:forEach var="i" begin="0" end="4">
+			<c:forEach var="i" begin="0" end="1">
 				<c:if test="${Popcorn[i] != null}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[i].item_id}&item_type=${Popcorn[i].item_type}'">
@@ -132,6 +134,8 @@
 						</button>
 					</div>
 				</c:if>
+			</c:forEach>
+			<c:forEach var="i" begin="0" end="1">
 				<c:if test="${Drinks[i] != null}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${Drinks[i].item_id}&item_type=${Drinks[i].item_type}'">
@@ -142,31 +146,33 @@
 						</button>
 					</div>
 				</c:if>
-				<c:if test="${Goods[i] != null}">
-					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[i].item_id}&item_type=${Goods[i].item_type}'">
-							<img alt="${Goods[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Goods[i].item_name}</b></p>
-							<p class="item_content">${Goods[i].item_content}</p>
-							<p class="item_price">${Goods[i].item_price}원</p>
-						</button>
-					</div>
-				</c:if>
 			</c:forEach>
+			<c:if test="${Goods[0] != null}">
+				<div class="photo">
+					<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[0].item_id}&item_type=${Goods[0].item_type}'">
+						<img alt="${Goods[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+						<p class="item_name"><b>${Goods[0].item_name}</b></p>
+						<p class="item_content">${Goods[0].item_content}</p>
+						<p class="item_price">${Goods[0].item_price}원</p>
+					</button>
+				</div>
+			</c:if>
 		</div>
 	</section>
 	<%-- V티켓 목록 --%>
 	<section class="listForm">
 		<div class="item_photo">
 			<c:forEach items="${Ticket}" varStatus="status">
-				<div class="photo">
-					<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[status.index].item_id}&item_type=${Ticket[status.index].item_type}'">
-						<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-						<p class="item_name"><b>${Ticket[status.index].item_name}</b></p>
-						<p class="item_content">${Ticket[status.index].item_content}</p>
-						<p class="item_price">${Ticket[status.index].item_price}원</p>
-					</button>
-				</div>
+				<c:if test="${Ticket[status.index] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[status.index].item_id}&item_type=${Ticket[status.index].item_type}'">
+							<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Ticket[status.index].item_name}</b></p>
+							<p class="item_content">${Ticket[status.index].item_content}</p>
+							<p class="item_price">${Ticket[status.index].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
 			</c:forEach>
 		</div>
 	</section>

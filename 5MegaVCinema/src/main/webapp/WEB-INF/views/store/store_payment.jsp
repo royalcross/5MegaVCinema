@@ -54,102 +54,6 @@
 	<%-- iamport.payment.js --%>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <%-- 포트원 결제 --%>
-<script type="text/javascript">
-	$(function() {
-		// 주문 상품의 상품이미지 또는 상품명 클릭 시 상품 구매 페이지로 이동
-// 		$("#")
-		if(${param.paymentType eq 'gift'}) {
-			// 추가 버튼 클릭 시 받는 분, 수량, 휴대폰번호 입력 확인 및 목록 추가
-			$("#add_recipient").click(function() {
-				if($("#recipient").val() == "") {
-					alert("받는 분을 확인해주세요.");
-				} else if($("#quantity").val() == "선택") {
-					alert("수량을 확인해주세요.");
-				} else if($("#phone").val() == "") {
-					alert("휴대폰번호를 확인해주세요.");
-				} else {
-					let recipient = $("#recipient").val();
-					let quantity = $("#quantity").val();
-					let phone = $("#phone").val();
-					$("#gift_list").text($("#gift_list").text() + " " + quantity + " " + recipient + " " + phone);
-					$("#recipient").val("");
-					$("#quantity").val("선택");
-					$("#phone").val("");
-				}
-			});
-			// 메세지 입력 확인 및 글자 수 확인
-			$("#message_length").text("(" + $("#message").val().length + "자/70자)");
-			$("#message").keyup(function() {
-				$("#message_length").text("(" + $("#message").val().length + "자/70자)");
-				if($("#message").val().length > 70) {
-					alert("최대 70자까지 입력 가능합니다.");
-				}
-			});
-		}
-		// 구매자 정보
-		let userEmail = "${buyMember.member_id}";
-		let userName = "${buyMember.member_name}";
-		
-		// 결제창 함수 넣어주기
-		let buyButton = document.getElementById("payment");
-		buyButton.setAttribute("onclick", `kakaoPay(userEmail, userName)`);
-		
-		let IMP = window.IMP;
-		
-		let today = new Date();
-		let hours = today.getHours(); // 시
-		let minutes = today.getMinutes();  // 분
-		let seconds = today.getSeconds();  // 초
-		let milliseconds = today.getMilliseconds();
-		let makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
-		
-		$("#payment").click(function() {
-			if(${param.paymentType eq 'gift'}) {
-				if($("#gift_list").text() == "") {
-					alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
-				} else if($("#message").val() == "") {
-					alert("선물메세지를 확인해주세요.")
-				}
-			}
-			if(confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-				IMP.init("imp61351081"); // 가맹점 식별코드
-				IMP.request_pay({
-				pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
-				pay_method : "card", // 결제 방식
-				merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-				name : "${store.item_name}", // 제품명
-				amount : 100, // '${store.item_price}' // 가격
-				//구매자 정보 ↓
-				buyer_email : `userEmail`,
-				buyer_name : `userName`,
-				// buyer_tel : '010-1234-5678',
-				// buyer_addr : '서울특별시 강남구 삼성동',
-				// buyer_postcode : '123-456'
-				}, async function (rsp) { // callback
-					if (rsp.success) { //결제 성공시
-						console.log(rsp);
-// 						...
-// 						//결제 성공시 프로젝트 DB저장 요청
-// 						...
-						
-// 						if (response.status == 200) { // DB저장 성공시
-// 							alert('결제 완료!')
-// 							window.location.reload();
-// 						} else { // 결제완료 후 DB저장 실패시
-// 							alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
-// 							// DB저장 실패시 status에 따라 추가적인 작업 가능성
-// 						}
-// 					} else if (rsp.success == false) { // 결제 실패시
-// 						alert(rsp.error_msg)
-					}
-				});
-			}
-		});
-		$('#cancel').click(function() {
-			location.href = "Store";
-		});
-	});
-</script>
 </head>
 <body>
 	<header>
@@ -287,4 +191,84 @@
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 	</footer>
 </body>
+<script type="text/javascript">
+	$(function() {
+		// 주문 상품의 상품이미지 또는 상품명 클릭 시 상품 구매 페이지로 이동
+// 		$("#")
+		if(${param.paymentType eq 'gift'}) {
+			// 추가 버튼 클릭 시 받는 분, 수량, 휴대폰번호 입력 확인 및 목록 추가
+			$("#add_recipient").click(function() {
+				if($("#recipient").val() == "") {
+					alert("받는 분을 확인해주세요.");
+				} else if($("#quantity").val() == "선택") {
+					alert("수량을 확인해주세요.");
+				} else if($("#phone").val() == "") {
+					alert("휴대폰번호를 확인해주세요.");
+				} else {
+					let recipient = $("#recipient").val();
+					let quantity = $("#quantity").val();
+					let phone = $("#phone").val();
+					$("#gift_list").text($("#gift_list").text() + " " + quantity + " " + recipient + " " + phone);
+					$("#recipient").val("");
+					$("#quantity").val("선택");
+					$("#phone").val("");
+				}
+			});
+			// 메세지 입력 확인 및 글자 수 확인
+			$("#message_length").text("(" + $("#message").val().length + "자/70자)");
+			$("#message").keyup(function() {
+				$("#message_length").text("(" + $("#message").val().length + "자/70자)");
+				if($("#message").val().length > 70) {
+					alert("최대 70자까지 입력 가능합니다.");
+				}
+			});
+		}
+		// 객체 초기화
+		let IMP = window.IMP;
+		IMP.init("imp61351081"); // 가맹점 식별코드
+		
+		let today = new Date();
+		let hours = today.getHours(); // 시
+		let minutes = today.getMinutes();  // 분
+		let seconds = today.getSeconds();  // 초
+		let milliseconds = today.getMilliseconds();
+		let makeMerchantUid = "" + hours + minutes + seconds + milliseconds;
+		
+		$("#payment").click(function() {
+			if(${param.paymentType eq 'gift'}) {
+				if($("#gift_list").text() == "") {
+					alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
+				} else if($("#message").val() == "") {
+					alert("선물메세지를 확인해주세요.")
+				}
+			}
+			if(confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+				// 결제창 호출
+				IMP.request_pay({
+					// 파라미터 값 설정
+					pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
+					pay_method : "card", // 결제 방식
+					merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+					name : "${store.item_name}", // 제품명
+					amount : "${store.item_price}", // 가격
+					//구매자 정보 ↓
+					buyer_email : "${buyMember.member_id}",
+					buyer_name : "${buyMember.member_name}",
+					buyer_tel : "${buyMember.member_phonenumber}",
+					// buyer_addr : '서울특별시 강남구 삼성동',
+					// buyer_postcode : '123-456'
+				}, function(rsp) { // callback
+					if(rsp.success) { // 결제 성공시
+						
+					} else if(!rsp.success) { // 결제 실패시
+						alert(rsp.error_msg);
+					}
+				});
+			}
+		});
+		$('#cancel').click(function() {
+			location.href = "Store";
+		});
+	});
+</script>
 </html>
