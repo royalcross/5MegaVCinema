@@ -16,36 +16,35 @@ body {
     padding: 0;
 }
 
-/* h2 태그 스타일 */
 h2 {
     margin-bottom: 20px;
 }
 
-/* 상영 예정 작 목록을 담을 그리드 스타일 */
+
 .section-movie-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개의 포스터 */
-    gap: 20px; /* 포스터 사이의 간격 */
-    justify-items: center; /* 가운데 정렬 */
-    padding: 20px; /* 여백 추가 */
-    max-width: 1200px; /* 최대 너비 제한 */
-    margin: 0 auto; /* 가운데 정렬을 위한 자동 마진 */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px; 
+    justify-items: center; 
+    padding: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
-/* 각 포스터 이미지 스타일 */
+
 .movie-poster {
     width: 250px; 
     height: 300px;
     max-width: 100%; 
 }
 
-/* 각 포스터에 대한 스타일 */
+
 .movie {
-    margin-bottom: 20px; /* 각 포스터 아래 여백 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-bottom: 20px; 
+    text-align: center; 
 }
 
-/* 영화 제목 스타일 */
+
 .title {
     margin-top: 10px;
     font-size: 16px;
@@ -62,7 +61,7 @@ $(document).ready(function() {
 
 function getInfo() {
     let today = new Date();
-    let strDate = "20240709"; // 현재 날짜
+    let strDate = "20240705"; // 현재 날짜
 
 //     6개월 후 날짜 계산
     let strSixMonthsLater = formatDate(new Date(today.getFullYear(), today.getMonth() + 6, today.getDate()));

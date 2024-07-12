@@ -16,19 +16,17 @@ body {
     padding: 0;
 }
 
-/* h2 태그 스타일 */
 h2 {
     margin-bottom: 20px;
 }
 
-/* 상영 예정작 목록을 담을 그리드 스타일 */
 .section-movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 자동으로 조정되는 그리드 */
-    gap: 20px; /* 포스터 사이의 간격 */
-    justify-items: center; /* 가운데 정렬 */
-    max-width: 1200px; /* 최대 너비 제한 */
-    margin: 0 auto; /* 가운데 정렬을 위한 자동 마진 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px; 
+    justify-items: center; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
 /* 각 포스터 이미지 스타일 */
@@ -40,18 +38,18 @@ h2 {
 
 /* 각 포스터에 대한 스타일 */
 .movie {
-    margin-bottom: 20px; /* 각 포스터 아래 여백 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-bottom: 20px; 
+    text-align: center; 
 }
 
-/* 영화 제목 스타일 */
+/* 영화 제목 */
 .title {
     margin-top: 10px;
     font-size: 16px;
     color: #666;
 }
 
-/* 상세 정보 링크 스타일 */
+/* 상세 정보 */
 .content-link {
     margin-top: 10px;
     font-size: 14px;
@@ -63,10 +61,10 @@ h2 {
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    getInfo(); // 페이지 로드 시 영화 데이터 가져오기
+    getBoxOfficeInfo(); // 페이지 로드 시 영화 데이터 가져오기
 });
 
-function getInfo() {
+function getBoxOfficeInfo() {
     let strDate = "20240705"; // 2024년 7월 5일
 
     $.ajax({
@@ -91,32 +89,23 @@ function displayBoxOfficeData(movies) {
     for (let i = 0; i < movies.length; i++) {
         let movie = movies[i];
         let movieNm = movie.movieNm;
-        let movieId = movie.movieCd;  // 수정: movieCd에서 movieId로 변경
+        let movieId = movie.movieCd;
 
-        getTMDBMoviePoster(movieNm, function(posterPath) {
+        getMoviePoster(movieNm, function(posterPath) {
             let movieElement = $('<div>').addClass('movie');
             let titleElement = $('<div>').addClass('title').text((i + 1) + '. ' + movieNm); // 영화 제목에 순위 추가
 
-            if (posterPath) {
-                let posterUrl = 'https://image.tmdb.org/t/p/w200' + posterPath;
-                let posterElement = $('<img>').addClass('movie-poster').attr('src', posterUrl).attr('alt', 'Movie Poster');
-                let detailLink = createDetailLink(movieId); // 수정: movieCd에서 movieId로 변경
+            let posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w200' + posterPath : '${pageContext.request.contextPath}/resources/images/default-poster.jpg';
+            let posterElement = $('<img>').addClass('movie-poster').attr('src', posterUrl).attr('alt', 'Movie Poster');
+            let detailLink = createDetailLink(movieId);
 
-                movieElement.append(posterElement, $('<br>'), titleElement, $('<br>'), detailLink);
-            } else {
-                let defaultPosterUrl = '${pageContext.request.contextPath}/resources/images/default-poster.jpg';
-                let posterElement = $('<img>').addClass('movie-poster').attr('src', defaultPosterUrl).attr('alt', 'Default Movie Poster');
-                let detailLink = createDetailLink(movieId); // 수정: movieCd에서 movieId로 변경
-
-                movieElement.append(posterElement, $('<br>'), titleElement, $('<br>'), detailLink);
-            }
-
+            movieElement.append(posterElement, $('<br>'), titleElement, $('<br>'), detailLink);
             container.append(movieElement);
         });
     }
 }
 
-function getTMDBMoviePoster(movieNm, callback) {
+function getMoviePoster(movieNm, callback) {
     let tmdbApiKey = '29a6c0fd07e598399091aed24796eaf2'; // TMDB API 키
     let searchUrl = 'https://api.themoviedb.org/3/search/movie';
     let params = {
@@ -149,10 +138,12 @@ function getTMDBMoviePoster(movieNm, callback) {
 function createDetailLink(movieId) {
     let detailLink = $('<div>').addClass('content-link').text('상세 정보 보기');
     detailLink.on('click', function() {
-        window.location.href = '${pageContext.request.contextPath}/Content?movieId=' + movieId;  // 수정: movieId 전달
+        // 상세 정보를 가져오는 페이지로 이동
+        window.location.href = '${pageContext.request.contextPath}/Content?movieId=' + movieId;  
     });
     return detailLink;
 }
+
 </script>
 </head>
 <body>
