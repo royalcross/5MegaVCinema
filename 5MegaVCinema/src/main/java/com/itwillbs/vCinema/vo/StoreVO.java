@@ -10,5 +10,4 @@ public class StoreVO {
 	String item_content;
 	int item_price;
 	String item_image;
-	int item_quantity;
 }

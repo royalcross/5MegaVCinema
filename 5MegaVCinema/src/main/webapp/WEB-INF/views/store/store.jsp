@@ -122,14 +122,36 @@
 			<p id="new_product2">팝콘/음료/굿즈</p>
 			<p class="see_more">더보기&gt;</p>
 			<c:forEach var="i" begin="0" end="4">
-				<div class="photo">
-					<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[i].item_id}&item_type=${Popcorn[i].item_type}'">
-						<img alt="${Popcorn[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-						<p class="item_name"><b>${Popcorn[i].item_name}</b></p>
-						<p class="item_content">${Popcorn[i].item_content}</p>
-						<p class="item_price">${Popcorn[i].item_price}원</p>
-					</button>
-				</div>
+				<c:if test="${Popcorn[i] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[i].item_id}&item_type=${Popcorn[i].item_type}'">
+							<img alt="${Popcorn[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Popcorn[i].item_name}</b></p>
+							<p class="item_content">${Popcorn[i].item_content}</p>
+							<p class="item_price">${Popcorn[i].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
+				<c:if test="${Drinks[i] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Drinks[i].item_id}&item_type=${Drinks[i].item_type}'">
+							<img alt="${Drinks[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Drinks[i].item_name}</b></p>
+							<p class="item_content">${Drinks[i].item_content}</p>
+							<p class="item_price">${Drinks[i].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
+				<c:if test="${Goods[i] != null}">
+					<div class="photo">
+						<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[i].item_id}&item_type=${Goods[i].item_type}'">
+							<img alt="${Goods[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${Goods[i].item_name}</b></p>
+							<p class="item_content">${Goods[i].item_content}</p>
+							<p class="item_price">${Goods[i].item_price}원</p>
+						</button>
+					</div>
+				</c:if>
 			</c:forEach>
 		</div>
 	</section>
