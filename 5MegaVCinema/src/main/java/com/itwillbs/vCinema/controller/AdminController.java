@@ -54,6 +54,8 @@ public class AdminController {
 	
 	
 	
+	/* ------ 영화정보  ------ */
+	
 	
 		//연진) 관리자 - 영화관리 - 영화정보관리
 		@GetMapping("AdminMovieList")
@@ -168,6 +170,7 @@ public class AdminController {
 		}
 		
 		
+		/* ------ 박스오피스(삭제예정)  ------ */
 		
 		//연진) 관리자 - 영화관리 - 박스오피스
 		@GetMapping("AdminBoxOffice")
@@ -178,7 +181,8 @@ public class AdminController {
 		
 		
 		
-		
+		/* ------ 상영시간표  ------ */
+
 		
 		//연진) 관리자 - 영화관리 - 상영시간표
 		@GetMapping("AdminPlayList")
@@ -260,6 +264,7 @@ public class AdminController {
 //				return"";
 //			}
 			
+			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록 - 상영종료 시간 조회
 			@GetMapping("getEndTime")
 			public String getEndTime(@RequestParam String movie_name_kr, String play_start_time, Model model) {
 //				System.out.println(play_start_time);
@@ -311,14 +316,21 @@ public class AdminController {
 		
 		
 		
-		
-		
+			/* ------ 상영관  ------ */
 		
 		
 		@GetMapping("AdminRoomList")
 		public String adminRoomList() {
 			return "admin/admin_room_list";
 		}
+		
+		
+		
+		
+		
+		
+		/* ------ 영화관  ------ */
+
 		
 		//영화관 리스트
 		//연진) 관리자 - 극장관리 - 영화관 관리
@@ -400,10 +412,6 @@ public class AdminController {
 		
 		
 		
-		@GetMapping("AdminFAQ")
-		public String adminFAQ() {
-			return "admin/admin_faq_list";
-		}
 		
 		
 	}

@@ -82,10 +82,24 @@
 				window.open('adminMovieDetail?movie_code=' + movie_code, 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 			}
 			
+			$(function() {
+				$("#btnEndMovie").on("click", function() {
+					$.ajax({
+						type: "GET"
+						url: "updateEndMovie"
+					})
+				})
+			})
 			
 			
-			
-			
+			function endMovie() {
+				let endMovie = confirm("상영을 종료하시겠습니까?");
+				if(endMovie) {
+					
+				} else {
+					
+				}
+			}
 			
 		</script>
 	</head>
@@ -158,7 +172,7 @@
 					<td>${movie.movie_running_time}</td>
 					<td>
 					<input type="button" value="상세보기" onclick="detailMovie(${movie.movie_code})">
-					<input type="button" value="상영종료" onclick="">
+					<input type="button" value="상영종료" id="btnEndMovie" onclick="endMovie()">
 					</td>
 				</tr>
 			</c:forEach>

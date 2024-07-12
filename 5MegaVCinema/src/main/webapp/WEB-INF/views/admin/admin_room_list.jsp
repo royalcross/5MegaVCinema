@@ -51,7 +51,7 @@
 			<section class="wrapper">
 				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
 				<article class="main">
-					<h3>자주묻는 질문 조회</h3>
+					<h3>상영관 조회</h3>
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
