@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.service;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,18 @@ public class AdminService {
 
 	public List<MovieVO> getMovieList() {
 		return mapper.selectMovieList2();
+	}
+
+	public List<TheaterVO> getTheaterList() {
+		return mapper.selectTheaterList();
+	}
+
+	public int insertTheater(TheaterVO theater) {
+		return mapper.insertTheater(theater);
+	}
+
+	public int getEndTime(String movie_name_kr) {
+		return mapper.selectMovieEndTime(movie_name_kr);
 	}
 
 	

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>상영관 관리</title>
+		<title>자주묻는 질문 조회</title>
 		<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/resources/css/admin_default.css" rel="stylesheet" type="text/css">
 		<style>
@@ -51,7 +51,7 @@
 			<section class="wrapper">
 				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
 				<article class="main">
-					<h3>상영관 관리 페이지</h3>
+					<h3>상영관 조회</h3>
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
@@ -93,10 +93,9 @@
 	<table border="1">
 		<tr>
 			<td>번호</td>
-			<td>극장명</td>
-			<td>극장번호</td>
-			<td>상영관명</td>
-			<td>좌석수</td>
+			<td>카테고리</td>
+			<td>제목</td>
+			<td>작성일</td>
 			<td>수정 및 삭제</td>
 			</tr>
 			
@@ -109,22 +108,20 @@
 			</c:if>
 			
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
-			<c:forEach var="room" items="${roomList}">
+			<c:forEach var="faq" items="${faqList}">
 			<tr>
-			<td>${room.movie_code}</td>
-			<td>${room.movie_name_kr}</td>
-			<td>${room.room_theater_num}</td>
-			<td>${room.room_num}</td>
-			<td>${room.room_seats}</td>
+			<td>${faq.FAQ_num}</td>
+			<td>${faq.FAQ_category}</td>
+			<td>${faq.FAQ_subject}</td>
+			<td>${faq.FAQ_create_date}</td>
 			<td>
-			<input type="button" value="상세보기">
-			<input type="button" value="상영종료">
-			
+				<input type="button" value="수정">
+				<input type="button" value="삭제">
 			</td>
 			</tr>
 			</c:forEach>
 			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
-			<c:if test="${empty movieList}">
+			<c:if test="${empty faqList}">
 				<tr><td colspan="7">게시물이 존재하지 않습니다.</td></tr>
 			</c:if>
 	</table>

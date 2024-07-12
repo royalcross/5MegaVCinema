@@ -8,9 +8,42 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>index</title>
+		<%-- 외부 CSS파일 연결하기 --%>
 		<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/resources/css/admin_default.css" rel="stylesheet" type="text/css">
+<script src="../js/jquery-3.7.1.js"></script>
+
 		<style>
+		
+			/* 탭 메뉴 */
+			
+			.tab{
+				width: 720px;
+				margin: 0 auto;
+				text-align: center;
+			}
+			.tab > ul {
+				display: flex;
+				justify-content: space-between;
+			}
+			.tab > ul > li {
+				width:50%;
+				background-color: #eee;
+			}
+			.tab > ul > li a {
+				display: block;
+				width: 100%;
+			}
+			
+			.tab > ul > li.on {
+				background-color: #ccc;
+				color: rgb(211, 84, 0);
+				font-weight: bold;
+			}
+		
+		
+		
+		
 			.main {
 				padding: 1.8rem;
 				height: 100vh;
@@ -61,57 +94,75 @@
 		var popupX = (window.screen.width / 2) - (popupWidth / 2);
 		var popupY= (window.screen.height / 2) - (popupHeight / 2);
 		
-// 			function confirmAdmin(id, isadmin, isAuthorize){
-// 				let msg = "";
-				
-// 				if(isAuthorize == 'Y') {
-// 					msg = "부여";
-// 				} else {
-// 					msg = "해제";
-// 				}
-				
-// 				if(confirm("관리자 권한을 " + msg + "하시겠습니까?")){
-// 					location.href="ChangeAdminAuthorize?member_id=" + id + "&member_isAdmin=" + isadmin + "&isAuthorize=" + isAuthorize;
-// 				}
-// 			}
+		function insertTheater() {
+			window.open('adminInsertTheater', 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		}
 			
-			function insertMovie() {
-				window.open('adminInsertMovie', 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
-			}
-			function detailMovie(movie_code) {
-				window.open('adminMovieDetail?movie_code=' + movie_code, 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
-			}
+			
+			let tabMenu = document.querySelectorAll('.tabMenu');
+			let loginCon = document.querySelectorAll('.login');
+			
+			for(let i = 0; i < tabMenu.length; i++){
+		        tabMenu[i].onclick = function () {
+		            tabMenu[0].classList.remove('on');
+		            tabMenu[1].classList.remove('on');
+		            tabMenu[2].classList.remove('on');
+		                  
+		            tabMenu[i].classList.add('on');
+		
+		            loginCon[0].classList.remove('on');
+		            loginCon[1].classList.remove('on');
+		            loginCon[2].classList.remove('on');
+		
+		            loginCon[i].classList.add('on');
+		        }
+	    	}
 			
 			$(function() {
-				$("#btnEndMovie").on("click", function() {
+				$("#seoul").on("click", function() {
 					$.ajax({
-						type: "GET"
-						url: "updateEndMovie"
-					})
-				})
+						type : "GET",
+						url : "getTheater",
+						data : {theater_location_num : }
+					}
+				}
 			})
 			
 			
-			function endMovie() {
-				let endMovie = confirm("상영을 종료하시겠습니까?");
-				if(endMovie) {
-					
-				} else {
-					
-				}
-			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 		</script>
 	</head>
 	<body>
 		<header>
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-		</header>	
+		</header>
 		<div class="inner">
 			<section class="wrapper">
 				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
 				<article class="main">
-					<h3>영화정보관리</h3>
+					<h3>극장 조회 페이지</h3>
+					
+						<div class="tab">
+			<ul>
+				<li class="tabMenu on" id="seoul" value="1000" name=""><a href="#">서울/경기/인천</a></li>
+				<li class="tabMenu" id="chung" value="1001" name><a href="#">충청</a></li>
+				<li class="tabMenu" id="kyung" value="1002"><a href="#">경상</a></li>
+			</ul>
+		</div>
+		
+					
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
@@ -123,11 +174,12 @@
 							</select>
 							<span>entries</span>
 						</div>
-						<!-- 영화 등록버튼 -->
+	
+								<!-- 영화 등록버튼 -->
 	<section id="buttonArea" >
-		<input type="button" value="등록" onclick="insertMovie()">
+		<input type="button" value="등록" onclick="insertTheater()">
 						
-						<form action="AdminMovieList">
+						<form action="AdminPlayList">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -142,16 +194,15 @@
 					</div>
 						
 					<div class="content">
-						<table border="1">
-							<tr>
-								<th>영화코드</th>
-								<th>영화제목</th>
-								<th>심의등급</th>
-								<th>개봉일</th>
-								<th>개봉상태</th>
-								<th>러닝타임</th>
-								<th>상세보기</th>
-							</tr>
+<!-- 영화정보관리 게시판 -->
+	<table border="1">
+		<tr>
+			<th>극장번호</th>
+			<th>극장명</th>
+			<th>극장 설명</th>
+			<th>극장 주소</th>
+			<th>수정 및 삭제</th>
+			</tr>
 			
 			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
 			<c:set var="pageNum" value="1"/>
@@ -162,26 +213,25 @@
 			</c:if>
 			
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
-			<c:forEach var="movie" items="${movieList}">
-				<tr>
-					<td>${movie.movie_code}</td>
-					<td>${movie.movie_name_kr}</td>
-					<td>${movie.movie_grade}</td>
-					<td>${movie.movie_release_date}</td>
-					<td>${movie.movie_status}</td>
-					<td>${movie.movie_running_time}</td>
-					<td>
-					<input type="button" value="상세보기" onclick="detailMovie(${movie.movie_code})">
-					<input type="button" value="상영종료" id="btnEndMovie" onclick="endMovie()">
-					</td>
-				</tr>
+			<c:forEach var="theater" items="${theaterList}">
+			<tr>
+			<td>${theater.theater_num}</td>
+			<td>${theater.theater_name}</td>
+			<td>${theater.theater_content}</td>
+			<td>${theater.theater_address}</td>
+			<td>
+			<input type="button" value="수정">
+			<input type="button" value="삭제">
+			
+			</td>
+			</tr>
 			</c:forEach>
 			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
-			<c:if test="${empty movieList}">
-				<tr><td colspan="7">게시물이 존재하지 않습니다.</td></tr>
+			<c:if test="${empty theaterList}">
+				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
 			</c:if>
-						</table>
-					</div>
+</table>
+</div>
 					
 					<div id="pageList">
 						<input type="button" value="이전" 
@@ -248,10 +298,21 @@
 		>
 	</section>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 <footer>
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 		</footer>
 	</body>
 </html>
-

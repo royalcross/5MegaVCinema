@@ -106,6 +106,55 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
             flex-direction: column;
             justify-content: space-between;
         }
+         .wrap-event-box {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .wrap-event-box p {
+        margin: 10px 0;
+        color: darkblue;
+    }
+    .bbs-list-theater-price {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    .bbs-list-theater-price th, .bbs-list-theater-price td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
+    .bbs-list-theater-price th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+    .bbs-list-theater-price td.price {
+        font-weight: bold;
+        color: #333;
+    }
+    .wrap-event-box p:last-child {
+        font-size: 12pt;
+        margin-top: 20px;
+    }
+     .section group section-theater-head {
+    	position: relative;
+    }
+    .wrap2 {
+    	position: absolute;
+    	right: 0;
+    	bottom: 400px;
+    }
+ 	.name-2 {
+ 	text-align: right;
+ 	font-size: 30px;
+ 	}
+	.name-3 {
+	color: #fff;
+	}	
 
 		
 		</style>
@@ -122,11 +171,11 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 
 
 <div class="section group section-theater-head" style="background: url('https://file.cineq.co.kr/j.aspx?guid=1b2b4cbf8ab0494282f8e27ce6d366f4') center center no-repeat; background-size: cover; width: 100%; height: 550px; margin-top: 50px;">
-    <div class="wrap">
+    <div class="wrap2">
         <!--<span class="name-1">CINE Q</span>-->
-        <span class="name-2"><span style="background: rgba(0, 0, 0, 0.4);padding-right:5px;padding-left:5px;"><span>신도림</span></span></span>
-        <span class="name-3"><span style="background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;"><span>신도림 테크노마트 12층. 자연친화적인 복합 문화생활공간<p>최고의 몰입감을 선사하는 전 좌석 리클라이너 프리미엄 상영관 Reserve &amp; Suite
-    </p></span></span></span></div>
+        <span class="name-2">신도림<br></span>
+        <span class="name-3">신도림 테크노마트 12층. 자연친화적인 복합 문화생활공간<p>최고의 몰입감을 선사하는 전 좌석 리클라이너 프리미엄 상영관 Reserve &amp; Suite
+    </p></span></div>
 </div>
 
 <div class="section group section-theater-body">
@@ -141,59 +190,43 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 			</ul>
 		</div>    
     
-    <div class="cal">
-            <span class="big-m">July</span>
-            <span class="small-yyyym">2024 July</span>
-            <ul>
-                <li><a href="#" class="prev">이전</a></li>
-                    <li class="datelist19" data-date="2024-07-19" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class="today selected "><span class="day">오늘</span>19</a></li>
-                    <li class="datelist20" data-date="2024-07-20" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class=""><span class="day">토</span>20</a></li>
-                    <li class="datelist21" data-date="2024-07-21" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class=""><span class="day">일</span>21</a></li>
-                    <li class="datelist22" data-date="2024-07-22" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class=""><span class="day">월</span>22</a></li>
-                    <li class="datelist23" data-date="2024-07-23" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class="sat"><span class="day">화</span>23</a></li>
-                    <li class="datelist24" data-date="2024-07-24" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class="sun"><span class="day">수</span>24</a></li>
-                    <li class="datelist25" data-date="2024-07-25" data-month="July" data-year="2024" data-montheng="July" style="display:"><a href="#" class="disabled "><span class="day">목</span>25</a></li>
-                    <li class="datelist26" data-date="2024-07-26" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class="disabled "><span class="day">금</span>26</a></li>
-                    <li class="datelist27" data-date="2024-07-27" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class=""><span class="day">토</span>27</a></li>
-                    <li class="datelist28" data-date="2024-07-28" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class="disabled "><span class="day">일</span>28</a></li>
-                    <li class="datelist29" data-date="2024-07-29" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class="disabled "><span class="day">월</span>29</a></li>
-                    <li class="datelist30" data-date="2024-07-30" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class="disabled sat"><span class="day">화</span>30</a></li>
-                    <li class="datelist31" data-date="2024-07-31" data-month="July" data-year="2024" data-montheng="July" style="display:none"><a href="#" class="sun"><span class="day">수</span>31</a></li>
-                    
-                <li><a href="#" class="next">이전</a></li>
-            </ul>
-        </div>
-        
-        <div class="selector-sub">
-            <a href="#" data-listtype="movie" class="selected">영화별</a> | <a href="#" data-listtype="time">시간대별</a>
-        </div>
-
-    </div>
-
-    <div class="wrap-special-box">
-
-        <img src="/images/theaters/theater_special_dummy.jpg" style="border:none; width:1020px; height:auto">
-
-        <div class="section-theater-speicalbtnbox">
-            <a href="/Theater/Movie?TheaterCode=1001" class="btninspecial">상영시간표</a>
-        </div>
-        
-        <ul class="desc">
-                <li><span class="rate-all">전체</span> 전체 관람가</li>
-                <li><span class="rate-12">12</span> 12세 관람가</li>
-                <li><span class="rate-15">15</span> 15세 관람가</li>
-                <li><span class="rate-x">청불</span> 청소년 관람불가</li>
-            </ul>
-
-
-    </div>
-
-
+<div class="wrap-event-box">
+    <!--청라-->
+    <p>RESERVE</p>
+    <table class="bbs-list bbs-list-theater-price">
+        <thead>
+            <tr>
+                <th style="width:20%;">구분</th>
+                <th>성인</th>
+                <th>청소년</th>
+                <th>우대</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="">관람 티켓 가격</td>
+                <td class="price">10,000 원</td>
+                <td class="price">8,000 원</td>
+                <td class="price">6,000 원</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        ※ 우대 요금 기준<br>
+        1. 경로: 만 65세 이상 본인 적용<br>
+        2. 국가유공자: 유공자증 제시시 동반 1인까지 적용<br>
+        3. 장애인: 장애인증 제시시 중증(1~3급) 동반 1인까지 적용 경증(4~6급) 본인 적용
+    </p>
 </div>
+</div>
+</div>
+</div>
+        <!--.bbs-list-theater-price -->
 
 
 
-        </div>
+
+
     </div>
 		</article>
 	<script type="text/javascript">

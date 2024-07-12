@@ -35,7 +35,7 @@
 			<a href="#">게시판관리</a>
 			<ul class="depth02">
 				<li><a href="#">공지사항</a></li>
-				<li><a href="#">자주 묻는 질문</a></li>
+				<li><a href="AdminFAQ">자주 묻는 질문</a></li>
 				<li><a href="#">1:1 문의</a></li>
 			</ul>			
 		</li>

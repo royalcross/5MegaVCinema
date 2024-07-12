@@ -10,7 +10,7 @@ import com.itwillbs.vCinema.vo.ReviewVO;
 public interface MovieMapper {
 
 	int insertReview(ReviewVO review);
-	int selectMovie(MovieVO movie);
+	MovieVO selectMovie(MovieVO movie);
 
 	
 	
