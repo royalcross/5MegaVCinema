@@ -8,7 +8,6 @@ import com.itwillbs.vCinema.vo.NoticeVO;
 
 @Mapper
 public interface NoticeMapper {
-	int insertNotice(NoticeVO notice);
 	List<NoticeVO> selectNotice(NoticeVO notice);
 
 

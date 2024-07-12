@@ -24,7 +24,7 @@ public class MovieController {
 	public String comming() {
 		return "movie/comming";
 	}
-
+	
 	@GetMapping("Content")
 	public String content() {		
 		return "movie/content";

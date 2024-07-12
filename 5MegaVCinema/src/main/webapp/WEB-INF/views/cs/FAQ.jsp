@@ -67,9 +67,9 @@
 	<br>
 	<section id="buttonArea">
     <div class="area">
-        <a href="Cs1" >공지사항</a> | 
-        <a href="Cs2" >자주찾는질문</a> | 
-        <a href="Cs3" >1:1문의</a>  
+        <a href="Notice" >공지사항</a> | 
+        <a href="FAQ" >자주찾는질문</a> | 
+        <a href="OneOnOne" >1:1문의</a>  
     </div>
     <select id="category" name="category">
 	  <option value="all">전체</option>

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상세 정보 페이지</title>
+<title>영화 상세 정보</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
@@ -15,117 +16,109 @@ body {
     padding: 0;
 }
 
-/* h2 태그 스타일 */
-h2 {
-    margin-bottom: 20px;
-}
-
-/* 영화 상세 정보 스타일 */
+/* 상세 정보 */
 .movie-details {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
+    background: #fff;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 줄거리 스타일 */
-.synopsis {
-    margin-top: 20px;
+/* 포스터 */
+.poster {
+    width: 200px;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
 }
 
-/* 리뷰 스타일 */
-.review {
-    margin-top: 20px;
+/* 제목 */
+.movie-title {
+    font-size: 24px;
+    margin-top: 10px;
 }
 
-/* 추가 정보 스타일 */
-.additional-info {
-    margin-top: 20px;
+/* 줄거리 */
+.movie-overview {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 추가 정보*/
+.movie-info {
     font-size: 14px;
     color: #666;
 }
 
-/* 출연진 스타일 */
-.cast {
-    margin-top: 10px;
-    font-weight: bold;
+/* 뒤로 가기*/
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    let movieId = getParameterByName('movieId');
+    let movieId = new URLSearchParams(window.location.search).get('movieId');
     if (movieId) {
-        getTMDBMovieDetails(movieId);
+        getMovieDetails(movieId);
     } else {
-        console.error('Movie ID is missing.');
+        alert("영화 ID가 없음");
     }
 });
 
-// URL에서 파라미터 값 가져오기
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-// TMDB에서 영화 상세 정보 가져오기
-function getTMDBMovieDetails(movieId) {
+function getMovieDetails(movieId) {
     let tmdbApiKey = '29a6c0fd07e598399091aed24796eaf2'; // TMDB API 키
-    let movieUrl = 'https://api.themoviedb.org/3/movie/' + movieId;
-    let params = {
-        api_key: tmdbApiKey,
-        language: 'ko-KR' // 한국어로 검색
-    };
+    let apiUrl = 'https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}&language=ko-KR';
 
     $.ajax({
         type: 'GET',
-        url: movieUrl,
-        data: params,
+        url: apiUrl,
         dataType: 'json',
-        success: function(movieInfo) {
-            displayMovieDetails(movieInfo);
+        success: function(data) {
+            displayMovieDetails(data);
         },
         error: function(xhr, status, error) {
             console.error('TMDB API 요청 오류:', status, error);
+            alert("영화정보 가져오기 실패");
         }
     });
 }
 
-// 영화 상세 정보 화면에 표시
-function displayMovieDetails(movieInfo) {
-    let container = $('#movieDetailsContainer');
-    container.empty(); // 기존 내용 지우기
+function displayMovieDetails(movie) {
+    let posterPath = movie.poster_path ? 'https://image.tmdb.org/t/p/w500${movie.poster_path}` : '${pageContext.request.contextPath}/resources/images/default-poster.jpg';
+    let releaseDate = movie.release_date || '정보 없음';
+    let ageRating = movie.certification || '정보 없음';
+    let overview = movie.overview || '정보 없음';
 
-    let titleElement = $('<h2>').text(movieInfo.title); // 영화 제목 추가
-    let overviewElement = $('<div>').addClass('synopsis').text(movieInfo.overview); // 줄거리 추가
-    let releaseDateElement = $('<div>').text('개봉일: ' + movieInfo.release_date); // 개봉일 추가
-    let voteAverageElement = $('<div>').text('평균 평점: ' + movieInfo.vote_average); // 평균 평점 추가
+    let credits = movie.credits || {};
+    let director = credits.crew ? credits.crew.find(person => person.job === 'Director')?.name || '정보 없음' : '정보 없음';
+    let actors = credits.cast ? credits.cast.slice(0, 3).map(actor => actor.name).join(', ') || '정보 없음' : '정보 없음';
 
-    container.append(titleElement, overviewElement, releaseDateElement, voteAverageElement);
-
-    // 추가 정보 표시
-    let additionalInfoElement = $('<div>').addClass('additional-info');
-    let genres = movieInfo.genres.map(genre => genre.name).join(', ');
-    let genresElement = $('<div>').text('장르: ' + genres); // 장르 추가
-    let runtimeElement = $('<div>').text('상영 시간: ' + movieInfo.runtime + '분'); // 상영 시간 추가
-    let director = movieInfo.credits.crew.find(person => person.job === 'Director');
-    let directorElement = $('<div>').text('감독: ' + (director ? director.name : '정보 없음')); // 감독 추가
-
-    let castList = movieInfo.credits.cast.slice(0, 5); // 상위 5명의 출연진만 표시
-    let castElement = $('<div>').addClass('cast').text('출연진: ');
-    castList.forEach(actor => {
-        let actorElement = $('<span>').text(actor.name + ', ');
-        castElement.append(actorElement);
-    });
-
-    additionalInfoElement.append(genresElement, runtimeElement, directorElement, castElement);
-    container.append(additionalInfoElement);
+    $('#movieDetailsContainer').html(`
+        <div class="movie-details">
+            <img src="${posterPath}" alt="Movie Poster" class="poster">
+            <div class="movie-title">${movie.title}</div>
+            <div class="movie-overview">${overview}</div>
+            <div class="movie-info">
+                <p><strong>개봉일:</strong> ${releaseDate}</p>
+                <p><strong>감독:</strong> ${director}</p>
+                <p><strong>주연 배우:</strong> ${actors}</p>
+                <p><strong>연령 등급:</strong> ${ageRating}</p>
+            </div>
+            <button class="back-button" onclick="window.history.back();">뒤로 가기</button>
+        </div>
+    `);
 }
 </script>
 </head>
@@ -133,9 +126,9 @@ function displayMovieDetails(movieInfo) {
     <header>    
         <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
     </header>
-    <h2>상세 정보 페이지</h2>
+    <h2>영화 상세 정보</h2> 
     <div id="movieDetailsContainer">
-        <!-- 상세 정보가 여기에 추가됩니다 -->
+        <!-- 영화 상세 정보 -->
     </div>
     <footer>       
         <jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>

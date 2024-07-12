@@ -15,12 +15,12 @@ public class NoticeController {
 	@Autowired
 	private NoticeService service;
 	
-	@GetMapping("Cs1")
-	public String cs1(NoticeVO notice, Model model) {
+	@GetMapping("Notice")
+	public String notice(NoticeVO notice, Model model) {
 		List<NoticeVO> noticeList = service.getNotice(notice);
 		// StoreVO 객체를 모델 객체에 저장
 		model.addAttribute("noticeList", noticeList);
-		return "cs/cs1";
+		return "cs/Notice";
 	}
 
 	

@@ -16,12 +16,12 @@ public class FaqController {
 	private FaqService service;
 	
 
-	@GetMapping("Cs2")
-	public String cs2(FaqVO faq, Model model) {
+	@GetMapping("FAQ")
+	public String faq(FaqVO faq, Model model) {
 		List<FaqVO> faqList = service.getFaq(faq);
 		// StoreVO 객체를 모델 객체에 저장
 		model.addAttribute("faqList", faqList);
-		return "cs/cs2";
+		return "cs/FAQ";
 	}
 
 	
