@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.vCinema.mapper.AdminMapper;
 import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.PlayVO;
+import com.itwillbs.vCinema.vo.RoomVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
 
@@ -74,6 +75,14 @@ public class AdminService {
 
 	public int getEndTime(String movie_name_kr) {
 		return mapper.selectMovieEndTime(movie_name_kr);
+	}
+
+	public int getRoomListCount(String searchKeyword) {
+		return mapper.selectRoomListCount(searchKeyword);
+	}
+
+	public List<RoomVO> getRoomList(String searchKeyword, int startRow, int listLimit) {
+		return mapper.selectRoomList(searchKeyword, startRow, listLimit);
 	}
 
 	

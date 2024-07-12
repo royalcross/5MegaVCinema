@@ -54,7 +54,33 @@
 				text-align: center;
 			}
 		</style>
-		<script>
+
+	</head>
+	<body>
+		<header>
+			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+		</header>	
+		<div class="inner">
+			<section class="wrapper">
+				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
+				<article class="main">
+					<h3>영화정보관리</h3>
+					<div class="wrapper_top">
+						<div>
+							<span>Show</span>
+							<select>
+								<option>5</option>
+								<option>10</option>
+								<option>20</option>
+								<option>30</option>
+							</select>
+							<span>entries</span>
+						</div>
+						<!-- 영화 등록버튼 -->
+	<section id="buttonArea" >
+		<input type="button" value="등록" onclick="insertMovie()">
+								<script>
+								
 		// 팝업창 띄우기
 		var popupWidth = 1000;
 		var popupHeight = 800;
@@ -82,14 +108,14 @@
 				window.open('adminMovieDetail?movie_code=' + movie_code, 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 			}
 			
-			$(function() {
-				$("#btnEndMovie").on("click", function() {
-					$.ajax({
-						type: "GET"
-						url: "updateEndMovie"
-					})
-				})
-			})
+// 			$(function() {
+// 				$("#btnEndMovie").on("click", function() {
+// 					$.ajax({
+// 						type: "GET"
+// 						url: "updateEndMovie"
+// 					})
+// 				})
+// 			})
 			
 			
 			function endMovie() {
@@ -102,31 +128,6 @@
 			}
 			
 		</script>
-	</head>
-	<body>
-		<header>
-			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-		</header>	
-		<div class="inner">
-			<section class="wrapper">
-				<jsp:include page="/WEB-INF/views/inc/admin_side_nav.jsp"></jsp:include>
-				<article class="main">
-					<h3>영화정보관리</h3>
-					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
-						<!-- 영화 등록버튼 -->
-	<section id="buttonArea" >
-		<input type="button" value="등록" onclick="insertMovie()">
-						
 						<form action="AdminMovieList">
 							<div class="search">
 								<span>Search</span>

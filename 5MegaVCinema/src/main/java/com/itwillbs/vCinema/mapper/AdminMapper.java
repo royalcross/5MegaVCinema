@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import com.itwillbs.vCinema.vo.MemberVO;
 import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.PlayVO;
+import com.itwillbs.vCinema.vo.RoomVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
 @Mapper
@@ -49,6 +50,10 @@ public interface AdminMapper {
 	int insertTheater(TheaterVO theater);
 
 	int selectMovieEndTime(String movie_name_kr);
+
+	int selectRoomListCount(@Param("searchKeyword") String searchKeyword);
+
+	List<RoomVO> selectRoomList(@Param("searchKeyword") String searchKeyword, int startRow, int listLimit);
 	
 	
 }

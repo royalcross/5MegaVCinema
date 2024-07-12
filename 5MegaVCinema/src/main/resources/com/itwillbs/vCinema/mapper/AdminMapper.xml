@@ -278,6 +278,47 @@ SELECT COUNT(*)
 		WHERE movie_name_kr = #{movie_name_kr}
 	</select>
 	
+	<select id="selectRoomListCount" resultType="int">
+		SELECT count(*)
+		FROM room
+	<if test="!searchKeyword.equals('')">
+		WHERE 
+		theater_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_location_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_location LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_content LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_post_code LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_address LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_address_detail LIKE CONCAT('%', #{searchKeyword}, '%')
+	</if>
+	
+	
+	
+	</select>
+	
+	<select id="selectRoomList" resultType="hashmap">
+		SELECT t.theater_name, t.theater_num, r.room_num, r.room_seats
+		FROM room r join order_ticket o
+		on r.room_num = o.order_ticket_room_num
+		join theater t
+		on t.theater_num = o.order_ticket_theater_num
+	<if test="!searchKeyword.equals('')">
+		WHERE 
+		theater_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_location_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_location LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_content LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_post_code LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_address LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR theater_address_detail LIKE CONCAT('%', #{searchKeyword}, '%')
+	</if>
+	</select>
+	
+	
+	
+	
 	
 	
 	
