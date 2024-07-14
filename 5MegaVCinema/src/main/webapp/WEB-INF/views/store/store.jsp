@@ -222,39 +222,39 @@
 	</footer>
 </body>
 <script type="text/javascript">
-	let tabMenu = document.querySelectorAll('.tabMenu');
-	let listForm = document.querySelectorAll('.listForm');
-	let see_more = document.querySelectorAll('.see_more');
-			
+	let tabMenu = document.querySelectorAll(".tabMenu");
+	let listForm = document.querySelectorAll(".listForm");
+	let see_more = document.querySelectorAll(".see_more");
+	
 	for(let i = 0; i < tabMenu.length; i++){
 		tabMenu[i].onclick = function() {
-			tabMenu[0].classList.remove('on');
-			tabMenu[1].classList.remove('on');
-			tabMenu[2].classList.remove('on');
+			tabMenu[0].classList.remove("on");
+			tabMenu[1].classList.remove("on");
+			tabMenu[2].classList.remove("on");
 			
-			tabMenu[i].classList.add('on');
+			tabMenu[i].classList.add("on");
 			
-			listForm[0].classList.remove('on');
-			listForm[1].classList.remove('on');
-			listForm[2].classList.remove('on');
+			listForm[0].classList.remove("on");
+			listForm[1].classList.remove("on");
+			listForm[2].classList.remove("on");
 			
-			listForm[i].classList.add('on');
+			listForm[i].classList.add("on");
 		}
 	}
 	
 	for(let i = 0; i < see_more.length; i++) {
 		see_more[i].onclick = function() {
-			tabMenu[0].classList.remove('on');
-			tabMenu[1].classList.remove('on');
-			tabMenu[2].classList.remove('on');
+			tabMenu[0].classList.remove("on");
+			tabMenu[1].classList.remove("on");
+			tabMenu[2].classList.remove("on");
 			
-			tabMenu[i + 1].classList.add('on');
+			tabMenu[i + 1].classList.add("on");
 			
-			listForm[0].classList.remove('on');
-			listForm[1].classList.remove('on');
-			listForm[2].classList.remove('on');
+			listForm[0].classList.remove("on");
+			listForm[1].classList.remove("on");
+			listForm[2].classList.remove("on");
 			
-			listForm[i + 1].classList.add('on');
+			listForm[i + 1].classList.add("on");
 		}
 	}
 </script>

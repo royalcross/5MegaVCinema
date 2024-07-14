@@ -37,6 +37,8 @@
 		width: 990px;
 		height: 40px;
 	}
+	.payment_method {display: none;}
+	.payment_method.on {display: block;}
 	#cancelAndPayment {
 		position: relative;
 		left: 290px;
@@ -141,38 +143,41 @@
 				<tr>
 					<td>
 						결제수단 선택
-						<input type="radio" name="payment_method">신용/체크카드
-						<input type="radio" name="payment_method">카카오페이
+						<label><input type="radio" id="creditCard" name="payment_method" value="신용/체크카드" checked>신용/체크카드</label>
+						<label><input type="radio" id="kakaopay" name="payment_method" value="카카오페이">카카오페이</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						카드사 선택
-						<select id="card">
-							<option>카드선택</option>
-							<option>비씨카드</option>
-							<option>국민카드</option>
-							<option>신한카드</option>
-							<option>삼성카드</option>
-							<option>롯데카드</option>
-							<option>농협카드</option>
-							<option>하나카드</option>
-							<option>현대카드</option>
-							<option>씨티카드</option>
-							<option>제주카드</option>
-							<option>우리카드</option>
-							<option>수협카드</option>
-							<option>전북카드</option>
-							<option>광주카드</option>
-							<option>신협카드</option>
-							<option>카카오 뱅크</option>
-							<option>케이뱅크</option>
-							<option>우체국카드</option>
-							<option>토스카드</option>
-							<option>SC제일은행 비씨카드</option>
-							<option>SC제일은행 삼성카드</option>
-							<option>IBK기업은행 카드</option>
-						</select>
+						<div class="payment_method on">
+							카드사 선택
+							<select id="card">
+								<option>카드선택</option>
+								<option>비씨카드</option>
+								<option>국민카드</option>
+								<option>신한카드</option>
+								<option>삼성카드</option>
+								<option>롯데카드</option>
+								<option>농협카드</option>
+								<option>하나카드</option>
+								<option>현대카드</option>
+								<option>씨티카드</option>
+								<option>제주카드</option>
+								<option>우리카드</option>
+								<option>수협카드</option>
+								<option>전북카드</option>
+								<option>광주카드</option>
+								<option>신협카드</option>
+								<option>카카오 뱅크</option>
+								<option>케이뱅크</option>
+								<option>우체국카드</option>
+								<option>토스카드</option>
+								<option>SC제일은행 비씨카드</option>
+								<option>SC제일은행 삼성카드</option>
+								<option>IBK기업은행 카드</option>
+							</select>
+						</div>
+						<div class="payment_method">즉시할인 신용카드 적용이 불가합니다.</div>
 					</td>
 				</tr>
 				<tr>
@@ -195,6 +200,7 @@
 	$(function() {
 		// 주문 상품의 상품이미지 또는 상품명 클릭 시 상품 구매 페이지로 이동
 // 		$("#")
+		// 결제 유형(선물, 구매) 확인
 		if(${param.paymentType eq 'gift'}) {
 			// 추가 버튼 클릭 시 받는 분, 수량, 휴대폰번호 입력 확인 및 목록 추가
 			$("#add_recipient").click(function() {
@@ -223,6 +229,23 @@
 				}
 			});
 		}
+		
+		// 결제 수단 목록
+		let payment_method = document.querySelectorAll(".payment_method");
+		// 결제 수단 변경
+		$("#creditCard").click(function() {
+			payment_method[0].classList.remove("on");
+			payment_method[1].classList.remove("on");
+			
+			payment_method[0].classList.add("on");
+		});
+		$("#kakaopay").click(function() {
+			payment_method[0].classList.remove("on");
+			payment_method[1].classList.remove("on");
+			
+			payment_method[1].classList.add("on");
+		});
+		
 		// 객체 초기화
 		let IMP = window.IMP;
 		IMP.init("imp61351081"); // 가맹점 식별코드
@@ -234,38 +257,67 @@
 		let milliseconds = today.getMilliseconds();
 		let makeMerchantUid = "" + hours + minutes + seconds + milliseconds;
 		
+		// 결제 버튼 클릭 시 결제 유형 및 각 항목 입력 여부 확인 후 결제 진행
 		$("#payment").click(function() {
 			if(${param.paymentType eq 'gift'}) {
 				if($("#gift_list").text() == "") {
 					alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
 				} else if($("#message").val() == "") {
 					alert("선물메세지를 확인해주세요.")
+				} else if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드" && $("#card").val() == "카드선택") {
+					alert("결제하실 카드를 선택하세요.");
+				} else if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+					// 결제창 호출
+					IMP.request_pay({
+						// 파라미터 값 설정
+						pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
+						pay_method : "card", // 결제 방식
+						merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+						name : "${store.item_name}", // 제품명
+						amount : "${store.item_price}", // 가격
+						//구매자 정보 ↓
+						buyer_email : "${buyMember.member_id}",
+						buyer_name : "${buyMember.member_name}",
+						buyer_tel : "${buyMember.member_phonenumber}",
+						// buyer_addr : '서울특별시 강남구 삼성동',
+						// buyer_postcode : '123-456'
+					}, function(rsp) { // callback
+						if(rsp.success) { // 결제 성공시
+							
+						} else if(!rsp.success) { // 결제 실패시
+							alert(rsp.error_msg);
+						}
+					});
+				}
+			} else if(${param.paymentType eq 'purchase'}) {
+				if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드" && $("#card").val() == "카드선택") {
+					alert("결제하실 카드를 선택하세요.");
+				} else if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+					// 결제창 호출
+					IMP.request_pay({
+						// 파라미터 값 설정
+						pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
+						pay_method : "card", // 결제 방식
+						merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+						name : "${store.item_name}", // 제품명
+						amount : "${store.item_price}", // 가격
+						//구매자 정보 ↓
+						buyer_email : "${buyMember.member_id}",
+						buyer_name : "${buyMember.member_name}",
+						buyer_tel : "${buyMember.member_phonenumber}",
+						// buyer_addr : '서울특별시 강남구 삼성동',
+						// buyer_postcode : '123-456'
+					}, function(rsp) { // callback
+						if(rsp.success) { // 결제 성공시
+							
+						} else if(!rsp.success) { // 결제 실패시
+							alert(rsp.error_msg);
+						}
+					});
 				}
 			}
-			if(confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-				// 결제창 호출
-				IMP.request_pay({
-					// 파라미터 값 설정
-					pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
-					pay_method : "card", // 결제 방식
-					merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-					name : "${store.item_name}", // 제품명
-					amount : "${store.item_price}", // 가격
-					//구매자 정보 ↓
-					buyer_email : "${buyMember.member_id}",
-					buyer_name : "${buyMember.member_name}",
-					buyer_tel : "${buyMember.member_phonenumber}",
-					// buyer_addr : '서울특별시 강남구 삼성동',
-					// buyer_postcode : '123-456'
-				}, function(rsp) { // callback
-					if(rsp.success) { // 결제 성공시
-						
-					} else if(!rsp.success) { // 결제 실패시
-						alert(rsp.error_msg);
-					}
-				});
-			}
 		});
+		// 취소 버튼 클릭 시 스토어 페이지로 이동
 		$('#cancel').click(function() {
 			location.href = "Store";
 		});
