@@ -14,9 +14,19 @@ public class FaqService {
 	@Autowired
     private FaqMapper mapper;
 
-	public List<FaqVO> getFaq(FaqVO faq) {
-		return mapper.selectFaq(faq);
+	public int getFaqListCount(String searchKeyword) {
+		return mapper.selectFaqListCount(searchKeyword);
 	}
+
+	public List<FaqVO> getFaqList(int startRow, int listLimit, String searchKeyword) {
+		return mapper.selectFaqList(startRow, listLimit, searchKeyword);
+	}
+
+	// FAQ 상세보기
+	public FaqVO getFaq(int FAQ_num) {
+		return mapper.selectFaq(FAQ_num);
+	}
+	
 
 
 

@@ -50,7 +50,6 @@
 			, #{notice_content}
 			, now()
 		)
-	
 	</insert>
 	
 	<!-- 관리자 - 공지사항 수정 (상세내용 가져오기) -->
@@ -61,7 +60,7 @@
 			notice_num = #{notice_num} 
 	</select>
 	
-	<!-- 관리자 - 공지사항 수정 (상세내용 가져오기) -->
+	<!-- 관리자 - 공지사항 수정 작업 -->
 	<update id="updateNotice">
 		UPDATE notice
 		SET 
@@ -72,12 +71,125 @@
 			notice_num = #{notice_num}
 	</update>
 	
+	<!-- ======================================================================================= -->
+	
+	<!-- 관리자 FAQ 개수 세기 -->
+	<select id="selectFaqListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM faq
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				FAQ_category like concat('%',#{searchKeyword},'%')
+				or FAQ_subject like concat('%',#{searchKeyword},'%')
+				or FAQ_content like concat('%',#{searchKeyword},'%')
+		</if>
+	</select>
+	
+	<!-- 관리자 FAQ 목록 가져오기 -->
+	<select id="selectFaqList" resultType="faq">
+		SELECT *
+		FROM faq
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				FAQ_category like concat('%',#{searchKeyword},'%')
+				or FAQ_subject like concat('%',#{searchKeyword},'%')
+				or FAQ_content like concat('%',#{searchKeyword},'%')
+		</if>
+		ORDER BY
+			FAQ_num DESC		
+		LIMIT
+			#{startRow}     
+			, #{listLimit} 
+	</select>
+	
+	<!-- 관리자 FAQ 등록 -->
+	<insert id="insertFaq">
+		INSERT INTO faq
+		VALUES (
+			null
+			, #{FAQ_category}
+			, #{FAQ_subject}
+			, #{FAQ_content}
+			, now()
+		)
+	</insert>
+	
+	<!-- 관리자 FAQ 삭제 -->
+	<delete id="deleteFaq">
+		DELETE 
+		FROM faq
+		WHERE FAQ_num = #{FAQ_num}
+	</delete>
+	
+	<!-- 관리자 - FAQ 수정 (상세내용 가져오기) -->
+	<select id="selectFaq" resultType="faq">
+		SELECT *
+		FROM faq
+		WHERE FAQ_num = #{FAQ_num} 
+	</select>
+	
+	<!-- 관리자 - FAQ 수정  -->
+	<update id="updateFaq">
+		UPDATE faq
+		SET 
+			FAQ_category = #{FAQ_category}
+			,FAQ_subject = #{FAQ_subject}
+			,FAQ_content = #{FAQ_content}
+		WHERE
+			FAQ_num = #{FAQ_num}
+	</update>
+	
+	<!-- ======================================================================================= -->
+	
+	<!-- 관리자 1:1 문의 개수 세기 -->
+	<select id="selectCsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM cs
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				cs_category like concat('%',#{searchKeyword},'%')
+				or cs_subject like concat('%',#{searchKeyword},'%')
+				or cs_content like concat('%',#{searchKeyword},'%')
+				or cs_consultant_name like concat('%',#{searchKeyword},'%')
+				or cs_theater_name like concat('%',#{searchKeyword},'%')
+		</if>
+	</select>
+	
+	<!-- 관리자 1:1 문의 목록 가져오기 -->
+	<select id="selectCsList" resultType="cs">
+		SELECT *
+		FROM cs
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				cs_category like concat('%',#{searchKeyword},'%')
+				or cs_subject like concat('%',#{searchKeyword},'%')
+				or cs_content like concat('%',#{searchKeyword},'%')
+				or cs_consultant_name like concat('%',#{searchKeyword},'%')
+				or cs_theater_name like concat('%',#{searchKeyword},'%')
+		</if>
+		ORDER BY
+			cs_num DESC		
+		LIMIT
+			#{startRow}     
+			, #{listLimit} 
+	</select>
+	
+	<!-- 관리자 - 1:1 문의  (상세내용 가져오기) -->
+	<select id="selectCs" resultType="cs">
+		SELECT *
+		FROM cs
+		WHERE cs_num = #{cs_num} 
+	</select>
 	
 	
-	
-	
-	
-	
-	
-	
+	<!-- 관리자 1:1 문의 답변 등록 update -->
+	<update id="registReply">
+		UPDATE cs
+		SET
+			cs_check = "확인"
+			, cs_answer = #{cs_answer}
+			, cs_consultant_name = #{cs_consultant_name}
+		WHERE 
+			cs_num = #{cs_num}	
+	</update>
 </mapper>

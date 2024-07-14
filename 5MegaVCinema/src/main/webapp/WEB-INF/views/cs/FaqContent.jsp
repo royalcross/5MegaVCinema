@@ -64,33 +64,31 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-	<h2>공지사항</h2>
+	<h2>자주 찾는 질문</h2>
 	<br>
 	<section id="listForm">
 		<table border="1">
 			<tr id="tr_top">			
-				<td width="100px">영화관</td>
-				<td>제목</td>
-				<td width="150px">등록일</td>
+				<td width="100px">카테고리</td>
+				<td>질문</td>
 			</tr>
 			
 			<tr>
-				<td width="100px">${selectedNotice.notice_theater_name}</td>
-				<td>${selectedNotice.notice_subject}</td>
-				<td width="150px">${selectedNotice.notice_date}</td>
+				<td width="100px">${selectedFaq.FAQ_category}</td>
+				<td>${selectedFaq.FAQ_subject}</td>
 			</tr>
 			<tr class="contentArea">
 				<td colspan="4">
-					<div class="cont">${selectedNotice.notice_content}</div>
+					<div class="cont">${selectedFaq.FAQ_content}</div>
 				</td>
 			</tr>
 		</table>
 		
 		<!-- 이전글 다음글 구현 필요 -->
 		<div class="btnArea">
-			<button value=""><a href="NoticeDetail?notice_num=${selectedNotice.notice_num - 1}">이전</a></button>
-			<button value=""><a href="Notice">목록</a></button>
-			<button value=""><a href="NoticeDetail?notice_num=${selectedNotice.notice_num + 1}">다음</a></button>
+			<button value=""><a href="FaqDetail?FAQ_num=${selectedFaq.FAQ_num - 1}">이전</a></button>
+			<button value=""><a href="FAQ">목록</a></button>
+			<button value=""><a href="FaqDetail?FAQ_num=${selectedFaq.FAQ_num + 1}">다음</a></button>
 		</div>
 	</section>
 	<footer>		

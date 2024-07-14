@@ -13,10 +13,17 @@ public class NoticeService {
 	@Autowired
     private NoticeMapper mapper;
 
-	public List<NoticeVO> getNotice(NoticeVO notice) {
-		return mapper.selectNotice(notice);
+	public int getNoticeListCount(String searchKeyword) {
+		return mapper.selectNoticeListCount(searchKeyword);
 	}
 
+	public List<NoticeVO> getNoticeList(int startRow, int listLimit, String searchKeyword) {
+		return mapper.selectNoticeList(startRow, listLimit, searchKeyword);
+	}
+	
+	public NoticeVO getNotice(int notice_num) {
+		return mapper.selectNotice(notice_num);
+	}
 
 
 

@@ -74,12 +74,12 @@
     <div class="area">
         <a href="Notice" >공지사항</a> | 
         <a href="FAQ" >자주찾는질문</a> | 
-        <a href="OneOnOne" >1:1문의</a>  
+        <a href="Cs" >1:1문의</a>  
     </div>
     <br>
     </section>   
 	<section id="listForm">
-		<table>
+		<table border="1">
 			<tr id="tr_top">			
 				<td width="100px">글번호</td>
 				<td width="100px">영화관</td>
@@ -94,10 +94,10 @@
 			</c:if>
 			<c:forEach var="notice" items="${noticeList}">
 				<tr>
-					<td>${notice_num}</td>
-					<td>${theater_name}</td>
-					<td>${theater_subject}</td>					
-					<td>${notice_date}</td>
+					<td>${notice.notice_num}</td>
+					<td>${notice.notice_theater_name}</td>
+					<td><a href="NoticeDetail?notice_num=${notice.notice_num}">${notice.notice_subject}</a></td>					
+					<td>${notice.notice_date}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -105,9 +105,8 @@
 	<section id="pageList">
 
 		<input type="button" value="이전" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'"
-				<c:if test="${pageNum <= 1}">disabled</c:if>
-		>
+				onclick="location.href='Notice?pageNum=${pageNum - 1}'"
+				<c:if test="${pageNum <= 1}">disabled</c:if>>
 
 		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 
@@ -116,13 +115,12 @@
 					<b>${i}</b> 
 				</c:when>
 				<c:otherwise>
-					<a href="BoardList.bo?pageNum=${i}">${i}</a> 
+					<a href="Notice?pageNum=${i}">${i}</a> 
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 
 		<input type="button" value="다음" 
-<%-- 				onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'" --%>
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
 	</section>

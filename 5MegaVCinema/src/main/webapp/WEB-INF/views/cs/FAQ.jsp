@@ -69,22 +69,22 @@
     <div class="area">
         <a href="Notice" >공지사항</a> | 
         <a href="FAQ" >자주찾는질문</a> | 
-        <a href="OneOnOne" >1:1문의</a>  
+        <a href="Cs" >1:1문의</a>  
     </div>
     <select id="category" name="category">
-	  <option value="all">전체</option>
-	  <option value="ticketing">예매</option>
-	  <option value="ticket">관람권</option>
-	  <option value="membership">멤버십</option>
-	  <option value="benefits">할인혜택</option>
-	  <option value="theater">영화관이용</option>
+	  <option value="">선택</option>
+	  <option value="영화관 이용">영화관 이용</option>
+	  <option value="회원">회원</option>
+	  <option value="관람권">관람권</option>
+	  <option value="스토어">스토어</option>
 	</select>
     <br>
     </section>
 	<section id="listForm">
 		<table>
 			<tr id="tr_top">
-				<td width="100px">구문</td>
+				<td width="100px">글번호</td>
+				<td width="100px">카테고리</td>
 				<td>제목</td>
 				<td width="150px">등록일</td>
 
@@ -94,15 +94,14 @@
 			<c:if test="${not empty param.pageNum}">
 				<c:set var="pageNum" value="${param.pageNum}" />
 			</c:if>
-			<c:forEach var="board" items="${boardList}">
+			<c:forEach var="faq" items="${faqList}">
 				<tr>
-					<td>${board.board_num}</td>
+					<td>${faq.FAQ_num}</td>
+					<td>${faq.FAQ_category}</td>
 					<td id="subject">
-						<a href="BoardDetail.bo?board_num=${board.board_num}&pageNum=${pageNum}">${board.board_subject}</a>
+						<a href="FaqDetail?FAQ_num=${faq.FAQ_num}">${faq.FAQ_subject}</a>
 					</td>
-					<td>${board.board_name}</td>
-					<td>${board.board_date}</td>
-					<td>${board.board_readcount}</td>
+					<td>${faq.FAQ_create_date}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -110,7 +109,7 @@
 	<section id="pageList">
 
 		<input type="button" value="이전" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'"
+				onclick="location.href='FAQ?pageNum=${pageNum - 1}'"
 				<c:if test="${pageNum <= 1}">disabled</c:if>
 		>
 
@@ -121,13 +120,13 @@
 					<b>${i}</b> 
 				</c:when>
 				<c:otherwise>
-					<a href="BoardList.bo?pageNum=${i}">${i}</a> 
+					<a href="FAQ?pageNum=${i}">${i}</a> 
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 
 		<input type="button" value="다음" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'"
+				onclick="location.href='FAQ?pageNum=${pageNum + 1}'"
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
 	</section>

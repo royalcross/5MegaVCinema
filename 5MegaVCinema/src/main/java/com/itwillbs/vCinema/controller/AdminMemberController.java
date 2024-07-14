@@ -143,7 +143,7 @@ public class AdminMemberController {
 		
 		// 리뷰 목록 조회
 		List<Map<String,String>> reviewList = service.getReviewList(startRow, listLimit, searchKeyword);
-		
+//		System.out.println(reviewList);
 		// 리뷰 목록, 페이징 정보 객체에 저장
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		
