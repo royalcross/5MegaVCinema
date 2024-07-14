@@ -337,6 +337,7 @@ SELECT COUNT(*)
 		SELECT t.theater_location, t.theater_name, r.room_theater_num, r.room_num, r.room_seats
 		FROM room r join theater t
 		on r.room_theater_num = t.theater_num
+		WHERE r.room_num = #{room_num} and r.room_theater_num = #{room_theater_num}
 	</select>
 	
 		<!-- 상영관 수정 -->

@@ -32,17 +32,17 @@
 
 		<div class="modal"> <!-- 등록 -->
 		    <div class="modal_popup">
-		        <h3>상영관 등록</h3>
+		        <h3>상영관 수정</h3>
 				        <div>
 				        <span>지역</span>
 					        <select class="category" id="theater_location"name="theater_location" disabled>
-					        <option value="" selected="selected"></option>
+					        <option value="${selectedRoom.theater_location}" selected="selected"></option>
 					        </select>
 				        </div>
 				        <div>
 				        <span>극장명</span>
 					        <select class="category" id="theater_name"name="theater_name"  onchange="selectTheaterNum(this.value)">
-					        <option value="" selected="selected">극장명을 선택하세요.</option>
+					        <option value="${selectedRoom.theater_name}" selected="selected">극장명을 선택하세요.</option>
 					        </select>
 				        </div>
 		
@@ -118,15 +118,21 @@
 				        
 				        <div>
 				           	<span>극장번호</span> <br>
-				        	<input type="text" name="room_theater_num" id="room_theater_num">
+				        	<input type="text" name="room_theater_num" id="room_theater_num" value="${selectedRoom.room_theater_num}">
 				        </div>
 				        
 				        <div>
 				        	<span>상영관명</span> <br>
-				        	<input type="number" name="room_num">
+				        	<input type="number" name="room_num" value="${selectedRoom.room_num}">
 				        </div>
 				        
 				        <div>
 				        	<span>좌석수</span> <br>
-				        	<input type="text" name="room_seats">
+				        	<input type="text" name="room_seats" value="${selectedRoom.room_seats}">
 				        </div>
+				        
+				        
+				        
+				        
+				        
+				        
