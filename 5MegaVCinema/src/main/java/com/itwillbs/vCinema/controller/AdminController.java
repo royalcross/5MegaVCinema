@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.vCinema.service.AdminService;
+import com.itwillbs.vCinema.vo.ItemVO;
 import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.PageInfo;
 import com.itwillbs.vCinema.vo.PlayVO;
+import com.itwillbs.vCinema.vo.RoomVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
 @Controller
@@ -245,26 +247,29 @@ public class AdminController {
 				
 				List<MovieVO> movieList = AdminService.getMovieList();
 				model.addAttribute("movieList", movieList);
-				return "admin/admin_insert_play";
+				return "admin/admin_play_insert_popup";
 			}
 			
 			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록
-//			@PostMapping("adminInsertPlay")
-//			public String adminInsertPlayForm(MovieVO movie, HttpSession session, Model model) {
-//				
-//				int insertCount = AdminService.insertPlay(play);
-//				System.out.println(insertCount);
-//				if(insertCount > 0) {
-//					return "redirect:/AdminPlayList";
-//				} else {
-//					model.addAttribute("msg", "영화등록에 실패하였습니다. 정보를 확인해주세요.");
-//					return "result/fail";
-//				}
-//				
-//				return"";
-//			}
+			@PostMapping("adminInsertPlay")
+			public String adminInsertPlayForm(PlayVO play, HttpSession session, Model model) {
+				System.out.println("adminInsertPlayForm");
+				int insertCount = AdminService.adminPlayRegist(play);
+				System.out.println(insertCount);
+				if(insertCount > 0) {
+					model.addAttribute("msg", "성공적으로 처리되었습니다.");
+					model.addAttribute("targetURL", "AdminPlayList?pageNum=1");
+					
+					return "result/success";
+				} else {
+					model.addAttribute("msg", "영화등록에 실패하였습니다. 정보를 확인해주세요.");
+					return "result/fail";
+				}
+				
+			}
 			
 			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록 - 상영종료 시간 조회
+			@ResponseBody
 			@GetMapping("getEndTime")
 			public String getEndTime(@RequestParam String movie_name_kr, String play_start_time, Model model) {
 //				System.out.println(play_start_time);
@@ -301,8 +306,17 @@ public class AdminController {
 //			return "";
 //		}
 //		
-		
-		
+		//영화코드 조회하기
+			@ResponseBody
+			@GetMapping("getMovieCode")
+			public String getMovieCode(@RequestParam String movie_name_kr, Model model) {
+				
+				System.out.println("getMovieCode");
+				String movieCode = AdminService.getMovieCode(movie_name_kr);
+				
+//				model.addAttribute("endTimeStr", endTimeStr);
+				return movieCode;
+			}
 		
 		
 		
@@ -320,9 +334,144 @@ public class AdminController {
 		
 		
 		@GetMapping("AdminRoomList")
-		public String adminRoomList() {
+		public String adminRoomList(@RequestParam(defaultValue = "1") int pageNum, Model model, 
+				@RequestParam(defaultValue ="") String searchKeyword) {
+			// -------------------------------------------------------------------------------------------
+			// 페이징 처리
+			int listLimit = 5; // 페이지 당 게시물 수
+			int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
+			
+			int listCount = AdminService.getRoomListCount(searchKeyword); // 총 게시물 개수
+//			System.out.println(listCount);
+			int pageListLimit = 3; // 임시) 페이지 당 페이지 번호 갯수를 3개로 지정(1 2 3 or 4 5 6)
+			int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+//			System.out.println(maxPage);
+			int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+//			System.out.println(startPage);
+			int endPage = startPage + pageListLimit - 1;
+//			System.out.println(endPage);
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+			
+			// 최대 페이지번호(maxPage) 값의 기본값을 1로 설정하기 위해 계산 결과가 0 이면 1 로 변경
+			if(maxPage == 0) {
+				maxPage = 1;
+			}
+			
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+			
+			// -------------------------------------------------------------------------------------------
+			// 페이지 번호가 1보다 작거나 최대 페이지 번호보다 클 경우
+			if(pageNum < 1 || pageNum > maxPage) {
+				model.addAttribute("msg", "해당 페이지는 존재하지 않습니다!");
+				model.addAttribute("targetURL", "AdminRoomList?pageNum=1");
+				return "result/fail";
+			}
+			
+			// -------------------------------------------------------------------------------------------
+			// 검색어는 기본적으로 "" 널스트링
+			// 스토어(아이템) 목록 조회
+			List<Map<String, String>> roomList = AdminService.getRoomList(startRow, listLimit, searchKeyword);
+			
+			PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
+			
+			// 스토어(아이템), 페이징 정보 Model 객체에 저장 -> admin_member_list.jsp 로 전달
+			model.addAttribute("roomList", roomList);
+			model.addAttribute("pageInfo", pageInfo);
+			
 			return "admin/admin_room_list";
 		}
+		
+		// =================================================================================================
+		
+		@GetMapping("AdminRoomDelete")
+		public String adminRoomDelete(@RequestParam(defaultValue = "1") int room_num, int room_theater_num, Model model) {
+			
+			// 아이템 찾아서 delete 실행 ~
+			int deleteCount = AdminService.removeRoom(room_num, room_theater_num);
+			
+			if(deleteCount > 0) {
+				model.addAttribute("msg", "성공적으로 처리되었습니다.");
+				model.addAttribute("targetURL", "AdminRoom?pageNum=1");
+				
+				return "result/success";
+			} else {
+				model.addAttribute("msg", "리뷰 삭제에 실패했습니다.");
+				
+				return "result/fail";
+			}
+		}
+		
+		// =================================================================================================
+		// 아이템 등록
+		@PostMapping("AdminRoomRegist")
+		public String adminRoomRegist(RoomVO room, Model model, String item_type) {
+//			System.out.println(item);
+			// AdminStoreService - AdminStoreRegist(item) -- int;
+			int insertCount = AdminService.adminRoomRegist(room);
+			
+			if(insertCount > 0 ) {
+				model.addAttribute("msg", "성공적으로 처리되었습니다.");
+				model.addAttribute("targetURL", "AdminRoom?pageNum=1");
+				
+				return "result/success";
+			} else {
+				model.addAttribute("msg", "아이템 등록에 실패했습니다.");
+				
+				return "result/fail";
+			}
+			
+		}
+		
+		// =================================================================================================
+		@GetMapping("AdminRoomModify")
+		public String adminRoomeModify(@RequestParam(defaultValue = "0") int room_num,
+				@RequestParam(defaultValue = "0") int room_theater_num, Model model) {
+//			System.out.println("item_id : " + item_id);
+			
+			// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
+			List<Map<String, String>> selectedRoom = AdminService.getRoom(room_num, room_theater_num);
+			System.out.println("선택된 room 정보 : " + selectedRoom);
+			// model 객체에 저장해서 전달
+			model.addAttribute("selectedRoom", selectedRoom);
+			
+			return "admin/admin_room_modify_popup";
+		}
+		
+		
+		
+		
+		
+//		@PostMapping("AdminStoreModify")
+//		public String adminStoreModifyPro (Model model, @RequestParam(defaultValue = "0") int room_num,
+//											@RequestParam(defaultValue = "0") int room_theater_num, 
+//											@RequestParam(defaultValue = "0") int room_seats, 
+//											@RequestParam(defaultValue = "") String theater_location, 
+//											@RequestParam(defaultValue = "") String theater_name) {
+//			// 스토어 아이템 수정 (update)
+//			// AdminStoreService - adminStoreModify();
+//			int updateCount = AdminService.adminRoomodify(room_num,room_theater_num,room_seats,theater_location,theater_name);
+//			
+//			if(updateCount > 0) {
+//				model.addAttribute("msg", "수정되었습니다.");
+//				model.addAttribute("targetURL", "AdminStore?pageNum=1");
+//				
+//				return "result/success";
+//			} else {
+//				model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+//				
+//				return "result/fail";
+//			}
+//		}
+		
+		
+		
+		
+		
+		
 		
 		
 		

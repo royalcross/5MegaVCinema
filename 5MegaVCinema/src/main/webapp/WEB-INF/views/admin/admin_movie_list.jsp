@@ -128,6 +128,12 @@
 			}
 			
 		</script>
+
+		
+		
+		
+		
+		
 						<form action="AdminMovieList">
 							<div class="search">
 								<span>Search</span>

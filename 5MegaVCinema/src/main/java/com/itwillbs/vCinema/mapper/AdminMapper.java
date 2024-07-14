@@ -50,10 +50,31 @@ public interface AdminMapper {
 	int insertTheater(TheaterVO theater);
 
 	int selectMovieEndTime(String movie_name_kr);
-
+	
+	//상영관 목록 개수
 	int selectRoomListCount(@Param("searchKeyword") String searchKeyword);
 
-	List<RoomVO> selectRoomList(@Param("searchKeyword") String searchKeyword, int startRow, int listLimit);
+	//상영관 목록
+	List<Map<String, String>> selectRoomList(@Param("searchKeyword") String searchKeyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit);
+
+	//상영관 삭제
+	int deleteRoom(@Param("room_num") int room_num, @Param("room_theater_num") int room_theater_num);
+
+	//상영관 등록
+	int insertRoom(RoomVO room);
+
+	//상영관 수정
+//	int updateRoom(int room_num, int room_theater_num, int room_seats, String theater_location, String theater_name);
+
+	//상영관 상세정보 가져오기
+	List<Map<String, String>> selectRoom(int room_num, int room_theater_num);
+
+	
+	//상영시간표 등록
+	int insertPlay(PlayVO play);
+
+	//영화코드 가져오기
+	String selectMovieCode(String movie_name_kr);
 	
 	
 }

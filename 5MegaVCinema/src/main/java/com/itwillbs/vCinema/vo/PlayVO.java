@@ -13,7 +13,8 @@ public class PlayVO {
 	private int play_theater_num;
 	private int play_room_num;
 	
-	@DateTimeFormat(pattern = "HH:mm:ss")
-	private LocalTime play_start_time;
+	@DateTimeFormat(pattern = "HH:mm")
+	private String play_start_time;
+	private String play_end_time;
 	
 }

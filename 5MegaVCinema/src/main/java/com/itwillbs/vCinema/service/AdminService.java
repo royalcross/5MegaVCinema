@@ -52,6 +52,12 @@ public class AdminService {
 		return mapper.deleteMovie(movie_code);
 	}
 
+	
+	
+	
+	
+	
+	
 	//게시물 총 갯수 조회 요청
 	public int getPlayListCount(String searchKeyword) {
 		return mapper.selectPlayListCount(searchKeyword);
@@ -76,14 +82,55 @@ public class AdminService {
 	public int getEndTime(String movie_name_kr) {
 		return mapper.selectMovieEndTime(movie_name_kr);
 	}
-
+	
+	
+	// ------- 상영관 ---------
+	
+	
+	//상영관 목록 개수
 	public int getRoomListCount(String searchKeyword) {
 		return mapper.selectRoomListCount(searchKeyword);
 	}
 
-	public List<RoomVO> getRoomList(String searchKeyword, int startRow, int listLimit) {
+	//상영관 목록
+	public List<Map<String, String>> getRoomList(int startRow, int listLimit, String searchKeyword) {
 		return mapper.selectRoomList(searchKeyword, startRow, listLimit);
 	}
+
+	//상영관 삭제
+	public int removeRoom(int room_num, int room_theater_num) {
+		return mapper.deleteRoom(room_num, room_theater_num);
+	}
+
+	//상영관 등록
+	public int adminRoomRegist(RoomVO room) {
+		return mapper.insertRoom(room);
+	}
+	
+	//상영관 수정
+//	public int adminRoomodify(int room_num, int room_theater_num, int room_seats, String theater_location,
+//			String theater_name) {
+//		return mapper.updateRoom(room_num, room_theater_num, room_seats, theater_location, theater_name);
+//	}
+
+	//상영관 상세 정보 가져오기
+	public List<Map<String, String>> getRoom(int room_num, int room_theater_num) {
+		return mapper.selectRoom(room_num, room_theater_num);
+	}
+
+	
+	// ------- 상영시간표 ---------
+	
+	//상영시간표 등록
+	public int adminPlayRegist(PlayVO play) {
+		return mapper.insertPlay(play);
+	}
+
+	//영화코드 가져오기
+	public String getMovieCode(String movie_name_kr) {
+		return mapper.selectMovieCode(movie_name_kr);
+	}
+
 
 	
 	

@@ -278,6 +278,11 @@ SELECT COUNT(*)
 		WHERE movie_name_kr = #{movie_name_kr}
 	</select>
 	
+	
+	
+	<!--  상영관-->
+	
+	<!--  상영관 목록 개수 -->
 	<select id="selectRoomListCount" resultType="int">
 		SELECT count(*)
 		FROM room
@@ -292,29 +297,84 @@ SELECT COUNT(*)
 		OR theater_address LIKE CONCAT('%', #{searchKeyword}, '%')
 		OR theater_address_detail LIKE CONCAT('%', #{searchKeyword}, '%')
 	</if>
-	
-	
-	
 	</select>
 	
+	<!--  상영관 목록 -->
 	<select id="selectRoomList" resultType="hashmap">
-		SELECT t.theater_name, t.theater_num, r.room_num, r.room_seats
-		FROM room r join order_ticket o
-		on r.room_num = o.order_ticket_room_num
-		join theater t
-		on t.theater_num = o.order_ticket_theater_num
+		SELECT t.theater_name, r.room_theater_num, r.room_num, r.room_seats, t.theater_location_num
+		FROM room r join theater t
+		on r.room_theater_num = t.theater_num
 	<if test="!searchKeyword.equals('')">
 		WHERE 
-		theater_num LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR room_theater_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR room_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		OR room_seats LIKE CONCAT('%', #{searchKeyword}, '%')
 		OR theater_location_num LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_location LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_content LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_post_code LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_address LIKE CONCAT('%', #{searchKeyword}, '%')
-		OR theater_address_detail LIKE CONCAT('%', #{searchKeyword}, '%')
 	</if>
 	</select>
+	
+	<!--  상영관 삭제 -->
+	<delete id="deleteRoom">
+	<![CDATA[
+		DELETE FROM room
+		WHERE room_num = #{room_num} && room_theater_num = #{room_theater_num}
+		 ]]>
+	</delete>
+	
+		<!-- 상영관 등록 -->
+	<insert id="insertRoom">
+		INSERT INTO room
+		VALUES (
+			#{room_num}
+			, #{room_seats}	
+			, #{room_theater_num}	
+		)
+	</insert>
+	
+		<!-- 상영관 상세정보 가져오기 -->
+	<select id="selectRoom" resultType="hashmap">
+		SELECT t.theater_location, t.theater_name, r.room_theater_num, r.room_num, r.room_seats
+		FROM room r join theater t
+		on r.room_theater_num = t.theater_num
+	</select>
+	
+		<!-- 상영관 수정 -->
+<!-- 	<update id="updateRoom"> -->
+<!-- 		UPDATE room -->
+<!-- 		SET  -->
+<!-- 			item_name = #{item_name} -->
+<!-- 			, item_content = #{item_content} -->
+<!-- 			, item_price = #{item_price} -->
+<!-- 		WHERE  -->
+<!-- 			item_id = #{item_id} -->
+<!-- 	</update> -->
+	
+	<insert id="insertPlay">
+		INSERT INTO play
+		(play_num,
+		play_movie_code,
+		play_theater_num,
+		play_room_num,
+		play_start_time,
+		play_end_time
+		)
+		VALUES (
+			null
+			, #{play_movie_code}	
+			, #{play_theater_num}	
+			, #{play_room_num}	
+			, #{play_start_time}	
+			, #{play_end_time}	
+		)
+	</insert>
+	
+	<select id="selectMovieCode">
+		SELECT movie_code
+		FROM movie
+		WHERE movie_name_kr = #{movie_name_kr}
+	</select>
+	
 	
 	
 	

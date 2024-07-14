@@ -11,7 +11,7 @@
 		<%-- 외부 CSS파일 연결하기 --%>
 		<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/resources/css/admin_default.css" rel="stylesheet" type="text/css">
-<script src="../js/jquery-3.7.1.js"></script>
+		<script src="../js/jquery-3.7.1.js"></script>
 
 		<style>
 			.tab_content {width: 600px;
@@ -74,15 +74,19 @@
 		
 	/*--------------------------------------------------------------------------------------------------*/	
 		
+				.inner .wrapper {
+				height: 80vh;
+			}
 			.main {
 				padding: 1.8rem;
-				height: 100vh;
 			}
 			
 			.main h3 {
 				text-align: left;
 				margin-bottom: 30px;
 			}
+			
+			
 			.main .wrapper_top {
 				display: flex;
 				justify-content: space-between;
@@ -97,39 +101,87 @@
 			}
 			.main .content {
 				width: 100%;
-				margin-bottom: 50px;
 			}
 			
 			.main .content table {
 				width: 100%;
+				text-align: center;
 			}
 			
 			.main .content table th {
 				background-color: #eee;
 			}
 			
-			.main .content table #yAdmin {
-				background-color:  orange;
-			}
-			
 			/* 페이징 처리 */
 			.main #pageList {
 				text-align: center;
 			}
+			
+			/* 모달 팝업 */
+			h2{
+			    text-align: center;
+			}
+			.modal_btn {
+			    display: block;
+			    margin: 40px auto;
+			    padding: 10px 20px;
+			    background-color: royalblue;
+			    border: none;
+			    border-radius: 5px;
+			    color: #fff;
+			    cursor: pointer;
+			    transition: box-shadow 0.2s;
+			}
+			.modal_btn:hover {
+			    box-shadow: 3px 4px 11px 0px #00000040;
+			}
+			
+			/*모달 팝업 영역 스타일링*/
+			.modal {
+			/*팝업 배경*/
+				display: none; /*평소에는 보이지 않도록*/
+			    position: absolute;
+			    top:0;
+			    left: 0;
+			    width: 100%;
+			    height: 100vh;
+			    overflow: hidden;
+			    background: rgba(0,0,0,0.5);
+			}
+			.modal .modal_popup {
+			/*팝업*/
+			    position: absolute;
+			    width: 500px;
+			    top: 50%;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
+			    padding: 20px;
+			    background: #ffffff;
+			    border-radius: 20px;
+			}
+			
+			.modal .modal_popup .content {
+				width: 100%;
+			}
+			
+			.modal .modal_popup .close_btn, .modal .modal_popup .regist_btn, .modal .modal_popup .reset_btn {
+			    padding: 10px 20px;
+			    background-color: rgb(116, 0, 0);
+			    border: none;
+			    border-radius: 5px;
+			    color: #fff;
+			    cursor: pointer;
+			    transition: box-shadow 0.2s;
+			}
+			
+			.modal.on {
+			    display: block;
+			    
+			}
+			.btnArea {
+				margin-top: 30px;
+			}
 		</style>
-		<script>
-		// 팝업창 띄우기
-		var popupWidth = 1000;
-		var popupHeight = 800;
-		var popupX = (window.screen.width / 2) - (popupWidth / 2);
-		var popupY= (window.screen.height / 2) - (popupHeight / 2);
-		
-		function insertTheater() {
-			window.open('adminInsertTheater', 'target="self"', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
-		}
-			
-			
-		</script>
 	</head>
 	<body>
 		<header>
@@ -151,7 +203,6 @@
 							</ul>
 						</nav>
 					</div>
-		
 		<article>
 			<div align="left" class="location on ">
 <!-- 				<h1>전국</h1> -->
@@ -166,8 +217,6 @@
 <!-- 				<h1>경상</h1> -->
 			</div>
 		</article>
-		
-					
 					<div class="wrapper_top">
 						<div>
 							<span>Show</span>
@@ -179,10 +228,7 @@
 							</select>
 							<span>entries</span>
 						</div>
-	
 								<!-- 영화 등록버튼 -->
-	<section id="buttonArea" >
-		<input type="button" value="등록" onclick="insertTheater()">
 						
 						<form action="AdminRoomList">
 							<div class="search">
@@ -192,22 +238,23 @@
 							</div>
 						</form>
 			
-						<!-- 우측 상단 버튼 들어가는 자리 -->			
-<!-- 						<div> -->
-							
-<!-- 						</div> -->
+	<!-- 우측 상단 버튼 들어가는 자리 -->			
+						<div>
+							<button type="button" id="registBtn">등록</button>
+							<button type="button" id="categoryBtn">카테고리 관리</button>
+						</div>
 					</div>
 						
 					<div class="content">
-<!-- 영화정보관리 게시판 -->
-	<table border="1">
-		<tr>
-			<th>극장번호</th>
-			<th>극장명</th>
-			<th>상영관명</th>
-			<th>좌석수</th>
-			<th>수정 및 삭제</th>
-			</tr>
+						<table border="1" >
+							<tr>
+								<th width="80px">극장명</th>
+								<th width="120px">극장번호</th>
+								<th width="120px">상영관명</th>
+								<th width="300px">좌석수</th>
+								<th width="120px">수정 및 삭제</th>
+							</tr>
+							
 			
 			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
 			<c:set var="pageNum" value="1"/>
@@ -220,87 +267,244 @@
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
 			<c:forEach var="room" items="${roomList}">
 			<tr class="theater_location_num_${room.theater_num}">
-			<td>${room.theater_name}</td>
-			<td>${room.theater_num}</td>
-			<td>${room.room_num}</td>
-			<td>${room.room_seats}</td>
-			<td>
-			<input type="button" value="수정">
-			<input type="button" value="삭제">
-			
-			</td>
+				<td>${room.theater_name}</td>
+				<td>${room.room_theater_num}</td>
+				<td>${room.room_num}</td>
+				<td>${room.room_seats}</td>
+				<td>
+			<button value="${room.room_num}" class="modifyBtn">수정</button>
+			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
+				</td>
 			</tr>
 			</c:forEach>
 			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
 			<c:if test="${empty roomList}">
-				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
+				<tr>
+									<td align="center" colspan="8">검색결과가 없습니다.</td>
+								</tr>
 			</c:if>
 </table>
 </div>
 					
-					<div id="pageList">
+						<div id="pageList">
 						<input type="button" value="이전" 
-								onclick="location.href='AdminMemberList?pageNum=${pageNum - 1}'">
+								onclick="location.href='AdminRoomList?pageNum=${pageNum - 1}'">
 						
-						<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo)를 통해 페이지 번호 출력 --%>
-						<%-- 시작페이지(startPage = begin) 부터 끝페이지(endPage = end)까지 1씩 증가하면서 표시 --%>
 						<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-							<%-- 각 페이지마다 하이퍼링크 설정(페이지번호를 pageNum 파라미터로 전달) --%>
-							<%-- 단, 현재 페이지(i 값과 pageNum 파라미터값이 동일)는 하이퍼링크 없이 굵게 표시 --%>
 							<c:choose>
 								<c:when test="${i eq pageNum}">
 									<b>${i}</b> <%-- 현재 페이지 번호 --%>
 								</c:when>
 								<c:otherwise>
-									<a href="AdminMemberList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+									<a href="AdminRoomList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						
-						<%-- [다음] 버튼 클릭 시 BoardList 서블릿 요청(파라미터 : 현재 페이지번호 + 1) --%>
-						<%-- 현재 페이지 번호(pageNum)가 URL 파라미터로 전달되므로 ${param.pageNum} 활용 --%>
-						<%-- 단, 현재 페이지 번호가 최대 페이지번호(maxPage)보다 작을 경우에만 동작(아니면, 버튼 비활성화 처리) --%>
-						<%-- 두 가지 경우의 수에 따라 버튼을 달리 생성하지 않고, disabled 만 추가 여부 설정 --%>
-						<%-- pageNum 파라미터값이 최대 페이지번호 이상일 때 disabled 속성 추가 --%>
 						<input type="button" value="다음" 
-								onclick="location.href='AdminMemberList?pageNum=${pageNum + 1}'">
+								onclick="location.href='AdminRoomList?pageNum=${pageNum + 1}'">
 					</div>
 				</article>
 			</section>
 		</div>
-		<footer>
-			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
-		</footer>
-	
-	
-	
-	
-	
-	
-	<%-- ========================== 페이징 처리 영역 ========================== --%>
-	<section id="pageList">
-		<input type="button" value="이전" 
-				onclick="location.href='movieList?pageNum=${pageNum - 1}'"
-				<c:if test="${pageNum <= 1}">disabled</c:if>
-		>
 		
-		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-			<c:choose>
-				<c:when test="${i eq pageNum}">
-					<b>${i}</b> <%-- 현재 페이지 번호 --%>
-				</c:when>
-				<c:otherwise>
-					<a href="movieList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
+		<!--  ----------- 등록 페이지 ----------->	
+			
+		<div class="modal"> <!-- 등록 -->
+		    <div class="modal_popup">
+		        <h3>상영관 등록</h3>
+		        <div class="content">
+		        	<form action="AdminRoomRegist" method="post" name="registForm">
+				        <div>
+				        <span>지역</span>
+					        <select class="category" id="theater_location"name="theater_location" >
+					        <option value="" selected="selected">지역을 선택하세요.</option>
+					        </select>
+				        </div>
+				        <div>
+				        <span>극장명</span>
+					        <select class="category" id="theater_name"name="theater_name"  onchange="selectTheaterNum(this.value)">
+					        <option value="" selected="selected">극장명을 선택하세요.</option>
+					        </select>
+				        </div>
 		
-		<input type="button" value="다음" 
-				onclick="location.href='movieList?pageNum=${pageNum + 1}'"
-				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
-		>
-	</section>
 	<script>
+
+	var subjectObject = {
+			  "서울/경기/인천": {
+			    "신도림": ["Links", "Images", "Tables", "Lists"],
+			    "청라": ["Borders", "Margins", "Backgrounds", "Float"],
+			    "동탄": ["Variables", "Operators", "Functions", "Conditions"],
+			    "남양주다산": ["Variables", "Operators", "Functions", "Conditions"] 
+			  },
+			  "충청": {
+			    "천안불당": ["Variables", "Strings", "Arrays"],
+			    "보은": ["SELECT", "UPDATE", "DELETE"]
+			  },
+			    "경상": {
+			    "경주보문": ["Links", "Images", "Tables", "Lists"],
+			    "구미봉곡": ["Borders", "Margins", "Backgrounds", "Float"],
+			    "대구이시아": ["Variables", "Operators", "Functions", "Conditions"],
+			    "칠곡호이": ["Variables", "Operators", "Functions", "Conditions"],
+			    "영덕예주": ["Variables", "Operators", "Functions", "Conditions"]
+			  }
+			}
+			window.onload = function() {
+			  var subjectSel = document.getElementById("location");
+			  var topicSel = document.getElementById("theater_name");
+			  for (var x in subjectObject) {
+			    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+			  }
+			  subjectSel.onchange = function() {
+			    //empty Chapters- and Topics- dropdowns
+			    topicSel.length = 1;
+			    //display correct values
+			    for (var y in subjectObject[this.value]) {
+			      topicSel.options[topicSel.options.length] = new Option(y, y);
+			    }
+			  }
+			}
+	
+	
+	// 아이템 등록 (카테고리 선택 -> 상품 아이디에 값 들어감)
+	
+	function selectTheaterNum(theater) {
+		
+ 		if(theater == "신도림"){ 
+ 			document.registForm.room_theater_num.value = 1001;
+ 		} else if(theater == "청라") {
+ 			document.registForm.room_theater_num.value = 1002;
+ 		} else if(theater == "동탄") {
+ 			document.registForm.room_theater_num.value = 1003;
+ 		} else if(theater == "남양주다산") {
+ 			document.registForm.room_theater_num.value = 1004;
+ 		} else if(theater == "천안불당") {
+ 			document.registForm.room_theater_num.value = 1005;
+ 		} else if(theater == "경주보문") {
+ 			document.registForm.room_theater_num.value = 1006;
+ 		} else if(theater == "구미봉곡") {
+ 			document.registForm.room_theater_num.value = 1007;
+ 		} else if(theater == "대구이시아") {
+ 			document.registForm.room_theater_num.value = 1008;
+ 		} else if(theater == "보은") {
+ 			document.registForm.room_theater_num.value = 1009;
+ 		} else if(theater == "칠곡호이") {
+ 			document.registForm.room_theater_num.value = 1010;
+ 		} else if(theater == "영덕예주") {
+ 			document.registForm.room_theater_num.value = 1011;
+ 		}
+	}
+	
+			</script>
+				        
+				        
+				        <div>
+				           	<span>극장번호</span> <br>
+				        	<input type="text" name="room_theater_num" id="room_theater_num">
+				        </div>
+				        
+				        <div>
+				        	<span>상영관명</span> <br>
+				        	<input type="number" name="room_num">
+				        </div>
+				        
+				        <div>
+				        	<span>좌석수</span> <br>
+				        	<input type="text" name="room_seats">
+				        </div>
+				        
+						<div class="btnArea" style="text-align : center">
+				        	<input type="submit" class="regist_btn" value="등록">
+				        	<input type="reset" class="reset_btn" value="초기화">
+				        	<input type="button" class="close_btn" value="취소">
+				        </div>
+			        </form>
+				</div>
+		    </div>
+		</div>
+		
+		
+	<!--  ----------- 수정 페이지 ----------->	
+	
+		
+		<div class="modal"> <!-- 수정 -->
+		    <div class="modal_popup">
+		        <h3>상영관 수정</h3>
+		        <div class="content">
+		        	<form action="AdminRoomModify" method="post" name="modifyForm">
+		        		<div id="resultArea"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->
+						<div class="btnArea" style="text-align : center">
+				        	<input type="submit" class="regist_btn" value="등록">
+				        	<input type="button" class="close_btn" value="취소">
+				        </div>
+			        </form>
+				</div>
+		    </div>
+		</div>
+		
+		<script>
+			let modal = document.querySelectorAll('.modal');
+			let registBtn = document.querySelector('#registBtn');
+			let modifyBtn = document.querySelectorAll('.modifyBtn'); // 반복문으로 버튼이 여러 개 뜨니까 버튼도 여러개임을 인지하고, 팝업 뜨는 것도 반복문 작성필요
+			let closeBtn = document.querySelectorAll('.close_btn');
+			let categoryBtn = document.querySelector('#categoryBtn');
+			
+			// 아이템 삭제
+			function confirmDelete(room_num, room_theater_num){
+				if(confirm("삭제하시겠습니까?")) {
+					location.href="AdminRoomDelete?room_num=" + room_num + "&room_theater_num=" + room_theater_num;
+				}
+			}
+
+			// -------------------------------------------------------------------------
+			
+			// 아이템 등록 - 팝업 오픈
+			registBtn.onclick = function(){
+				modal[0].classList.add('on');
+			}
+			
+			
+			// -------------------------------------------------------------------------
+			// 카테고리 관리
+			categoryBtn.onclick = function(){
+				modal[1].classList.add('on');
+			}
+			
+			// -------------------------------------------------------------------------
+			
+			// 아이템 수정 팝업 띄우기
+			for(let i = 0; i < modifyBtn.length ; i++) {
+				modifyBtn[i].onclick = function(){
+// 					console.log("modal")
+					modal[2].classList.add('on');
+				}
+			}
+			
+			// 아이템 상세 내용 가져오는 AJAX - resources 에 js 있어야함 (script 태그에 주소 연결도 해야함)
+			$(function() {
+				$(modifyBtn).click(function() {
+					$.ajax({
+						url:"AdminStoreModify",
+	    				data:{
+	    					"item_id": $(this).val()
+	    					},
+	    				method:"get",
+	    				success: function (response) {
+	    					$("#resultArea").html(response);
+	    				}
+					});
+				});
+			});
+			
+			// -------------------------------------------------------------------------
+			
+			// 취소 버튼 성공
+			for(let i = 0; i < closeBtn.length ; i++) {
+				closeBtn[i].onclick = function(){
+					modal[i].classList.remove('on');
+				}
+			}
+		</script>
+<script>
 	let tabMenu = document.querySelectorAll('.tabmenu');
 	let loginCon = document.querySelectorAll('.location');
 	
