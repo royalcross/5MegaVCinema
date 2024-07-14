@@ -14,7 +14,7 @@
 			<li><a href="#">제휴/광고/부대산업 문의</a></li>
 			<li><a href="#">이용약관</a></li>
 			<li><a href="#">개인정보처리방침</a></li>
-			<li><a href="Cs1">고객센터</a></li>
+			<li><a href="Notice">고객센터</a></li>
 			<li><a href="#">배정/편성기준</a></li>
 			<li><a href="#">사이트맵</a></li>
 		</ul>

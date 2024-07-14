@@ -16,4 +16,6 @@ public interface MemberMapper {
    int updateWithdrawMember(MemberVO member);
 
    MemberVO selectMemberSearchId(MemberVO member);
+
+
 }

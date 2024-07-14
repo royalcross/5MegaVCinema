@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>고객센터</title>
 <!-- 외부 CSS 파일(css/default.css) 연결하기 -->
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -63,21 +63,28 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-	<h2>공지사항</h2>
+	<h2>자주찾는질문</h2>
 	<br>
 	<section id="buttonArea">
     <div class="area">
-        <a href="Cs1" >공지사항</a> | 
-        <a href="Cs2" >자주찾는질문</a> | 
-        <a href="Cs3" >1:1문의</a> 
+        <a href="Notice" >공지사항</a> | 
+        <a href="FAQ" >자주찾는질문</a> | 
+        <a href="Cs" >1:1문의</a>  
     </div>
+    <select id="category" name="category">
+	  <option value="">선택</option>
+	  <option value="영화관 이용">영화관 이용</option>
+	  <option value="회원">회원</option>
+	  <option value="관람권">관람권</option>
+	  <option value="스토어">스토어</option>
+	</select>
     <br>
-    </section>   
+    </section>
 	<section id="listForm">
 		<table>
-			<tr id="tr_top">			
+			<tr id="tr_top">
 				<td width="100px">글번호</td>
-				<td width="100px">영화관</td>
+				<td width="100px">카테고리</td>
 				<td>제목</td>
 				<td width="150px">등록일</td>
 
@@ -87,15 +94,14 @@
 			<c:if test="${not empty param.pageNum}">
 				<c:set var="pageNum" value="${param.pageNum}" />
 			</c:if>
-			<c:forEach var="board" items="${boardList}">
+			<c:forEach var="faq" items="${faqList}">
 				<tr>
-					<td>${board.board_num}</td>
+					<td>${faq.FAQ_num}</td>
+					<td>${faq.FAQ_category}</td>
 					<td id="subject">
-<%-- 						<a href="BoardDetail.bo?board_num=${}&pageNum=${}">${}</a> --%>
+						<a href="FaqDetail?FAQ_num=${faq.FAQ_num}">${faq.FAQ_subject}</a>
 					</td>
-					<td input type="button" value="공지사항상세" onclick="detailNotice(${notice_num})">${notice_subject}</td>
-					<td>${notice_date}</td>
-<%-- 	상세페이지에 넣기				<td>${notice_content}</td> --%>
+					<td>${faq.FAQ_create_date}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -103,7 +109,7 @@
 	<section id="pageList">
 
 		<input type="button" value="이전" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'"
+				onclick="location.href='FAQ?pageNum=${pageNum - 1}'"
 				<c:if test="${pageNum <= 1}">disabled</c:if>
 		>
 
@@ -114,13 +120,13 @@
 					<b>${i}</b> 
 				</c:when>
 				<c:otherwise>
-					<a href="BoardList.bo?pageNum=${i}">${i}</a> 
+					<a href="FAQ?pageNum=${i}">${i}</a> 
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 
 		<input type="button" value="다음" 
-<%-- 				onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'" --%>
+				onclick="location.href='FAQ?pageNum=${pageNum + 1}'"
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
 	</section>
@@ -129,12 +135,6 @@
 	</footer>
 </body>
 </html>
-
-
-
-
-
-
 
 
 

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.vCinema.mapper.AdminMemberMapper;
 import com.itwillbs.vCinema.vo.MemberVO;
-import com.itwillbs.vCinema.vo.OrderTicketVO;
-import com.itwillbs.vCinema.vo.ReviewVO;
 
 @Service
 public class AdminMemberService {
@@ -64,6 +62,11 @@ public class AdminMemberService {
 //	}
 	public List<Map<String,String>> getBookList(int startRow, int listLimit, String searchKeyword) {
 		return mapper.selectBookList(startRow, listLimit,searchKeyword);
+	}
+
+	// 예매 상세내역 가져오기
+	public Map<String, String> getBook(int order_ticket_id) {
+		return mapper.selectBook(order_ticket_id);
 	}
 
 	

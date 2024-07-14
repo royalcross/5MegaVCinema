@@ -28,6 +28,4 @@ public interface AdminStoreMapper {
 	// 아이템 수정
 	int updateItem(@Param("item_id") String item_id,@Param("item_name") String item_name,
 					@Param("item_content") String item_content,@Param("item_price") int item_price);
-
-	
 }

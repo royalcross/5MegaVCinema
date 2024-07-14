@@ -1,6 +1,5 @@
 package com.itwillbs.vCinema.controller;
 
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.vCinema.service.AdminService;
 import com.itwillbs.vCinema.vo.ItemVO;
 import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.PageInfo;
+<<<<<<< HEAD
 import com.itwillbs.vCinema.vo.PlayVO;
 import com.itwillbs.vCinema.vo.RoomVO;
+=======
+>>>>>>> branch 'main' of https://github.com/royalcross/5MegaVCinema.git
 import com.itwillbs.vCinema.vo.TheaterVO;
 
 @Controller

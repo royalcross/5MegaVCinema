@@ -60,5 +60,4 @@
 			AND member_phonenumber = #{member_phonenumber}
 	</select>
 	
-	
 </mapper>

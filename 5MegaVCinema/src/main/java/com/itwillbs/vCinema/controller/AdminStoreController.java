@@ -82,7 +82,7 @@ public class AdminStoreController {
 			
 			return "result/success";
 		} else {
-			model.addAttribute("msg", "리뷰 삭제에 실패했습니다.");
+			model.addAttribute("msg", "삭제에 실패했습니다.");
 			
 			return "result/fail";
 		}
@@ -115,7 +115,7 @@ public class AdminStoreController {
 	// 0709 성공
 	@GetMapping("AdminStoreModify")
 	public String adminStoreModify(@RequestParam(defaultValue = "") String item_id, Model model) {
-		System.out.println("item_id : " + item_id);
+//		System.out.println("item_id : " + item_id);
 		
 		// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
 		ItemVO selectedItem = service.getItem(item_id);

@@ -80,7 +80,7 @@
 			    top:0;
 			    left: 0;
 			    width: 100%;
-			    height: 100vh;
+			    height: 140vh;
 			    overflow: hidden;
 			    background: rgba(0,0,0,0.5);
 			}
@@ -88,7 +88,7 @@
 			/*팝업*/
 			    position: absolute;
 			    width: 900px;
-			    top: 50%;
+			    top: 35%;
 			    left: 50%;
 			    transform: translate(-50%, -50%);
 			    padding: 20px;
@@ -119,6 +119,7 @@
 			}
 			
 		</style>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	</head>
 	<body>
 		<header>
@@ -176,7 +177,7 @@
 							</c:if>
 							
 							<c:forEach var="orderTicket" items="${orderTicketList}">
-								<tr>
+								<tr align="center">
 									<td>${orderTicket.order_ticket_id}</td>
 									<td>${orderTicket.order_ticket_member_num}</td>
 									<td>${orderTicket.movie_name_kr}</td> 
@@ -185,7 +186,7 @@
 									<td>${orderTicket.theater_name}</td>
 									<td>${orderTicket.order_ticket_status}</td>
 									<td>
-										<input type="button" class="detail" value="상세보기">
+										<button value="${orderTicket.order_ticket_id}" class="detailBtn">상세보기</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -222,37 +223,7 @@
 		    <div class="modal_popup">
 		        <h3>상세보기</h3>
 		        <div class="content">
-			        <table border = "1">
-			        	<tr>
-							<th>예매번호</th>
-							<th>예매자 회원번호</th>
-							<th>영화</th>
-							<th>상영일</th>
-							<th>극장</th>
-							<th>상영관</th>
-							<th>좌석</th>
-							<th>예매인원</th>
-							<th>예매금액</th>
-							<th>상태</th>
-						</tr>
-						
-						<!-- AJAX 사용 필요 .. -->
-				        <c:forEach var="orderTicket" items="${orderTicketList}">
-							<tr>
-								<td>${orderTicket.order_ticket_id}</td>
-								<td>${orderTicket.order_ticket_member_num}</td>
-								<td>${orderTicket.movie_name_kr}</td>
-								<td><fmt:parseDate value="${orderTicket.order_ticket_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-									<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
-								<td>${orderTicket.theater_name}</td>
-								<td style="color: red">상영관 연결 필요</td>
-								<td>${orderTicket.order_ticket_seat_num}</td>
-								<td>${orderTicket.order_ticket_how_many_people}</td>
-								<td>${orderTicket.order_ticket_how_many_people * orderTicket.ticket_price}</td>
-								<td>${orderTicket.order_ticket_status}</td>
-							</tr>
-						</c:forEach>
-					</table>
+			        <div id="resultArea"></div>  <!-- 예매내역 상세보기 팝업 들어가는 자리 -->
 				</div>
 				
 				<div class="close" style="text-align : center">
@@ -263,16 +234,38 @@
 		
 		<script>
 			let modal = document.querySelector('.modal');
-			let openBtn = document.querySelector('.detail');
+			let detailBtn = document.querySelectorAll('.detailBtn');
+			// 반복문으로 리스트에 버튼이 여러 개 뜨니까 버튼도 여러개임을 인지하고, 팝업 뜨는 것도 반복문 작성필요
 			let closeBtn = document.querySelector('.close_btn');
 			
-			openBtn.onclick = function(){
-				modal.classList.add('on');
+			for(let i = 0; i < detailBtn.length ; i++) {
+				detailBtn[i].onclick = function(){
+// 					console.log("modal")
+					modal.classList.add('on');
+				}
 			}
+			
 			
 			closeBtn.onclick = function(){
 				modal.classList.remove('on');
 			}
+			
+			// 아이템 상세 내용 가져오는 AJAX - resources 에 js 있어야함 (script 태그에 주소 연결도 해야함)
+			$(function() {
+				$(detailBtn).click(function() {
+					$.ajax({
+						url:"AdminMemberBookDetail",
+	    				data:{
+	    					"order_ticket_id" : $(this).val()
+	    					},
+	    				type:"GET",
+	    				success: function (response) {
+	    					$("#resultArea").html(response);
+	    				}
+					});
+				});
+			});
+			
 		</script>
 		
 		<footer>

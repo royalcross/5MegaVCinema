@@ -31,4 +31,5 @@ public class MemberService {
    public MemberVO getMemberSearchId(MemberVO member) {
 	  return mapper.selectMemberSearchId(member);
    }
+
 }

@@ -116,7 +116,7 @@
 							</c:if>
 							
 							<c:forEach var="review" items="${reviewList}">
-								<tr>
+								<tr align="center">
 									<td>${review.review_num}</td>
 									<td>${review.review_rating}</td>
 									<td>${review.review_movie_code}</td>

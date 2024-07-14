@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터</title>
+<title>MVC 게시판</title>
 <!-- 외부 CSS 파일(css/default.css) 연결하기 -->
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -14,6 +14,7 @@
 		max-height: 610px;
 		margin: auto;
 	}
+	
 	
 	h2 {
 		text-align: center;
@@ -44,11 +45,11 @@
 		width: 1024px;
 		text-align: center;
 	}
-	
+
 	a {
 		text-decoration: none;
 	}
-	
+
 	#subject {
 		text-align: left;
 		padding-left: 20px;
@@ -63,56 +64,46 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-	<h2>자주찾는질문</h2>
+	<h2>1:1문의</h2>
 	<br>
 	<section id="buttonArea">
-    <div class="area">
-        <a href="Cs1" >공지사항</a> | 
-        <a href="Cs2" >자주찾는질문</a> | 
-        <a href="Cs3" >1:1문의</a>  
-    </div>
-    <select id="category" name="category">
-	  <option value="all">전체</option>
-	  <option value="ticketing">예매</option>
-	  <option value="ticket">관람권</option>
-	  <option value="membership">멤버십</option>
-	  <option value="benefits">할인혜택</option>
-	  <option value="theater">영화관이용</option>
-	</select>
-    <br>
+	    <div class="area">
+	        <a href="Notice" >공지사항</a> | 
+	        <a href="FAQ" >자주찾는질문</a> | 
+	        <a href="Cs" >1:1문의</a>  
+	    </div>
+	    <br>
     </section>
 	<section id="listForm">
+		
 		<table>
 			<tr id="tr_top">
-				<td width="100px">구문</td>
-				<td>제목</td>
-				<td width="150px">등록일</td>
-
+				<td width="200px">제목</td>
+				<td width="400px">문의내용</td>
+				<td width="100px">확인여부</td>
 			</tr>
 			<c:set var="pageNum" value="1" />
 	
 			<c:if test="${not empty param.pageNum}">
 				<c:set var="pageNum" value="${param.pageNum}" />
 			</c:if>
-			<c:forEach var="board" items="${boardList}">
+			<c:forEach var="cs" items="${csList}">
 				<tr>
-					<td>${board.board_num}</td>
 					<td id="subject">
-						<a href="BoardDetail.bo?board_num=${board.board_num}&pageNum=${pageNum}">${board.board_subject}</a>
+						<a href="CsDetail.bo?cs_num=${cs.cs_num}&pageNum=${pageNum}">${cs.cs_subject}</a>
 					</td>
-					<td>${board.board_name}</td>
-					<td>${board.board_date}</td>
-					<td>${board.board_readcount}</td>
+					<td>${cs.cs_content}</td>
+					<td>${cs.cs_check}</td>
 				</tr>
 			</c:forEach>
 		</table>
+		<button class="registBtn" onclick="csRegist('${sessionScope.sId}')">문의 등록</button>
 	</section>
 	<section id="pageList">
 
 		<input type="button" value="이전" 
 				onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'"
-				<c:if test="${pageNum <= 1}">disabled</c:if>
-		>
+				<c:if test="${pageNum <= 1}">disabled</c:if>>
 
 		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 
@@ -128,14 +119,25 @@
 
 		<input type="button" value="다음" 
 				onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'"
-				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
-		>
+				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>>
 	</section>
+	
+	<script type="text/javascript">
+		function csRegist(id){
+			location.href="CsForm?cs_member_id=" + id;
+		}
+	</script>
 	<footer>		
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 	</footer>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

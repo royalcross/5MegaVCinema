@@ -2,28 +2,24 @@ package com.itwillbs.vCinema.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.itwillbs.vCinema.service.CsService;
-import com.itwillbs.vCinema.vo.CsVO;
-import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.service.NoticeService;
+import com.itwillbs.vCinema.vo.NoticeVO;
 import com.itwillbs.vCinema.vo.PageInfo;
 
 @Controller
-public class CsController {
+public class NoticeController {
 	@Autowired
-	private CsService service;
+	private NoticeService service;
 	
-	// 1:1 문의 페이지 매핑
-	@GetMapping("Cs")
-	public String Cs(@RequestParam(defaultValue = "1") int pageNum, Model model, MemberVO member, HttpSession session,
+	// 공지사항 목록 표출
+	@GetMapping("Notice")
+	public String notice(@RequestParam(defaultValue = "1") int pageNum, Model model, 
 			@RequestParam(defaultValue ="") String searchKeyword) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
@@ -31,7 +27,7 @@ public class CsController {
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 		
 		// 검색 기능 추가 (0705)
-		int listCount = service.getCsListCount(); // 총 게시물 개수
+		int listCount = service.getNoticeListCount(searchKeyword); // 총 게시물 개수
 		//System.out.println(listCount);
 		int pageListLimit = 3; // 임시) 페이지 당 페이지 번호 갯수를 3개로 지정(1 2 3 or 4 5 6)
 		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
@@ -54,46 +50,31 @@ public class CsController {
 		// 페이지 번호가 1보다 작거나 최대 페이지 번호보다 클 경우
 		if(pageNum < 1 || pageNum > maxPage) {
 		model.addAttribute("msg", "해당 페이지는 존재하지 않습니다!");
-		model.addAttribute("targetURL", "Cs?pageNum=1");
+		model.addAttribute("targetURL", "Notice?pageNum=1");
 		return "result/fail";
 		}
 		
 		// -------------------------------------------------------------------------------------------
-		
-		String id = (String)session.getAttribute("sId");
-		
-		List<CsVO> csList = service.getCsList(startRow, listLimit, id);
+		List<NoticeVO> noticeList = service.getNoticeList(startRow, listLimit, searchKeyword);
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 
-		model.addAttribute("csList", csList);
+		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pageInfo", pageInfo);
-		
-		return "cs/Cs";
+		return "cs/Notice";
 	}
-	
-	
-	// 1:1 문의 등록 매핑
-	@GetMapping("CsForm")
-	public String CsRegistform(HttpSession session, Model model, String cs_member_id) {
-//		System.out.println(member_id);
-		model.addAttribute("cs_member_id", cs_member_id);
-		return "cs/CsForm";
+
+	// 공지사항 상세보기
+	@GetMapping("NoticeDetail") 
+	public String noticeDetail(@RequestParam(defaultValue = "0") int notice_num, Model model) {
+//		System.out.println(notice_num);
+		NoticeVO selectedNotice = service.getNotice(notice_num);
+		
+//		System.out.println(selectedNotice);
+		
+		model.addAttribute("selectedNotice", selectedNotice);
+		
+		return "cs/NoticeContent";
 	}
+
 	
-	// 1:1 문의 작성
-	@PostMapping("CsRegistPro")
-	public String CsRegistPro(CsVO cs, Model model) {
-//		System.out.println(cs);
-		
-		int insertCount = service.registCs(cs);
-		
-		if(insertCount > 0) {
-			model.addAttribute("msg", "성공적으로 처리되었습니다.");
-			model.addAttribute("targetURL", "Cs?pageNum=1");
-			
-			return "result/success";
-		} 
-		
-		return "";
-	}
 }

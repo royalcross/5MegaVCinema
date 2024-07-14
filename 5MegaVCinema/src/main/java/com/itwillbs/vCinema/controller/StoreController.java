@@ -9,14 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.itwillbs.vCinema.service.MemberService;
 import com.itwillbs.vCinema.service.StoreService;
+import com.itwillbs.vCinema.vo.MemberVO;
 import com.itwillbs.vCinema.vo.StoreVO;
 
 @Controller
 public class StoreController {
 	@Autowired
 	private StoreService service;
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("Store")
 	public String store(StoreVO store, Model model) {
@@ -66,7 +71,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("StorePayment")
-	public String storePayment(StoreVO store, Model model, HttpSession session) {
+	public String storePayment(MemberVO member, StoreVO store, Model model, HttpSession session) {
 		// 세션 아이디를 변수(id)에 저장
 		String id = (String)session.getAttribute("sId");
 		// 로그인 하지 않은 사용자일 경우 "로그인 필수!" 출력 후 "MemberLogin" 페이지 포워딩 처리
@@ -75,6 +80,13 @@ public class StoreController {
 			model.addAttribute("targetURL", "MemberLogin");
 			return "result/fail";
 		} else {
+			// 세션 아이디를 MemberVO 객체에 저장
+			member.setMember_id((String)session.getAttribute("sId"));
+			// DB로부터 구매자정보를 가져와 MemberVO 객체에 저장
+			member = memberService.getMember(member);
+			// MemberVO 객체를 모델 객체에 저장
+			model.addAttribute("buyMember", member);
+			
 			// DB로부터 상품정보를 가져와 StoreVO 객체에 저장
 			store = service.getItem(store);
 			// StoreVO 객체를 모델 객체에 저장
