@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itwillbs.vCinema.service.MemberService;
 import com.itwillbs.vCinema.service.StoreService;
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderItemVO;
 import com.itwillbs.vCinema.vo.StoreVO;
 
 @Controller
@@ -94,5 +94,23 @@ public class StoreController {
 			// 결제 페이지로 포워딩
 			return "store/store_payment";
 		}
+	}
+	
+	@GetMapping("StoreAvailableTheaters")
+	public String storeAvailableTheaters() {
+		return "store/store_available_theaters";
+	}
+	
+	@GetMapping("StorePaymentPro")
+	public String storePaymentPro(OrderItemVO orderItem, Model model) {
+		int insertCount = service.setPaymentInfo(orderItem);
+		
+		if(insertCount > 0) {
+			return "redirect:/Store";
+		} else {
+			model.addAttribute("msg", "구매 정보 등록 실패!");
+			return "result/fail";
+		}
+		
 	}
 }
