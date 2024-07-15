@@ -7,6 +7,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>오메가V시네마</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/autoSlide.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/movie.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/store.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 
@@ -317,8 +333,18 @@ function showSlides(n) {
 }
 </script>
 
-
-			
+<div id="main_page">
+			<div id="Sort">
+				<ul>
+					<li><input type="button" value="박스오피스" class="movieBtn active" data-status="boxoffice" data-sort="dateSort" data-sortType="1" name="release"></li>
+					<li><input type="button" value="현재상영작" class="movieBtn" data-status="release" data-sort="dateSort" data-sortType="1" name="comming"></li>
+					<li><input type="button" value="상영예정작" class="movieBtn" data-status="comming" data-sort="audienceSort" data-sortType="3" name="audience"></li>
+				</ul>
+			</div>
+			<div id="movieArea">
+				<div id="moviePage"><a href=""><input type="button" value="전체보기"></a></div>
+				<div id="boxoffice"></div>
+			</div>
 			
 			
 <%-- 			<%-- 라디오버튼 클릭 시 영화 이미지를 각 버튼에 해당하는 이미지로 변경 --%> 
@@ -335,61 +361,139 @@ function showSlides(n) {
 <!-- 					width="15" height="15" onclick=""> -->
 <!-- 			</button> -->
 		</section>
-		<section id="movie_list">
-			<table>
-				<tr>
-					<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
-					<td id="movie_list1">박스오피스</td>
-					<td id="movie_list2">최신개봉작</td>
-					<td id="movie_list3">상영예정작</td>
-				</tr>
-			</table>
-			<br>
-			<button type="button" id="list_btn1" onclick="">
-				<img alt="arrow1" src="resources/img/png/arrow1.png">
-			</button>
-			<div class="movie_desc" id="movie_desc1">
-				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br>
-				<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
-			</div>
-			<div class="movie_desc" id="movie_desc2">
-				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br>
-				<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
-			</div>
-			<div class="movie_desc" id="movie_desc3">
-				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br>
-				<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
-			</div>
-			<div class="movie_desc" id="movie_desc4">
-				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br>
-				<p><a href="#"><span class="rate_19"><b>19</b></span>영화제목</a></p>
-			</div>
-			<div class="movie_desc" id="movie_desc5">
-				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br>
-				<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
-			</div>
-			<button type="button" id="list_btn2" onclick="">
-				<img alt="arrow2" src="resources/img/png/arrow2.png">
-			</button>
-		</section>
-		<section id="announcement">
-			<h1>공지사항</h1>
-			<div id="anno_list">
-				<ul>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li>
-				</ul>
-			</div>
-			<input type="button" id="anno_list_more" value="+더보기" onclick="">
-		</section>
+<!-- 		<section id="movie_list"> -->
+<!-- 			<table> -->
+<!-- 				<tr> -->
+<%-- 					각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
+<!-- 					<td id="movie_list1">박스오피스</td> -->
+<!-- 					<td id="movie_list2">최신개봉작</td> -->
+<!-- 					<td id="movie_list3">상영예정작</td> -->
+<!-- 				</tr> -->
+<!-- 			</table> -->
+<!-- 			<br> -->
+<!-- 			<button type="button" id="list_btn1" onclick=""> -->
+<!-- 				<img alt="arrow1" src="resources/img/png/arrow1.png"> -->
+<!-- 			</button> -->
+<!-- 			<div class="movie_desc" id="movie_desc1"> -->
+<!-- 				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br> -->
+<!-- 				<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p> -->
+<!-- 			</div> -->
+<!-- 			<div class="movie_desc" id="movie_desc2"> -->
+<!-- 				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br> -->
+<!-- 				<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p> -->
+<!-- 			</div> -->
+<!-- 			<div class="movie_desc" id="movie_desc3"> -->
+<!-- 				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br> -->
+<!-- 				<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p> -->
+<!-- 			</div> -->
+<!-- 			<div class="movie_desc" id="movie_desc4"> -->
+<!-- 				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br> -->
+<!-- 				<p><a href="#"><span class="rate_19"><b>19</b></span>영화제목</a></p> -->
+<!-- 			</div> -->
+<!-- 			<div class="movie_desc" id="movie_desc5"> -->
+<!-- 				<img alt="dahlia" src="resources/img/dahlia.jpg" onmouseover=""><br> -->
+<!-- 				<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p> -->
+<!-- 			</div> -->
+<!-- 			<button type="button" id="list_btn2" onclick=""> -->
+<!-- 				<img alt="arrow2" src="resources/img/png/arrow2.png"> -->
+<!-- 			</button> -->
+<!-- 		</section> -->
+<!-- 		<section id="announcement"> -->
+<!-- 			<h1>공지사항</h1> -->
+<!-- 			<div id="anno_list"> -->
+<!-- 				<ul> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 					<li><a href="#">극장명 | 공지사항 제목 | 등록일</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+<!-- 			<input type="button" id="anno_list_more" value="+더보기" onclick=""> -->
+<!-- 		</section> -->
+<script type="text/javascript">
+	$(function() {
+		// 메인 페이지의 영화목록         
+		$.ajax({
+			url:"mainMovieChart",
+			data: {
+// 				status: "release",
+// 				sort: "dateSort"
+			},
+			dataType: "json",
+			success: function(result) {
+				$("#moviePage a").attr("href", "release?sortType=1");
+				$("#boxoffice").empty();
+				for(let i = 0; i < result.length; i++) {
+					$("#boxoffice").append(
+								"<div id=movie" + i + ">"
+									+ "<a href='detail?movie_id=" +  result[i].movie_id + "'>" + 
+									"<img src='" + result[i].movie_poster + "'></a>"
+									+ "<div class='main_reserve_area'>"
+										+ "<button id='likeBtn" + i + "' class='likeBtn' data-id='" 
+										+ result[i].movie_id + "' data-title='" + result[i].movie_title 
+										+ "' onclick='likeBtnClick(" + i + ")'><i class='fa fa-heart-o'></i>찜하기</button>"
+										+ "<a href='movieSelect?movie_title=" +  result[i].movie_title + "' class='rel_reservBtn'>"
+										+ "<input type='button' value='예매하기'></a></div>"		
+								+ "</div>"
+								);
+				}					
+				// 회원의 찜 정보 가져오기
+// 				$.ajax({
+// 					url: "likeShow", 
+// 					dataType: "json",
+// 					success: function(result) { 
+// 						console.log(result);
+// 						for(let i = 0; i < 5; i++) { // 
+// 							let movie_id = $("#likeBtn" + i).data("id");
+// 							for(let like of result) { 
+// 								if(like.movie_id == movie_id) { 
+// 									$("#likeBtn" + i).addClass("likeCheck");
+// 									$("#likeBtn" + i).html("<i class='fa fa-heart'></i>찜하기");
+// 								}
+// 							}
+// 						}
+// 					},
+// 					error: function(xhr, textStatus, errorThrown) {
+// 						alert("찜정보 불러오기를 실패했습니다.\n새로고침을 해주세요.");
+// 					}
+// 				}); 
+// 			},
+// 			error: function(xhr, textStatus, errorThrown) {
+// 				alert("상영정보를 불러오지 못했습니다\n새로고침을 해주세요.");
+// 			}
+// 		});
+		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</form>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
