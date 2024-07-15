@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.itwillbs.vCinema.mapper.ReserveMapper">
+    
+<!--     <select id="selectMovieList" resultType="hashmap"> -->
+<!--         SELECT * -->
+<!-- 		FROM movie m JOIN play p -->
+<!-- 		ON m.movie_code = p.play_movie_code -->
+<!--         WHERE  -->
+<!--         	play_theater_num = #{play_theater_num} -->
+<!--     </select> -->
+    <select id="selectMovieList" resultType="movie">
+        SELECT *
+		FROM movie 
+    </select>
+    
+    <select id="selectTheaterList" resultType="theater">
+        SELECT *
+        FROM theater
+    </select>
+    
+    <select id="selectTheaterNum" resultType="theater">
+        SELECT theater_num
+        FROM theater
+        WHERE 
+        	theater_name = #{theater_name}
+    </select>
+    
+</mapper>

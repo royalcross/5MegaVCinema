@@ -10,9 +10,10 @@ import com.itwillbs.vCinema.vo.StoreVO;
 public class StoreService {
 	@Autowired
 	private StoreMapper mapper;
-
+	
 	// 상품정보 조회
 	public StoreVO getItem(StoreVO store) {
 		return mapper.selectItem(store);
 	}
+	
 }

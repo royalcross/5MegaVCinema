@@ -45,7 +45,7 @@
 		<a href="./" class="main_logo"><img src="resources/images/main_logo.png"></a>
 		<ul>
 			<li class="depth1">
-				<a href="#">영화</a>
+				<a href="Boxoffice">영화</a>
 				<ul class="depth2">
 					<li><a href="Boxoffice">박스오피스</a></li>
 					<li><a href="Latest">최신개봉작</a></li>
@@ -54,10 +54,10 @@
 			</li>
 			
 			<li class="depth1">
-				<a href="#">영화관</a>
+				<a href="sindorim">영화관</a>
 				<ul class="depth2">
 					<li>
-						<a href="#">서울/경기/인천</a>
+						<a href="sindorim">서울/경기/인천</a>
 						<ul class="depth3">
 							<li><a href="sindorim">신도림</a></li>
 							<li><a href="chungra">청라</a></li>
@@ -67,14 +67,14 @@
 					</li>
 					
 					<li>
-						<a href="#">충청</a>
+						<a href="chunan">충청</a>
 						<ul class="depth3">
 							<li><a href="chunan">천안불당</a></li>
 						</ul>
 					</li>
 					
 					<li>
-						<a href="#">경상</a>
+						<a href="kyungjoo">경상</a>
 						<ul class="depth3">
 							<li><a href="kyungjoo">경주보문</a></li>
 							<li><a href="gumi">구미봉곡</a></li>
@@ -83,7 +83,7 @@
 					</li>
 					
 					<li>
-						<a href="#">작은 영화관</a>
+						<a href="chilgok">작은 영화관</a>
 						<ul class="depth3">
 							<li><a href="chilgok">칠곡호이</a></li>
 							<li><a href="bosilver">보은</a></li>
@@ -102,7 +102,7 @@
 				</ul>	
 			</li>
 		</ul>
-		<a href="./" class="simple_order">간편 예매</a>
+		<a href="Reserve" class="simple_order">간편 예매</a>
 	</nav>
 </div>
 <div id="bar"></div>

@@ -72,10 +72,12 @@ article table {
 }
 
 .inner>nav .simple_order {
-	width: 120px;
+	width: 90px;
+	height: 80px;
 	background-color: olive;
 	color: #fff;
 	text-align: center;
+	display: block;
 }
 
 .inner>nav {
@@ -83,8 +85,8 @@ article table {
     margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
-	height: 70px;
-	line-height: 70px;
+/* 	height: 70px; */
+	line-height: 5;
 	padding-top: 40px;
 	padding-bottom: 40px;
 }
@@ -92,11 +94,12 @@ article table {
 .inner>nav .main_logo {
 	display: block;
 	width: 100px;
-	height: 90px;
+	height: 80px;
 }
 
 .inner>nav .main_logo  img {
-	width: 100%;
+	width: 90px;
+	height: 80px;
 }
 .inner>nav>ul>li a:hover {
 	color: rgb(211, 84, 0);
@@ -104,11 +107,14 @@ article table {
 
 .inner>nav>ul {
 	display: flex;
+	line-height: 5;
+	height: 100%;
 }
 
 .inner>nav ul .depth1 {
 	margin-right: 50px;
 	position: relative;
+	height: 100%;
 /* 	background-color: yellow; */
 }
 
@@ -118,6 +124,7 @@ article table {
 }
 
 .inner>nav ul .depth1>.depth2 {
+	text-align: left;
 	position: absolute;
 	left: 0;
 	height: 34px;
