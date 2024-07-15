@@ -28,4 +28,18 @@
         	theater_name = #{theater_name}
     </select>
     
+	<select id="selectMoviePlayList" resultType="hashmap">
+		SELECT m.movie_name_kr
+		FROM theater t JOIN play p
+		ON t.theater_num = p.play_theater_num 
+		JOIN movie m
+		ON m.movie_code = p.play_movie_code
+		WHERE t.theater_num = #{theater_num};
+	</select>    
+    
+<!--     <select id="selectMoviePlayList" resultType="play"> -->
+<!--     	SELECT play_movie_code -->
+<!--     	FROM play -->
+<!--     	WHERE play_theater_num = #{theater_num} -->
+<!--     </select> -->
 </mapper>
