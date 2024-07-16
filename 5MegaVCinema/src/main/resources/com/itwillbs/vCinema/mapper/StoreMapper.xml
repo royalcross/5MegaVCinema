@@ -4,8 +4,25 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.vCinema.mapper.StoreMapper">
 	<select id="selectItem" resultType="store">
-		SELECT *
+		SELECT * 
 		FROM item
 		WHERE item_id = #{item_id}
 	</select>
+	
+	<insert id="insertOrderItem">
+		<selectKey keyProperty="order_item_num" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(order_item_num), 0) -- order_item_num 최대값 조회(null 일 경우 기본값 0 사용)
+			FROM order_item
+		</selectKey>
+		
+		INSERT INTO order_item
+		VALUES (
+			#{order_item_num} + 1
+			, #{order_item_item_id}
+			, now()
+			, #{order_item_sales_rate}
+			, #{order_item_sales_revenue}
+			, #{order_item_member_num}
+		)
+	</insert>
 </mapper>

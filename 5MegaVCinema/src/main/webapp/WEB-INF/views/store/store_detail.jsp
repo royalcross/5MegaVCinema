@@ -60,6 +60,12 @@
 <%-- jquery 라이브러리 포함시키기 --%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script type="text/javascript">
+	function availableTheaters() {
+		let url = "StoreAvailableTheaters";
+		let name = "store_available_theaters";
+		let option = "width = 500, height = 500, top = 200, left = 650, location = no";
+		window.open(url, name, option);
+	}
 	$(function() {
 		// 수량/금액 기본값 출력
 		let count = 1;
@@ -84,11 +90,11 @@
 		});
 		// 선물 버튼
 		$("#gift").click(function() {
-			location.href = "StorePayment?paymentType=gift&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text();
+			location.href = "StorePayment?paymentType=gift&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text() + "&amountNum=" + amountNum;
 		});
 		// 구매 버튼
 		$("#purchase").click(function() {
-			location.href = "StorePayment?paymentType=purchase&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text();
+			location.href = "StorePayment?paymentType=purchase&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text() + "&amountNum=" + amountNum;
 		});
 	});
 </script>
@@ -109,7 +115,7 @@
 			<tr>
 				<td rowspan="6" id="img"><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg"></td>
 				<td>사용극장</td>
-				<td colspan="2"><a href="#" id="item_theater">사용가능극장</a></td>
+				<td colspan="2"><a href="javascript:availableTheaters()" id="item_theater">사용가능극장</a></td>
 			</tr>
 			<tr>
 				<td>유효기간</td>

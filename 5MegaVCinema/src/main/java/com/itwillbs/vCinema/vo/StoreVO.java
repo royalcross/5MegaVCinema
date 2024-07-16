@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class StoreVO {
-	String item_id;
-	String item_type;
-	String item_name;
-	String item_content;
-	int item_price;
-	String item_image;
+	private String item_id;
+	private String item_type;
+	private String item_name;
+	private String item_content;
+	private int item_price;
+	private String item_image;
 }

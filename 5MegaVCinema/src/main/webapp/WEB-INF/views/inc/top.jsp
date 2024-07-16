@@ -93,12 +93,7 @@
 			</li>
 			
 			<li class="depth1">
-				<a href="Store">스토어</a>
-				<ul class="depth2">
-					<li><a href="#">새로운 상품</a></li>
-					<li><a href="#">브이티켓</a></li>
-					<li><a href="#">팝콘/음료/굿즈</a></li>
-				</ul>	
+				<a href="Store">스토어</a>	
 			</li>
 		</ul>
 		<a href="Reserve" class="simple_order">간편 예매</a>

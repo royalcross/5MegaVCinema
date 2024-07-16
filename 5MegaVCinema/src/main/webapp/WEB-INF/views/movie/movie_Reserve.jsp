@@ -80,7 +80,11 @@
 					</td>
 				</tr>
 			</table>
+			
+			<input type="submit" value="예매하기">
 		</form>
+		
+		<div id="resultArea"></div>
 	</section>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script>
@@ -107,23 +111,25 @@
 				}
 		   	}
 			
-			theater_ajax();
 		});
 		
-		$(function theater_ajax() {
-			let theaterBtn = document.querySelectorAll('.theaterBtn');
-			
-			$(theaterBtn).click(function() {
-				$.ajax({
-					url: "ReserveTheaterAjax",
-					type : "get",
-					data:{
-						"theater_name": $(this).val()
-						},
-					success: function (response) {
-						alert("ajax 성공!");
-					}
-				});
+		let theaterBtn = document.querySelectorAll('.theaterBtn');
+		
+		$(theaterBtn).click(function() {
+			$.ajax({
+				url: "ReserveTheaterAjax",
+				type : "get",
+				data:{
+					"theater_name": $(this).val()
+					},
+				dataType: "json",
+				success: function (response) {
+					alert("ajax 성공!");
+					
+				},
+				error: function(response){
+					alert("실패");
+				}
 			});
 		});
 		
