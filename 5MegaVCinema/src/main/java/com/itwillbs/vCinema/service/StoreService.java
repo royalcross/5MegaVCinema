@@ -20,5 +20,9 @@ public class StoreService {
 	public int setPaymentInfo(OrderItemVO orderItem) {
 		return mapper.insertOrderItem(orderItem);
 	}
+	// 상품 구매정보 조회
+	public OrderItemVO getPaymentInfo() {
+		return mapper.selectOrderItem();
+	}
 	
 }

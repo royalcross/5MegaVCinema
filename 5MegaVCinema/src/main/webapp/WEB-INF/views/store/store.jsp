@@ -111,7 +111,7 @@
 				<c:if test="${Ticket[i] != null}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[i].item_id}&item_type=${Ticket[i].item_type}'">
-							<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
 							<p class="item_name"><b>${Ticket[i].item_name}</b></p>
 							<p class="item_content">${Ticket[i].item_content}</p>
 							<p class="item_price">${Ticket[i].item_price}원</p>
@@ -166,7 +166,7 @@
 				<c:if test="${Ticket[status.index] != null}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[status.index].item_id}&item_type=${Ticket[status.index].item_type}'">
-							<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
 							<p class="item_name"><b>${Ticket[status.index].item_name}</b></p>
 							<p class="item_content">${Ticket[status.index].item_content}</p>
 							<p class="item_price">${Ticket[status.index].item_price}원</p>

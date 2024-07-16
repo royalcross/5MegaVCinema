@@ -20,7 +20,7 @@
 	#payment_title, #item_info {text-align: left;}
 	#payment_title {font-size: 30px;}
 	#item_info {font-size: 20px;}
-	td>a {
+	td>#item_theater {
 		color: blue;
 		text-decoration: underline;
 	}
@@ -79,7 +79,7 @@
 				<tr>
 					<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
 					<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
-					<td><a href="#">사용가능극장 확인</a></td>
+					<td><a href="javascript:availableTheaters()" id="item_theater">사용가능극장 확인</a></td>
 					<td>${param.count}</td>
 					<td id="amount">${param.amount}</td>
 				</tr>
@@ -152,32 +152,32 @@
 						<div class="payment_method on">
 							신용/체크카드를 선택하셨습니다.<br>
 							즉시할인 신용카드 적용이 가능합니다.
-<!-- 							카드사 선택 -->
-<!-- 							<select id="card"> -->
-<!-- 								<option>카드선택</option> -->
-<!-- 								<option>비씨카드</option> -->
-<!-- 								<option>국민카드</option> -->
-<!-- 								<option>신한카드</option> -->
-<!-- 								<option>삼성카드</option> -->
-<!-- 								<option>롯데카드</option> -->
-<!-- 								<option>농협카드</option> -->
-<!-- 								<option>하나카드</option> -->
-<!-- 								<option>현대카드</option> -->
-<!-- 								<option>씨티카드</option> -->
-<!-- 								<option>제주카드</option> -->
-<!-- 								<option>우리카드</option> -->
-<!-- 								<option>수협카드</option> -->
-<!-- 								<option>전북카드</option> -->
-<!-- 								<option>광주카드</option> -->
-<!-- 								<option>신협카드</option> -->
-<!-- 								<option>카카오 뱅크</option> -->
-<!-- 								<option>케이뱅크</option> -->
-<!-- 								<option>우체국카드</option> -->
-<!-- 								<option>토스카드</option> -->
-<!-- 								<option>SC제일은행 비씨카드</option> -->
-<!-- 								<option>SC제일은행 삼성카드</option> -->
-<!-- 								<option>IBK기업은행 카드</option> -->
-<!-- 							</select> -->
+							<%-- 카드사 선택
+							<select id="card">
+								<option>카드선택</option>
+								<option>비씨카드</option>
+								<option>국민카드</option>
+								<option>신한카드</option>
+								<option>삼성카드</option>
+								<option>롯데카드</option>
+								<option>농협카드</option>
+								<option>하나카드</option>
+								<option>현대카드</option>
+								<option>씨티카드</option>
+								<option>제주카드</option>
+								<option>우리카드</option>
+								<option>수협카드</option>
+								<option>전북카드</option>
+								<option>광주카드</option>
+								<option>신협카드</option>
+								<option>카카오 뱅크</option>
+								<option>케이뱅크</option>
+								<option>우체국카드</option>
+								<option>토스카드</option>
+								<option>SC제일은행 비씨카드</option>
+								<option>SC제일은행 삼성카드</option>
+								<option>IBK기업은행 카드</option>
+							</select> --%>
 						</div>
 						<div class="payment_method">
 							카카오페이를 선택하셨습니다.<br>
@@ -202,6 +202,13 @@
 	</footer>
 </body>
 <script type="text/javascript">
+	// 사용가능극장
+	function availableTheaters() {
+		let url = "StoreAvailableTheaters";
+		let name = "store_available_theaters";
+		let option = "width = 500, height = 500, top = 200, left = 650, location = no";
+		window.open(url, name, option);
+	}
 	$(function() {
 		// 주문 상품의 상품이미지 또는 상품명 클릭 시 상품 구매 페이지로 이동
 // 		$("#")
@@ -283,7 +290,7 @@
 						// 결제창 호출
 						IMP.request_pay({
 							// 파라미터 값 설정
-							pg : "tosspayments.iamporttest_3", // PG사 코드표에서 선택
+							pg : "html5_inicis.INIpayTest", // PG사 코드표에서 선택
 							pay_method : "card", // 결제 방식
 							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
 							name : "${store.item_name}", // 제품명
@@ -296,7 +303,9 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-// 								alert("결제 성공(신용/체크카드)!");
+								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
+								alert("결제가 완료되었습니다(신용/체크카드).");
+								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
 								alert(rsp.error_msg);
 							}
@@ -320,8 +329,9 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								alert("결제가 완료되었습니다.");
-								location.href = "StorePaymentPro?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
+								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
+								alert("결제가 완료되었습니다(카카오페이).");
+								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
 								alert(rsp.error_msg);
 							}
@@ -337,7 +347,7 @@
 						// 결제창 호출
 						IMP.request_pay({
 							// 파라미터 값 설정
-							pg : "tosspayments.iamporttest_3", // PG사 코드표에서 선택
+							pg : "html5_inicis.INIpayTest", // PG사 코드표에서 선택
 							pay_method : "card", // 결제 방식
 							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
 							name : "${store.item_name}", // 제품명
@@ -350,7 +360,9 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-// 								alert("결제 성공(신용/체크카드)!");
+								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
+								alert("결제가 완료되었습니다(신용/체크카드).");
+								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
 								alert(rsp.error_msg);
 							}
@@ -374,8 +386,9 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								alert("결제가 완료되었습니다.");
-								location.href = "StorePaymentPro?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
+								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
+								alert("결제가 완료되었습니다(카카오페이).");
+								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
 								alert(rsp.error_msg);
 							}
