@@ -34,13 +34,13 @@
 				<%-- 하이퍼링크 상에서 자바스크립트 함수 호출 시
 				"javascript:함수명()" 형태로 호출 --%>
 				| <a href="javascript:confirmLogout()">로그아웃 </a>
-			</c:otherwise>
+			</c:otherwise>			
 		</c:choose>
 		<c:if test="${sessionScope.sIsAdmin eq 1}">
 			| <a href="AdminHome">관리자페이지</a>
 		</c:if>
 	</div>
-
+	
 	<nav>
 		<a href="./" class="main_logo"><img src="resources/images/main_logo.png"></a>
 		<ul>
@@ -48,7 +48,6 @@
 				<a href="Boxoffice">영화</a>
 				<ul class="depth2">
 					<li><a href="Boxoffice">박스오피스</a></li>
-					<li><a href="Latest">최신개봉작</a></li>
 					<li><a href="Comming">상영예정작</a></li>
 				</ul>	
 			</li>

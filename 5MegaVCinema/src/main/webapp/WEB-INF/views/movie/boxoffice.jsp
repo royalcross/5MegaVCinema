@@ -153,7 +153,6 @@ function createDetailLink(movieId) {
     <h2>박스오피스</h2> 
     <div class="area">
         <a href="Boxoffice" >박스오피스</a> | 
-        <a href="Latest" >최신개봉작</a> | 
         <a href="Comming" >상영예정작</a> 
     </div> 
     <br>

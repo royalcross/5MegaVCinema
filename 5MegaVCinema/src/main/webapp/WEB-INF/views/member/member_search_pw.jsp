@@ -108,20 +108,17 @@
 				<form class="search" name="searchPwForm" action="SearchPwPro" method="post">
 					<div class="info">
 						<span>이름</span>
-						<input type="text" name="name" placeholder="이름을 입력해주세요" required> <br>
+						<input type="text" name="member_name" placeholder="이름을 입력해주세요" required> <br>
 					</div>
 					
 					<div class="info">
-						<span>아이디(이메일)</span>
-						<input type="text" name="id" placeholder="아이디(이메일)을 입력해주세요" required> <br>
-						<input type="button" class="auth_btn" value ="인증번호 전송">
+						<span>생년월일</span>
+						<input type="text" name="member_birth" placeholder="예) 1999-01-01" required> <br>
 					</div>
 					
-					<!-- display: none; 상태, 인증번호 전송 버튼 클릭 시 표시됨 -->
-					<div class="info auth">
-						<span>인증번호</span>
-						<input type="text" name="auth_num" placeholder="인증번호를 입력해주세요" required> <br>
-						<input type="button" class="auth_btn" value ="확인">
+					<div class="info">
+						<span>휴대폰번호</span>
+						<input type="text" name="member_phonenumber" placeholder=" - 없이 숫자만 입력해주세요." required> <br>
 					</div>
 					
 					<input type="submit" value="비밀번호 찾기" class="submitBtn">

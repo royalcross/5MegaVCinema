@@ -75,8 +75,23 @@ public class MemberController {
    }
    
    // 비회원 로그인 --------------------------------------------------------------------------------------
+   @PostMapping("MemberLoginUnregisted")
+   public String memberLoginUnregistered(
+           @RequestParam("name") String name,
+           @RequestParam("email") String email,
+           @RequestParam("phoneNum") String phoneNum,
+           @RequestParam("passwd") String passwd,
+           Model model) {
+       // 비회원 로그인 처리
+       if ("example@email.com".equals(email) && "1234".equals(passwd)) {
+           model.addAttribute("name", name);
+           model.addAttribute("email", email);
+           return "redirect:/"; 
+       } else {
+           return "result/fail"; 
+       }
+   }
    
-
    // 로그아웃 -------------------------------------------------------------------------------------------
    @GetMapping("MemberLogout")
    public String logout(HttpSession session) {
@@ -243,5 +258,5 @@ public class MemberController {
    public String myPageMain() {
       return "member/member_mypage";
    }
+         
 }
-    

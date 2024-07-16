@@ -17,11 +17,6 @@ public class MovieController {
 		return "movie/boxoffice";		
 	}
 
-	@GetMapping("Latest")
-	public String latest() {
-		return "movie/latest";
-	}
-
 	@GetMapping("Comming")
 	public String comming() {
 		return "movie/comming";
