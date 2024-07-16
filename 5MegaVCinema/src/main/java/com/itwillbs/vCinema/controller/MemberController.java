@@ -149,12 +149,28 @@ public class MemberController {
 	}
 	
 	// 비밀번호 찾기
-	@GetMapping("MemberSearchPw")
-	public String searchPw() {
-		
-		return "member/member_search_pw";
-	}
+	@PostMapping("MemberSearchPw")
+	   public String searchPw(@RequestParam Map<String, String> map, MemberVO member, BCryptPasswordEncoder passwordEncoder, Model model) {
+	      member =service.getMember(member);
+	      if (!passwordEncoder.matches((CharSequence)map.get("member_oldpw"), member.getMember_pw())) {
+	         model.addAttribute("msg", "수정 권한이 없습니다!");
+	         return "result/fail";
+	      } else {
+	         if (!((String)map.get("member_pw")).equals("")) {
+	            map.put("member_pw", passwordEncoder.encode((CharSequence)map.get("member_pw")));
+	         }
 
+	         int updateCount = service.modifyMember(map);
+	         if (updateCount > 0) {
+	            model.addAttribute("msg", "회원정보 수정 성공!");
+	            model.addAttribute("targetURL", "MemberInfo");
+	            return "result/success";
+	         } else {
+	            model.addAttribute("msg", "회원정보 수정 실패!");
+	            return "result/fail";
+	         }
+	      }
+	   }
 	
 	
 	
