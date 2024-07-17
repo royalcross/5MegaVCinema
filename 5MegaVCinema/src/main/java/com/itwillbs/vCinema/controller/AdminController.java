@@ -185,7 +185,7 @@ public class AdminController {
 		/* ------ 상영시간표  ------ */
 
 		
-		//연진) 관리자 - 영화관리 - 상영시간표
+		//상영시간표 목록 
 		@GetMapping("AdminPlayList")
 		public String adminPlay(@RequestParam(defaultValue = "") String searchKeyword,
 				@RequestParam(defaultValue = "1") int pageNum, Model model) {
@@ -225,7 +225,7 @@ public class AdminController {
 					//파라미터 : 검색타입, 검색어, 시작행번호, 게시물 수
 					//리턴타입 : List<BoardVO>(boardList)
 					List<Map<String, String>> playList = AdminService.getPlayList(searchKeyword, startRow, listLimit);
-//					System.out.println(movieList);
+//					System.out.println(" playList : " + playList);
 					
 					PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 					
@@ -237,24 +237,37 @@ public class AdminController {
 		}
 		
 		
-		//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록
-			@GetMapping("adminInsertPlay")
+		//상영시간표 등록
+			@GetMapping("AdminPlayRegist")
 			public String adminInsertPlayForm(HttpSession session, Model model, HttpServletRequest request, MovieVO movie) {
 //				if(session.getAttribute("sId") == null || session.getAttribute("sIsAdmin") == 0) {
 //					model.addAttribute("msg", "로그인 필수 ")
 //				}
 				
 				List<MovieVO> movieList = AdminService.getMovieList();
+//				List<PlayVO> playDayList = AdminService.getPlayDayList();
 				model.addAttribute("movieList", movieList);
 				return "admin/admin_play_insert_popup";
 			}
 			
-			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록
-			@PostMapping("adminInsertPlay")
+			//상영일 조회
+//			@GetMapping("getPlayDay")
+//			public String getPlayDay(HttpSession session, Model model, HttpServletRequest request, MovieVO movie) {
+////				if(session.getAttribute("sId") == null || session.getAttribute("sIsAdmin") == 0) {
+////					model.addAttribute("msg", "로그인 필수 ")
+////				}
+//				
+//				List<PlayVO> playDayList = AdminService.getPlayDayList();
+//				model.addAttribute("movieList", movieList);
+//				return "admin/admin_play_insert_popup";
+//			}
+			
+			//상영시간표 등록
+			@PostMapping("AdminPlayRegist")
 			public String adminInsertPlayForm(PlayVO play, HttpSession session, Model model) {
-				System.out.println("adminInsertPlayForm");
+//				System.out.println("adminInsertPlayForm");
 				int insertCount = AdminService.adminPlayRegist(play);
-				System.out.println(insertCount);
+//				System.out.println(insertCount);
 				if(insertCount > 0) {
 					model.addAttribute("msg", "성공적으로 처리되었습니다.");
 					model.addAttribute("targetURL", "AdminPlayList?pageNum=1");
@@ -267,23 +280,29 @@ public class AdminController {
 				
 			}
 			
-			//연진) 관리자 - 영화관리 - 상영시간표 관리 - 상영시간표 등록 - 상영종료 시간 조회
+			//상영종료 시간 조회
 			@ResponseBody
 			@GetMapping("getEndTime")
-			public String getEndTime(@RequestParam String movie_name_kr, String play_start_time, Model model) {
+			public String getEndTime(@RequestParam(defaultValue = "") String play_movie_name_kr, String play_start_time, Model model) {
+//				System.out.println("getEndTime");
 //				System.out.println(play_start_time);
 				int startHour = Integer.parseInt(play_start_time.split(":")[0]);
+//				System.out.println("startHour" + startHour);
+				System.out.println("play_movie_name_kr" + play_movie_name_kr);
+				
 				int startMin = Integer.parseInt(play_start_time.split(":")[1]);
 				LocalTime startTime = LocalTime.of(startHour, startMin);
+				System.out.println("startTime" + startTime);
 				
 				
-				int runtime = AdminService.getEndTime(movie_name_kr);
+				int runtime = AdminService.getEndTime(play_movie_name_kr);
+				System.out.println("runtime" + runtime);
 				int hour = runtime / 60;
 				int minute = runtime % 60;
 //				LocalTime runtime = LocalTime.of(hour, minute);
-//				System.out.println(runtime);
+				System.out.println(runtime);
 				
-				
+				System.out.println("play_movie_name_kr : " + play_movie_name_kr);
 				LocalTime endTime = startTime.plusHours(hour).plusMinutes(minute);
 //				System.out.println("endTime : " + endTime.toString());
 				String endTimeStr = endTime.toString();
@@ -308,17 +327,54 @@ public class AdminController {
 		//영화코드 조회하기
 			@ResponseBody
 			@GetMapping("getMovieCode")
-			public String getMovieCode(@RequestParam String movie_name_kr, Model model) {
+			public String getMovieCode(@RequestParam String play_movie_name_kr, Model model) {
 				
 				System.out.println("getMovieCode");
-				String movieCode = AdminService.getMovieCode(movie_name_kr);
+				String movieCode = AdminService.getMovieCode(play_movie_name_kr);
 				
 //				model.addAttribute("endTimeStr", endTimeStr);
 				return movieCode;
 			}
 		
-		
-		
+			
+			
+			
+			
+			
+			//상영시간표 수정
+			@GetMapping("AdminPlayModify")
+			public String adminPlayModify(@RequestParam(defaultValue = "0") int play_num, Model model) {
+//				System.out.println("item_id : " + item_id);
+				System.out.println("play_num : " + play_num);
+				// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
+				List<Map<String, String>> selectedPlayList = AdminService.getPlay(play_num);
+//				System.out.println("선택된 item 정보 : " + selectedItem);
+//				System.out.println("selectedPlayList : " + selectedPlayList);
+				// model 객체에 저장해서 전달
+				model.addAttribute("selectedPlayList", selectedPlayList);
+				return "admin/admin_play_modify_popup";
+			}
+			
+//			@PostMapping("AdminPlayModify")
+//			public String adminPlayModifyPro (Model model, @RequestParam(defaultValue = "") String item_id, 
+//												@RequestParam(defaultValue = "") String item_name, 
+//												@RequestParam(defaultValue = "") String item_content,
+//												@RequestParam(defaultValue = "0") int item_price) {
+//				// 스토어 아이템 수정 (update)
+//				// AdminStoreService - adminStoreModify();
+//				int updateCount = service.adminItemModify(item_id,item_name,item_content,item_price);
+//				
+//				if(updateCount > 0) {
+//					model.addAttribute("msg", "수정되었습니다.");
+//					model.addAttribute("targetURL", "AdminStore?pageNum=1");
+//					
+//					return "result/success";
+//				} else {
+//					model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+//					
+//					return "result/fail";
+//				}
+//			}
 		
 		
 		

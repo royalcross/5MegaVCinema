@@ -224,13 +224,14 @@
 <!-- 영화정보관리 게시판 -->
 						<table border="1">
 							<tr>
-								<th width="80px">상영기간</th>
-								<th width="120px">영화관명</th>
-								<th width="120px">상영관</th>
-								<th width="120px">영화명</th>
-								<th width="120px">시작시간</th>
-								<th width="120px">종료시간</th>
-								<th width="120px">수정 및 삭제</th>
+								<th>상영번호</th>
+								<th>상영일자</th>
+								<th>영화관명</th>
+								<th>상영관</th>
+								<th>영화명</th>
+								<th>시작시간</th>
+								<th>종료시간</th>
+								<th>수정 및 삭제</th>
 							</tr>
 			
 			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
@@ -240,21 +241,27 @@
 			<c:if test="${not empty param.pageNum}">
 				<c:set var="pageNum" value="${param.pageNum}"/>
 			</c:if>
+			<c:set var="play" target="${playList}">
 			
+			<c:out value="${play.movie_date}"></c:out>
+			</c:set>
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
 			<c:forEach var="play" items="${playList}">
 			<tr>
-				<td>${play.movie_date}</td>
+				<td>${play.play_num}</td>
+				<td>${play.play_date}</td>
 				<td>${play.theater_name}</td>
 				<td>${play.room_num}</td>
-				<td>${play.movie_name_kr}</td>
+				<td>${play.play_movie_name_kr}</td>
 				<td>${play.play_start_time}</td>
 				<td>${play.play_end_time}</td>
 				<td>
 				<input type="button" value="상세보기">
 				<input type="button" value="상영종료">
-					<button value="${room.room_num}" class="modifyBtn">수정</button>
+					<button value="${play.play_num}" class="modifyBtn">수정</button>
 			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
+				<%--수정을 위한 상영시간표 번호  --%>
+				<input type="hidden" value="${play.play_num}">
 				</td>
 			</tr>
 			</c:forEach>
@@ -268,7 +275,7 @@
 	<%-- ========================== 페이징 처리 영역 ========================== --%>
 	<section id="pageList">
 		<input type="button" value="이전" 
-				onclick="location.href='movieList?pageNum=${pageNum - 1}'"
+				onclick="location.href='AdminPlay?pageNum=${pageNum - 1}'"
 				<c:if test="${pageNum <= 1}">disabled</c:if>
 		>
 		
@@ -278,26 +285,50 @@
 					<b>${i}</b> <%-- 현재 페이지 번호 --%>
 				</c:when>
 				<c:otherwise>
-					<a href="movieList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+					<a href="AdminPlay?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		
 		<input type="button" value="다음" 
-				onclick="location.href='movieList?pageNum=${pageNum + 1}'"
+				onclick="location.href='AdminPlay?pageNum=${pageNum + 1}'"
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
-	</section>
+	</div>
+				</article>
+			</section>
+		</div>
+	
+	<!--  ----------- 등록 페이지 ----------->	
+	
+		
+		<div class="modal"> 
+		    <div class="modal_popup">
+		        <h3>상영스케줄 등록</h3>
+		        <div class="content">
+		        	<form action="AdminPlayRegist" method="post" name="registForm">
+		        		<div id="resultArea"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->
+						<div class="btnArea" style="text-align : center">
+				        	<input type="submit" class="regist_btn" value="등록">
+				        	<input type="button" class="close_btn" value="취소">
+				        </div>
+			        </form>
+				</div>
+		    </div>
+		</div>
+	
+	
+	
 	
 	<!--  ----------- 수정 페이지 ----------->	
 	
 		
 		<div class="modal"> <!-- 수정 -->
 		    <div class="modal_popup">
-		        <h3>상영관 수정</h3>
+		        <h3>상영시간표 수정할까요</h3>
 		        <div class="content">
-		        	<form action="adminInsertPlay" method="post" name="modifyForm">
-		        		<div id="resultArea"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->
+		        	<form action="AdminPlayModify" method="post" name="modifyForm">
+		        		<div id="resultArea2"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">
 				        	<input type="button" class="close_btn" value="취소">
@@ -331,7 +362,7 @@
 			$(function() {
 				$(registBtn).click(function() {
 					$.ajax({
-						url:"adminInsertPlay",
+						url:"AdminPlayRegist",
 	    				data:{
 	    					"item_id": $(this).val()
 	    					},
@@ -346,9 +377,9 @@
 			
 			// -------------------------------------------------------------------------
 			// 카테고리 관리
-			categoryBtn.onclick = function(){
-				modal[1].classList.add('on');
-			}
+// 			categoryBtn.onclick = function(){
+// 				modal[1].classList.add('on');
+// 			}
 			
 			// -------------------------------------------------------------------------
 			
@@ -356,7 +387,7 @@
 			for(let i = 0; i < modifyBtn.length ; i++) {
 				modifyBtn[i].onclick = function(){
 // 					console.log("modal")
-					modal[2].classList.add('on');
+					modal[1].classList.add('on');
 				}
 			}
 			
@@ -364,13 +395,13 @@
 			$(function() {
 				$(modifyBtn).click(function() {
 					$.ajax({
-						url:"AdminStoreModify",
+						url:"AdminPlayModify",
 	    				data:{
-	    					"item_id": $(this).val()
+	    					"play_num": $(this).val()
 	    					},
 	    				method:"get",
 	    				success: function (response) {
-	    					$("#resultArea").html(response);
+	    					$("#resultArea2").html(response);
 	    				}
 					});
 				});
@@ -385,52 +416,6 @@
 				}
 			}
 		</script>
-<script>
-	let tabMenu = document.querySelectorAll('.tabmenu');
-	let loginCon = document.querySelectorAll('.location');
-	
-	for(let i = 0; i < tabMenu.length; i++){
-        tabMenu[i].onclick = function () {
-            tabMenu[0].classList.remove('on');
-            tabMenu[1].classList.remove('on');
-            tabMenu[2].classList.remove('on');
-            tabMenu[3].classList.remove('on');
-                  
-            tabMenu[i].classList.add('on');
-
-            loginCon[0].classList.remove('on');
-            loginCon[1].classList.remove('on');
-            loginCon[2].classList.remove('on');
-            loginCon[3].classList.remove('on');
-
-            loginCon[i].classList.add('on');
-            
-            // theater_location_num_xxx 요소 숨김 처리
-            if(i == 0) {
-            	$(".theater_location_num_1000").show();
-            	$(".theater_location_num_1001").show();
-            	$(".theater_location_num_1002").show();
-            } else if(i == 1) {
-            	$(".theater_location_num_1000").show();
-            	$(".theater_location_num_1001").hide();
-            	$(".theater_location_num_1002").hide();
-            } else if(i == 2) {
-            	$(".theater_location_num_1000").hide();
-            	$(".theater_location_num_1001").show();
-            	$(".theater_location_num_1002").hide();
-            } else if(i == 3) {
-            	$(".theater_location_num_1000").hide();
-            	$(".theater_location_num_1001").hide();
-            	$(".theater_location_num_1002").show();
-            }
-        }
-	}
-	
-	
-	
-	
-	
-	</script>
 	
 	
 	
@@ -440,5 +425,4 @@
 		</footer>
 	</body>
 </html>
-
 

@@ -10,16 +10,15 @@ import com.itwillbs.vCinema.vo.NoticeVO;
 
 @Service
 public class MainService {
-
 	@Autowired
 	private MainMapper mapper;
 	
-	public List<NoticeVO> getNoticeList(int startRow, int listLimit) {
-		return mapper.selectNoticeList(startRow, listLimit);
+	public List<NoticeVO> getNoticeList() {
+		return mapper.selectNoticeList();
 	}
-
+	
 	public int getNoticeListCount() {
 		return mapper.selectNoticeListCount();
 	}
-
+	
 }

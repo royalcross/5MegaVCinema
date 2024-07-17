@@ -20,7 +20,7 @@
 	#payment_title, #item_info {text-align: left;}
 	#payment_title {font-size: 30px;}
 	#item_info {font-size: 20px;}
-	td>#item_theater {
+	td>#available_theaters {
 		color: blue;
 		text-decoration: underline;
 	}
@@ -62,140 +62,138 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
 	<section>
-		<form action="StorePaymentPro" method="post">
-			<table id="payment_page">
+		<table id="payment_page">
+			<tr>
+				<td colspan="5" id="payment_title">결제</td>
+			</tr>
+			<tr>
+				<td colspan="5" id="item_info">주문상품정보</td>
+			</tr>
+			<tr>
+				<th colspan="2">주문상품</th>
+				<th>사용가능처</th>
+				<th>구매수량</th>
+				<th>총 상품금액</th>
+			</tr>
+			<tr>
+				<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
+				<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
+				<td><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장 확인</a></td>
+				<td>${param.count}</td>
+				<td id="amount">${param.amount}</td>
+			</tr>
+		</table>
+		<br>
+		<c:if test="${param.paymentType eq 'gift'}">
+			<table id="gift">
 				<tr>
-					<td colspan="5" id="payment_title">결제</td>
+					<td colspan="4" id="gift_message">선물 메세지</td>
 				</tr>
 				<tr>
-					<td colspan="5" id="item_info">주문상품정보</td>
+					<th>받는 분</th>
+					<td><input type="text" id="recipient"></td>
+					<th rowspan="2" width="100">선물메세지<br><p id="message_length"></p></th>
+					<td rowspan="2"><textarea rows="5" cols="50" id="message" placeholder="전달하고자 하는 메세지를 남겨보세요(최대 70자)"></textarea></td>
 				</tr>
 				<tr>
-					<th colspan="2">주문상품</th>
-					<th>사용가능처</th>
-					<th>구매수량</th>
-					<th>총 상품금액</th>
-				</tr>
-				<tr>
-					<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
-					<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
-					<td><a href="javascript:availableTheaters()" id="item_theater">사용가능극장 확인</a></td>
-					<td>${param.count}</td>
-					<td id="amount">${param.amount}</td>
-				</tr>
-			</table>
-			<br>
-			<c:if test="${param.paymentType eq 'gift'}">
-				<table id="gift">
-					<tr>
-						<td colspan="4" id="gift_message">선물 메세지</td>
-					</tr>
-					<tr>
-						<th>받는 분</th>
-						<td><input type="text" id="recipient"></td>
-						<th rowspan="2" width="100">선물메세지<br><p id="message_length"></p></th>
-						<td rowspan="2"><textarea rows="5" cols="50" id="message" placeholder="전달하고자 하는 메세지를 남겨보세요(최대 70자)"></textarea></td>
-					</tr>
-					<tr>
-						<th>수량/휴대폰번호</th>
-						<td>
-							<select id="quantity">
-								<option>선택</option>
-								<option>1</option>
-								<c:if test="${param.count >= 2}">
-									<option>2</option>
-									<c:if test="${param.count >= 3}">
-										<option>3</option>
-										<c:if test="${param.count >= 4}">
-											<option>4</option>
-											<c:if test="${param.count >= 5}">
-												<option>5</option>
-												<c:if test="${param.count >= 6}">
-													<option>6</option>
-													<c:if test="${param.count >= 7}">
-														<option>7</option>
-														<c:if test="${param.count eq 8}">
-															<option>8</option>
-														</c:if>
+					<th>수량/휴대폰번호</th>
+					<td>
+						<select id="quantity">
+							<option>선택</option>
+							<option>1</option>
+							<c:if test="${param.count >= 2}">
+								<option>2</option>
+								<c:if test="${param.count >= 3}">
+									<option>3</option>
+									<c:if test="${param.count >= 4}">
+										<option>4</option>
+										<c:if test="${param.count >= 5}">
+											<option>5</option>
+											<c:if test="${param.count >= 6}">
+												<option>6</option>
+												<c:if test="${param.count >= 7}">
+													<option>7</option>
+													<c:if test="${param.count eq 8}">
+														<option>8</option>
 													</c:if>
 												</c:if>
 											</c:if>
 										</c:if>
 									</c:if>
 								</c:if>
-							</select>
-							<input type="text" id="recipient_phone" placeholder="'-'없이 입력해 주세요">
-							<input type="button" id="add_recipient" value="추가">
-						</td>
-					</tr>
-				</table>
-				<br>
-				<div id="gift_list"></div>
-				<br>
-			</c:if>
-			<table>
-				<tr>
-					<td id="final_payment">최종결제</td>
-				</tr>
-				<tr>
-					<td>최종 결제금액<br>${param.amount}</td>
-				</tr>
-				<tr>
-					<td>
-						결제수단 선택
-						<label><input type="radio" id="creditCard" name="payment_method" value="신용/체크카드" checked>신용/체크카드</label>
-						<label><input type="radio" id="kakaopay" name="payment_method" value="카카오페이">카카오페이</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="payment_method on">
-							신용/체크카드를 선택하셨습니다.<br>
-							즉시할인 신용카드 적용이 가능합니다.
-							<%-- 카드사 선택
-							<select id="card">
-								<option>카드선택</option>
-								<option>비씨카드</option>
-								<option>국민카드</option>
-								<option>신한카드</option>
-								<option>삼성카드</option>
-								<option>롯데카드</option>
-								<option>농협카드</option>
-								<option>하나카드</option>
-								<option>현대카드</option>
-								<option>씨티카드</option>
-								<option>제주카드</option>
-								<option>우리카드</option>
-								<option>수협카드</option>
-								<option>전북카드</option>
-								<option>광주카드</option>
-								<option>신협카드</option>
-								<option>카카오 뱅크</option>
-								<option>케이뱅크</option>
-								<option>우체국카드</option>
-								<option>토스카드</option>
-								<option>SC제일은행 비씨카드</option>
-								<option>SC제일은행 삼성카드</option>
-								<option>IBK기업은행 카드</option>
-							</select> --%>
-						</div>
-						<div class="payment_method">
-							카카오페이를 선택하셨습니다.<br>
-							즉시할인 신용카드 적용이 불가합니다.
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div id="cancelAndPayment">
-							<input type="button" id="cancel" value="취소">
-							<input type="button" id="payment" value="결제">
-						</div>
+							</c:if>
+						</select>
+						<input type="text" id="recipient_phone" placeholder="'-'없이 입력해 주세요">
+						<input type="button" id="add_recipient" value="추가">
 					</td>
 				</tr>
 			</table>
 			<br>
-		</form>
+			<div id="gift_list"></div>
+			<br>
+		</c:if>
+		<table>
+			<tr>
+				<td id="final_payment">최종결제</td>
+			</tr>
+			<tr>
+				<td>최종 결제금액<br>${param.amount}</td>
+			</tr>
+			<tr>
+				<td>
+					결제수단 선택
+					<label><input type="radio" id="creditCard" name="payment_method" value="신용/체크카드" checked>신용/체크카드</label>
+					<label><input type="radio" id="kakaopay" name="payment_method" value="카카오페이">카카오페이</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="payment_method on">
+						신용/체크카드를 선택하셨습니다.<br>
+						즉시할인 신용카드 적용이 가능합니다.
+<!-- 							카드사 선택 -->
+<!-- 							<select id="card"> -->
+<!-- 								<option>카드선택</option> -->
+<!-- 								<option>비씨카드</option> -->
+<!-- 								<option>국민카드</option> -->
+<!-- 								<option>신한카드</option> -->
+<!-- 								<option>삼성카드</option> -->
+<!-- 								<option>롯데카드</option> -->
+<!-- 								<option>농협카드</option> -->
+<!-- 								<option>하나카드</option> -->
+<!-- 								<option>현대카드</option> -->
+<!-- 								<option>씨티카드</option> -->
+<!-- 								<option>제주카드</option> -->
+<!-- 								<option>우리카드</option> -->
+<!-- 								<option>수협카드</option> -->
+<!-- 								<option>전북카드</option> -->
+<!-- 								<option>광주카드</option> -->
+<!-- 								<option>신협카드</option> -->
+<!-- 								<option>카카오 뱅크</option> -->
+<!-- 								<option>케이뱅크</option> -->
+<!-- 								<option>우체국카드</option> -->
+<!-- 								<option>토스카드</option> -->
+<!-- 								<option>SC제일은행 비씨카드</option> -->
+<!-- 								<option>SC제일은행 삼성카드</option> -->
+<!-- 								<option>IBK기업은행 카드</option> -->
+<!-- 							</select> -->
+					</div>
+					<div class="payment_method">
+						카카오페이를 선택하셨습니다.<br>
+						즉시할인 신용카드 적용이 불가합니다.
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="cancelAndPayment">
+						<input type="button" id="cancel" value="취소">
+						<input type="button" id="payment" value="결제">
+					</div>
+				</td>
+			</tr>
+		</table>
+		<br>
 	</section>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
@@ -303,7 +301,6 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
 								alert("결제가 완료되었습니다(신용/체크카드).");
 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
@@ -329,7 +326,6 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
 								alert("결제가 완료되었습니다(카카오페이).");
 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
@@ -360,7 +356,6 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
 								alert("결제가 완료되었습니다(신용/체크카드).");
 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시
@@ -386,7 +381,6 @@
 							// buyer_postcode : '123-456'
 						}, function(rsp) { // callback
 							if(rsp.success) { // 결제 성공시
-								// 결제 성공 시 구매 정보 DB에 저장 및 상품 구매정보 페이지로 이동
 								alert("결제가 완료되었습니다(카카오페이).");
 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
 							} else if(!rsp.success) { // 결제 실패시

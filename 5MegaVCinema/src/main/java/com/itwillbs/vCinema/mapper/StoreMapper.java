@@ -1,5 +1,7 @@
 package com.itwillbs.vCinema.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.itwillbs.vCinema.vo.OrderItemVO;
@@ -7,6 +9,8 @@ import com.itwillbs.vCinema.vo.StoreVO;
 
 @Mapper
 public interface StoreMapper {
+	
+	List<StoreVO> selectAllItem();
 	
 	// 상품정보 조회
 	StoreVO selectItem(StoreVO store);
