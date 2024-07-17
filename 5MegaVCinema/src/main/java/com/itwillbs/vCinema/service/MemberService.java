@@ -32,10 +32,4 @@ public class MemberService {
 	  return mapper.selectMemberSearchId(member);
    }
 
-   // 비번 찾기
-   public int changeMemberPw(String member_id) {
-	   return mapper.updatePassword(member_id);	   
-   }
-
-   
 }
