@@ -1,3 +1,4 @@
+
 package com.itwillbs.vCinema.mapper;
 
 import java.util.List;
@@ -15,3 +16,4 @@ public interface MainMapper {
 	int selectNoticeListCount();
 
 }
+

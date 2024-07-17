@@ -2,111 +2,111 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>index</title>
-		<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-sapn {
-margin: 0;
-padding: 0;
-border: 0;
-outline: 0;
-font-size 100%;
-vertical-align: baseling;
-}
-.name-2 {
-color: #fff;
-text-align: right;
-font-weight: 5000;
-font-shadow: 0 0 20px;
-ling-height: 1;
-}
-.name-3 {
-background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
-}
-.rate-12 {
-    background-color: #1e90ff;
-    color: white;
-    font-size: 12px;
-    padding: 3px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-}
-.rate-15 {
-    background-color: #ffa500;
-    color: white;
-    font-size: 12px;
-    padding: 3px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-}
-.rate-x {
-    background-color: #ff0000;
-    color: white;
-    font-size: 12px;
-    padding: 3px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-}
-.rate-all {
-    background-color: #008000;
-    color: white;
-    font-size: 12px;
-    padding: 3px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-} 
-        .selector-summary {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	sapn {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-size 100%;
+		vertical-align: baseling;
+	}
+	.name-2 {
+		color: #fff;
+		text-align: right;
+		font-weight: 5000;
+		font-shadow: 0 0 20px;
+		ling-height: 1;
+	}
+	.name-3 {
+		background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
+	}
+	.rate-12 {
+	    background-color: #1e90ff;
+	    color: white;
+	    font-size: 12px;
+	    padding: 3px 5px;
+	    border-radius: 3px;
+	    margin-right: 5px;
+	}
+	.rate-15 {
+	    background-color: #ffa500;
+	    color: white;
+	    font-size: 12px;
+	    padding: 3px 5px;
+	    border-radius: 3px;
+	    margin-right: 5px;
+	}
+	.rate-x {
+	    background-color: #ff0000;
+	    color: white;
+	    font-size: 12px;
+	    padding: 3px 5px;
+	    border-radius: 3px;
+	    margin-right: 5px;
+	}
+	.rate-all {
+	    background-color: #008000;
+	    color: white;
+	    font-size: 12px;
+	    padding: 3px 5px;
+	    border-radius: 3px;
+	    margin-right: 5px;
+	} 
+       .selector-summary {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+           display: flex;
+           justify-content: center;
+       }
 
-        .selector-summary li {
-            margin-right: 10px;
-        }
+       .selector-summary li {
+           margin-right: 10px;
+       }
 
-        .selector-summary li a {
-            display: block;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #000;
-            background-color: #eee;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+       .selector-summary li a {
+           display: block;
+           padding: 10px 20px;
+           text-decoration: none;
+           color: #000;
+           background-color: #eee;
+           border: 1px solid #ccc;
+           border-radius: 5px;
+           transition: background-color 0.3s ease;
+       }
 
-        .selector-summary li a.selected {
-            background-color: #FF0000;
-            color: #fff;
-        }
-        
-  .section-theater-summary {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border-radius: 10px;
-        }
-        .summary {
-            flex: 1;
-            margin: 0 10px;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-.cal {
+       .selector-summary li a.selected {
+           background-color: #FF0000;
+           color: #fff;
+       }
+       
+ 		.section-theater-summary {
+           display: flex;
+           justify-content: space-between;
+           max-width: 1200px;
+           margin: 20px auto;
+           padding: 20px;
+           background-color: #f5f5f5;
+           border-radius: 10px;
+       }
+       .summary {
+           flex: 1;
+           margin: 0 10px;
+           padding: 20px;
+           background-color: #fff;
+           border: 1px solid #ccc;
+           border-radius: 10px;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+       }
+	.cal {
         text-align: left; /* 가로 정렬을 왼쪽으로 설정 */
     }
 
@@ -142,7 +142,7 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
         color: #000; /* 링크 색상 */
         margin-left: 10px; /* 링크 간격 */
     }
-  .each-movie-time {
+   .each-movie-time {
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 20px;
@@ -255,15 +255,15 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
     	bottom: 400px;
     }
  	.name-2 {
- 	text-align: right;
- 	font-size: 30px;
+	 	text-align: right;
+	 	font-size: 30px;
  	}
 	.name-3 {
-	color: #fff;
+		color: #fff;
 	}
 
-		</style>
-	</head>
+</style>
+</head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
@@ -272,8 +272,6 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 	<article>
 		<div id="container">
 			<div id="content">
-
-
 
 				<div class="section group section-theater-head"
 					style="background: url('https://file.cineq.co.kr/j.aspx?guid=1b2b4cbf8ab0494282f8e27ce6d366f4') center center no-repeat; background-size: cover; width: 100%; height: 550px; margin-top: 50px;">
@@ -366,11 +364,11 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 			</div>
 		</div>
 		
-		<table
-		<tr>
-									<td>${movie.movie_name_kr}</td>
-		</tr>
-		></table>
+		<table>
+			<tr>
+				<td>${movie.movie_name_kr}</td>
+			</tr>
+		</table>
 		<form action="AdminStoreModify" method="post" name="movieForm">
 			<div id="resultArea"></div>
 			<!-- 수정 팝업 내용 들어갈 자리 -->

@@ -27,6 +27,11 @@ public class CsService {
 		return mapper.insertCs(cs);
 	}
 
+	// 1:1 문의 상세보기
+	public CsVO getCs(int cs_num) {
+		return mapper.selectCs(cs_num);
+	}
+
 
 
 }

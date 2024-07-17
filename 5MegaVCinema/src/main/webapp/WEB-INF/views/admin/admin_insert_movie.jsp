@@ -39,8 +39,9 @@
 		
 		<label for="movie_status">개봉상태</label>
 		<select id="movie_status" name="movie_status" required>
-			<option>개봉</option>
-			<option>상영종료</option>
+			<option value="release">개봉</option>
+			<option value="end">상영종료</option>
+			<option value="coming">상영예정</option>
 		</select>
 	<!-- 	<input type="text" id="movie_status" name="movie_status" placeholder="예시 : 개봉, 상영종료"><br> -->
 		
