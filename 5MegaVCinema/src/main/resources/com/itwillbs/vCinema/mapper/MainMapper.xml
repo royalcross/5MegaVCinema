@@ -6,16 +6,12 @@
 	
 	<select id="selectNoticeListCount" resultType="int">
 		SELECT COUNT(*)
-		FROM notice	
+		FROM notice
 	</select> 
 	
 	<select id="selectNoticeList" resultType="notice">
-		SELECT *
-		FROM notice	
-		ORDER BY
-			notice_num DESC
-		LIMIT
-			#{startRow}     
-			, #{listLimit} 
+		SELECT * 
+		FROM notice
+		ORDER BY notice_num DESC
 	</select>
 </mapper>

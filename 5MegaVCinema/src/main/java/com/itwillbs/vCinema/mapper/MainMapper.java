@@ -10,7 +10,7 @@ import com.itwillbs.vCinema.vo.NoticeVO;
 @Mapper
 public interface MainMapper {
 
-	List<NoticeVO> selectNoticeList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
+	List<NoticeVO> selectNoticeList();
 
 	int selectNoticeListCount();
 
