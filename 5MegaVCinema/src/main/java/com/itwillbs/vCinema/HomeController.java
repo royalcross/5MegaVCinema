@@ -34,6 +34,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model mode, @RequestParam (defaultValue = "1") int pageNum, Model model) {
 //		System.out.println("메인페이지");
+
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
 		int listLimit = 5; // 페이지 당 게시물 수
