@@ -180,19 +180,46 @@
 		color: white;
 	}
 	
-	#announcement {
-		margin-top: 100px;
-		margin-bottom: 100px;
+	#notice {
+		position: relative;
+		height: 350px;
 	}
-	
-	#announcement table {
-		width: 100%;
-		margin-top: 30px;
+	#notice>h1 {
+		font-size: 25px;
+		margin: 20px;
+	}
+	#notice>#notice_list {
+		border: 1px solid black;
+		position: relative;
+		position: absolute;
+		left: 180px;
+		width: 935px; height: 200px;
 		text-align: center;
+		font-size: 18px;
+		overflow: scroll;
 	}
-	
-	#announcement table th {
-		background-color: #eee;
+	#notice>#notice_list>ul {
+		position: absolute;
+		left: 90px;
+		width: 735px;
+	}
+	#notice>#notice_list>ul>li {
+		border-bottom: 1px solid black;
+		padding: 15px;
+	}
+	.notice_info {color: gray;}
+	.notice_info:hover {color: black;}
+	.notice_subject, .notice_date {
+		display: inline-block;
+		width: 345px;
+	}
+	.notice_subject {text-align: left;}
+	.notice_date {text-align: right;}
+	#notice>#notice_list_more {
+		position: absolute;
+		top: 245px;
+		left: 180px;
+		width: 935px; height: 35px;
 	}
 </style>
 </head>
@@ -200,168 +227,147 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-		<section id="movie_slider">
-<!-- 			개봉 예정작/현재 상영작<br> -->
-<!-- 			영화제목(한글)<br> -->
-<!-- 			영화제목(영어)<br> -->
-<!-- 			영화 간단 소개<br> -->
-			<%-- 이미지는 일정 시간마다 슬라이드 형식으로 변경 --%>
-			<%-- 이미지 파일은 임시로 설정(나중에 바꿀 예정) --%>
-<!-- 			<a href="#"><img alt="blue" src="resources/img/blue.jpg" ></a> -->
-<!-- 			<br> -->
-			
-			
-			<div class="slideshow-container">
-				<div class="mySlides fade">
-				  <div class="numbertext">1 / 3</div>
-				  <img src="https://cf2.lottecinema.co.kr/lotte_image/2024/BOL4/BOL4_1920774.jpg" style="width:100%">
-				<!--   <div class="text">Caption Text</div> -->
-				</div>
-				
-				<div class="mySlides fade">
-				  <div class="numbertext">2 / 3</div>
-				  <img src="https://cf2.lottecinema.co.kr/lotte_image/2024/TheBaton/TheBaton_1920774.jpg" style="width:100%">
-				<!--   <div class="text">Caption Two</div> -->
-				</div>
-				
-				<div class="mySlides fade">
-				  <div class="numbertext">3 / 3</div>
-				  <img src="https://cf2.lottecinema.co.kr/lotte_image/2024/HappyLittleSubmarine/HappyLittleSubmarine_19207742.png" style="width:100%">
-				<!--   <div class="text">Caption Three</div> -->
-				</div>
-				
-				<a class="prev" onclick="plusSlides(-1)">❮</a>
-				<a class="next" onclick="plusSlides(1)">❯</a>
-			
-			</div>
-			<br>
-			
-			<div style="text-align:center">
-			  <span class="dot" onclick="currentSlide(1)"></span> 
-			  <span class="dot" onclick="currentSlide(2)"></span> 
-			  <span class="dot" onclick="currentSlide(3)"></span> 
+	<section id="movie_slider">
+<!-- 		개봉 예정작/현재 상영작<br> -->
+<!-- 		영화제목(한글)<br> -->
+<!-- 		영화제목(영어)<br> -->
+<!-- 		영화 간단 소개<br> -->
+		<%-- 이미지는 일정 시간마다 슬라이드 형식으로 변경 --%>
+		<%-- 이미지 파일은 임시로 설정(나중에 바꿀 예정) --%>
+<!-- 		<a href="#"><img alt="blue" src="resources/img/blue.jpg" ></a> -->
+<!-- 		<br> -->
+		
+		
+		<div class="slideshow-container">
+			<div class="mySlides fade">
+				<div class="numbertext">1 / 3</div>
+				<img src="https://cf2.lottecinema.co.kr/lotte_image/2024/BOL4/BOL4_1920774.jpg" style="width:100%">
+			<!--   <div class="text">Caption Text</div> -->
 			</div>
 			
-			<script>
-				let slideIndex = 1;
-				showSlides(slideIndex);
-				
-				function plusSlides(n) {
-				  showSlides(slideIndex += n);
+			<div class="mySlides fade">
+				<div class="numbertext">2 / 3</div>
+				<img src="https://cf2.lottecinema.co.kr/lotte_image/2024/TheBaton/TheBaton_1920774.jpg" style="width:100%">
+			<!--   <div class="text">Caption Two</div> -->
+			</div>
+			
+			<div class="mySlides fade">
+				<div class="numbertext">3 / 3</div>
+				<img src="https://cf2.lottecinema.co.kr/lotte_image/2024/HappyLittleSubmarine/HappyLittleSubmarine_19207742.png" style="width:100%">
+			<!--   <div class="text">Caption Three</div> -->
+			</div>
+			
+			<a class="prev" onclick="plusSlides(-1)">❮</a>
+			<a class="next" onclick="plusSlides(1)">❯</a>
+			
+		</div>
+		<br>
+		
+		<div style="text-align:center">
+			<span class="dot" onclick="currentSlide(1)"></span> 
+			<span class="dot" onclick="currentSlide(2)"></span> 
+			<span class="dot" onclick="currentSlide(3)"></span> 
+		</div>
+		
+		<script>
+			let slideIndex = 1;
+			showSlides(slideIndex);
+			
+			function plusSlides(n) {
+				showSlides(slideIndex += n);
+			}
+			
+			function currentSlide(n) {
+				showSlides(slideIndex = n);
+			}
+			
+			function showSlides(n) {
+				let i;
+				let slides = document.getElementsByClassName("mySlides");
+				let dots = document.getElementsByClassName("dot");
+				if (n > slides.length) {slideIndex = 1}    
+				if (n < 1) {slideIndex = slides.length}
+				for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";  
 				}
-				
-				function currentSlide(n) {
-				  showSlides(slideIndex = n);
+				for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
 				}
-				
-				function showSlides(n) {
-				  let i;
-				  let slides = document.getElementsByClassName("mySlides");
-				  let dots = document.getElementsByClassName("dot");
-				  if (n > slides.length) {slideIndex = 1}    
-				  if (n < 1) {slideIndex = slides.length}
-				  for (i = 0; i < slides.length; i++) {
-				    slides[i].style.display = "none";  
-				  }
-				  for (i = 0; i < dots.length; i++) {
-				    dots[i].className = dots[i].className.replace(" active", "");
-				  }
-				  slides[slideIndex-1].style.display = "block";  
-				  dots[slideIndex-1].className += " active";
-				}
-			</script>
-		</section>
-		<section class="inner">
-			<section id="movie_list">
-				<table border="1">
-					<tr>
-						<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
-						<td id="movie_list1"><a href ="Boxoffice">박스오피스</a></td>
-						<td id="movie_list3"><a href ="Comming">상영예정작</a></td>
-					</tr>
-				</table>
-				<div class="m_list_inner">
-					<div class="swiper">
-						<!-- Additional required wrapper -->
-						<div class="swiper-wrapper">
-							<!-- Slides -->
-							<div class="swiper-slide">
-							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20235974&size=210"" onmouseover=""><br>
-									<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
-								</div>
-							</div> <!-- end swiper-slide -->
-							<div class="swiper-slide">
-							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20212932&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
-								</div>
-							</div> <!-- end swiper-slide -->
-							<div class="swiper-slide">
-							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20208245&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
-								</div>
-							</div> <!-- end swiper-slide -->
-							<div class="swiper-slide">
-							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20248465&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
-								</div>
-							</div> <!-- end swiper-slide -->
-							<div class="swiper-slide">
-							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20247811&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
-								</div>
-							</div> <!-- end swiper-slide -->
-						</div> <!-- end swiper-wrapper -->
-					</div>
+				slides[slideIndex-1].style.display = "block";  
+				dots[slideIndex-1].className += " active";
+			}
+		</script>
+	</section>
+	<section class="inner">
+		<section id="movie_list">
+			<table border="1">
+				<tr>
+					<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
+					<td id="movie_list1">박스오피스</td>
+					<td id="movie_list2">최신개봉작</td>
+					<td id="movie_list3">상영예정작</td>
+				</tr>
+			</table>
+			<div class="m_list_inner">
+				<div class="swiper">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<div class="swiper-slide">
+						 	<div class="movie_desc" id="movie_desc1">
+								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21258_101_1.jpg" onmouseover=""><br>
+								<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
+							</div>
+						</div> <!-- end swiper-slide -->
+						<div class="swiper-slide">
+						 	<div class="movie_desc" id="movie_desc1">
+								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21269_101_1.jpg" onmouseover=""><br>
+								<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
+							</div>
+						</div> <!-- end swiper-slide -->
+						<div class="swiper-slide">
+						 	<div class="movie_desc" id="movie_desc1">
+								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/21170_103_1.jpg" onmouseover=""><br>
+								<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
+							</div>
+						</div> <!-- end swiper-slide -->
+						<div class="swiper-slide">
+						 	<div class="movie_desc" id="movie_desc1">
+								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21195_101_1.jpg" onmouseover=""><br>
+								<p><a href="#"><span class="rate_19"><b>19</b></span>영화제목</a></p>
+							</div>
+						</div> <!-- end swiper-slide -->
+						<div class="swiper-slide">
+						 	<div class="movie_desc" id="movie_desc1">
+								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/20970_101_1.jpg" onmouseover=""><br>
+								<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
+							</div>
+						</div> <!-- end swiper-slide -->
+					</div> <!-- end swiper-wrapper -->
 				</div>
-			</section>
-			<section id="announcement">
-				<h1>공지사항</h1>
-				<table border="1">
-					<tr>
-						<th width="120px">글번호</th>
-						<th>제목</th>
-						<th width="120px">등록일</th>
-					</tr>
-					
-<%-- 					페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
-<%-- 					<c:set var="pageNum" value="1" /> --%>
-<%-- 					pageNum 파라미터 존재할 경우(= 비어있지 않음) 판별 --%>
-<%-- 					<c:if test="${not empty param.pageNum}"> --%>
-<%-- 						pageNum 변수에 pageNum 파라미터값 저장 --%>
-<%-- 						<c:set var="pageNum" value="${param.pageNum}" /> --%>
-<%-- 					</c:if> --%>
-
-<%-- 					<c:forEach var="notice" items="${NoticeList}"> --%>
-<!-- 						<tr> -->
-<%-- 							<td>${notice.notice_num}</td> --%>
-<%-- 							<td>${notice.notice_subject}</td> --%>
-<%-- 							<td><fmt:parseDate value="${notice.notice_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/> --%>
-<%-- 								<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> --%>
-<!-- 						</tr> -->
-<%-- 					</c:forEach> --%>
-					<tr>
-						<td>공지사항 번호</td>
-						<td>공지사항 제목</td>
-						<td>공지사항 등록일</td>
-					</tr>
-					<tr>
-						<td>공지사항 번호</td>
-						<td>공지사항 제목</td>
-						<td>공지사항 등록일</td>
-					</tr>
-					<tr>
-						<td>공지사항 번호</td>
-						<td>공지사항 제목</td>
-						<td>공지사항 등록일</td>
-					</tr>
-				</table>
-			</section>
+			</div>
 		</section>
+		<section id="notice">
+			<h1>공지사항</h1>
+			<div id="notice_list">
+				<ul>
+					<c:forEach var="i" begin="0" end="9">
+						<c:if test="${noticeList[i] != null}">
+							<li class="notice_info">
+								<div class="notice_subject">
+									<a href="NoticeDetail?notice_num=${noticeList[i].notice_num}">${noticeList[i].notice_theater_name} | ${noticeList[i].notice_subject}</a>
+								</div>
+								<div class="notice_date">
+									<a href="NoticeDetail?notice_num=${noticeList[i].notice_num}">${noticeList[i].notice_date}</a>
+								</div>
+							</li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</div>
+			<input type="button" id="notice_list_more" value="+더보기" onclick="location.href='Notice'">
+		</section>
+	</section>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 	</footer>
