@@ -101,16 +101,38 @@ public class StoreController {
 		return "store/store_available_theaters";
 	}
 	
-	@GetMapping("StorePaymentPro")
-	public String storePaymentPro(OrderItemVO orderItem, Model model) {
+	@GetMapping("StorePaymentSuccess")
+	public String storePaymentSuccess(OrderItemVO orderItem, Model model) {
+		// 상품 구매정보를 DB에 저장
 		int insertCount = service.setPaymentInfo(orderItem);
 		
+		// 상품 구매정보 저장 결과 판별
+		// 성공 시 "구매 정보 등록 성공!" 메세지 출력 및 "StorePaymentPro" 서블릿 주소 전달(success.jsp)
+		// 실패 시 "구매 정보 등록 실패!" 메세지 출력 및 이전페이지 처리(fail.jsp)
 		if(insertCount > 0) {
-			return "redirect:/Store";
+			model.addAttribute("msg", "구매 정보 등록 성공!");
+			model.addAttribute("targetURL", "StorePaymentPro");
+			return "result/success";
 		} else {
 			model.addAttribute("msg", "구매 정보 등록 실패!");
 			return "result/fail";
 		}
+	}
+	
+	@GetMapping("StorePaymentPro")
+	public String storePaymentPro(StoreVO store, OrderItemVO orderItem, Model model) {
+		// DB로부터 상품 구매정보를 가져와 OrderItemVO 객체에 저장
+		orderItem = service.getPaymentInfo();
+		// OrderItemVO 객체를 모델 객체에 저장
+		model.addAttribute("orderItem", orderItem);
 		
+		// 구매한 상품의 상품 아이디를 StoreVO 객체에 저장
+		store.setItem_id(orderItem.getOrder_item_item_id());
+		// 저장한 상품 아이디를 사용하여 DB로부터 상품정보를 가져와 StoreVO 객체에 저장
+		store = service.getItem(store);
+		// StoreVO 객체를 모델 객체에 저장
+		model.addAttribute("store", store);
+		// 상품 구매정보 페이지로 포워딩
+		return "store/store_payment_pro";
 	}
 }

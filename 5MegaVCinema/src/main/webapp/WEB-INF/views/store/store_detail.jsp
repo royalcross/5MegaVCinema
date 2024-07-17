@@ -60,6 +60,7 @@
 <%-- jquery 라이브러리 포함시키기 --%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script type="text/javascript">
+	// 사용가능극장
 	function availableTheaters() {
 		let url = "StoreAvailableTheaters";
 		let name = "store_available_theaters";
@@ -134,11 +135,11 @@
 				<td	>수량/금액</td>
 				<td>
 					<button type="button" id="minus">-</button>
-					<span id="count"><%-- $('#count').text(count); --%></span>
+					<span id="count"><%-- $("#count").text(count); --%></span>
 					<button type="button" id="plus">+</button>
 				</td>
 				<%-- 자바스크립트 구문에서 금액 기본값 지정 및 수량에 따라 금액 변경 --%>
-				<td id="amount"><%-- $('#amount').text(amountNum.toLocaleString() + '원'); --%></td>
+				<td id="amount"><%-- $("#amount").text(amountNum.toLocaleString() + '원'); --%></td>
 			</tr>
 			<tr>
 				<td colspan="3">
