@@ -78,10 +78,8 @@ public class AdminService {
 	public int insertTheater(TheaterVO theater) {
 		return mapper.insertTheater(theater);
 	}
-
-	public int getEndTime(String movie_name_kr) {
-		return mapper.selectMovieEndTime(movie_name_kr);
-	}
+	
+	
 	
 	
 	// ------- 상영관 ---------
@@ -127,11 +125,20 @@ public class AdminService {
 	}
 
 	//영화코드 가져오기
-	public String getMovieCode(String movie_name_kr) {
-		return mapper.selectMovieCode(movie_name_kr);
+	public String getMovieCode(String play_movie_name_kr) {
+		return mapper.selectMovieCode(play_movie_name_kr);
 	}
 
+	//상영종료시간 가져오기
+	public int getEndTime(String play_movie_name_kr) {
+		System.out.println("getEndTime Service");
+		return mapper.selectMovieEndTime(play_movie_name_kr);
+	}
 
+	//상영시간표 상세 정보 가져오기
+	public List<Map<String, String>> getPlay(int play_num) {
+		return mapper.selectPlay(play_num);
+	}
 	
 	
 	

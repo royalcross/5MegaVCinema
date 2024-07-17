@@ -49,8 +49,6 @@ public interface AdminMapper {
 
 	int insertTheater(TheaterVO theater);
 
-	int selectMovieEndTime(String movie_name_kr);
-	
 	//상영관 목록 개수
 	int selectRoomListCount(@Param("searchKeyword") String searchKeyword);
 
@@ -69,12 +67,18 @@ public interface AdminMapper {
 	//상영관 상세정보 가져오기
 	List<Map<String, String>> selectRoom(int room_num, int room_theater_num);
 
+	// ------- 상영시간표 ---------
 	
 	//상영시간표 등록
 	int insertPlay(PlayVO play);
 
 	//영화코드 가져오기
-	String selectMovieCode(String movie_name_kr);
+	String selectMovieCode(String play_movie_name_kr);
 	
+	//상영종료시간 가져오기
+	int selectMovieEndTime(@Param("play_movie_name_kr") String play_movie_name_kr);
+	
+	//상영시간표 상세 정보 가져오기
+	List<Map<String, String>> selectPlay(int play_num);
 	
 }
