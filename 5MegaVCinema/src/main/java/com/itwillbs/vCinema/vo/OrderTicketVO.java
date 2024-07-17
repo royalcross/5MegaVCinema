@@ -3,8 +3,10 @@ package com.itwillbs.vCinema.vo;
 import java.sql.Date;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
+@Getter
 public class OrderTicketVO {
 	private String order_ticket_id;
 	private String order_ticket_movie_code;

@@ -56,7 +56,7 @@ h2 {
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    getInfo(); // 페이지 로드 시 영화 데이터 가져오기
+    getInfo(); 
 });
 
 function getInfo() {
@@ -64,7 +64,7 @@ function getInfo() {
     let strDate = "20240705"; // 현재 날짜
 
 //     6개월 후 날짜 계산
-    let strSixMonthsLater = formatDate(new Date(today.getFullYear(), today.getMonth() + 6, today.getDate()));
+    let strSixMonthsLater = formatDate(new Date(today.getFullYear(), today.getMonth() + 3, today.getDate()));
 
 
     $.ajax({
@@ -135,7 +135,7 @@ function displayUpcomingMovies(movies) {
         getTMDBMoviePoster(movieId, function(posterPath) {
             if (posterPath) {
                 let movieElement = $('<div>').addClass('movie');
-                let posterUrl = 'https://image.tmdb.org/t/p/w200' + posterPath; // 포스터 이미지 URL 설정 (w200 크기)
+                let posterUrl = 'https://image.tmdb.org/t/p/w200' + posterPath; // 포스터 이미지 
                 let posterElement = $('<img>').addClass('movie-poster').attr('src', posterUrl).attr('alt', 'Movie Poster');
                 let titleElement = $('<div>').addClass('title').text((i + 1) + '. ' + movie.title); // 영화 제목에 순위 추가
                 let detailLink = $('<div>').addClass('content-link').text('상세 정보 보기'); // 상세 정보 링크 추가
@@ -166,7 +166,6 @@ function displayUpcomingMovies(movies) {
     <h2>상영예정작</h2>
     <div class="area">
         <a href="Boxoffice" >박스오피스</a> | 
-        <a href="Latest" >최신개봉작</a> | 
         <a href="Comming" >상영예정작</a> 
     </div>
     <div class="section-movie-list" id="upcomingMoviesContainer">

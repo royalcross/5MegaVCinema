@@ -23,7 +23,7 @@ public class CsController {
 	
 	// 1:1 문의 페이지 매핑
 	@GetMapping("Cs")
-	public String Cs(@RequestParam(defaultValue = "1") int pageNum, Model model, MemberVO member, HttpSession session,
+	public String cs(@RequestParam(defaultValue = "1") int pageNum, Model model, MemberVO member, HttpSession session,
 			@RequestParam(defaultValue ="") String searchKeyword) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
@@ -74,7 +74,7 @@ public class CsController {
 	
 	// 1:1 문의 등록 매핑
 	@GetMapping("CsForm")
-	public String CsRegistform(HttpSession session, Model model, String cs_member_id) {
+	public String csRegistform(HttpSession session, Model model, String cs_member_id) {
 //		System.out.println(member_id);
 		model.addAttribute("cs_member_id", cs_member_id);
 		return "cs/CsForm";
@@ -82,7 +82,7 @@ public class CsController {
 	
 	// 1:1 문의 작성
 	@PostMapping("CsRegistPro")
-	public String CsRegistPro(CsVO cs, Model model) {
+	public String csRegistPro(CsVO cs, Model model) {
 //		System.out.println(cs);
 		
 		int insertCount = service.registCs(cs);
@@ -95,5 +95,16 @@ public class CsController {
 		} 
 		
 		return "";
+	}
+	
+	// 1:1 문의 상세보기
+	@GetMapping("CsContent")
+	public String csContent(int cs_num, Model model) {
+		
+		CsVO selectedCs = service.getCs(cs_num);
+		
+		model.addAttribute("selectedCs", selectedCs);
+		
+		return "cs/CsContent";
 	}
 }

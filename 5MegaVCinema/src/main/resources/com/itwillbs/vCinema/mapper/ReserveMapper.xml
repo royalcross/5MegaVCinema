@@ -4,21 +4,19 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.itwillbs.vCinema.mapper.ReserveMapper">
     
-<!--     <select id="selectMovieList" resultType="hashmap"> -->
-<!--         SELECT * -->
-<!-- 		FROM movie m JOIN play p -->
-<!-- 		ON m.movie_code = p.play_movie_code -->
-<!--         WHERE  -->
-<!--         	play_theater_num = #{play_theater_num} -->
-<!--     </select> -->
     <select id="selectMovieList" resultType="movie">
         SELECT *
 		FROM movie 
     </select>
     
-    <select id="selectTheaterList" resultType="theater">
+<!--     <select id="selectTheaterList" resultType="theater"> -->
+<!--         SELECT * -->
+<!--         FROM theater -->
+<!--     </select> -->
+
+    <select id="selectTheaterList" resultType="play">
         SELECT *
-        FROM theater
+        FROM play
     </select>
     
     <select id="selectTheaterNum" resultType="theater">
@@ -27,5 +25,22 @@
         WHERE 
         	theater_name = #{theater_name}
     </select>
+
+	<select id="selectMovieList3" resultType="play">
+    	SELECT play_movie_name_kr
+		FROM play
+		WHERE play_theater_num = #{theater_num}
+    </select>
     
+    <select id="selectRoomList" resultType="play">
+    	SELECT *
+    	FROM play
+    	WHERE play_movie_name_kr = #{play_movie_name_kr}
+    </select>
+    
+    <select id="selectMovieTimeList" resultType="play">
+    	SELECT *
+		FROM play
+		WHERE play_room_num = #{play_room_num}
+    </select>
 </mapper>

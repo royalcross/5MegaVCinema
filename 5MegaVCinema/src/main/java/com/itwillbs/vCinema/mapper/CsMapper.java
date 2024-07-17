@@ -16,5 +16,8 @@ public interface CsMapper {
 	
 	int insertCs(CsVO cs);
 
+	// cs 문의 상세보기
+	CsVO selectCs(int cs_num);
+
 
 }
