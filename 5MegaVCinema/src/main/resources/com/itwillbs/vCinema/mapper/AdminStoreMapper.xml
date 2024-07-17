@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.vCinema.mapper.AdminStoreMapper">
+
+	<!-- 스토어 맵퍼.xml -->
+	<!-- 아이템 목록 총 개수 -->
+	<select id="selectItemListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM item
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				item_name like concat('%',#{searchKeyword},'%')
+				or item_content like concat('%',#{searchKeyword},'%')
+				or item_price like concat('%',#{searchKeyword},'%')
+				or item_theater_name like concat('%',#{searchKeyword},'%')
+		</if>
+	</select>
+	
+	<!-- 아이템 목록 조회 -->
+	<select id="selectItemList" resultType="item">
+		SELECT *
+		FROM item
+		<if test="!searchKeyword.equals('')">
+			WHERE 
+				item_name like concat('%',#{searchKeyword},'%')
+				or item_content like concat('%',#{searchKeyword},'%')
+				or item_price like concat('%',#{searchKeyword},'%')
+				or item_theater_name like concat('%',#{searchKeyword},'%')
+		</if>
+		ORDER BY
+			item_id 
+		LIMIT
+			#{startRow}     
+			, #{listLimit}  
+	</select>
+	
+	<!-- 아이템 삭제 -->
+	<delete id="deleteItem">
+		DELETE FROM item
+		WHERE item_id = #{item_id}
+	</delete>
+	
+	<!-- 아이템 상세정보 가져오기 -->
+	<select id="selectItem" resultType="item">
+		SELECT *
+		FROM item
+		WHERE item_id = #{item_id}
+	</select>
+	
+	<!-- 아이템 등록 -->
+	<insert id="insertItem">
+		INSERT INTO item
+		VALUES (
+			#{item_id}
+			, #{item_type}	
+			, #{item_name}	
+			, #{item_content}	
+			, #{item_price}	
+			, #{item_image}	
+			, #{item_quantity}	
+		)
+	</insert>
+	
+	<!-- 아이템 수정 -->
+	<update id="updateItem">
+		UPDATE item
+		SET 
+			item_name = #{item_name}
+			, item_content = #{item_content}
+			, item_price = #{item_price}
+		WHERE 
+			item_id = #{item_id}
+	</update>
+</mapper>
