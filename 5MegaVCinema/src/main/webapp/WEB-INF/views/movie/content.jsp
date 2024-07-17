@@ -10,50 +10,38 @@
 <style type="text/css">
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    text-align: center;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
 h2 {
-    text-align: center;
-    color: #333;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .movie-details {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left; /* 왼쪽 정렬 */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .movie-poster {
-    display: block;
-    margin: 0 auto; /* 가운데 정렬 */
     width: 300px;
     height: 450px;
-    object-fit: cover;
-    border-radius: 8px;
+    max-width: 100%;
+    margin-bottom: 20px;
 }
 
 .movie-info {
-    margin-top: 20px;
-}
-
-.movie-info dl {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid #ddd;
+    text-align: left;
 }
 
 .movie-info dt {
     font-weight: bold;
-    margin: 10px 0 5px;
 }
 
 .movie-info dd {
@@ -63,18 +51,16 @@ h2 {
 .back-link {
     margin-top: 20px;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    font-weight: bold;
 }
 
 .back-link:hover {
     background-color: #0056b3;
 }
-
 </style>
 </head>
 <body>
@@ -415,14 +401,14 @@ h2 {
         </c:choose>
         <img src="${moviePoster}" alt="${movieTitle} 포스터" class="movie-poster">
         <div class="movie-details">
-            <h2>${movieTitle}</h2> <br>
-            <p><strong>줄거리:</strong> ${movieSynopsis}</p> <br>
-            <p><strong>장르:</strong> ${movieGenres}</p> <br>
-            <p><strong>감독:</strong> ${movieDirector}</p> <br>
-            <p><strong>개봉일:</strong> ${movieRelease}</p> <br>
-            <p><strong>출시 국가:</strong> ${movieCountry}</p> <br>
-            <p><strong>러닝타임:</strong> ${movieRuntime}</p> <br>
-            <p><strong>출연 배우:</strong> ${movieCast}</p> <br>
+            <h2>${movieTitle}</h2>
+            <p><strong>줄거리:</strong> ${movieSynopsis}</p>
+            <p><strong>장르:</strong> ${movieGenres}</p>
+            <p><strong>감독:</strong> ${movieDirector}</p>
+            <p><strong>개봉일:</strong> ${movieRelease}</p>
+            <p><strong>출시 국가:</strong> ${movieCountry}</p>
+            <p><strong>러닝타임:</strong> ${movieRuntime}</p>
+            <p><strong>출연 배우:</strong> ${movieCast}</p>
             <p><strong>등급:</strong> ${movieRating}</p>
         </div>
         <a href="${pageContext.request.contextPath}/Boxoffice" class="back-link">박스오피스 페이지로 돌아가기</a>

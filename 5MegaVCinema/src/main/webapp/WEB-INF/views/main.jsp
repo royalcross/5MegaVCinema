@@ -276,8 +276,9 @@
 				<table border="1">
 					<tr>
 						<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
-						<td id="movie_list1"><a href ="Boxoffice">박스오피스</a></td>
-						<td id="movie_list3"><a href ="Comming">상영예정작</a></td>
+						<td id="movie_list1">박스오피스</td>
+						<td id="movie_list2">최신개봉작</td>
+						<td id="movie_list3">상영예정작</td>
 					</tr>
 				</table>
 				<div class="m_list_inner">
@@ -287,32 +288,32 @@
 							<!-- Slides -->
 							<div class="swiper-slide">
 							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20235974&size=210"" onmouseover=""><br>
+									<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21258_101_1.jpg" onmouseover=""><br>
 									<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
 								</div>
 							</div> <!-- end swiper-slide -->
 							<div class="swiper-slide">
 							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20212932&size=210" onmouseover=""><br>
+									<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21269_101_1.jpg" onmouseover=""><br>
 									<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
 								</div>
 							</div> <!-- end swiper-slide -->
 							<div class="swiper-slide">
 							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20208245&size=210" onmouseover=""><br>
+									<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/21170_103_1.jpg" onmouseover=""><br>
 									<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
 								</div>
 							</div> <!-- end swiper-slide -->
 							<div class="swiper-slide">
 							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20248465&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
+									<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21195_101_1.jpg" onmouseover=""><br>
+									<p><a href="#"><span class="rate_19"><b>19</b></span>영화제목</a></p>
 								</div>
 							</div> <!-- end swiper-slide -->
 							<div class="swiper-slide">
 							 	<div class="movie_desc" id="movie_desc1">
-									<img alt="dahlia" src="https://file.cineq.co.kr/i.aspx?movieid=20247811&size=210" onmouseover=""><br>
-									<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
+									<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/20970_101_1.jpg" onmouseover=""><br>
+									<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
 								</div>
 							</div> <!-- end swiper-slide -->
 						</div> <!-- end swiper-wrapper -->
