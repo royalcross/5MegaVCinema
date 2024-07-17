@@ -60,4 +60,10 @@
 			AND member_phonenumber = #{member_phonenumber}
 	</select>
 	
+   <!-- 비번 찾기 -->	
+	<update id="updatePassword">
+	    UPDATE member
+	    SET member_pw= #{member_pw}
+	    WHERE member_id = #{member_id}
+	</update>
 </mapper>

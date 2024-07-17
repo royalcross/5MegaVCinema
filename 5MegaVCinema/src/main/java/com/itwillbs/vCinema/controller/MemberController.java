@@ -82,14 +82,9 @@ public class MemberController {
            @RequestParam("phoneNum") String phoneNum,
            @RequestParam("passwd") String passwd,
            Model model) {
-       // 비회원 로그인 처리
-       if ("example@email.com".equals(email) && "1234".equals(passwd)) {
            model.addAttribute("name", name);
            model.addAttribute("email", email);
-           return "redirect:/"; 
-       } else {
-           return "result/fail"; 
-       }
+           return "redirect:/";        
    }
    
    // 로그아웃 -------------------------------------------------------------------------------------------
@@ -114,8 +109,7 @@ public class MemberController {
 //	    System.out.println("dbMember : " + dbMember);
 		
 		if(dbMember == null || dbMember.getMember_status().equals("탈퇴")) { // 회원정보 없을 때 or 탈퇴한 회원일 때
-			model.addAttribute("msg", "조회결과가 없습니다.");
-			
+			model.addAttribute("msg", "조회결과가 없습니다.");			
 	        return "result/fail";
 		}
 		
@@ -140,7 +134,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("SearchIdSuccess")
-	public String searchIdSuccess(String member_id, Model model) {
+	public String searchIdSuccess(@RequestParam String member_id, Model model) {
 		System.out.println(member_id);
 		
 		model.addAttribute("member_id", member_id);
@@ -149,9 +143,86 @@ public class MemberController {
 	}
 	
 	// 비밀번호 찾기
+	@GetMapping("MemberSearchPw")
+	public String MemberSearchPw() {
+		
+		return "member/member_search_pw";
+	}	
+//	 비밀번호 찾기
+	@PostMapping("SearchPwPro")
+	public String searchPwPro(MemberVO member, Model model) {
+		System.out.println("PostMapping(\"SearchPwPro\") member : " + member);
+		MemberVO dbMember = service.getMemberSearchId(member); // DB에 저장된 회원정보 가져오기
+	    System.out.println("dbMember : " + dbMember);
+			    
+		if (!member.getMember_name().equals(dbMember.getMember_name()) || 
+				!member.getMember_birth().equals(dbMember.getMember_birth()) ||
+				!member.getMember_phonenumber().equals(dbMember.getMember_phonenumber())) { // 정보가 하나라도 맞지 않으면 찾을 수 없어야함
+			
+			model.addAttribute("msg", "회원을 찾을 수 없습니다. 입력하신 정보를 확인해주세요.");
+			
+	        return "result/fail";
+	        
+		} 
+		//회원정보 일치 시 비밀번호 성공 페이지로 이동
+		else if(member.getMember_name().equals(dbMember.getMember_name()) && 
+			member.getMember_birth().equals(dbMember.getMember_birth()) &&
+			member.getMember_phonenumber().equals(dbMember.getMember_phonenumber())) { // 회원이 입력한 정보와 DB에 저장된 정보가 같을 때 ! 성공 !
+			
+			String member_id = dbMember.getMember_id();
+			
+			model.addAttribute("member_id", member_id);
+			model.addAttribute("targetURL", "SearchPwPro?member_id=" + member_id);
+			
+//			return "redirect:/SearchPwSuccess?member_id=" + member_id;
+//			return "member/member_search_pw_success";
+			
+			return "result/success";
+		}
+		return "";		
+	}	
+		
+	// 비밀번호 변경
+	@GetMapping("SearchPwPro")
+	   public String searchPwSuccess(Model model, @RequestParam(defaultValue = "") String member_id) {
+		System.out.println("get : " + member_id);
+		
+//		model.addAttribute("member_id", member_id);
+		
+		return "member/member_search_pw_success";
+	}
 	
-	
-	
+	@PostMapping("SearchPwSuccess")
+		public String searchPwSuccessPro(@RequestParam(defaultValue = "") String member_id, @RequestParam Map<String, String> map, BCryptPasswordEncoder passwordEncoder, Model model) {
+	    
+	    // 비밀번호 변경
+	    String newPassword = map.get("member_pw");
+	    
+	    //변경된 비밀번호 콘솔에 출력
+//	    System.out.println("newPassword : " + newPassword);
+	    System.out.println("post : " + member_id);
+	    
+	    if (newPassword != null && !newPassword.isEmpty()) {
+	        String encodedPassword = passwordEncoder.encode(newPassword);
+	        map.put("member_pw", encodedPassword);
+	      
+	        int updateCount = service.changeMemberPw(member_id);
+	        System.out.println("updateCount : " + updateCount);
+	        
+	        if (updateCount > 0) {
+	        	model.addAttribute("msg", "회원정보 수정 성공!");
+	        	model.addAttribute("targetURL", "MemberInfo");	     
+	        	return "result/success";
+	        } else {
+		        model.addAttribute("msg", "회원정보 수정 실패!.");
+		        return "result/fail";
+		    }
+	        
+	    }//바깥 if문
+		return "redirect:/"; 
+	    
+	}
+
 	
 	
 	
