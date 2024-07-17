@@ -10,7 +10,8 @@ import com.itwillbs.vCinema.vo.StoreVO;
 @Mapper
 public interface StoreMapper {
 	
-	List<StoreVO> selectAllItem();
+	// 상품목록 조회
+	List<StoreVO> selectItemList();
 	
 	// 상품정보 조회
 	StoreVO selectItem(StoreVO store);

@@ -107,69 +107,58 @@
 		<div class="item_photo">
 			<p id="new_product1">V티켓</p>
 			<p class="see_more">더보기&gt;</p>
-			<c:forEach var="i" begin="0" end="4">
-				<c:if test="${Ticket[i] != null}">
+			<%-- 상품 목록 개수를 5개로 제한하기 위해 <c:set>태그로 limit 변수 선언 및 초기화 --%>
+			<c:set var="limit" value="0"/>
+			<c:forEach items="${storeList}" varStatus="status">
+				<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
+				<c:if test="${storeList[status.index] != null and storeList[status.index].item_type eq 'Ticket' and limit < 5}">
 					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[i].item_id}&item_type=${Ticket[i].item_type}'">
-							<img alt="${Ticket[i].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
-							<p class="item_name"><b>${Ticket[i].item_name}</b></p>
-							<p class="item_content">${Ticket[i].item_content}</p>
-							<p class="item_price">${Ticket[i].item_price}원</p>
+						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
+							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
+							<p class="item_content">${storeList[status.index].item_content}</p>
+							<p class="item_price">${storeList[status.index].item_price}원</p>
 						</button>
 					</div>
+					<%-- 상품 목록이 하나 추가될 때마다 limit 변수의 값을 1씩 증가 --%>
+					<c:set var="limit" value="${limit + 1}"/>
 				</c:if>
 			</c:forEach>
 		</div>
 		<div class="item_photo">
 			<p id="new_product2">팝콘/음료/굿즈</p>
 			<p class="see_more">더보기&gt;</p>
-			<c:forEach var="i" begin="0" end="1">
-				<c:if test="${Popcorn[i] != null}">
+			<%-- 상품 목록 개수를 5개로 제한하기 위해 <c:set>태그로 limit 변수 선언 및 초기화 --%>
+			<c:set var="limit" value="0"/>
+			<c:forEach items="${storeList}" varStatus="status">
+				<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
+				<c:if test="${storeList[status.index] != null and (storeList[status.index].item_type eq 'Popcorn' or storeList[status.index].item_type eq 'Drinks' or storeList[status.index].item_type eq 'Goods') and limit < 5}">
 					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[i].item_id}&item_type=${Popcorn[i].item_type}'">
-							<img alt="${Popcorn[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Popcorn[i].item_name}</b></p>
-							<p class="item_content">${Popcorn[i].item_content}</p>
-							<p class="item_price">${Popcorn[i].item_price}원</p>
+						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
+							<p class="item_content">${storeList[status.index].item_content}</p>
+							<p class="item_price">${storeList[status.index].item_price}원</p>
 						</button>
 					</div>
+					<%-- 상품 목록이 하나 추가될 때마다 limit 변수의 값을 1씩 증가 --%>
+					<c:set var="limit" value="${limit + 1}"/>
 				</c:if>
 			</c:forEach>
-			<c:forEach var="i" begin="0" end="1">
-				<c:if test="${Drinks[i] != null}">
-					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Drinks[i].item_id}&item_type=${Drinks[i].item_type}'">
-							<img alt="${Drinks[i].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Drinks[i].item_name}</b></p>
-							<p class="item_content">${Drinks[i].item_content}</p>
-							<p class="item_price">${Drinks[i].item_price}원</p>
-						</button>
-					</div>
-				</c:if>
-			</c:forEach>
-			<c:if test="${Goods[0] != null}">
-				<div class="photo">
-					<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[0].item_id}&item_type=${Goods[0].item_type}'">
-						<img alt="${Goods[0].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-						<p class="item_name"><b>${Goods[0].item_name}</b></p>
-						<p class="item_content">${Goods[0].item_content}</p>
-						<p class="item_price">${Goods[0].item_price}원</p>
-					</button>
-				</div>
-			</c:if>
 		</div>
 	</section>
 	<%-- V티켓 목록 --%>
 	<section class="listForm">
 		<div class="item_photo">
-			<c:forEach items="${Ticket}" varStatus="status">
-				<c:if test="${Ticket[status.index] != null}">
+			<c:forEach items="${storeList}" varStatus="status">
+				<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
+				<c:if test="${storeList[status.index] != null and storeList[status.index].item_type eq 'Ticket'}">
 					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Ticket[status.index].item_id}&item_type=${Ticket[status.index].item_type}'">
-							<img alt="${Ticket[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
-							<p class="item_name"><b>${Ticket[status.index].item_name}</b></p>
-							<p class="item_content">${Ticket[status.index].item_content}</p>
-							<p class="item_price">${Ticket[status.index].item_price}원</p>
+						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/png/ticket.png">
+							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
+							<p class="item_content">${storeList[status.index].item_content}</p>
+							<p class="item_price">${storeList[status.index].item_price}원</p>
 						</button>
 					</div>
 				</c:if>
@@ -179,38 +168,15 @@
 	<%-- 팝콘/음료/굿즈 목록 --%>
 	<section class="listForm">
 		<div class="item_photo">
-			<c:forEach items="${Popcorn}" varStatus="status">
-				<c:if test="${Popcorn[status.index] != null}">
+			<c:forEach items="${storeList}" varStatus="status">
+				<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
+				<c:if test="${storeList[status.index] != null and (storeList[status.index].item_type eq 'Popcorn' or storeList[status.index].item_type eq 'Drinks' or storeList[status.index].item_type eq 'Goods')}">
 					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Popcorn[status.index].item_id}&item_type=${Popcorn[status.index].item_type}'">
-							<img alt="${Popcorn[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Popcorn[status.index].item_name}</b></p>
-							<p class="item_content">${Popcorn[status.index].item_content}</p>
-							<p class="item_price">${Popcorn[status.index].item_price}원</p>
-						</button>
-					</div>
-				</c:if>
-			</c:forEach>
-			<c:forEach items="${Drinks}" varStatus="status">
-				<c:if test="${Drinks[status.index] != null}">
-					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Drinks[status.index].item_id}&item_type=${Drinks[status.index].item_type}'">
-							<img alt="${Drinks[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Drinks[status.index].item_name}</b></p>
-							<p class="item_content">${Drinks[status.index].item_content}</p>
-							<p class="item_price">${Drinks[status.index].item_price}원</p>
-						</button>
-					</div>
-				</c:if>
-			</c:forEach>
-			<c:forEach items="${Goods}" varStatus="status">
-				<c:if test="${Goods[status.index] != null}">
-					<div class="photo">
-						<button type="button" onclick="location.href='StoreDetail?item_id=${Goods[status.index].item_id}&item_type=${Goods[status.index].item_type}'">
-							<img alt="${Goods[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
-							<p class="item_name"><b>${Goods[status.index].item_name}</b></p>
-							<p class="item_content">${Goods[status.index].item_content}</p>
-							<p class="item_price">${Goods[status.index].item_price}원</p>
+						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg">
+							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
+							<p class="item_content">${storeList[status.index].item_content}</p>
+							<p class="item_price">${storeList[status.index].item_price}원</p>
 						</button>
 					</div>
 				</c:if>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.vCinema.service.MainService;
+import com.itwillbs.vCinema.vo.MovieVO;
 import com.itwillbs.vCinema.vo.NoticeVO;
 
 /**
@@ -31,8 +32,14 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model mode, @RequestParam (defaultValue = "1") int pageNum, Model model) {
+	public String home(Locale locale, Model model) {
 		System.out.println("메인페이지(HomeController)");
+		
+		// DB로부터 영화 목록을 가져와 List 객체에 저장
+		List<MovieVO> movieList = service.getMovieList();
+		// List 객체를 Model 객체에 저장
+		model.addAttribute("movieList", movieList);
+		
 		// DB로부터 공지사항 목록을 가져와 List 객체에 저장
 		List<NoticeVO> noticeList = service.getNoticeList();
 		// List 객체를 Model 객체에 저장
