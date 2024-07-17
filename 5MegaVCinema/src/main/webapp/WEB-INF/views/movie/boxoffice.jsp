@@ -9,53 +9,80 @@
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
 }
 
 h2 {
     margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+.area {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.area a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.area a:hover {
+    text-decoration: underline;
 }
 
 .section-movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px; 
-    justify-items: center; 
-    max-width: 1200px; 
-    margin: 0 auto; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* 각 포스터 이미지 스타일 */
-.movie-poster {
-    width: 250px; 
-    height: 300px;
-    max-width: 100%; 
-}
-
-/* 각 포스터에 대한 스타일 */
 .movie {
-    margin-bottom: 20px; 
-    text-align: center; 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    padding: 10px;
+    text-align: center;
 }
 
-/* 영화 제목 */
+.movie:hover {
+    transform: scale(1.05);
+}
+
+.movie-poster {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
 .title {
     margin-top: 10px;
-    font-size: 16px;
-    color: #666;
+    font-size: 18px;
+    color: #333;
 }
 
-/* 상세 정보 */
 .content-link {
     margin-top: 10px;
     font-size: 14px;
-    color: blue;
-    text-decoration: underline;
+    color: #007bff;
+    text-decoration: none;
     cursor: pointer;
+}
+
+.content-link:hover {
+    text-decoration: underline;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -143,7 +170,6 @@ function createDetailLink(movieId) {
     });
     return detailLink;
 }
-
 </script>
 </head>
 <body>
@@ -164,3 +190,4 @@ function createDetailLink(movieId) {
     </footer>
 </body>
 </html>
+
