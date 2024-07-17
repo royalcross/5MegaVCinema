@@ -258,7 +258,7 @@
 		    <div class="modal_popup">
 		        <h3>1:1 문의 답변 보기</h3>
 		        <div class="content">
-	        		<div id="resultArea"></div>  <!-- 팝업 내용 들어갈 자리 -->
+	        		<div id="resultArea2"></div>  <!-- 팝업 내용 들어갈 자리 -->
 				</div>
 				<div class="btnArea" style="text-align : center">
 		        	<input type="button" class="close_btn" value="닫기">
@@ -315,9 +315,9 @@
 	    				data:{
 	    					"cs_num" : $(this).val()
 	    					},
-	    				type:"GET",
+	    				method:"get",
 	    				success: function (response) {
-	    					$("#resultArea").html(response);
+	    					$("#resultArea2").html(response);
 	    				}
 					});
 				});

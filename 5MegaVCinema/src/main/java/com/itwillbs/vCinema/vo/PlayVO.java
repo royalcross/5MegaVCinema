@@ -1,7 +1,5 @@
 package com.itwillbs.vCinema.vo;
 
-import java.time.LocalTime;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -16,5 +14,7 @@ public class PlayVO {
 	@DateTimeFormat(pattern = "HH:mm")
 	private String play_start_time;
 	private String play_end_time;
+	private String play_movie_name_kr;
+	private String play_theater_name;
 	
 }
