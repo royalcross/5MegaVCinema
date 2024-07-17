@@ -119,7 +119,7 @@
 		</div>
 		<div class="section group section-mypage-select">
 			<ul class="selector-summary">
-				<li><a href="MyPageMain2" class="">예매/취소내역</a></li>
+				<li><a href="MyPageMain" class="">예매/취소내역</a></li>
 				<li><a href="MyPage_CouponList" class="selected">관람권/쿠폰</a></li>
 				<li><a href="/Customer/InquiryList" class=" loginpop">나의
 						문의내역</a></li>

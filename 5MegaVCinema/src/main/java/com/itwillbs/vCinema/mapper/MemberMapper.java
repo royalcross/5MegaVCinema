@@ -2,8 +2,12 @@
 package com.itwillbs.vCinema.mapper;
 
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderTicketVO;
+
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
@@ -16,6 +20,14 @@ public interface MemberMapper {
    int updateWithdrawMember(MemberVO member);
 
    MemberVO selectMemberSearchId(MemberVO member);
+
+   int selectListCount(String searchKeyword);
+
+   List<MemberVO> selectMemberList(int startRow, int listLimit, String searchKeyword);
+
+   List<Map<String, String>> selectOrderticket2(int member_num);
+
+   int selectMember_num(String id);
 
 
 }

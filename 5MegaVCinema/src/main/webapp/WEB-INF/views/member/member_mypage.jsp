@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -119,7 +121,7 @@
 		</div>
 		<div class="section group section-mypage-select">
 			<ul class="selector-summary">
-				<li><a href="MyPageMain2" class="selected">예매/취소내역</a></li>
+				<li><a href="MyPageMain" class="selected">예매/취소내역</a></li>
 				<li><a href="MyPage_CouponList" class="">관람권/쿠폰</a></li>
 				<li><a href="/Customer/InquiryList" class=" loginpop">나의
 						문의내역</a></li>
@@ -132,6 +134,44 @@
             <a href="#" onclick="fnReserveList(false); return false;" class="selected">예매/구매내역</a>
             <a href="#" onclick="fnCancelList(false); return false;">취소내역</a>
         </div>
+        <div class="content">
+						<table border="1" >
+							<tr>
+								<th width="100px">예매번호</th>
+								<th width="120px">예매자 회원번호</th>
+								<th width="160px">영화</th>
+								<th width="120px">상영일</th>
+								<th width="160px">극장</th>
+								
+							</tr>
+							
+							<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
+							<c:set var="pageNum" value="1" />
+							<%-- pageNum 파라미터 존재할 경우(= 비어있지 않음) 판별 --%>
+							<c:if test="${not empty param.pageNum}">
+								<%-- pageNum 변수에 pageNum 파라미터값 저장 --%>
+								<c:set var="pageNum" value="${param.pageNum}" />
+							</c:if>
+							
+							<c:forEach var="orderTicket" items="${orderticket2}">
+								<tr align="center">
+									<td>${orderTicket.order_ticket_id}</td>
+									<td>${orderTicket.order_ticket_member_num}</td>
+									<td>${orderTicket.movie_name_kr}</td> 
+									<td><fmt:parseDate value="${orderTicket.order_ticket_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> <!-- 2024-07-13 의 형식 -->
+									<td>${orderTicket.theater_name}</td>
+									
+								</tr>
+							</c:forEach>
+							<c:if test="${empty orderticket2}">
+								<tr>
+									<td align="center" colspan="8">검색결과가 없습니다.</td>
+								</tr>
+							</c:if>
+						</table>
+					</div>
+        
         <ul class="list-movie"></ul>
         <a href="#" class="btn-more" style="display: none;">더보기 +</a>
     </div><!--.wrap-->

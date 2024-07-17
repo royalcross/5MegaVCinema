@@ -60,4 +60,36 @@
 			AND member_phonenumber = #{member_phonenumber}
 	</select>
 	
+	<select id="selectMember_num" resultType="int">
+		SELECT member_num
+		FROM member
+		WHERE member_id = #{id}
+	
+	</select>
+	
+	
+	
+	<select id="selectOrderticket2"  resultType="hashmap">
+		SELECT 
+			o.order_ticket_id
+			, o.order_ticket_member_num
+			, v.movie_name_kr
+			, o.order_ticket_date
+			, t.theater_name
+			, o.order_ticket_seat_num
+			, o.order_ticket_how_many_people
+			, tk.ticket_price
+			, o.order_ticket_status
+			, o.order_ticket_room_num
+		FROM order_ticket o 
+		JOIN theater t 
+		ON o.order_ticket_theater_num = t.theater_num 
+		JOIN movie v 
+		ON o.order_ticket_movie_code = v.movie_code 
+		JOIN ticket tk
+		ON o.order_ticket_type = tk.ticket_num 
+		WHERE order_ticket_member_num = #{member_num}
+	</select>
+	
+	
 </mapper>

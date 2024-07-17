@@ -2,6 +2,9 @@
 
 import com.itwillbs.vCinema.mapper.MemberMapper;
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderTicketVO;
+
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,19 @@ public class MemberService {
    // 아이디 찾기
    public MemberVO getMemberSearchId(MemberVO member) {
 	  return mapper.selectMemberSearchId(member);
+   }
+
+
+
+
+
+   public List<Map<String, String>> getorderticket2(int member_num) {
+	   return mapper.selectOrderticket2(member_num);
+   }
+   // 아이디값을 활용해서 멤버 넘 구하기
+   public int getMember_num(String id) {
+	   // TODO Auto-generated method stub
+	   return mapper.selectMember_num(id);
    }
 
 }

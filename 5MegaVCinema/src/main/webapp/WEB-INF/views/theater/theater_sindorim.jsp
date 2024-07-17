@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -261,6 +263,35 @@
 	.name-3 {
 		color: #fff;
 	}
+	
+	  .content {
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%; /* 테이블 너비를 더 줄여서 작게 표시 */
+            margin-left: 0; /* 왼쪽에 붙이기 위해 margin-left를 0으로 설정 */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; /* 모든 텍스트를 왼쪽 정렬 */
+        }
+        th {
+            background-color: #f2f2f2;
+            color: black;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .no-data {
+            text-align: center;
+            font-weight: bold;
+            color: red;
+        }
 
 </style>
 </head>
@@ -364,11 +395,39 @@
 			</div>
 		</div>
 		
-		<table>
+		<table border="1">
+							<tr>
+								<th width="120px">영화관명</th>
+								<th width="120px">상영관</th>
+								<th width="120px">영화명</th>
+								<th width="120px">시작시간</th>
+								<th width="120px">종료시간</th>
+							</tr>
+			
+			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
+			<c:set var="pageNum" value="1"/>
+			
+			<%-- pageNum 파라미터 존재할 경우(비어있지 않음) 판별 --%>
+			<c:if test="${not empty param.pageNum}">
+				<c:set var="pageNum" value="${param.pageNum}"/>
+			</c:if>
+			
+			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
+			<c:forEach var="play" items="${playList}">
 			<tr>
-				<td>${movie.movie_name_kr}</td>
+				
+				<td>${play.theater_name}</td>
+				<td>${play.room_num}</td>
+				<td>${play.movie_name_kr}</td>
+				<td>${play.play_start_time}</td>
+				<td>${play.play_end_time}</td>
 			</tr>
-		</table>
+			</c:forEach>
+			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
+			<c:if test="${empty playList}">
+				<tr><td colspan="7">게시물이 존재하지 않습니다.</td></tr>
+			</c:if>
+	</table>
 		<form action="AdminStoreModify" method="post" name="movieForm">
 			<div id="resultArea"></div>
 			<!-- 수정 팝업 내용 들어갈 자리 -->
@@ -384,20 +443,7 @@
 	</footer>
 </body>
 <script type="text/javascript">
-$(function() {
-	$(movieBtn).click(function() {
-		$.ajax({
-			url:"AdminStoreModify",
-			data:{
-				"movie_name_kr": $(this).val()
-				},
-			method:"post",
-			success: function (response) {
-				$("#resultArea").html(response);
-			}
-		});
-	});
-});
+
 </script>
 
 </html>
