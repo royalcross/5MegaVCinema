@@ -296,7 +296,7 @@ h2 {
                 <c:set var="movieCountry" value="미국"/>
                 <c:set var="movieRuntime" value="127분"/>
                 <c:set var="movieCast" value="라이언 레이놀즈 | 휴 잭맨"/>
-                <c:set var="movieRating" value="미정"/>               
+                <c:set var="movieRating" value="청소년 관람불가"/>               
                 <c:set var="moviePoster" value="https://file.cineq.co.kr/i.aspx?movieid=20247781&size=210"/>
                 <c:set var="movieSynopsis" value="히어로 생활에서 은퇴한 후, 평범한 중고차 딜러로 살아가던 ‘데드풀’이 예상치 못한 거대한 위기를 맞아 모든 면에서 상극인 ‘울버린’을 찾아가게 되며 펼쳐지는 도파민 폭발 액션 블록버스터"/>
             </c:when>

@@ -17,5 +17,10 @@ public interface MemberMapper {
 
    MemberVO selectMemberSearchId(MemberVO member);
 
+   MemberVO selectId(MemberVO member);
+
+   int updatePasswd(Map<String, String> map);
+
+   MemberVO selectTel(MemberVO member);
 
 }

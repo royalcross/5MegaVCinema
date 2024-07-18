@@ -165,7 +165,7 @@
 					
 					<ul>
 						<li><a href="MemberSearchId">아이디 찾기</a></li>
-						<li><a href="MemberSearchPw">비밀번호 찾기</a></li>
+						<li><a href="Passwd_find">비밀번호 찾기</a></li>
 						<li><a href="MemberJoin">회원가입</a></li>
 					</ul>
 				</form>
