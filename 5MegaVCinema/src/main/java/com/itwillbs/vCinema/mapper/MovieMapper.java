@@ -1,6 +1,7 @@
 package com.itwillbs.vCinema.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,6 +19,7 @@ public interface MovieMapper {
 	
 	List<PlayVO> selectPlayList(int startRow);
 	int selectPlayListCount();
+	List<Map<String, String>> selectPlayList2(String searchKeyword, int startRow, int listLimit);
 	
 	
 

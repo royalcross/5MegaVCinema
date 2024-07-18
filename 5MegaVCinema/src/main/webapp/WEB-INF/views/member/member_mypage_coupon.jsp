@@ -127,38 +127,27 @@
 		</div>
 		
 <div class="wrap-list">
-        <div style="margin-top: -40px; margin-bottom: 10px;" id="CouponCount">총 0장</div>
-        <input type="text" name="coupon" class="input-coupon" placeholder="관람권/쿠폰 번호를 빈칸 없이 입력해주세요."> <a href="#" class="btn-register-coupon">관람권/쿠폰 신규등록</a>
-        <table class="bbs-list bbs-list-mypage-coupon">
-            <tbody><tr>
-                <th>번호</th>
-                <th>구분</th>
-                <th>관람권/쿠폰명</th>
-                <th>유효기간</th>
-                <th>쿠폰정보</th>
-            </tr>
-        </tbody></table>
+        <table border="1" >
+			<tr>
+				<th>구매상품명</th>
+				<th>구매상품구성</th>
+				<th>구매날짜</th>
+				<th>구매수량</th>
+				
+			</tr>
+			<tr align="center">
+				<td>${store.item_name}</td>
+				<td>${store.item_content}</td>
+				<td>${orderItem.order_item_purchase_date}</td>
+				<td>${orderItem.order_item_sales_rate}개</td>
+				
+			</tr>
+		</table>
     </div>
 
 
 
-<script id="template-coupon-list" type="text/x-jquery-tmpl">
-    <tr>
-        <td>${member_Id}</td>
-        <td>${order_item_item_id}</td>
-        <td>${CouponName}</td>
-        <td>${ValidFrom} ~ ${ValidTo}</td>
-        <td style="text-align:center">${UsingPath}</td>
-        <td><a href="#" class="btn-delete" data-id="${Id}" 
-               data-coupontype="${CouponType}" 
-               data-barcodeurl="${BarcodeUrl}" 
-               data-couponname="${CouponName}"
-               data-constraint="${ConstraintsName}"
-               data-couponkey="${CouponKey}"
-               data-theater="${TheaterName}"
-               onclick="coupon_view(this); return false;">+더보기</a></td>
-    </tr>
-</script>
+
 
 	</article>
 	<footer>

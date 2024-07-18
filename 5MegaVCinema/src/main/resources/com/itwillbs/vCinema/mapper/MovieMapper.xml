@@ -44,5 +44,17 @@
 		FROM play
 		
 	</select>
+	
+	<select id="selectPlayList2" resultType="hashmap">
+		SELECT *
+		FROM movie m JOIN play p
+		ON m.movie_code = p.play_movie_code
+		JOIN theater t
+		ON p.play_theater_num = t.theater_num
+		JOIN room r
+		ON p.play_room_num = r.room_num
+        where r.room_theater_num = theater_num
+			
+	</select>
     
 </mapper>

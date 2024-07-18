@@ -2,8 +2,10 @@ package com.itwillbs.vCinema.controller;
 
 import com.itwillbs.vCinema.service.MemberService;
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderItemVO;
 import com.itwillbs.vCinema.vo.OrderTicketVO;
 import com.itwillbs.vCinema.vo.PageInfo;
+import com.itwillbs.vCinema.vo.StoreVO;
 
 import java.util.List;
 import java.util.Map;
@@ -265,7 +267,21 @@ public class MemberController {
    }
 
    @GetMapping("MyPage_CouponList")
-   public String myPage_Coupon() {
+   public String myPage_Coupon(StoreVO store, OrderItemVO orderItem, Model model) {
+	   
+	// DB로부터 구매정보를 가져와 OrderItemVO 객체에 저장
+			orderItem = service.getPaymentInfo();
+			// OrderItemVO 객체를 Model 객체에 저장
+			model.addAttribute("orderItem", orderItem);
+			
+			// 구매한 상품의 상품 아이디를 StoreVO 객체에 저장
+			store.setItem_id(orderItem.getOrder_item_item_id());
+			// DB로부터 상품정보를 가져와 StoreVO 객체에 저장
+			store = service.getItem(store);
+			// StoreVO 객체를 Model 객체에 저장
+			model.addAttribute("store", store);
+	   
+	   
       return "member/member_mypage_coupon";
    }
 

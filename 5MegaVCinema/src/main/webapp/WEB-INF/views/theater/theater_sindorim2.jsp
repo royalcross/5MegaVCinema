@@ -419,7 +419,7 @@ tr:hover {
 			<c:forEach var="play" items="${playList}">
 
 				<c:if
-					test="${play.theater_name eq '신도림' and play.play_day eq '2024-07-19T00:00'}">
+					test="${play.theater_name eq '신도림' and play.play_day eq '2024-07-20T00:00'}">
 					<tr>
 						<td>${play.theater_name}</td>
 						<td>${play.room_num}</td>

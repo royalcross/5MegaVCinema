@@ -2,7 +2,9 @@
 
 import com.itwillbs.vCinema.mapper.MemberMapper;
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderItemVO;
 import com.itwillbs.vCinema.vo.OrderTicketVO;
+import com.itwillbs.vCinema.vo.StoreVO;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,16 @@ public class MemberService {
    public int getMember_num(String id) {
 	   // TODO Auto-generated method stub
 	   return mapper.selectMember_num(id);
+   }
+
+   public OrderItemVO getPaymentInfo() {
+	   // TODO Auto-generated method stub
+	   return mapper.selectPaymentInfo();
+   }
+
+   public StoreVO getItem(StoreVO store) {
+	   // TODO Auto-generated method stub
+	   return mapper.selectItem2(store);
    }
 
 }
