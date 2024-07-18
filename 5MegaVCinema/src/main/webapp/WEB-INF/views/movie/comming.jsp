@@ -9,81 +9,46 @@
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
 h2 {
-    margin: 20px 0;
-    font-size: 32px;
-    color: #333;
-}
-
-.area {
-    font-size: 18px;
     margin-bottom: 20px;
 }
 
-.area a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
-.area a:hover {
-    text-decoration: underline;
-}
 
 .section-movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px; 
+    justify-items: center; 
+    padding: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
-.movie {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-    padding: 10px;
-    text-align: center;
-}
-
-.movie:hover {
-    transform: scale(1.05);
-}
 
 .movie-poster {
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
+    width: 250px; 
+    height: 300px;
+    max-width: 100%; 
 }
+
+
+.movie {
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+
 
 .title {
     margin-top: 10px;
-    font-size: 18px;
-    color: #333;
-}
-
-.content-link {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.content-link:hover {
-    text-decoration: underline;
+    font-size: 16px;
+    color: #666;
 }
 
 

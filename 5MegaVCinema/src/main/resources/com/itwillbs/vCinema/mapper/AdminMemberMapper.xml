@@ -158,6 +158,6 @@
 		ON o.order_ticket_movie_code = v.movie_code 
 		JOIN ticket tk
 		ON o.order_ticket_type = tk.ticket_num 
-		WHERE o.order_ticket_id = #{order_ticket_id}
+<!-- 		WHERE o.order_ticket_id = #{order_ticket_id} -->
 	</select>
 </mapper>

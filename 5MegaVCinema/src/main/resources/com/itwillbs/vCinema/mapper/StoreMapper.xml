@@ -3,14 +3,18 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.vCinema.mapper.StoreMapper">
-	<!-- 상품정보 조회 -->
+	<select id="selectItemList" resultType="store">
+		SELECT * 
+		FROM item
+		ORDER BY item_id DESC
+	</select>
+	
 	<select id="selectItem" resultType="store">
 		SELECT * 
 		FROM item
 		WHERE item_id = #{item_id}
 	</select>
 	
-	<!-- 상품 구매정보 저장 -->
 	<insert id="insertOrderItem">
 		<selectKey keyProperty="order_item_num" resultType="int" order="BEFORE">
 			SELECT IFNULL(MAX(order_item_num), 0) -- order_item_num 최대값 조회(null 일 경우 기본값 0 사용)
@@ -19,7 +23,7 @@
 		
 		INSERT INTO order_item
 		VALUES (
-			#{order_item_num} + 1 -- 상품 구매번호
+			#{order_item_num} + 1 -- selectKey 를 통회 조회된 상품 구매번호 + 1 값 사용
 			, #{order_item_item_id} -- 상품 아이디
 			, now() -- 상품 구매날짜(order_item_purchase_date)
 			, #{order_item_sales_rate} -- 상품 판매량
@@ -28,11 +32,10 @@
 		)
 	</insert>
 	
-	<!-- 상품 구매정보 조회 -->
 	<select id="selectOrderItem" resultType="orderItem">
 		SELECT * 
 		FROM order_item
-		WHERE order_item_num = (SELECT MAX(order_item_num) -- 제일 최근 구매정보의 상품 구매번호가 가장 크므로
-								FROM order_item)           -- 이를 기준으로 구매정보 조회
+		WHERE order_item_num = (SELECT MAX(order_item_num) -- 제일 최근 구매정보가 상품 구매번호가 가장 크므로
+								FROM order_item)           -- 이를 기준으로 상품 구매정보 조회
 	</select>
 </mapper>

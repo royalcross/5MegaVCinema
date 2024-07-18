@@ -16,7 +16,7 @@
 		width: 1100px;
 	}
 	td {padding: 15px;}
-	td>#item_theater {
+	td>#available_theaters {
 		color: blue;
 		text-decoration: underline;
 	}
@@ -116,7 +116,7 @@
 			<tr>
 				<td rowspan="6" id="img"><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg"></td>
 				<td>사용극장</td>
-				<td colspan="2"><a href="javascript:availableTheaters()" id="item_theater">사용가능극장</a></td>
+				<td colspan="2"><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장</a></td>
 			</tr>
 			<tr>
 				<td>유효기간</td>
@@ -135,11 +135,11 @@
 				<td	>수량/금액</td>
 				<td>
 					<button type="button" id="minus">-</button>
-					<span id="count"><%-- $("#count").text(count); --%></span>
+					<span id="count"><%-- $('#count').text(count); --%></span>
 					<button type="button" id="plus">+</button>
 				</td>
 				<%-- 자바스크립트 구문에서 금액 기본값 지정 및 수량에 따라 금액 변경 --%>
-				<td id="amount"><%-- $("#amount").text(amountNum.toLocaleString() + '원'); --%></td>
+				<td id="amount"><%-- $('#amount').text(amountNum.toLocaleString() + '원'); --%></td>
 			</tr>
 			<tr>
 				<td colspan="3">

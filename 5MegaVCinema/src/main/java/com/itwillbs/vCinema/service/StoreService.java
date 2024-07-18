@@ -1,5 +1,7 @@
 package com.itwillbs.vCinema.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ public class StoreService {
 	@Autowired
 	private StoreMapper mapper;
 	
+	// 상품목록 조회
+	public List<StoreVO> getItemList() {
+		return mapper.selectItemList();
+	}
 	// 상품정보 조회
 	public StoreVO getItem(StoreVO store) {
 		return mapper.selectItem(store);

@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.mapper;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,7 @@ public interface AdminMapper {
 
 	int selectPlayListCount(@Param("searchKeyword") String searchKeyword);
 
-	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
-			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+
 
 	List<MovieVO> selectMovieList2();
 
@@ -49,8 +49,6 @@ public interface AdminMapper {
 
 	int insertTheater(TheaterVO theater);
 
-	int selectMovieEndTime(String movie_name_kr);
-	
 	//상영관 목록 개수
 	int selectRoomListCount(@Param("searchKeyword") String searchKeyword);
 
@@ -69,12 +67,33 @@ public interface AdminMapper {
 	//상영관 상세정보 가져오기
 	List<Map<String, String>> selectRoom(int room_num, int room_theater_num);
 
+	// ------- 상영시간표 ---------
 	
 	//상영시간표 등록
 	int insertPlay(PlayVO play);
 
 	//영화코드 가져오기
-	String selectMovieCode(String movie_name_kr);
+	String selectMovieCode(String play_movie_name_kr);
 	
+	//상영종료시간 가져오기
+	int selectMovieEndTime(@Param("play_movie_name_kr") String play_movie_name_kr);
+	
+	//상영시간표 상세 정보 가져오기
+	List<Map<String, String>> selectPlay(int play_num);
+
+	//상영시작시간 가져오기
+	String selectPlayStartTime(@Param("play_movie_name_kr") String play_movie_name_kr);
+
+	//영화이름 가져오기
+//	String selectPlayMovieName(@Param("play_movie_name_kr") int play_movie_name_kr);
+	
+	//상영시간표 수정
+	int updatePlay(@Param("play_num") String play_num,@Param("play_movie_code")  String play_movie_code,@Param("play_day")  Date play_day,
+			@Param("play_theater_name")  String play_theater_name,@Param("play_theater_num") int play_theater_num,
+			@Param("play_room_num") int play_room_num,@Param("play_start_time")  String play_start_time,@Param("play_end_time")  String play_end_time);
+	
+	//상영시간표 목록 조회
+	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
+			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
 	
 }

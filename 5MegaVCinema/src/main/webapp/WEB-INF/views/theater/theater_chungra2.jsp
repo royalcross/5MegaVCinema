@@ -363,7 +363,7 @@ background: rgba(0, 0, 0, 0.4);padding:5px;padding-right:5px;
 			<c:forEach var="play" items="${playList}">
 
 				<c:if
-					test="${play.theater_name eq '청라' and play.play_day eq '2024-07-19T00:00'}">
+					test="${play.theater_name eq '청라' and play.play_day eq '2024-07-20T00:00'}">
 					<tr>
 						<td>${play.theater_name}</td>
 						<td>${play.room_num}</td>
