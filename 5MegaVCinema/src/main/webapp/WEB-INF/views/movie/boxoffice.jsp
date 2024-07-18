@@ -16,47 +16,89 @@ body {
     padding: 0;
 }
 
+header {
+    background-color: #eee;
+    padding: 10px 0;
+}
+
 h2 {
     margin-bottom: 20px;
+    color: #333;
+}
+
+.area {
+    margin-bottom: 20px;
+}
+
+.area a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.area a:hover {
+    background-color: #ddd;
 }
 
 .section-movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px; 
-    justify-items: center; 
-    max-width: 1200px; 
-    margin: 0 auto; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* 각 포스터 이미지 스타일 */
 .movie-poster {
-    width: 250px; 
+    width: 250px;
     height: 300px;
-    max-width: 100%; 
+    max-width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 }
 
-/* 각 포스터에 대한 스타일 */
+.movie-poster:hover {
+    transform: scale(1.05);
+}
+
 .movie {
-    margin-bottom: 20px; 
-    text-align: center; 
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 }
 
-/* 영화 제목 */
+.movie:hover {
+    transform: translateY(-5px);
+}
+
 .title {
     margin-top: 10px;
-    font-size: 16px;
-    color: #666;
+    font-size: 18px;
+    color: #333;
 }
 
-/* 상세 정보 */
 .content-link {
     margin-top: 10px;
     font-size: 14px;
     color: blue;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
+    transition: color 0.3s;
 }
+
+.content-link:hover {
+    color: darkblue;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>

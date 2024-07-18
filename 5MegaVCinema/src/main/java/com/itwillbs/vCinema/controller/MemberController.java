@@ -225,11 +225,6 @@ public class MemberController {
 			    }
 			}
 	
-	
-	
-	
-	
-	
 	// 마이페이지 -------------------------------------------------------------------------------
    @GetMapping("MyPageMain") // 예매정보 도출
    public String MyPage( Model model, OrderTicketVO order_ticket,MemberVO member, HttpSession session, @RequestParam Map<String, String> map) {

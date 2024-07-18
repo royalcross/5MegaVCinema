@@ -303,9 +303,8 @@
 			<table border="1">
 				<tr>
 					<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
-					<td id="movie_list1">박스오피스</td>
-					<td id="movie_list2">최신개봉작</td>
-					<td id="movie_list3">상영예정작</td>
+					<td id="movie_list1"><a href="Boxoffice">박스오피스</a></td>
+					<td id="movie_list2"><a href="Comming">상영예정작</a></td>
 				</tr>
 			</table>
 			<div class="m_list_inner">
