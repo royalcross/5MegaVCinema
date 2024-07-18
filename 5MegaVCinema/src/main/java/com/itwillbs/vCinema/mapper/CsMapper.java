@@ -12,7 +12,10 @@ public interface CsMapper {
 
 	int selectCsListCount();
 
-	List<CsVO> selectCsList(@Param("startRow") int startRow, @Param("listLimit") int listLimit,@Param("id") String id);
+	List<CsVO> selectCsList(@Param("startRow") int startRow, 
+							@Param("listLimit") int listLimit, 
+							@Param("isAdmin") Boolean isAdmin,
+							@Param("id") String id);
 	
 	int insertCs(CsVO cs);
 

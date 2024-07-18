@@ -132,16 +132,16 @@
 				<article class="main">
 					<h3>스토어 조회 내역</h3>
 					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
+<!-- 						<div> -->
+<!-- 							<span>Show</span> -->
+<!-- 							<select> -->
+<!-- 								<option>5</option> -->
+<!-- 								<option>10</option> -->
+<!-- 								<option>20</option> -->
+<!-- 								<option>30</option> -->
+<!-- 							</select> -->
+<!-- 							<span>entries</span> -->
+<!-- 						</div> -->
 						
 						<form action="AdminStore">
 							<div class="search">
@@ -258,10 +258,10 @@
 				        	<input type="file" name="item_image">
 				        </div>
 				        
-				        <div>
-				        	<span>수량</span> <br>
-				        	<input type="number" name="item_quantity">
-				        </div>
+<!-- 				        <div> -->
+<!-- 				        	<span>수량</span> <br> -->
+<!-- 				        	<input type="number" name="item_quantity"> -->
+<!-- 				        </div> -->
 				        
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">
@@ -369,22 +369,6 @@
 	</body>
 	
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -15,15 +15,15 @@
 		ON c.cs_member_id = m.member_id
 		WHERE
 			<choose>
-				<when test="!#{id}.equals('admin@naver.com')">
+				<when test="isAdmin eq false">
 					c.cs_member_id = #{id}
 				</when>
 				<otherwise>
-					1 = 1
+					1=1
 				</otherwise>
 			</choose>
 		ORDER BY
-			cs_num DESC
+			c.cs_num DESC
 		LIMIT
 			#{startRow}     
 			, #{listLimit}  
