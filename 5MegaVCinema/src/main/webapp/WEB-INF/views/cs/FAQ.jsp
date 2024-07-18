@@ -5,89 +5,102 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터</title>
+<title>자주 찾는 질문</title>
 <!-- 외부 CSS 파일(css/default.css) 연결하기 -->
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: gray;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	a {
-		text-decoration: none;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	#buttonArea {
-	 	text-align: center;
-	 	margin: 0 10px;
-	}
+
+h2 {
+    text-align: center;
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    color: #333; 
+}
+
+.area {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.area a {
+    padding: 10px 20px; 
+    text-decoration: none; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    background-color: #f9f9f9; 
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.area a:hover {
+    background-color: #e0e0e0;
+}
+
+table {
+    width: 90%;
+    max-width: 800px; 
+    border-collapse: collapse;
+    margin: 20px auto; 
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; 
+}
+
+#tr_top {
+    background: gray;
+    color: white;
+    text-align: center;
+}
+
+#pageList {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#pageList a, #pageList input[type="button"] {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+#pageList input[type="button"]:disabled {
+    background-color: #ddd;
+    color: #999;
+    cursor: default;
+}
+
 </style>
 </head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-	<h2>자주찾는질문</h2>
+	<h2>자주 찾는 질문</h2>
 	<br>
 	<section id="buttonArea">
-    <div class="area">
-        <a href="Notice" >공지사항</a> | 
-        <a href="FAQ" >자주찾는질문</a> | 
-        <a href="Cs" >1:1문의</a>  
-    </div>
-    <select id="category" name="category">
-	  <option value="">선택</option>
-	  <option value="영화관 이용">영화관 이용</option>
-	  <option value="회원">회원</option>
-	  <option value="관람권">관람권</option>
-	  <option value="스토어">스토어</option>
-	</select>
-    <br>
+    	<div class="area">
+        	<a href="Notice">공지사항</a> | 
+        	<a href="FAQ">자주 찾는 질문</a> | 
+        	<a href="Cs">1:1 문의</a>  
+    	</div>
+    	<br>
     </section>
 	<section id="listForm">
 		<table>
 			<tr id="tr_top">
-				<td width="100px">글번호</td>
-				<td width="100px">카테고리</td>
-				<td>제목</td>
-				<td width="150px">등록일</td>
-
+				<th width="100px">글번호</th>
+				<th width="100px">카테고리</th>
+				<th>제목</th>
+				<th width="150px">등록일</th>
 			</tr>
 			<c:set var="pageNum" value="1" />
 	
@@ -109,9 +122,8 @@
 	<section id="pageList">
 
 		<input type="button" value="이전" 
-				onclick="location.href='FAQ?pageNum=${pageNum - 1}'"
-				<c:if test="${pageNum <= 1}">disabled</c:if>
-		>
+				onclick="location.href='Notice?pageNum=${pageNum - 1}'"
+				<c:if test="${pageNum <= 1}">disabled</c:if>>
 
 		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 
@@ -120,13 +132,12 @@
 					<b>${i}</b> 
 				</c:when>
 				<c:otherwise>
-					<a href="FAQ?pageNum=${i}">${i}</a> 
+					<a href="Notice?pageNum=${i}">${i}</a> 
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 
 		<input type="button" value="다음" 
-				onclick="location.href='FAQ?pageNum=${pageNum + 1}'"
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
 		>
 	</section>
@@ -135,10 +146,3 @@
 	</footer>
 </body>
 </html>
-
-
-
-
-
-
-

@@ -10,8 +10,7 @@ import lombok.Data;
 @Data
 public class PlayVO {
 	private int play_num;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime play_day;
+	private Date play_day;
 	private String play_movie_code;
 	private int play_theater_num;
 	private int play_room_num;

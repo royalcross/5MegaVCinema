@@ -5,82 +5,104 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>1:1 문의</title>
 <!-- 외부 CSS 파일(css/default.css) 연결하기 -->
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: gray;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
 
-	a {
-		text-decoration: none;
-	}
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px; 
+    color: #333; 
+}
 
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	#buttonArea {
-	 	text-align: center;
-	 	margin: 0 10px;
-	}
+.area {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.area a {
+    padding: 10px 20px; 
+    text-decoration: none; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    background-color: #f9f9f9; 
+    margin: 0 5px; 
+    cursor: pointer; 
+}
+
+.area a:hover {
+    background-color: #e0e0e0; 
+}
+
+table {
+    width: 90%;
+    max-width: 800px; 
+    border-collapse: collapse;
+    margin: 20px auto; 
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; 
+}
+
+#tr_top {
+    background: gray;
+    color: white;
+    text-align: center;
+}
+
+#pageList {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#pageList a, #pageList input[type="button"] {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+#pageList input[type="button"]:disabled {
+    background-color: #ddd;
+    color: #999;
+    cursor: default;
+}
+
 </style>
 </head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
-	<h2>1:1문의</h2>
+	<h2>1:1 문의</h2>
 	<br>
 	<section id="buttonArea">
 	    <div class="area">
-	        <a href="Notice" >공지사항</a> | 
-	        <a href="FAQ" >자주찾는질문</a> | 
-	        <a href="Cs" >1:1문의</a>  
+	        <a href="Notice">공지사항</a> | 
+	        <a href="FAQ">자주 찾는 질문</a> | 
+	        <a href="Cs">1:1 문의</a>  
 	    </div>
 	    <br>
     </section>
+    <div style="text-align: center; margin-bottom: 20px;">
+			<button class="registBtn" onclick="csRegist('${sessionScope.sId}')">문의 등록</button>
+		</div>
 	<section id="listForm">
-		
 		<table>
 			<tr id="tr_top">
-				<td width="200px">제목</td>
-				<td width="400px">문의내용</td>
-				<td width="100px">확인여부</td>
+				<th width="200px">제목</th>
+				<th width="400px">문의내용</th>
+				<th width="100px">확인여부</th>
 			</tr>
 			<c:set var="pageNum" value="1" />
 	
@@ -97,12 +119,11 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<button class="registBtn" onclick="csRegist('${sessionScope.sId}')">문의 등록</button>
 	</section>
 	<section id="pageList">
 
 		<input type="button" value="이전" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'"
+				onclick="location.href='Cs?pageNum=${pageNum - 1}'"
 				<c:if test="${pageNum <= 1}">disabled</c:if>>
 
 		<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
@@ -112,13 +133,13 @@
 					<b>${i}</b> 
 				</c:when>
 				<c:otherwise>
-					<a href="BoardList.bo?pageNum=${i}">${i}</a> 
+					<a href="Cs?pageNum=${i}">${i}</a> 
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 
 		<input type="button" value="다음" 
-				onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'"
+				onclick="location.href='Cs?pageNum=${pageNum + 1}'"
 				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>>
 	</section>
 	
@@ -132,16 +153,3 @@
 	</footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

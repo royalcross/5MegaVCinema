@@ -18,17 +18,19 @@
 			<input type="hidden" name="play_num" value="${play.play_num}" > 
 			
 <!-- 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
 			<button type="button" id="btnPlayDay" onclick="setPlayDay()">
-			▶▶▶ 상영일 조회하기 ▶▶▶</button>
+			▶▶▶ 상영일 조회하기(!!클릭!!) ▶▶▶</button>
 <!-- 			</select> -->
-			<label for="play_day">상영일</label>
+			<label for="play_day">변경 전 상영일</label>
 			
 <%-- 			<td><fmt:parseDate value="${play.play_day}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/> --%>
 <%-- 			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> --%>
 <%-- 			<input type="text" value="${play.play_day}" id="play_day2"> --%>
-			<input type="date" name="play_day_print" id="play_day_print">
-			<input type="hidden" name="play_day" id="play_day" value="playDay2">
+			<input type="date" name="play_day_print" id="play_day_print" disabled><br>
+			<label for="play_day">변경 후 상영일</label>
+			<input type="date" name="play_day" id="play_day">
+<!-- 			<input type="hidden" name="play_day" id="play_day" value="playDay3"> -->
 			<br>
 			
 			
@@ -37,7 +39,7 @@
 		
 			
 			<label for="play_theater_name">영화관명</label>
-			<select name="play_theater_name" id="play_theater_name"required onchange="selectTheaterNum(this.value)">
+			<select name="play_theater_name" required >
 				<option>영화관을 선택하세요.</option>
 				<option <c:if test="${play.play_theater_name eq '신도림'}">selected</c:if>>신도림</option>
 				<option <c:if test="${play.play_theater_name eq '청라'}">selected</c:if>>청라</option>
@@ -51,10 +53,14 @@
 				<option <c:if test="${play.play_theater_name eq '칠곡호이'}">selected</c:if>>칠곡호이</option>
 				<option <c:if test="${play.play_theater_name eq '영덕예주'}">selected</c:if>>영덕예주</option>
 			</select><br>
-		
-			<label for="play_theater_num">영화관 번호</label>
-			<input type="text" id="play_theater_num" name="play_theater_num" value="${play.play_theater_num}">
-		
+			
+<!-- 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<%-- 			<button type="button" id="btnTheaterNum" value="${play.play_theater_name}"> --%>
+<!-- 			▼▼▼ 영화관 번호 조회(!!클릭!!) ▼▼▼</button><br> -->
+					
+<!-- 			<label for="play_theater_num">영화관 번호</label> -->
+<!-- 			<input type="text" id="play_theater_num" name="play_theater_num" placeholder="영화관 번호 조회 버튼을 클릭해주세요" disabled> -->
+			<input type="hidden" name="play_theater_num" >
 		
 			<label for="play_room_num">상영관</label>
 			<select name="play_room_num" required>
@@ -88,12 +94,13 @@
 			<br>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="button" value="${play.play_num}" id="btnEndTime2">
-			👇상영 종료 시간 조회👇</button><br>
+			▼▼▼ 상영 종료 시간 조회(!!클릭!!) ▼▼▼</button><br>
 			
 			<label for="play_end_time">상영 종료 시간</label>
 			<input type="text" name="play_end_time" id="play_end_time" readonly>
 			<script>
 			
+			//상영일 조회하기
 			function setPlayDay(){
 // 				console.log("playday : ${play.play_day}")
 // 				console.log("new Date().toISOString() : " + new Date("${play.play_day}").toISOString().substring(0, 10);
@@ -103,14 +110,22 @@
 	//toISOString 은 날짜 포맷 맞춰주는 함수, 시차때문에 날짜가 실제 상영일이랑 차이가 남
 	//시차 해결을 위해 offset 변수 설정
 				const offset2 = new Date().getTimezoneOffset() * 60000;
+				console.log("offset2" + offset2 + typeof(offset2));
+				
 				const playDay = new Date("${play.play_day}");
-				console.log(playDay);
+				console.log("playDay" + playDay + typeof(playDay));
+				
 				const playDay2 = new Date(playDay - offset2);
-				console.log(playDay2);
+				console.log("playDay2" + playDay2 + "type of : " + typeof(playDay2));
+				
 				const playDayResult = playDay2.toISOString().substring(0, 10);
+				console.log("playDayResult" + playDayResult);
 				$("#play_day_print").val(playDayResult);
 				
 				console.log(playDayResult);
+				
+				let playDay3 = new Date(playDay2);
+				console.log(playDay3 + " : " + typeof(playDay3));
 			}
 			</script>
 		
@@ -120,32 +135,32 @@
 				
 	<script type="text/javascript">
 	
-		function selectTheaterNum(theater) {
+// 		function selectTheaterNum(theater) {
 							
-			if(theater == "신도림"){ 
-				document.registForm.play_theater_num.value = 1001;
-				} else if(theater == "청라") {
-				document.registForm.play_theater_num.value = 1002;
-				} else if(theater == "동탄") {
-					 			document.registForm.play_theater_num.value = 1003;
-					 		} else if(theater == "남양주다산") {
-					 			document.registForm.play_theater_num.value = 1004;
-					 		} else if(theater == "천안불당") {
-					 			document.registForm.play_theater_num.value = 1005;
-					 		} else if(theater == "경주보문") {
-					 			document.registForm.play_theater_num.value = 1006;
-					 		} else if(theater == "구미봉곡") {
-					 			document.registForm.play_theater_num.value = 1007;
-					 		} else if(theater == "대구이시아") {
-					 			document.registForm.play_theater_num.value = 1008;
-					 		} else if(theater == "보은") {
-					 			document.registForm.play_theater_num.value = 1009;
-					 		} else if(theater == "칠곡호이") {
-					 			document.registForm.play_theater_num.value = 1010;
-					 		} else if(theater == "영덕예주") {
-					 			document.registForm.play_theater_num.value = 1011;
-					 		}
-						}
+// 			if(theater == "신도림"){ 
+// 				document.registForm.play_theater_num.value = 1001;
+// 				} else if(theater == "청라") {
+// 				document.registForm.play_theater_num.value = 1002;
+// 				} else if(theater == "동탄") {
+// 					 			document.registForm.play_theater_num.value = 1003;
+// 					 		} else if(theater == "남양주다산") {
+// 					 			document.registForm.play_theater_num.value = 1004;
+// 					 		} else if(theater == "천안불당") {
+// 					 			document.registForm.play_theater_num.value = 1005;
+// 					 		} else if(theater == "경주보문") {
+// 					 			document.registForm.play_theater_num.value = 1006;
+// 					 		} else if(theater == "구미봉곡") {
+// 					 			document.registForm.play_theater_num.value = 1007;
+// 					 		} else if(theater == "대구이시아") {
+// 					 			document.registForm.play_theater_num.value = 1008;
+// 					 		} else if(theater == "보은") {
+// 					 			document.registForm.play_theater_num.value = 1009;
+// 					 		} else if(theater == "칠곡호이") {
+// 					 			document.registForm.play_theater_num.value = 1010;
+// 					 		} else if(theater == "영덕예주") {
+// 					 			document.registForm.play_theater_num.value = 1011;
+// 					 		}
+// 						}
 					
 				 
 				 
@@ -169,14 +184,15 @@
 								})
 							});
 								
-
+							//상영종료시간 조회
 							$(function() {
-								$("#btnEndTime2 ").on("click", function() {
+								$("#btnEndTime2").on("click", function() {
 									$.ajax({
 										type : "GET",
-										url : "getEndTime",
+										url : "getEndTimeModify",
 										data : {
-											play_num : $(this).val()
+											play_num : $(this).val(),
+											play_start_time : $("#play_start_time").val()
 											},
 										success : function(response) {
 											
@@ -190,6 +206,29 @@
 									});
 								})
 							});
+							
+// 							//영화번호 조회
+// 							$(function() {
+// 								$("#btnTheaterNum ").on("click", function() {
+// 									console.log($("#play_theater_name").val());
+// 									$.ajax({
+// 										type : "GET",
+// 										url : "getTheaterNum",
+// 										data : {
+// 											play_theater_name : $(this).val()
+// 											},
+// 										success : function(response) {
+											
+// 											$("#play_theater_num").val(response);
+// 						// 					$("#resultArea").html(response);
+// 										},
+// 										error : function(jqXHR, textStatus, errorThrown) { // 요청 처리 실패(= 응답 에러 발생) 시 자동으로 호출되는 콜백함수
+											
+// 											$("#resultArea2").html("요청 에러 발생! - " + jqXHR + ", " + textStatus + ", " + errorThrown);
+// 										}
+// 									});
+// 								})
+// 							});
 							
 							
 							</script>

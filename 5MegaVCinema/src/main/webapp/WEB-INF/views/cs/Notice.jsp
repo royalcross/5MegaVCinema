@@ -9,54 +9,75 @@
 <!-- 외부 CSS 파일(css/default.css) 연결하기 -->
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: gray;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	a {
-		text-decoration: none;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	#buttonArea {
-	 	text-align: center;
-	 	margin: 0 10px;
-	}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.area {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.area a {
+    padding: 10px 20px; 
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc; 
+    background-color: #f9f9f9; 
+    margin: 0 5px; 
+    cursor: pointer; 
+}
+
+.area a:hover {
+    background-color: #e0e0e0; 
+}
+
+table {
+    width: 90%;
+    max-width: 800px; 
+    border-collapse: collapse;
+    margin: 20px auto; 
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; 
+}
+
+#tr_top {
+    background: gray;
+    color: white;
+    text-align: center;
+}
+
+#pageList {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#pageList a, #pageList input[type="button"] {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+#pageList input[type="button"]:disabled {
+    background-color: #ddd;
+    color: #999;
+    cursor: default;
+}
+
 </style>
 <script>
 	function showNoticeDetail(notice_num) {
@@ -129,16 +150,3 @@
 	</footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
