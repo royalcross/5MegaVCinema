@@ -64,9 +64,7 @@ public class AdminService {
 		return mapper.selectPlayListCount(searchKeyword);
 	}
 
-	public List<Map<String, String>> getPlayList(String searchKeyword, int startRow, int listLimit) {
-		return mapper.selectPlayList(startRow, listLimit, searchKeyword);
-	}
+
 
 	public List<MovieVO> getMovieList() {
 		return mapper.selectMovieList2();

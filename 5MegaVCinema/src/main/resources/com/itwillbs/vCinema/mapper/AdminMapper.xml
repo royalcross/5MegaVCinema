@@ -241,7 +241,9 @@
 		JOIN room r
 		ON p.play_room_num = r.room_num
         where r.room_theater_num = theater_num
-			
+			LIMIT
+				#{startRow}     -- Mapper 내의 메서드에서 @Param("startRow") 로 지정한 파라미터명 사용
+				, #{listLimit}  -- Mapper 내의 메서드에서 @Param("listLimit") 로 지정한 파라미터명 사용			
 	</select>
 	
 	

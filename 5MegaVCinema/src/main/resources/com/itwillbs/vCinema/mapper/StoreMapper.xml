@@ -3,9 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.vCinema.mapper.StoreMapper">
-	<select id="selectAllItem" resultType="store">
+	<select id="selectItemList" resultType="store">
 		SELECT * 
 		FROM item
+		ORDER BY item_id DESC
 	</select>
 	
 	<select id="selectItem" resultType="store">

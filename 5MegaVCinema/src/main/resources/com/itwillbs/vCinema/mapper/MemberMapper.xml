@@ -60,4 +60,49 @@
 			AND member_phonenumber = #{member_phonenumber}
 	</select>
 	
+	<select id="selectMember_num" resultType="int">
+		SELECT member_num
+		FROM member
+		WHERE member_id = #{id}
+	
+	</select>
+	
+	
+	
+	<select id="selectOrderticket2"  resultType="hashmap">
+		SELECT 
+			o.order_ticket_id
+			, o.order_ticket_member_num
+			, v.movie_name_kr
+			, o.order_ticket_date
+			, t.theater_name
+			, o.order_ticket_seat_num
+			, o.order_ticket_how_many_people
+			, tk.ticket_price
+			, o.order_ticket_status
+			, o.order_ticket_room_num
+		FROM order_ticket o 
+		JOIN theater t 
+		ON o.order_ticket_theater_num = t.theater_num 
+		JOIN movie v 
+		ON o.order_ticket_movie_code = v.movie_code 
+		JOIN ticket tk
+		ON o.order_ticket_type = tk.ticket_num 
+		WHERE order_ticket_member_num = #{member_num}
+	</select>
+	
+	<select id="selectPaymentInfo" resultType="orderItem">
+		SELECT * 
+		FROM order_item
+		WHERE order_item_num = (SELECT MAX(order_item_num) -- 제일 최근 구매정보가 상품 구매번호가 가장 크므로
+								FROM order_item)           -- 이를 기준으로 상품 구매정보 조회
+	</select>
+	
+	<select id="selectItem2" resultType="store">
+		SELECT * 
+		FROM item
+		WHERE item_id = #{item_id}
+	</select>
+	
+	
 </mapper>

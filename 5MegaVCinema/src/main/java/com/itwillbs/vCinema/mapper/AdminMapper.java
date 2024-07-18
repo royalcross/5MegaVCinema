@@ -41,8 +41,7 @@ public interface AdminMapper {
 
 	int selectPlayListCount(@Param("searchKeyword") String searchKeyword);
 
-	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
-			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+
 
 	List<MovieVO> selectMovieList2();
 
@@ -92,5 +91,9 @@ public interface AdminMapper {
 	int updatePlay(@Param("play_num") String play_num,@Param("play_movie_code")  String play_movie_code,@Param("play_day")  Date play_day,
 			@Param("play_theater_name")  String play_theater_name,@Param("play_theater_num") int play_theater_num,
 			@Param("play_room_num") int play_room_num,@Param("play_start_time")  String play_start_time,@Param("play_end_time")  String play_end_time);
+	
+	//상영시간표 목록 조회
+	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
+			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
 	
 }

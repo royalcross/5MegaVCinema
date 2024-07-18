@@ -2,6 +2,12 @@ package com.itwillbs.vCinema.controller;
 
 import com.itwillbs.vCinema.service.MemberService;
 import com.itwillbs.vCinema.vo.MemberVO;
+import com.itwillbs.vCinema.vo.OrderItemVO;
+import com.itwillbs.vCinema.vo.OrderTicketVO;
+import com.itwillbs.vCinema.vo.PageInfo;
+import com.itwillbs.vCinema.vo.StoreVO;
+
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,8 +162,22 @@ public class MemberController {
 	
 	
 	// 마이페이지 -------------------------------------------------------------------------------
-   @GetMapping("MyPageMain")
-   public String MyPage() {
+   @GetMapping("MyPageMain") // 예매정보 도출
+   public String MyPage( Model model, OrderTicketVO order_ticket,MemberVO member, HttpSession session, @RequestParam Map<String, String> map) {
+	  String id = (String)session.getAttribute("sId");
+	  
+	  int member_num = service.getMember_num(id);
+	  System.out.println("member_num : " + member_num);
+	  
+	   List<Map<String, String>> orderticket2 = service.getorderticket2(member_num);
+	   
+	   
+	   
+		System.out.println("선택된 예매 정보 : " + orderticket2);
+//		System.out.println("orderticket2" + orderticket2);
+//		// model 객체에 저장해서 전달
+		model.addAttribute("orderticket2", orderticket2);
+	   
       return "member/member_mypage";
    }
 
@@ -188,6 +208,8 @@ public class MemberController {
 
    @PostMapping("MemberModify")
    public String mypageinfo(@RequestParam Map<String, String> map, MemberVO member, BCryptPasswordEncoder passwordEncoder, Model model) {
+	   System.out.println(member);
+	   System.out.println(map);
       member =service.getMember(member);
       if (!passwordEncoder.matches((CharSequence)map.get("member_oldpw"), member.getMember_pw())) {
          model.addAttribute("msg", "수정 권한이 없습니다!");
@@ -245,13 +267,27 @@ public class MemberController {
    }
 
    @GetMapping("MyPage_CouponList")
-   public String myPage_Coupon() {
+   public String myPage_Coupon(StoreVO store, OrderItemVO orderItem, Model model) {
+	   
+	// DB로부터 구매정보를 가져와 OrderItemVO 객체에 저장
+			orderItem = service.getPaymentInfo();
+			// OrderItemVO 객체를 Model 객체에 저장
+			model.addAttribute("orderItem", orderItem);
+			
+			// 구매한 상품의 상품 아이디를 StoreVO 객체에 저장
+			store.setItem_id(orderItem.getOrder_item_item_id());
+			// DB로부터 상품정보를 가져와 StoreVO 객체에 저장
+			store = service.getItem(store);
+			// StoreVO 객체를 Model 객체에 저장
+			model.addAttribute("store", store);
+	   
+	   
       return "member/member_mypage_coupon";
    }
 
-   @GetMapping("MyPageMain2")
-   public String myPageMain() {
-      return "member/member_mypage";
-   }
+//   @GetMapping("MyPageMain2")
+//   public String myPageMain() {
+//      return "member/member_mypage";
+//   }
          
 }
