@@ -313,36 +313,31 @@
 					<!-- Additional required wrapper -->
 					<div class="swiper-wrapper">
 						<!-- Slides -->
-						<div class="swiper-slide">
-						 	<div class="movie_desc" id="movie_desc1">
-								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21258_101_1.jpg" onmouseover=""><br>
-								<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
-							</div>
-						</div> <!-- end swiper-slide -->
-						<div class="swiper-slide">
-						 	<div class="movie_desc" id="movie_desc1">
-								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21269_101_1.jpg" onmouseover=""><br>
-								<p><a href="#"><span class="rate_12"><b>12</b></span>영화제목</a></p>
-							</div>
-						</div> <!-- end swiper-slide -->
-						<div class="swiper-slide">
-						 	<div class="movie_desc" id="movie_desc1">
-								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/21170_103_1.jpg" onmouseover=""><br>
-								<p><a href="#"><span class="rate_15"><b>15</b></span>영화제목</a></p>
-							</div>
-						</div> <!-- end swiper-slide -->
-						<div class="swiper-slide">
-						 	<div class="movie_desc" id="movie_desc1">
-								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21195_101_1.jpg" onmouseover=""><br>
-								<p><a href="#"><span class="rate_19"><b>19</b></span>영화제목</a></p>
-							</div>
-						</div> <!-- end swiper-slide -->
-						<div class="swiper-slide">
-						 	<div class="movie_desc" id="movie_desc1">
-								<img alt="dahlia" src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202406/20970_101_1.jpg" onmouseover=""><br>
-								<p><a href="#"><span class="rate_all"><b>ALL</b></span>영화제목</a></p>
-							</div>
-						</div> <!-- end swiper-slide -->
+						<%-- 영화 목록 개수를 5개로 제한하기 위해 <c:set>태그로 limit 변수 선언 및 초기화 --%>
+						<c:set var="limit" value="0"/>
+						<c:forEach items="${movieList}" varStatus="status">
+							<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
+							<c:if test="${movieList[status.index] != null and limit < 5 and movieList[status.index].movie_name_kr != '테스트'}">
+								<div class="swiper-slide">
+								 	<div class="movie_desc">
+										<img alt="${movieList[status.index].movie_name_kr}" src="${movieList[status.index].movie_poster}"><br>
+										<p><a href="Content?movieId=${movieList[status.index].movie_code}">
+											<span class="
+												<c:choose>
+													<c:when test="${movieList[status.index].movie_grade eq 'ALL'}">rate_all</c:when>
+													<c:when test="${movieList[status.index].movie_grade eq '12'}">rate_12</c:when>
+													<c:when test="${movieList[status.index].movie_grade eq '15'}">rate_15</c:when>
+													<c:when test="${movieList[status.index].movie_grade eq '19'}">rate_19</c:when>
+												</c:choose>">
+												<b>${movieList[status.index].movie_grade}</b>
+											</span>${movieList[status.index].movie_name_kr}
+										</a></p>
+									</div>
+								</div> <!-- end swiper-slide -->
+								<%-- 영화 목록이 하나 추가될 때마다 limit 변수의 값을 1씩 증가 --%>
+								<c:set var="limit" value="${limit + 1}"/>
+							</c:if>
+						</c:forEach>
 					</div> <!-- end swiper-wrapper -->
 				</div>
 			</div>

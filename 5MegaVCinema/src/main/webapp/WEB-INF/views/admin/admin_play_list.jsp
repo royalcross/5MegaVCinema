@@ -249,15 +249,16 @@
 			<c:forEach var="play" items="${playList}">
 			<tr>
 				<td>${play.play_num}</td>
-				<td>${play.play_date}</td>
+<%-- 				<td>${play.play_day}</td> --%>
+				<td><fmt:parseDate value="${play.play_day}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
+<%-- 				<td><fmt:formatDate value="${play.play_day}" pattern="yyyy-MM-dd"/></td> --%>
 				<td>${play.theater_name}</td>
 				<td>${play.room_num}</td>
 				<td>${play.play_movie_name_kr}</td>
 				<td>${play.play_start_time}</td>
 				<td>${play.play_end_time}</td>
 				<td>
-				<input type="button" value="상세보기">
-				<input type="button" value="상영종료">
 					<button value="${play.play_num}" class="modifyBtn">수정</button>
 			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
 				<%--수정을 위한 상영시간표 번호  --%>

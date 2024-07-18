@@ -40,8 +40,7 @@ public interface AdminMapper {
 
 	int selectPlayListCount(@Param("searchKeyword") String searchKeyword);
 
-	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
-			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+
 
 	List<MovieVO> selectMovieList2();
 
@@ -80,5 +79,9 @@ public interface AdminMapper {
 	
 	//상영시간표 상세 정보 가져오기
 	List<Map<String, String>> selectPlay(int play_num);
+	
+	//상영시간표 목록 조회
+	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
+			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
 	
 }

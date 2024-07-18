@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결제 &lt; 스토어 | 오메가V시네마</title>
+<title>결제결과 &lt; 스토어 | 오메가V시네마</title>
 <%-- 외부 CSS 파일(css/default.css) 연결하기 --%>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">

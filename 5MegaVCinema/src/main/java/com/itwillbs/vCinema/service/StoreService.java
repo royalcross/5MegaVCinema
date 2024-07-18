@@ -14,8 +14,9 @@ public class StoreService {
 	@Autowired
 	private StoreMapper mapper;
 	
-	public List<StoreVO> getAllItem() {
-		return mapper.selectAllItem();
+	// 상품목록 조회
+	public List<StoreVO> getItemList() {
+		return mapper.selectItemList();
 	}
 	// 상품정보 조회
 	public StoreVO getItem(StoreVO store) {

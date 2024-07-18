@@ -1,6 +1,5 @@
 package com.itwillbs.vCinema.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,44 +24,11 @@ public class StoreController {
 	
 	@GetMapping("Store")
 	public String store(StoreVO store, Model model) {
-		List<StoreVO> storeAll = service.getAllItem();
+		// DB로부터 상품목록을 가져와 List 객체에 저장(데이터타입 : StoreVO)
+		List<StoreVO> storeList = service.getItemList();
 //		System.out.println(storeAll);
-		for(int i = 0; i < storeAll.size(); i++) {
-//			if(storeAll[i].item_type == "Ticket") {
-//				
-//			}
-		}
-		// DB로부터 각 id마다 상품정보를 가져와 
-		// List 객체에 상품정보 저장(데이터타입 : StoreVO)
-		List<StoreVO> Ticket = new ArrayList<StoreVO>();
-		String[] Ticket_id = {"Ticket1", "Ticket2", "Ticket3", "Ticket4", "Ticket5", "Ticket6", "Ticket7", "Ticket8", "Ticket9", "Ticket10"};
-		for(int i = 0; i < Ticket_id.length; i++) {
-			store.setItem_id(Ticket_id[i]);
-			Ticket.add(i, service.getItem(store));
-		}
-		List<StoreVO> Popcorn = new ArrayList<StoreVO>();
-		String[] Popcorn_id = {"Popcorn1", "Popcorn2", "Popcorn3", "Popcorn4", "Popcorn5", "Popcorn6", "Popcorn7", "Popcorn8", "Popcorn9", "Popcorn10"};
-		for(int i = 0; i < Popcorn_id.length; i++) {
-			store.setItem_id(Popcorn_id[i]);
-			Popcorn.add(i, service.getItem(store));
-		}
-		List<StoreVO> Drinks = new ArrayList<StoreVO>();
-		String[] Drinks_id = {"Drinks1", "Drinks2", "Drinks3", "Drinks4", "Drinks5", "Drinks6", "Drinks7", "Drinks8", "Drinks9", "Drinks10"};
-		for(int i = 0; i < Drinks_id.length; i++) {
-			store.setItem_id(Drinks_id[i]);
-			Drinks.add(i, service.getItem(store));
-		}
-		List<StoreVO> Goods = new ArrayList<StoreVO>();
-		String[] Goods_id = {"Goods1", "Goods2", "Goods3", "Goods4", "Goods5", "Goods6", "Goods7", "Goods8", "Goods9", "Goods10"};
-		for(int i = 0; i < Goods_id.length; i++) {
-			store.setItem_id(Goods_id[i]);
-			Goods.add(i, service.getItem(store));
-		}
 		// List 객체를 Model 객체에 저장
-		model.addAttribute("Ticket", Ticket);
-		model.addAttribute("Popcorn", Popcorn);
-		model.addAttribute("Drinks", Drinks);
-		model.addAttribute("Goods", Goods);
+		model.addAttribute("storeList", storeList);
 		
 		// 스토어 페이지로 포워딩
 		return "store/store";

@@ -225,7 +225,7 @@ public class AdminController {
 					//파라미터 : 검색타입, 검색어, 시작행번호, 게시물 수
 					//리턴타입 : List<BoardVO>(boardList)
 					List<Map<String, String>> playList = AdminService.getPlayList(searchKeyword, startRow, listLimit);
-//					System.out.println(" playList : " + playList);
+					System.out.println(" playList : " + playList);
 					
 					PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 					
@@ -266,6 +266,7 @@ public class AdminController {
 			@PostMapping("AdminPlayRegist")
 			public String adminInsertPlayForm(PlayVO play, HttpSession session, Model model) {
 //				System.out.println("adminInsertPlayForm");
+				System.out.println(play);
 				int insertCount = AdminService.adminPlayRegist(play);
 //				System.out.println(insertCount);
 				if(insertCount > 0) {

@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.vo;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,7 +10,8 @@ import lombok.Data;
 @Data
 public class PlayVO {
 	private int play_num;
-	private Date play_day;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDateTime play_day;
 	private String play_movie_code;
 	private int play_theater_num;
 	private int play_room_num;
