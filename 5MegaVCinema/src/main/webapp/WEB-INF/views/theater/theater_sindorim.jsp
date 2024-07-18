@@ -33,42 +33,6 @@ sapn {
 	padding-right: 5px;
 }
 
-.rate-12 {
-	background-color: #1e90ff;
-	color: white;
-	font-size: 12px;
-	padding: 3px 5px;
-	border-radius: 3px;
-	margin-right: 5px;
-}
-
-.rate-15 {
-	background-color: #ffa500;
-	color: white;
-	font-size: 12px;
-	padding: 3px 5px;
-	border-radius: 3px;
-	margin-right: 5px;
-}
-
-.rate-x {
-	background-color: #ff0000;
-	color: white;
-	font-size: 12px;
-	padding: 3px 5px;
-	border-radius: 3px;
-	margin-right: 5px;
-}
-
-.rate-all {
-	background-color: #008000;
-	color: white;
-	font-size: 12px;
-	padding: 3px 5px;
-	border-radius: 3px;
-	margin-right: 5px;
-}
-
 .selector-summary {
 	list-style-type: none;
 	padding: 0;
@@ -169,14 +133,6 @@ sapn {
 	margin-bottom: 10px;
 }
 
-.rate-15 {
-	background-color: #ffd700;
-	color: #333;
-	padding: 2px 5px;
-	margin-right: 5px;
-	border-radius: 3px;
-}
-
 .title {
 	text-align: left;
 }
@@ -192,55 +148,6 @@ sapn {
 	margin-right: 10px;
 }
 
-.timetable {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
-
-.timetable th, .timetable td {
-	padding: 10px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-.timetable .title {
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.timetable .rate {
-	background-color: #ffd700;
-	color: #333;
-	padding: 2px 5px;
-	margin-right: 5px;
-	border-radius: 3px;
-}
-
-.timetable .screen {
-	font-size: 15px;
-	line-height: 20px;
-}
-
-.timetable .time {
-	margin-bottom: 5px;
-}
-
-.timetable .time a {
-	text-decoration: none;
-	color: #333;
-}
-
-.timetable .seats-status {
-	color: green; /* 좌석 상태에 따라 색상을 조정할 수 있습니다 */
-}
-
-.timetable .timetable-attrib-gv {
-	background-color: #f0f0f0;
-	color: #333;
-	padding: 2px 5px;
-	border-radius: 3px;
-}
 
 .map-container {
 	max-width: 1020px; /* 지도의 최대 너비에 맞춤 */
@@ -292,6 +199,7 @@ table {
 	border-collapse: collapse;
 	width: 50%; /* 테이블 너비를 더 줄여서 작게 표시 */
 	margin-left: 0; /* 왼쪽에 붙이기 위해 margin-left를 0으로 설정 */
+	margin-top: 50px;
 }
 
 th, td {
@@ -317,6 +225,75 @@ tr:hover {
 	text-align: center;
 	font-weight: bold;
 	color: red;
+}
+
+.cal {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	width: 400px;
+	margin: 0 auto;
+	margin-bottom: 50px; /* 달력과 테이블 사이의 여백 추가 */
+	background-color: #f9f9f9;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.big-m {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+}
+
+.small-yyyym {
+	font-size: 16px;
+	color: #666;
+	margin-left: 10px;
+}
+
+.cal ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 10px 0;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.cal li {
+	margin: 5px;
+}
+
+.cal li a {
+	display: block;
+	padding: 10px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #333;
+	transition: background-color 0.3s;
+}
+
+.cal li a:hover {
+	background-color: #eee;
+}
+
+li a span.day {
+	display: block;
+	font-size: 12px;
+	color: #999;
+}
+
+.datelist19 a, .datelist20 a, .datelist21 a, .datelist22 a, .datelist23 a,
+	.datelist24 a, .datelist25 a, .datelist26 a, .datelist27 a {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.datelist19 a:hover, .datelist20 a:hover, .datelist21 a:hover,
+	.datelist22 a:hover, .datelist23 a:hover, .datelist24 a:hover,
+	.datelist25 a:hover, .datelist26 a:hover, .datelist27 a:hover {
+	background-color: #0056b3;
 }
 </style>
 </head>
@@ -356,92 +333,64 @@ tr:hover {
 							<span class="big-m">July</span> <span class="small-yyyym">2024
 								July</span>
 							<ul>
-								<li><a href="#" class="prev">이전</a></li>
-								<li class="datelist19" data-date="2024-07-19"><a href="sindorim"><span
-										class="day">오늘</span>19</a></li>
-								<li class="datelist20" data-date="2024-07-20"><a href="datelist20"><span
-										class="day">토</span>20</a></li>
-								<li class="datelist21" data-date="2024-07-21"><a href="datelist21"><span
-										class="day">일</span>21</a></li>
+								<li class="datelist19" data-date="2024-07-19"><a
+									href="sindorim"><span class="day">오늘</span>19</a></li>
+								<li class="datelist20" data-date="2024-07-20"><a
+									href="datelist20"><span class="day">토</span>20</a></li>
+								<li class="datelist21" data-date="2024-07-21"><a
+									href="datelist21"><span class="day">일</span>21</a></li>
 								<li class="datelist22" data-date="2024-07-22"><a href="#"><span
 										class="day">월</span>22</a></li>
 								<li class="datelist23" data-date="2024-07-23"><a href="#"><span
 										class="day">화</span>23</a></li>
 								<li class="datelist24" data-date="2024-07-24"><a href="#"><span
 										class="day">수</span>24</a></li>
-								<li class="datelist25" data-date="2024-07-25"><a href="#"><span
-										class="day">목</span>25</a></li>
-								<li class="datelist26" data-date="2024-07-26"><a href="#"><span
-										class="day">금</span>26</a></li>
-								<li class="datelist27" data-date="2024-07-27"><a href="#"><span
-										class="day">토</span>27</a></li>
-								<li><a href="#" class="next">다음</a></li>
 							</ul>
 						</div>
 
-						<div class="selector-sub">
-							<a href="#" data-listtype="movie" class="selected">영화별</a> | <a
-								href="#" data-listtype="time">시간대별</a>
-						</div>
 
-					</div>
-
-					<div class="wrap-special-box">
-						<ul class="desc">
-							<li><span class="rate-all">전체</span> 전체 관람가</li>
-							<li><span class="rate-12">12</span> 12세 관람가</li>
-							<li><span class="rate-15">15</span> 15세 관람가</li>
-							<li><span class="rate-x">청불</span> 청소년 관람불가</li>
-						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
+</div>
+			<table border="1">
+				<tr>
+					<th width="120px">영화관명</th>
+					<th width="120px">상영관</th>
+					<th width="120px">영화명</th>
+					<th width="120px">시작시간</th>
+					<th width="120px">종료시간</th>
+				</tr>
 
-		<table border="1">
-			<tr>
-				<th width="120px">영화관명</th>
-				<th width="120px">상영관</th>
-				<th width="120px">영화명</th>
-				<th width="120px">시작시간</th>
-				<th width="120px">종료시간</th>
-			</tr>
+				<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
+				<c:set var="pageNum" value="1" />
 
-			<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
-			<c:set var="pageNum" value="1" />
+				<%-- pageNum 파라미터 존재할 경우(비어있지 않음) 판별 --%>
+				<c:if test="${not empty param.pageNum}">
+					<c:set var="pageNum" value="${param.pageNum}" />
+				</c:if>
 
-			<%-- pageNum 파라미터 존재할 경우(비어있지 않음) 판별 --%>
-			<c:if test="${not empty param.pageNum}">
-				<c:set var="pageNum" value="${param.pageNum}" />
-			</c:if>
+				<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
+				<c:forEach var="play" items="${playList}">
 
-			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
-			<c:forEach var="play" items="${playList}">
-
-				<c:if
-					test="${play.theater_name eq '신도림' and play.play_day eq '2024-07-19T00:00'}">
+					<c:if
+						test="${play.theater_name eq '신도림' and play.play_day eq '2024-07-19T00:00'}">
+						<tr>
+							<td>${play.theater_name}</td>
+							<td>${play.room_num}</td>
+							<td>${play.movie_name_kr}</td>
+							<td>${play.play_start_time}</td>
+							<td>${play.play_end_time}</td>
+						</tr>
+					</c:if>
+				</c:forEach>
+				<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
+				<c:if test="${empty playList}">
 					<tr>
-						<td>${play.theater_name}</td>
-						<td>${play.room_num}</td>
-						<td>${play.movie_name_kr}</td>
-						<td>${play.play_start_time}</td>
-						<td>${play.play_end_time}</td>
+						<td colspan="5">게시물이 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
-			</c:forEach>
-			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
-			<c:if test="${empty playList}">
-				<tr>
-					<td colspan="7">게시물이 존재하지 않습니다.</td>
-				</tr>
-			</c:if>
-		</table>
-		<form action="AdminStoreModify" method="post" name="movieForm">
-			<div id="resultArea"></div>
-			<!-- 수정 팝업 내용 들어갈 자리 -->
-			<div class="btnArea" style="text-align: center"></div>
-		</form>
-
+			</table>
 	</article>
 
 	<footer>
@@ -449,7 +398,7 @@ tr:hover {
 	</footer>
 </body>
 <script>
- 
+	
 </script>
 
 </html>
