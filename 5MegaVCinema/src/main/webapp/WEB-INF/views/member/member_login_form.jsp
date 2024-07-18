@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -146,7 +147,7 @@
 				<form action="MemberLogin" method="post" name="login">
 					<div class="info">
 						<span>아이디(이메일)</span>
-						<input type="text" name="member_id" id="member_id" placeholder="이메일을 입력해주세요" required> <br>
+						<input type="text" name="member_id" id="member_id" value="${cookie.rememberId.value}" placeholder="이메일을 입력해주세요" required> <br>
 					</div>
 					
 					<div class="info">
@@ -156,8 +157,7 @@
 					
 					<div class="search">
 						<div>
-							<input type="checkbox" name="rememberId" id="rememberId">
-							<label for="rememberId"> 아이디저장</label>
+							<input type="checkbox" name="rememberId" <c:if test="${not empty cookie.rememberId}">checked</c:if>>아이디 기억<br>
 						</div>
 					</div>
 					<!--  체크박스 생성 시 value 속성 지정하지 않으면 체크값이 "on", 미체크는 "null" -->

@@ -8,6 +8,9 @@ import com.itwillbs.vCinema.vo.StoreVO;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,25 +62,51 @@ public class MemberController {
    }
 
    @PostMapping("MemberLogin")
-   public String loginPro(MemberVO member, BCryptPasswordEncoder passwordEncoder, Model model, HttpSession session) {
-      MemberVO dbMember = service.getMember(member);
+   public String loginPro(MemberVO member, BCryptPasswordEncoder passwordEncoder, Model model,
+		   HttpSession session, HttpServletResponse response, String rememberId) {
+     
+
+	  MemberVO dbMember = service.getMember(member);
+      
       System.out.println("dbMember : " + dbMember);
-      if (dbMember != null && passwordEncoder.matches(member.getMember_pw(), dbMember.getMember_pw())) {
-         if (dbMember.getMember_status().equals("탈퇴")) {
-            model.addAttribute("msg", "탈퇴한 회원입니다!");
-            return "result/fail";
-         } else {
-            session.setAttribute("sId", member.getMember_id());
-            session.setAttribute("sName", dbMember.getMember_name());
-            session.setAttribute("sIsAdmin", dbMember.getMember_isAdmin());
-            session.setMaxInactiveInterval(3600);
-            return "redirect:/";
-         }
-      } else {
-         model.addAttribute("msg", "아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-         return "result/fail";
-      }
-   }
+      
+      if(dbMember == null || !passwordEncoder.matches(member.getMember_pw(), dbMember.getMember_pw())) {
+			model.addAttribute("msg", "로그인 실패!");
+			return "result/fail";
+		} else if(dbMember.getMember_status().equals("탈퇴")) { // 로그인 성공(이지만 탈퇴 회원인 경우)
+			model.addAttribute("msg", "탈퇴한 회원입니다!");
+			return "result/fail";
+		} else { // 로그인 성공
+			// 로그인 성공한 아이디를 세션에 저장
+			session.setAttribute("sId", member.getMember_id());
+			session.setAttribute("sName", dbMember.getMember_name());
+			session.setAttribute("sIsAdmin", dbMember.getMember_isAdmin());
+			session.setMaxInactiveInterval(3600);
+
+		
+			Cookie cookie = new Cookie("rememberId", member.getMember_id());
+			
+			// 2. 파라미터로 전달받은 rememberId 변수값 체크
+			if(rememberId != null) {
+				// 2-1. 아이디 기억하기 체크 시 : 쿠키 유효기간 30일로 설정
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 30일(60초 * 60분 * 24시간 * 30일)
+			} else { 
+				// 2-2. 아이디 기억하기 미체크 시 : 쿠키 삭제 위해 유효기간을 0 으로 설정
+				cookie.setMaxAge(0);
+			}
+			
+			response.addCookie(cookie);
+			if(session.getAttribute("prevURL") == null) {
+				return "redirect:/";
+			} else {
+				// 요청 서블릿 주소 앞에 "/" 기호가 이미 붙어있으므로 "redirect:" 문자열과 결합
+				return "redirect:" + session.getAttribute("prevURL");
+			}
+			// -----------------------------------------------------------------------------------------
+			
+		}
+		
+	}
    
    // 비회원 로그인 --------------------------------------------------------------------------------------
    @PostMapping("MemberLoginUnregisted")
@@ -182,6 +211,10 @@ public class MemberController {
 			@PostMapping("PwResetPro")
 			public String pwResetPro(MemberVO member, Model model) {
 				MemberVO dbMember = service.isExistPhonenumber(member);
+				
+				
+				
+				
 				if(dbMember == null) { // !member.getMem_tel().equals(mem_tel)
 					model.addAttribute("msg", "없는 전화번호입니다");
 					return "result/fail";
@@ -206,7 +239,7 @@ public class MemberController {
 			    }
 
 			    // 새 비밀번호 입력 여부를 확인하여 새 비밀번호 입력됐을 경우 암호화 수행 필요
-			    String newPasswd = map.get("member_passwd");
+			    String newPasswd = map.get("member_pw");
 			    if (newPasswd != null && !newPasswd.isEmpty()) {
 			        map.put("member_passwd", passwordEncoder.encode(newPasswd)); // 새 비밀번호 암호화
 			        System.out.println("map : " + map); // passwd 항목 암호화 결과 확인
