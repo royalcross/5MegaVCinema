@@ -157,7 +157,8 @@
 									$.ajax({
 										type : "GET",
 										url : "getEndTime",
-										data : {play_movie_name_kr : $("#play_movie_name_kr").val(),
+										data : {
+											play_movie_name_kr : $("#play_movie_name_kr").val(),
 											play_start_time : $("#play_start_time").val()
 											},
 										success : function(response) {

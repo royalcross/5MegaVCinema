@@ -308,6 +308,52 @@
         p.play_num = #{play_num}
 	</select>
 	
+		<!-- 상영시작시간 가져오기 -->
+	<select id="selectPlayStartTime" resultType="String">
+		SELECT p.play_start_time
+		FROM movie m JOIN play p
+		ON m.movie_code = p.play_movie_code
+		JOIN theater t
+		ON p.play_theater_num = t.theater_num
+		JOIN room r
+		ON p.play_room_num = r.room_num
+        where r.room_theater_num = theater_num and
+        p.play_movie_name_kr = #{play_movie_name_kr}
+	</select>
+	
+		<!-- 영화이름 가져오기 -->
+<!-- 	<select id="selectPlayMovieName" resultType="String"> -->
+<!-- 		SELECT p.play_movie_name_kr -->
+<!-- 		FROM movie m JOIN play p -->
+<!-- 		ON m.movie_code = p.play_movie_code -->
+<!-- 		JOIN theater t -->
+<!-- 		ON p.play_theater_num = t.theater_num -->
+<!-- 		JOIN room r -->
+<!-- 		ON p.play_room_num = r.room_num -->
+<!--         where r.room_theater_num = theater_num and -->
+<!--         p.play_movie_name_kr = #{play_movie_name_kr} -->
+<!-- 	</select> -->
+	
+	<!-- 상영시간표 수정 -->
+	<update id="updatePlay">
+		UPDATE play
+		SET 
+			play_day = #{play_day}
+			, play_theater_name = #{play_theater_name}
+			, play_theater_num = #{play_theater_num}
+			, play_room_num = #{play_room_num}
+			, play_end_time = #{play_end_time}
+			, play_start_time = #{play_start_time}
+		WHERE 
+			play_num = #{play_num}
+	</update>	
+	
+	
+	
+	
+	
+	
+	
 	
 <!--  * * * * * * * * * * *       상영관        * * * * * * * * * * *-->	
 	   <!-- ///////////////////////////////////////////////////////////// -->	

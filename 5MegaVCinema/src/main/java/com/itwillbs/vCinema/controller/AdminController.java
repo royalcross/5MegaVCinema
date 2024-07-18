@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.controller;
 
+import java.sql.Date;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -186,7 +187,7 @@ public class AdminController {
 
 		
 		//상영시간표 목록 
-		@GetMapping("AdminPlayList")
+		@GetMapping("AdminPlay")
 		public String adminPlay(@RequestParam(defaultValue = "") String searchKeyword,
 				@RequestParam(defaultValue = "1") int pageNum, Model model) {
 					// ---------------------------------------------------------------
@@ -283,14 +284,18 @@ public class AdminController {
 			//상영종료 시간 조회
 			@ResponseBody
 			@GetMapping("getEndTime")
-			public String getEndTime(@RequestParam(defaultValue = "") String play_movie_name_kr, String play_start_time, Model model) {
-//				System.out.println("getEndTime");
-//				System.out.println(play_start_time);
-				int startHour = Integer.parseInt(play_start_time.split(":")[0]);
-//				System.out.println("startHour" + startHour);
-				System.out.println("play_movie_name_kr" + play_movie_name_kr);
+			public String getEndTime(@RequestParam String play_movie_name_kr, String play_start_time, Model model) {
+				System.out.println("getEndTime");
+//				System.out.println(play_num);
+				System.out.println(play_movie_name_kr);
+				String playStartTime= AdminService.getPlayStartTime(play_movie_name_kr);
+//				String playMovieName= AdminService.getPlayMovieName(play_movie_name_kr);
+				System.out.println(playStartTime);
+				int startHour = Integer.parseInt(playStartTime.split(":")[0]);
+				System.out.println("startHour" + startHour);
+//				System.out.println("play_movie_name_kr" + play_movie_name_kr);
 				
-				int startMin = Integer.parseInt(play_start_time.split(":")[1]);
+				int startMin = Integer.parseInt(playStartTime.split(":")[1]);
 				LocalTime startTime = LocalTime.of(startHour, startMin);
 				System.out.println("startTime" + startTime);
 				
@@ -304,7 +309,7 @@ public class AdminController {
 				
 				System.out.println("play_movie_name_kr : " + play_movie_name_kr);
 				LocalTime endTime = startTime.plusHours(hour).plusMinutes(minute);
-//				System.out.println("endTime : " + endTime.toString());
+				System.out.println("endTime : " + endTime.toString());
 				String endTimeStr = endTime.toString();
 				System.out.println(endTimeStr);
 				
@@ -331,6 +336,7 @@ public class AdminController {
 				
 				System.out.println("getMovieCode");
 				String movieCode = AdminService.getMovieCode(play_movie_name_kr);
+				System.out.println(movieCode);
 				
 //				model.addAttribute("endTimeStr", endTimeStr);
 				return movieCode;
@@ -353,28 +359,34 @@ public class AdminController {
 				// model 객체에 저장해서 전달
 				model.addAttribute("selectedPlayList", selectedPlayList);
 				return "admin/admin_play_modify_popup";
+//				return "admin/admin_store_modify_popup";
 			}
 			
-//			@PostMapping("AdminPlayModify")
-//			public String adminPlayModifyPro (Model model, @RequestParam(defaultValue = "") String item_id, 
-//												@RequestParam(defaultValue = "") String item_name, 
-//												@RequestParam(defaultValue = "") String item_content,
-//												@RequestParam(defaultValue = "0") int item_price) {
-//				// 스토어 아이템 수정 (update)
-//				// AdminStoreService - adminStoreModify();
-//				int updateCount = service.adminItemModify(item_id,item_name,item_content,item_price);
-//				
-//				if(updateCount > 0) {
-//					model.addAttribute("msg", "수정되었습니다.");
-//					model.addAttribute("targetURL", "AdminStore?pageNum=1");
-//					
-//					return "result/success";
-//				} else {
-//					model.addAttribute("msg", "아이템 수정에 실패했습니다.");
-//					
-//					return "result/fail";
-//				}
-//			}
+			@PostMapping("AdminPlayModify")
+			public String adminPlayModifyPro (Model model, @RequestParam(defaultValue = "") String play_num, 
+												@RequestParam(defaultValue = "") String play_movie_code,
+												@RequestParam Date play_day, 
+												@RequestParam(defaultValue = "") String play_theater_name,
+												@RequestParam(defaultValue = "0") int play_theater_num,
+												@RequestParam(defaultValue = "0") int play_room_num,
+												@RequestParam(defaultValue = "") String play_start_time,
+												@RequestParam(defaultValue = "") String play_end_time) {
+				// 스토어 아이템 수정 (update)
+				// AdminStoreService - adminStoreModify();
+				int updateCount = AdminService.adminPlayModify(play_num,play_movie_code,play_day,
+						play_theater_name, play_theater_num, play_room_num, play_start_time, play_end_time);
+				
+				if(updateCount > 0) {
+					model.addAttribute("msg", "수정되었습니다.");
+					model.addAttribute("targetURL", "AdminPlay?pageNum=1");
+					
+					return "result/success";
+				} else {
+					model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+					
+					return "result/fail";
+				}
+			}
 		
 		
 		
