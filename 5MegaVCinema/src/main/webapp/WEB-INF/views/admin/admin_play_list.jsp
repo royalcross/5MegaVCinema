@@ -216,7 +216,7 @@
 <!-- 우측 상단 버튼 들어가는 자리 -->			
 						<div>
 							<button type="button" id="registBtn">등록</button>
-							<button type="button" id="categoryBtn">카테고리 관리</button>
+<!-- 							<button type="button" id="categoryBtn">카테고리 관리</button> -->
 						</div>
 					</div>
 						
@@ -249,16 +249,15 @@
 			<c:forEach var="play" items="${playList}">
 			<tr>
 				<td>${play.play_num}</td>
-<%-- 				<td>${play.play_day}</td> --%>
-				<td><fmt:parseDate value="${play.play_day}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
-<%-- 				<td><fmt:formatDate value="${play.play_day}" pattern="yyyy-MM-dd"/></td> --%>
+				<td>${play.play_day}</td>
 				<td>${play.theater_name}</td>
 				<td>${play.room_num}</td>
 				<td>${play.play_movie_name_kr}</td>
 				<td>${play.play_start_time}</td>
 				<td>${play.play_end_time}</td>
 				<td>
+<!-- 				<input type="button" value="상세보기"> -->
+<!-- 				<input type="button" value="상영종료"> -->
 					<button value="${play.play_num}" class="modifyBtn">수정</button>
 			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
 				<%--수정을 위한 상영시간표 번호  --%>
@@ -326,7 +325,7 @@
 		
 		<div class="modal"> <!-- 수정 -->
 		    <div class="modal_popup">
-		        <h3>상영시간표 수정할까요</h3>
+		        <h3>상영시간표 수정</h3>
 		        <div class="content">
 		        	<form action="AdminPlayModify" method="post" name="modifyForm">
 		        		<div id="resultArea2"></div>  <!-- 수정 팝업 내용 들어갈 자리 -->

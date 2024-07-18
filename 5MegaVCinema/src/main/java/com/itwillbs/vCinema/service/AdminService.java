@@ -1,5 +1,6 @@
 package com.itwillbs.vCinema.service;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.Map;
@@ -138,10 +139,23 @@ public class AdminService {
 		return mapper.selectPlay(play_num);
 	}
 	
-	//상영시간표 목록 조회
-	public List<Map<String, String>> getPlayList(String searchKeyword, int startRow, int listLimit) {
-		return mapper.selectPlayList(startRow, listLimit, searchKeyword);
+	//상영시작시간 가져오기
+	public String getPlayStartTime(String play_movie_name_kr) {
+		return mapper.selectPlayStartTime(play_movie_name_kr);
 	}
+	
+	//영화이름 가져오기
+//	public String getPlayMovieName(String play_movie_name_kr) {
+//		return mapper.selectPlayMovieName(play_movie_name_kr);
+//	}
+	
+	//상영시간표 수정
+	public int adminPlayModify(String play_num, String play_movie_code, Date play_day, String play_theater_name,
+			int play_theater_num, int play_room_num, String play_start_time, String play_end_time) {
+		return mapper.updatePlay(play_num, play_movie_code, play_day, play_theater_name, play_theater_num, play_room_num, play_start_time, play_end_time);
+	}
+	
+	
 	
 	
 }

@@ -23,6 +23,12 @@ public interface MemberMapper {
 
    MemberVO selectMemberSearchId(MemberVO member);
 
+   MemberVO selectId(MemberVO member);
+
+   int updatePasswd(Map<String, String> map);
+
+   MemberVO selectTel(MemberVO member);
+
    int selectListCount(String searchKeyword);
 
    List<MemberVO> selectMemberList(int startRow, int listLimit, String searchKeyword);
@@ -30,10 +36,8 @@ public interface MemberMapper {
    List<Map<String, String>> selectOrderticket2(int member_num);
 
    int selectMember_num(String id);
-
+ 
    OrderItemVO selectPaymentInfo();
 
    StoreVO selectItem2(StoreVO store);
-
-
 }
