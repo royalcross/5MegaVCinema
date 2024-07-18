@@ -220,6 +220,7 @@
 		top: 245px;
 		left: 180px;
 		width: 935px; height: 35px;
+		cursor: pointer;
 	}
 </style>
 </head>
@@ -316,7 +317,7 @@
 						<c:set var="limit" value="0"/>
 						<c:forEach items="${movieList}" varStatus="status">
 							<%-- <c:if> 태그로 상품 목록을 추가하는 조건 설정 --%>
-							<c:if test="${movieList[status.index] != null and limit < 5 and movieList[status.index].movie_name_kr != '테스트'}">
+							<c:if test="${movieList[status.index] != null and limit < 5}">
 								<div class="swiper-slide">
 								 	<div class="movie_desc">
 										<img alt="${movieList[status.index].movie_name_kr}" src="${movieList[status.index].movie_poster}"><br>

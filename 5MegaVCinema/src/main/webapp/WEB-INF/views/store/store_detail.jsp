@@ -114,7 +114,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td rowspan="6" id="img"><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg"></td>
+				<td rowspan="6" id="img"><img alt="${store.item_name}" src="${store.item_image}"></td>
 				<td>사용극장</td>
 				<td colspan="2"><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장</a></td>
 			</tr>
@@ -143,7 +143,7 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="button" id="gift">선물</button>
+					<button type="button" id="gift" disabled>선물</button>
 					<button type="button" id="purchase">구매</button>
 				</td>
 			</tr>

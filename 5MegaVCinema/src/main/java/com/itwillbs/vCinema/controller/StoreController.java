@@ -74,6 +74,7 @@ public class StoreController {
 	
 	@GetMapping("StoreAvailableTheaters")
 	public String storeAvailableTheaters() {
+		// 사용가능극장 팝업창 포워딩
 		return "store/store_available_theaters";
 	}
 	
