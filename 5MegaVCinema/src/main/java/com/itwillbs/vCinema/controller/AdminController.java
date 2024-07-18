@@ -226,7 +226,7 @@ public class AdminController {
 					//파라미터 : 검색타입, 검색어, 시작행번호, 게시물 수
 					//리턴타입 : List<BoardVO>(boardList)
 					List<Map<String, String>> playList = AdminService.getPlayList(searchKeyword, startRow, listLimit);
-					System.out.println(" playList : " + playList);
+//					System.out.println(" playList : " + playList);
 					
 					PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 					
@@ -272,7 +272,7 @@ public class AdminController {
 //				System.out.println(insertCount);
 				if(insertCount > 0) {
 					model.addAttribute("msg", "성공적으로 처리되었습니다.");
-					model.addAttribute("targetURL", "AdminPlayList?pageNum=1");
+					model.addAttribute("targetURL", "AdminPlay?pageNum=1");
 					
 					return "result/success";
 				} else {
@@ -289,14 +289,14 @@ public class AdminController {
 				System.out.println("getEndTime");
 //				System.out.println(play_num);
 				System.out.println(play_movie_name_kr);
-				String playStartTime= AdminService.getPlayStartTime(play_movie_name_kr);
+//				String playStartTime= AdminService.getPlayStartTime(play_movie_name_kr);
 //				String playMovieName= AdminService.getPlayMovieName(play_movie_name_kr);
-				System.out.println(playStartTime);
-				int startHour = Integer.parseInt(playStartTime.split(":")[0]);
+				System.out.println(play_start_time);
+				int startHour = Integer.parseInt(play_start_time.split(":")[0]);
 				System.out.println("startHour" + startHour);
 //				System.out.println("play_movie_name_kr" + play_movie_name_kr);
 				
-				int startMin = Integer.parseInt(playStartTime.split(":")[1]);
+				int startMin = Integer.parseInt(play_start_time.split(":")[1]);
 				LocalTime startTime = LocalTime.of(startHour, startMin);
 				System.out.println("startTime" + startTime);
 				
@@ -309,6 +309,48 @@ public class AdminController {
 				System.out.println(runtime);
 				
 				System.out.println("play_movie_name_kr : " + play_movie_name_kr);
+				LocalTime endTime = startTime.plusHours(hour).plusMinutes(minute);
+				System.out.println("endTime : " + endTime.toString());
+				String endTimeStr = endTime.toString();
+				System.out.println(endTimeStr);
+				
+//				String runtime2 = runtime.toString();
+//				System.out.println(runtime2);
+//				model.addAttribute("runtime2", runtime2);
+//				return runtime2;
+//				return endTimeStr;
+				
+//				model.addAttribute("endTimeStr", endTimeStr);
+				return endTimeStr;
+			}
+			
+			//상영종료 시간 조회(수정페이지)
+			@ResponseBody
+			@GetMapping("getEndTimeModify")
+			public String getEndTimeModify(@RequestParam int play_num, String play_start_time, Model model) {
+				System.out.println("getEndTime");
+				System.out.println(play_num);
+//				System.out.println(play_movie_name_kr);
+//				String playStartTime= AdminService.getPlayStartTime(play_num);
+				String playMovieName= AdminService.getPlayMovieName(play_num);
+				System.out.println(play_start_time);
+				int startHour = Integer.parseInt(play_start_time.split(":")[0]);
+				System.out.println("startHour" + startHour);
+//				System.out.println("play_movie_name_kr" + play_movie_name_kr);
+				
+				int startMin = Integer.parseInt(play_start_time.split(":")[1]);
+				LocalTime startTime = LocalTime.of(startHour, startMin);
+				System.out.println("startTime" + startTime);
+				
+				
+				int runtime = AdminService.getEndTime(playMovieName);
+				System.out.println("runtime" + runtime);
+				int hour = runtime / 60;
+				int minute = runtime % 60;
+//				LocalTime runtime = LocalTime.of(hour, minute);
+				System.out.println(runtime);
+				
+				System.out.println("play_movie_name_kr : " + playMovieName);
 				LocalTime endTime = startTime.plusHours(hour).plusMinutes(minute);
 				System.out.println("endTime : " + endTime.toString());
 				String endTimeStr = endTime.toString();
@@ -344,6 +386,35 @@ public class AdminController {
 			}
 		
 			
+//			//영화관 번호 조회하기
+//			@ResponseBody
+//			@GetMapping("getTheaterNum")
+//			public int getTheaterNum(@RequestParam String play_theater_name, Model model) {
+//				
+//				System.out.println("getTheaterNum");
+//				System.out.println(play_theater_name);
+//				int playTheaterNum = AdminService.getTheaterNum(play_theater_name);
+//				System.out.println(playTheaterNum);
+//				
+////				model.addAttribute("endTimeStr", endTimeStr);
+//				return playTheaterNum;
+//			}
+			
+			//영화관 번호 조회하기
+			@ResponseBody
+			@GetMapping("getTheaterNum")
+			public int getTheaterNum(@RequestParam String play_theater_name, Model model) {
+				
+				System.out.println("getTheaterNum");
+				System.out.println(play_theater_name);
+				int playTheaterNum = AdminService.getTheaterNum(play_theater_name);
+				System.out.println(playTheaterNum);
+				
+//				model.addAttribute("endTimeStr", endTimeStr);
+				return playTheaterNum;
+			}
+			
+			
 			
 			
 			
@@ -368,14 +439,14 @@ public class AdminController {
 												@RequestParam(defaultValue = "") String play_movie_code,
 												@RequestParam Date play_day, 
 												@RequestParam(defaultValue = "") String play_theater_name,
-												@RequestParam(defaultValue = "0") int play_theater_num,
+//												@RequestParam(defaultValue = "0") int play_theater_num,
 												@RequestParam(defaultValue = "0") int play_room_num,
 												@RequestParam(defaultValue = "") String play_start_time,
 												@RequestParam(defaultValue = "") String play_end_time) {
 				// 스토어 아이템 수정 (update)
 				// AdminStoreService - adminStoreModify();
 				int updateCount = AdminService.adminPlayModify(play_num,play_movie_code,play_day,
-						play_theater_name, play_theater_num, play_room_num, play_start_time, play_end_time);
+						play_theater_name, play_room_num, play_start_time, play_end_time);
 				
 				if(updateCount > 0) {
 					model.addAttribute("msg", "수정되었습니다.");

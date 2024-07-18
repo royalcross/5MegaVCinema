@@ -138,21 +138,33 @@ public class AdminService {
 	public List<Map<String, String>> getPlay(int play_num) {
 		return mapper.selectPlay(play_num);
 	}
+
+	//상영정보 가져오기
+	public List<Map<String, String>> getPlayList(String searchKeyword, int startRow, int listLimit) {
+		return mapper.selectPlayList(startRow, listLimit, searchKeyword);
+	}
 	
 	//상영시작시간 가져오기
-	public String getPlayStartTime(String play_movie_name_kr) {
-		return mapper.selectPlayStartTime(play_movie_name_kr);
+	public String getPlayStartTime(int play_num) {
+		return mapper.selectPlayStartTime(play_num);
 	}
 	
 	//영화이름 가져오기
-//	public String getPlayMovieName(String play_movie_name_kr) {
-//		return mapper.selectPlayMovieName(play_movie_name_kr);
-//	}
+	public String getPlayMovieName(int play_num) {
+		return mapper.selectPlayMovieName(play_num);
+	}
 	
 	//상영시간표 수정
 	public int adminPlayModify(String play_num, String play_movie_code, Date play_day, String play_theater_name,
-			int play_theater_num, int play_room_num, String play_start_time, String play_end_time) {
-		return mapper.updatePlay(play_num, play_movie_code, play_day, play_theater_name, play_theater_num, play_room_num, play_start_time, play_end_time);
+								int play_room_num, String play_start_time, String play_end_time) {
+		return mapper.updatePlay(play_num, play_movie_code, play_day, play_theater_name, play_room_num, play_start_time, play_end_time);
+	}
+
+	//영화관 번호 가져오기
+	public int getTheaterNum(String play_theater_name) {
+//		System.out.println("getTheaterNum");
+//		System.out.println(play_theater_name);
+		return mapper.selectTheaterNum(play_theater_name);
 	}
 	
 	

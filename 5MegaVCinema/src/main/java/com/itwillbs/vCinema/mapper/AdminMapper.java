@@ -82,18 +82,20 @@ public interface AdminMapper {
 	List<Map<String, String>> selectPlay(int play_num);
 
 	//상영시작시간 가져오기
-	String selectPlayStartTime(@Param("play_movie_name_kr") String play_movie_name_kr);
+	String selectPlayStartTime(@Param("play_num") int play_num);
 
 	//영화이름 가져오기
-//	String selectPlayMovieName(@Param("play_movie_name_kr") int play_movie_name_kr);
+	String selectPlayMovieName(@Param("play_num") int play_num);
 	
 	//상영시간표 수정
 	int updatePlay(@Param("play_num") String play_num,@Param("play_movie_code")  String play_movie_code,@Param("play_day")  Date play_day,
-			@Param("play_theater_name")  String play_theater_name,@Param("play_theater_num") int play_theater_num,
-			@Param("play_room_num") int play_room_num,@Param("play_start_time")  String play_start_time,@Param("play_end_time")  String play_end_time);
+			@Param("play_theater_name")  String play_theater_name, @Param("play_room_num") int play_room_num,@Param("play_start_time")  String play_start_time,@Param("play_end_time")  String play_end_time);
 	
 	//상영시간표 목록 조회
 	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
 			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+
+	//영화관 번호 가져오기
+	int selectTheaterNum(@Param("play_theater_name") String play_theater_name);
 	
 }

@@ -291,9 +291,7 @@
 		</c:forEach>
 		
 		<input type="button" value="다음" 
-				onclick="location.href='AdminPlay?pageNum=${pageNum + 1}'"
-				<c:if test="${pageNum >= pageInfo.maxPage}">disabled</c:if>
-		>
+				onclick="location.href='AdminPlay?pageNum=${pageNum + 1}'" <c:if test="${pageNum > pageInfo.maxPage}"> disabled </c:if>>
 	</div>
 				</article>
 			</section>
