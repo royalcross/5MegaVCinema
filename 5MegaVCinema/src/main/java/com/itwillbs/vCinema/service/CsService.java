@@ -18,8 +18,8 @@ public class CsService {
 		return mapper.selectCsListCount();
 	}
 
-	public List<CsVO> getCsList(int startRow, int listLimit, String id) {
-		return mapper.selectCsList(startRow, listLimit, id);
+	public List<CsVO> getCsList(int startRow, int listLimit, Boolean isAdmin, String id) {
+		return mapper.selectCsList(startRow, listLimit, isAdmin, id);
 	}
 
 	// 1:1 문의 작성

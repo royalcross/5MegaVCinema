@@ -6,7 +6,7 @@
 	<select id="selectItemList" resultType="store">
 		SELECT * 
 		FROM item
-		ORDER BY item_id DESC
+		ORDER BY item_id ASC
 	</select>
 	
 	<select id="selectItem" resultType="store">

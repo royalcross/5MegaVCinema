@@ -16,27 +16,34 @@
 		width: 1000px;
 	}
 	#payment_page th {padding: 10px;}
-	#payment_page td {padding: 10px;}
-	#payment_title, #item_info {text-align: left;}
+	#payment_title, #item_info {
+		text-align: left;
+		padding: 10px;
+	}
 	#payment_title {font-size: 30px;}
 	#item_info {font-size: 20px;}
 	td>#available_theaters {
 		color: blue;
 		text-decoration: underline;
 	}
-	td>img {width: 60px; height: 70px;}
+	#item_img {width: 100px; height: 100px;}
 	#item_nameAndContent {width: 400px;}
+	#item_name {font-size: 18px;}
+	#item_name:hover {text-decoration: underline;}
+	#item_img, #item_name {cursor: pointer;}
 	#gift_message, #final_payment {
 		text-align: left;
 		font-size: 20px;
 		padding: 10px;
 	}
+	#add_recipient {cursor: pointer;}
 	#gift_list {
 		background-color: #eee;
 		margin: auto;
 		width: 990px;
 		height: 40px;
 	}
+	label, #creditCard, #kakaopay {cursor: pointer;}
 	.payment_method {display: none;}
 	.payment_method.on {display: block;}
 	#cancelAndPayment {
@@ -47,6 +54,7 @@
 	#cancel, #payment {
 		text-align: center;
 		width: 200px; height: 40px;
+		cursor: pointer;
 	}
 </style>
 <%-- jquery 라이브러리 포함시키기 --%>
@@ -76,11 +84,11 @@
 				<th>총 상품금액</th>
 			</tr>
 			<tr>
-				<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
-				<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
+				<td><img alt="${store.item_name}" src="${store.item_image}" id="item_img"></td>
+				<td id="item_nameAndContent"><b id="item_name">${store.item_name}</b><br>${store.item_content}</td>
 				<td><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장 확인</a></td>
 				<td>${param.count}</td>
-				<td id="amount">${param.amount}</td>
+				<td id="amount"><b>${param.amount}</b></td>
 			</tr>
 		</table>
 		<br>
@@ -209,7 +217,12 @@
 	}
 	$(function() {
 		// 주문 상품의 상품이미지 또는 상품명 클릭 시 상품 구매 페이지로 이동
-// 		$("#")
+		$("#item_img").click(function() {
+			location.href = "StoreDetail?item_id=${store.item_id}&item_type=${store.item_type}";
+		});
+		$("#item_name").click(function() {
+			location.href = "StoreDetail?item_id=${store.item_id}&item_type=${store.item_type}";
+		});
 		// 결제 유형(선물, 구매) 확인
 		if(${param.paymentType eq 'gift'}) {
 			// 선물 수량 합계 변수 선언
@@ -280,60 +293,60 @@
 					alert("받는 분 또는 수량/휴대폰번호를 확인해주세요.");
 				} else if($("#message").val() == "") {
 					alert("선물메세지를 확인해주세요.")
-				} else if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드") {
+				} // else if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드") {
 // 					if($("#card").val() == "카드선택") {
 // 						alert("결제하실 카드를 선택하세요.");
 // 					} else 
-					if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-						// 결제창 호출
-						IMP.request_pay({
-							// 파라미터 값 설정
-							pg : "html5_inicis.INIpayTest", // PG사 코드표에서 선택
-							pay_method : "card", // 결제 방식
-							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-							name : "${store.item_name}", // 제품명
-							amount : "${param.amountNum}", // 금액
-							//구매자 정보 ↓
-							buyer_email : "${buyMember.member_id}",
-							buyer_name : "${buyMember.member_name}",
-							buyer_tel : "${buyMember.member_phonenumber}",
-							// buyer_addr : '서울특별시 강남구 삼성동',
-							// buyer_postcode : '123-456'
-						}, function(rsp) { // callback
-							if(rsp.success) { // 결제 성공시
-								alert("결제가 완료되었습니다(신용/체크카드).");
-								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
-							} else if(!rsp.success) { // 결제 실패시
-								alert(rsp.error_msg);
-							}
-						});
-					}
-				} else if($("input:radio[name=payment_method]:checked").val() == "카카오페이") {
-					if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-						// 결제창 호출
-						IMP.request_pay({
-							// 파라미터 값 설정
-							pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
-							pay_method : "card", // 결제 방식
-							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-							name : "${store.item_name}", // 제품명
-							amount : "${param.amountNum}", // 금액
-							//구매자 정보 ↓
-							buyer_email : "${buyMember.member_id}",
-							buyer_name : "${buyMember.member_name}",
-							buyer_tel : "${buyMember.member_phonenumber}",
-							// buyer_addr : '서울특별시 강남구 삼성동',
-							// buyer_postcode : '123-456'
-						}, function(rsp) { // callback
-							if(rsp.success) { // 결제 성공시
-								alert("결제가 완료되었습니다(카카오페이).");
-								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
-							} else if(!rsp.success) { // 결제 실패시
-								alert(rsp.error_msg);
-							}
-						});
-					}
-				}
+// 					if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+// 						// 결제창 호출
+// 						IMP.request_pay({
+// 							// 파라미터 값 설정
+// 							pg : "html5_inicis.INIpayTest", // PG사 코드표에서 선택
+// 							pay_method : "card", // 결제 방식
+// 							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+// 							name : "${store.item_name}", // 제품명
+// 							amount : "${param.amountNum}", // 금액
+// 							//구매자 정보 ↓
+// 							buyer_email : "${buyMember.member_id}",
+// 							buyer_name : "${buyMember.member_name}",
+// 							buyer_tel : "${buyMember.member_phonenumber}",
+// 							// buyer_addr : '서울특별시 강남구 삼성동',
+// 							// buyer_postcode : '123-456'
+// 						}, function(rsp) { // callback
+// 							if(rsp.success) { // 결제 성공시
+// 								alert("결제가 완료되었습니다(신용/체크카드).");
+// 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
+// 							} else if(!rsp.success) { // 결제 실패시
+// 								alert(rsp.error_msg);
+// 							}
+// 						});
+// 					}
+// 				} else if($("input:radio[name=payment_method]:checked").val() == "카카오페이") {
+// 					if(confirm("${buyMember.member_name}(${buyMember.member_phonenumber})로 스토어교환권이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+// 						// 결제창 호출
+// 						IMP.request_pay({
+// 							// 파라미터 값 설정
+// 							pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
+// 							pay_method : "card", // 결제 방식
+// 							merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+// 							name : "${store.item_name}", // 제품명
+// 							amount : "${param.amountNum}", // 금액
+// 							//구매자 정보 ↓
+// 							buyer_email : "${buyMember.member_id}",
+// 							buyer_name : "${buyMember.member_name}",
+// 							buyer_tel : "${buyMember.member_phonenumber}",
+// 							// buyer_addr : '서울특별시 강남구 삼성동',
+// 							// buyer_postcode : '123-456'
+// 						}, function(rsp) { // callback
+// 							if(rsp.success) { // 결제 성공시
+// 								alert("결제가 완료되었습니다(카카오페이).");
+// 								location.href = "StorePaymentSuccess?order_item_item_id=${store.item_id}&order_item_sales_rate=${param.count}&order_item_sales_revenue=${param.amountNum}&order_item_member_num=${buyMember.member_num}";
+// 							} else if(!rsp.success) { // 결제 실패시
+// 								alert(rsp.error_msg);
+// 							}
+// 						});
+// 					}
+// 				}
 			} else if(${param.paymentType eq 'purchase'}) {
 				if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드") {
 // 					if($("#card").val() == "카드선택") {

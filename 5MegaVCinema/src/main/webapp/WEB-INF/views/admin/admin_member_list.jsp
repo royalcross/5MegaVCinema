@@ -80,16 +80,16 @@
 				<article class="main">
 					<h3>회원목록</h3>
 					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
+<!-- 						<div> -->
+<!-- 							<span>Show</span> -->
+<!-- 							<select> -->
+<!-- 								<option>5</option> -->
+<!-- 								<option>10</option> -->
+<!-- 								<option>20</option> -->
+<!-- 								<option>30</option> -->
+<!-- 							</select> -->
+<!-- 							<span>entries</span> -->
+<!-- 						</div> -->
 						
 						<form action="AdminMemberList">
 							<div class="search">
@@ -136,7 +136,8 @@
 										<c:choose>
 											<c:when test="${member.member_isAdmin eq 0}">
 <%-- 												<input type="button" value="관리자 권한 부여" onclick="confirmYAdmin('${member.member_id}',${member.member_isAdmin})"> --%>
-												<input type="button" value="관리자 권한 부여" onclick="confirmAdmin('${member.member_id}',${member.member_isAdmin}, 'Y')">
+												<input type="button" value="관리자 권한 부여" onclick="confirmAdmin('${member.member_id}',${member.member_isAdmin}, 'Y')"
+													<c:if test="${member.member_status eq '탈퇴'}"> disabled</c:if>>
 											</c:when>
 											<c:otherwise>
 <%-- 												<input type="button" value="관리자 권한 해제" onclick="confirmNAdmin('${member.member_id}',${member.member_isAdmin})"> --%>

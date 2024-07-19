@@ -45,7 +45,7 @@ public interface AdminMemberMapper {
 
 	// 관리자 - 예매 상세 내역 가져오기
 //	OrderTicketVO selectBook(String order_ticket_id);
-	Map<String, String> selectBook(int order_ticket_id);
+	List<Map<String,String>> selectBook(int order_ticket_id);
 
 	
 }

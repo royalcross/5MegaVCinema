@@ -230,13 +230,13 @@ public class AdminMemberController {
 	
 	// 예매내역 상세보기
 	@GetMapping("AdminMemberBookDetail")
-	public String adminMemberBookDetail (@RequestParam(defaultValue = "0") int order_ticket_id, Model model) {
-//		System.out.println("order_ticket_id : " + order_ticket_id);
+	public String adminMemberBookDetail(@RequestParam(defaultValue = "1")int order_ticket_id, Model model) {
+		System.out.println("order_ticket_id : " + order_ticket_id);
 		
 		// 전달 받은 order_ticket_id 를 활용해 예매내역 가져오기
 //		OrderTicketVO selectedBook = service.getBook(order_ticket_id);
-		Map<String, String> selectedBook = service.getBook(order_ticket_id);
-//		System.out.println("선택된 예매 정보 : " + selectedBook);
+		List<Map<String,String>> selectedBook = service.getBook(order_ticket_id);
+		System.out.println("선택된 예매 정보 : " + selectedBook);
 		
 		// model 객체에 저장해서 전달
 		model.addAttribute("selectedBook", selectedBook);

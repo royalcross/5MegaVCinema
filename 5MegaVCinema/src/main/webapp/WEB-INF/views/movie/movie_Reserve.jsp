@@ -67,6 +67,7 @@
 		text-align: center;
 	}
 </style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<header>
@@ -101,11 +102,11 @@
 				</table>
 			</div>
 			<form action="Reserve_seat" onsubmit="return subBtn()" method="get">
-			    <input type="hidden" name="play_date" id="play_date" value="">
-			    <input type="hidden" name="theater_name" id="theater_name" value="">
-			    <input type="hidden" name="movie_name" id="movie_name" value="">
-			    <input type="hidden" name="room_num" id="room_num" value="">
-			    <input type="hidden" name="play_start_time" id="play_start_time" value="">
+			    <input type="hidden" name="order_ticket_date" id="order_ticket_date" value="">
+			    <input type="hidden" name="order_ticket_theater_name" id="order_ticket_theater_name" value="">
+			    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="">
+			    <input type="hidden" name="order_ticket_room_num" id="order_ticket_room_num" value="">
+			    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="">
 			    <input type="submit" class="btnsubmit" value="좌석선택">
 			</form>
 		</div>
@@ -139,73 +140,61 @@
 				</td>
 			</tr>
 		</table>
-		
 	</section>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script>
 		$(function() {
-			// 날짜 선택
+			// 날짜 선택하면 그에 맞는 극장 표출 !!!!!!!!!!
 			let dateBtn = document.querySelector('#dateBtn');
 			
 			$(dateBtn).click(function(){
 				
-				let date = $("#date").val();
-// 				console.log("선택된 날짜 : " + date);
+				console.log("선택된 날짜 : " + $("#date").val());
 				
-				$("#selectedDate").text(date);
+				$("#selectedDate").text($("#date").val());
 				
 				// 예매내역(input hidden 에 value 값 넣어주기)
-				$("#play_date").val(date);
+				$("#order_ticket_date").val($("#date").val());
 				
-				if(date == ""){
+				if($("#date").val() == ""){
 					alert("날짜를 선택해주세요!");
 					$("#date").focus();
 				} 
 				
+				$.ajax({
+					url: "ReserveDateAjax",
+					type : "get",
+					async:false, // 이 한줄만 추가해주시면 됩니다.
+					data:{
+						"play_day": $("#date").val()
+					},
+					dataType: "json",
+					success: function (response) {
+// 						alert("극장표출 ajax 성공!");
+// 						date = $("#date").val();
+						
+						$(".theater_select").html("");
+						
+						let TheaterNameArr = [];
+						
+						for(let theater of response) {
+	 						TheaterNameArr.push(theater);
+	 					}
+						
+						let uniqueTheaterNameData = new Set(TheaterNameArr);
+						
+						for(let theater of uniqueTheaterNameData ){
+	 				    	$(".theater_select").append("<input type ='button' value='" + theater + "' class='theaterBtn Btn'><br>");
+	 			     	}
+					}
+				});
+				
 			}); // 날짜선택 end
 			
-			
- 			// 상영시간표 등록돼있는 극장만 표출하기
-			$.ajax({
-				url: "TheaterAjax",
-				type : "get",
-				dataType: "json",
-				success: function (response) {
-// 					alert("theater-play ajax 성공!");
-					
-					$(".theater_select").html("");
-					
-					// 배열 생성
-					let TheaterNameArr = [];
-					
-					for(let theater of response) {
-						TheaterNameArr.push(theater);
-					}
-					
-					// 중복제거를 위해 set에 저장
-					let uniqueTheaterNameData = new Set(TheaterNameArr);
-					
-					for(let theater of uniqueTheaterNameData ){
-				    	$(".theater_select").append("<input type ='button' value='" + theater + "' class='theaterBtn Btn'><br>");
-			     	}
-				},
-				error : function (response) {
-					alert("theater-play 실패애애애애애애");
-				}
-			}); // 극장 출력 end
-			
+// 			console.log(date);
 			
 			// 극장 버튼 클릭 시 동일한 극장으로 상영시간표에 등록된 영화 뜨게 하기
 			$(document).on('click', '.theaterBtn', function() {
 				
-				let date = $("#date").val(); 
-				
-				if(date == ""){ // 날짜 미선택 시
-					alert("날짜를 먼저 선택해주세요!");
-					$("#date").focus();
-					
-					return;
-				} 
 // 			    console.log("theaterBtn clicked!"); // 확인용
 
 				// 클릭 시 색깔 변경
@@ -214,26 +203,29 @@
 			    
 			    // 클릭 시 예매내역에 출력되게 하기
 			    let theater = $(".theaterBtn.selected").val();
-// 			    console.log("영화관 : " + theater); // -> 맨 앞에 것(?)만 출력됨 !!!! 여쭤보기
 			    
 				let theaterName = JSON.stringify(theater).replaceAll('"', ''); // stringify 시 붙는 "" 삭제
 			    $("#selectedTheater").text(theaterName);
 				
 			 	// 예매내역(input hidden 에 value 값 넣어주기)
-				$("#theater_name").val(theater);
+				$("#order_ticket_theater_name").val(theater);
+				
+				$(".movie_select").html("");
+				$(".room_select").html("");
+				$(".time_select").html("");
 				
 			    $.ajax({
 					url: "ReserveMovieAjax",
+					async:false, // 이 한줄만 추가해주시면 됩니다.
 					type : "get",
 					data:{
-						"theater_name": $(this).val()
+						"play_theater_name": $(this).val(),
+						"play_day" : $("#date").val()
 						},
 					dataType: "json",
 					success: function (response) {
 // 						alert("theater ajax 성공!");
-				    	
-	// 					$(".movie_select").html(JSON.stringify(response));
-	
+
 						// 이전에 있던 데이터 제거
 				    	$(".movie_select").html("");
 						
@@ -273,12 +265,20 @@
 			    $("#selectedMovie").text(movieName);   
 			    
 				// 예매내역(input hidden 에 value 값 넣어주기)
-				$("#movie_name").val(movie);
-				    
+				$("#order_ticket_movie_name_kr").val(movie);
+				 
+				console.log("영화 클릭 시 나타나는 극장명 : " + $("#selectedTheater").val())
+				
+				$(".room_select").html("");
+				$(".time_select").html("");
+				
 				 $.ajax({
 					url: "ReserveRoomAjax",
+					async:false, // 이 한줄만 추가해주시면 됩니다.
 					type : "get",
 					data:{
+						"play_theater_name": $(".theaterBtn.selected").val(),
+						"play_day" : $("#date").val(),
 						"play_movie_name_kr": $(this).val()
 					},
 					dataType: "json",
@@ -326,13 +326,19 @@
 			    $("#selectedRoom").text(RoomNum);
 				
 				// 예매내역(input hidden 에 value 값 넣어주기)
-				$("#room_num").val(room);
+				$("#order_ticket_room_num").val(room);
+				
+				$(".time_select").html("");
 				
 			    $.ajax({
 					url: "ReserveTimeAjax",
+					async:false, // 이 한줄만 추가해주시면 됩니다.
 					type : "get",
 					data:{
-						"play_room_num": $(this).val()
+						"play_theater_name": $(".theaterBtn.selected").val(),
+						"play_day" : $("#date").val(),
+						"play_movie_name_kr": $(".movieBtn.selected").val(),
+						"play_room_num":  $(this).val()
 						},
 					dataType: "json",
 					success: function (response) {
@@ -375,7 +381,7 @@
 			    $("#selectedTime").text(Time);
 				
 			 	// 예매내역(input hidden 에 value 값 넣어주기)
-				$("#play_start_time").val(Time);
+				$("#order_ticket_play_start_time").val(Time);
 				
 			});
 			

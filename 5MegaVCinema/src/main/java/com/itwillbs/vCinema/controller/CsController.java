@@ -62,7 +62,15 @@ public class CsController {
 		
 		String id = (String)session.getAttribute("sId");
 		
-		List<CsVO> csList = service.getCsList(startRow, listLimit, id);
+		Boolean isAdmin ;
+		
+		if(id.equals("admin@naver.com")) {
+			isAdmin = true;
+		} else {
+			isAdmin = false;
+		}
+		
+		List<CsVO> csList = service.getCsList(startRow, listLimit, isAdmin, id);
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 
 		model.addAttribute("csList", csList);
