@@ -38,30 +38,45 @@
 <%-- 			<c:set var="movie" target="${movieList}"/> --%>
 		
 			
-			<label for="play_theater_name">영화관명</label>
-			<select name="play_theater_name" required >
-				<option>영화관을 선택하세요.</option>
-				<option <c:if test="${play.play_theater_name eq '신도림'}">selected</c:if>>신도림</option>
-				<option <c:if test="${play.play_theater_name eq '청라'}">selected</c:if>>청라</option>
-				<option <c:if test="${play.play_theater_name eq '동탄'}">selected</c:if>>동탄</option>
-				<option <c:if test="${play.play_theater_name eq '남양주다산'}">selected</c:if>>남양주다산</option>
-				<option <c:if test="${play.play_theater_name eq '경주보문'}">selected</c:if>>경주보문</option>
-				<option <c:if test="${play.play_theater_name eq '구미봉곡'}">selected</c:if>>구미봉곡</option>
-				<option <c:if test="${play.play_theater_name eq '천안불당'}">selected</c:if>>천안불당</option>
-				<option <c:if test="${play.play_theater_name eq '대구이시아'}">selected</c:if>>대구이시아</option>
-				<option <c:if test="${play.play_theater_name eq '보은'}">selected</c:if>>보은</option>
-				<option <c:if test="${play.play_theater_name eq '칠곡호이'}">selected</c:if>>칠곡호이</option>
-				<option <c:if test="${play.play_theater_name eq '영덕예주'}">selected</c:if>>영덕예주</option>
-			</select><br>
-			
-<!-- 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<%-- 			<button type="button" id="btnTheaterNum" value="${play.play_theater_name}"> --%>
-<!-- 			▼▼▼ 영화관 번호 조회(!!클릭!!) ▼▼▼</button><br> -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" id="btnTheaterNum" value="${param.play_theater_name}">
+			▼▼▼ 영화관 번호 조회(!!클릭!!) ▼▼▼</button><br>
 					
 <!-- 			<label for="play_theater_num">영화관 번호</label> -->
 <!-- 			<input type="text" id="play_theater_num" name="play_theater_num" placeholder="영화관 번호 조회 버튼을 클릭해주세요" disabled> -->
-			<input type="hidden" name="play_theater_num" >
-		
+			<label for="play_theater_name">영화관</label>
+			<select name="play_theater_name" id="play_theater_name" onchange="selectTheaterNum(this.value)">
+				<option value="">영화관을 선택하세요.</option>
+				<option value="신도림"<c:if test="${play.play_theater_name eq '신도림'}">selected</c:if>>신도림</option>
+				<option value="청라"<c:if test="${play.play_theater_name eq '청라'}">selected</c:if>>청라</option>
+				<option value="동탄"<c:if test="${play.play_theater_name eq '동탄'}">selected</c:if>>동탄</option>
+				<option value="남양주다산"<c:if test="${play.play_theater_name eq '남양주다산'}">selected</c:if>>남양주다산</option>
+				<option value="경주보문"<c:if test="${play.play_theater_name eq '경주보문'}">selected</c:if>>경주보문</option>
+				<option value="구미봉곡"<c:if test="${play.play_theater_name eq '구미봉곡'}">selected</c:if>>구미봉곡</option>
+				<option value="천안불당"<c:if test="${play.play_theater_name eq '천안불당'}">selected</c:if>>천안불당</option>
+				<option value="대구이시아"<c:if test="${play.play_theater_name eq '대구이시아'}">selected</c:if>>대구이시아</option>
+				<option value="보은"<c:if test="${play.play_theater_name eq '보은'}">selected</c:if>>보은</option>
+				<option value="칠곡호이"<c:if test="${play.play_theater_name eq '칠곡호이'}">selected</c:if>>칠곡호이</option>
+				<option value="영덕예주"<c:if test="${play.play_theater_name eq '영덕예주'}">selected</c:if>>영덕예주</option>
+			</select>
+			
+			<label for="play_theater_num">영화관 번호</label>
+			<input type="text" name="play_theater_num" id="play_theater_num">
+<!-- 			<select name="play_theater_num" required> -->
+<!-- 			    <option value="" selected>영화관을 선택하세요.</option> -->
+<%-- 			    <option value="1001" <c:if test="${param.play_theater_name eq '신도림'}">selected</c:if>>1001</option> --%>
+<%-- 			    <option value="1002" <c:if test="${param.play_theater_name eq '청라'}">selected</c:if>>1002</option> --%>
+<%-- 			    <option value="1003" <c:if test="${param.play_theater_name eq '동탄'}">selected</c:if>>1003</option> --%>
+<%-- 			    <option value="1004" <c:if test="${param.play_theater_name eq '남양주다산'}">selected</c:if>>1004</option> --%>
+<%-- 			    <option value="1006" <c:if test="${param.play_theater_name eq '경주보문'}">selected</c:if>>1006</option> --%>
+<%-- 			    <option value="1007" <c:if test="${param.play_theater_name eq '구미봉곡'}">selected</c:if>>1007</option> --%>
+<%-- 			    <option value="1005" <c:if test="${param.play_theater_name eq '천안불당'}">selected</c:if>>1005</option> --%>
+<%-- 			    <option value="1008" <c:if test="${param.play_theater_name eq '대구이시아'}">selected</c:if>>1008</option> --%>
+<%-- 			    <option value="1009" <c:if test="${param.play_theater_name eq '보은'}">selected</c:if>>1009</option> --%>
+<%-- 			    <option value="1010" <c:if test="${param.play_theater_name eq '칠곡호이'}">selected</c:if>>1010</option> --%>
+<%-- 			    <option value="1011" <c:if test="${param.play_theater_name eq '영덕예주'}">selected</c:if>>1011</option> --%>
+<!-- 			</select><br> -->
+			<br>
 			<label for="play_room_num">상영관</label>
 			<select name="play_room_num" required>
 				<option>상영관을 선택하세요.</option>
@@ -135,32 +150,32 @@
 				
 	<script type="text/javascript">
 	
-// 		function selectTheaterNum(theater) {
-							
-// 			if(theater == "신도림"){ 
-// 				document.registForm.play_theater_num.value = 1001;
-// 				} else if(theater == "청라") {
-// 				document.registForm.play_theater_num.value = 1002;
-// 				} else if(theater == "동탄") {
-// 					 			document.registForm.play_theater_num.value = 1003;
-// 					 		} else if(theater == "남양주다산") {
-// 					 			document.registForm.play_theater_num.value = 1004;
-// 					 		} else if(theater == "천안불당") {
-// 					 			document.registForm.play_theater_num.value = 1005;
-// 					 		} else if(theater == "경주보문") {
-// 					 			document.registForm.play_theater_num.value = 1006;
-// 					 		} else if(theater == "구미봉곡") {
-// 					 			document.registForm.play_theater_num.value = 1007;
-// 					 		} else if(theater == "대구이시아") {
-// 					 			document.registForm.play_theater_num.value = 1008;
-// 					 		} else if(theater == "보은") {
-// 					 			document.registForm.play_theater_num.value = 1009;
-// 					 		} else if(theater == "칠곡호이") {
-// 					 			document.registForm.play_theater_num.value = 1010;
-// 					 		} else if(theater == "영덕예주") {
-// 					 			document.registForm.play_theater_num.value = 1011;
-// 					 		}
-// 						}
+		function selectTheaterNum(theater) {
+			console.log(theater);
+			if(theater == "신도림"){ 
+				document.registForm.play_theater_num.value = 1001;
+				} else if(theater == "청라") {
+				document.registForm.play_theater_num.value = 1002;
+				} else if(theater == "동탄") {
+					 			document.registForm.play_theater_num.value = 1003;
+					 		} else if(theater == "남양주다산") {
+					 			document.registForm.play_theater_num.value = 1004;
+					 		} else if(theater == "천안불당") {
+					 			document.registForm.play_theater_num.value = 1005;
+					 		} else if(theater == "경주보문") {
+					 			document.registForm.play_theater_num.value = 1006;
+					 		} else if(theater == "구미봉곡") {
+					 			document.registForm.play_theater_num.value = 1007;
+					 		} else if(theater == "대구이시아") {
+					 			document.registForm.play_theater_num.value = 1008;
+					 		} else if(theater == "보은") {
+					 			document.registForm.play_theater_num.value = 1009;
+					 		} else if(theater == "칠곡호이") {
+					 			document.registForm.play_theater_num.value = 1010;
+					 		} else if(theater == "영덕예주") {
+					 			document.registForm.play_theater_num.value = 1011;
+					 		}
+						}
 					
 				 
 				 
@@ -207,28 +222,28 @@
 								})
 							});
 							
-// 							//영화번호 조회
-// 							$(function() {
-// 								$("#btnTheaterNum ").on("click", function() {
-// 									console.log($("#play_theater_name").val());
-// 									$.ajax({
-// 										type : "GET",
-// 										url : "getTheaterNum",
-// 										data : {
-// 											play_theater_name : $(this).val()
-// 											},
-// 										success : function(response) {
+							//영화번호 조회
+							$(function() {
+								$("#btnTheaterNum ").on("click", function() {
+									console.log($("#play_theater_name").val());
+									$.ajax({
+										type : "GET",
+										url : "getTheaterNum",
+										data : {
+											play_theater_name : $("#play_theater_name").val()
+											},
+										success : function(response) {
 											
-// 											$("#play_theater_num").val(response);
-// 						// 					$("#resultArea").html(response);
-// 										},
-// 										error : function(jqXHR, textStatus, errorThrown) { // 요청 처리 실패(= 응답 에러 발생) 시 자동으로 호출되는 콜백함수
+											$("#play_theater_num").val(response);
+						// 					$("#resultArea").html(response);
+										},
+										error : function(jqXHR, textStatus, errorThrown) { // 요청 처리 실패(= 응답 에러 발생) 시 자동으로 호출되는 콜백함수
 											
-// 											$("#resultArea2").html("요청 에러 발생! - " + jqXHR + ", " + textStatus + ", " + errorThrown);
-// 										}
-// 									});
-// 								})
-// 							});
+											$("#resultArea2").html("요청 에러 발생! - " + jqXHR + ", " + textStatus + ", " + errorThrown);
+										}
+									});
+								})
+							});
 							
 							
 							</script>

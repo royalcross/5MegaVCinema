@@ -109,13 +109,36 @@
 		)
 	</insert>
 	
-	<!--   영화 상세 정보   -->		
-	<select id="selectmovieDetail">
+	<!--   영화 수정   -->		
+	<select id="selectMovie">
 		SELECT *
 		FROM movie
 		WHERE movie_code = #{movie_code}
 	
 	</select>
+	
+		<!-- 영화 수정 -->	
+	<update id="updateMovie">
+	UPDATE movie
+	SET 
+		movie_code = #{movie_code}
+		, movie_name_kr = #{movie_name_kr}
+		, movie_name_en = #{movie_name_en}
+		, movie_director = #{movie_director}
+		, movie_cast = #{movie_cast}
+		, movie_genre = #{movie_genre}
+		, movie_release_date = #{movie_release_date}
+		, movie_close_date = #{movie_close_date}
+		, movie_running_time = #{movie_running_time}
+		, movie_content = #{movie_content}
+		, movie_grade = #{movie_grade}
+		, movie_poster = #{movie_poster}
+		, movie_preview = #{movie_preview}
+		, movie_photo = #{movie_photo}
+		, movie_status = #{movie_status}
+		WHERE 
+			movie_code = #{movie_code}	
+	</update>
 	
     <!--   영화 삭제   -->
 	<delete id="deleteMovie">
@@ -180,22 +203,67 @@
 	<insert id="insertTheater">
 		INSERT INTO theater
 		VALUES (
-		IFNULL(#{theater_num},0)
-		IFNULL(#{theater_name},'')
-		, IFNULL(#{theater_location_num},0)
-		, IFNULL(#{theater_location},'') 
-		, IFNULL(#{theater_content},'') 
-		, IFNULL(#{theater_post_code},0) 
-		, IFNULL(#{theater_address},'') 
-		, IFNULL(#{theater_address_detail},'') 
+		#{theater_num}
+		, #{theater_name}
+		, #{theater_location_num}
+		, #{theater_location} 
+		, #{theater_content} 
+		, #{theater_post_code} 
+		, #{theater_address} 
+		, #{theater_address_detail} 
 		)
 	</insert>
 	
 	 <!--   최대 영화관 번호 조회   -->
-	<select id="selectTheaterMaxNum" resultType="int">
-		SELECT MAX(theater_num)
+<!-- 	<select id="selectTheaterMaxNum" resultType="int"> -->
+<!-- 		SELECT MAX(theater_num) -->
+<!-- 		FROM theater	 -->
+<!-- 	</select> -->
+	
+		 <!--   새로운 영화관 번호 조회   -->
+	<select id="selectNewTheaterNum" resultType="int">
+		SELECT MAX(theater_num)+1
 		FROM theater	
 	</select>
+	
+		<!-- 영화관 상세 정보 가져오기 -->
+	<select id="selectTheater" resultType="theater">
+		SELECT *
+		FROM theater
+		WHERE theater_num = #{theater_num}
+	</select>
+	
+			<!-- 영화관 수정 -->	
+	<update id="updateTheater">
+	UPDATE theater
+	SET 
+		theater_location = #{theater_location}
+		, theater_location_num = #{theater_location_num}
+		, theater_num = #{theater_num}
+		, theater_name = #{theater_name}
+		, theater_content = #{theater_content}
+		, theater_post_code = #{theater_post_code}
+		, theater_address = #{theater_address}
+		, theater_address_detail = #{theater_address_detail}
+		WHERE 
+			theater_num = #{theater_num}	
+	</update>
+	
+	<!-- 영화관 삭제 -->
+	<delete id="deleteTheater">
+		DELETE FROM theater
+		WHERE theater_num = #{theater_num}
+	</delete>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -337,24 +405,36 @@
 	</select>
 	
 	<!-- 상영시간표 수정 -->
+<!-- 	<update id="updatePlay"> -->
+<!-- 	UPDATE play -->
+<!-- 	SET  -->
+<!-- 	    play_day = #{play_day}, -->
+<!-- 	    play_theater_name = #{play_theater_name}, -->
+<!-- 	    play_theater_num = ( -->
+<!-- 	        SELECT temp.play_theater_num -->
+<!-- 	        FROM ( -->
+<!-- 	            SELECT p.play_theater_num -->
+<!-- 	            FROM movie m  -->
+<!-- 	            JOIN play p ON m.movie_code = p.play_movie_code -->
+<!-- 	            JOIN theater t ON p.play_theater_num = t.theater_num -->
+<!-- 	            JOIN room r ON p.play_room_num = r.room_num -->
+<!-- 	            WHERE r.room_theater_num = theater_num  -->
+<!-- 	              AND p.play_theater_name = #{play_theater_name} -->
+<!-- 	        ) AS temp -->
+<!-- 	        LIMIT 1 -->
+<!-- 	    ), -->
+<!-- 	    play_room_num = #{play_room_num}, -->
+<!-- 	    play_end_time = #{play_end_time}, -->
+<!-- 	    play_start_time = #{play_start_time} -->
+<!-- 	WHERE  -->
+<!-- 	    play_num = #{play_num} -->
+<!-- 	</update>	 -->
 	<update id="updatePlay">
 	UPDATE play
 	SET 
 	    play_day = #{play_day},
 	    play_theater_name = #{play_theater_name},
-	    play_theater_num = (
-	        SELECT temp.play_theater_num
-	        FROM (
-	            SELECT p.play_theater_num
-	            FROM movie m 
-	            JOIN play p ON m.movie_code = p.play_movie_code
-	            JOIN theater t ON p.play_theater_num = t.theater_num
-	            JOIN room r ON p.play_room_num = r.room_num
-	            WHERE r.room_theater_num = theater_num 
-	              AND p.play_theater_name = #{play_theater_name}
-	        ) AS temp
-	        LIMIT 1
-	    ),
+	    play_theater_num = #{play_theater_num},
 	    play_room_num = #{play_room_num},
 	    play_end_time = #{play_end_time},
 	    play_start_time = #{play_start_time}

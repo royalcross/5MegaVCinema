@@ -14,15 +14,15 @@
 		<li class="depth01">
 			<a href="AdminMovieList">영화관리</a>
 			<ul class="depth02">
-				<li><a href="AdminMovieList">영화정보관리</a></li>
+				<li><a href="AdminMovie">영화정보관리</a></li>
 				<li><a href="AdminPlay">상영시간표</a></li>
 			</ul>			
 		</li>
 		<li class="depth01">
 			<a href="AdminTheaterList">극장관리</a>
 			<ul class="depth02">
-				<li><a href="AdminTheaterList">영화관관리</a></li>
-				<li><a href="AdminRoomList">상영관관리</a></li>
+				<li><a href="AdminTheater">영화관관리</a></li>
+				<li><a href="AdminRoom">상영관관리</a></li>
 			</ul>			
 		</li>
 		<li class="depth01">

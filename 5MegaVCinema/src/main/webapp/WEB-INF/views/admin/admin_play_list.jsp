@@ -192,16 +192,16 @@
 				<article class="main">
 					<h3>상영시간표 관리 페이지</h3>
 					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
+<!-- 						<div> -->
+<!-- 							<span>Show</span> -->
+<!-- 							<select> -->
+<!-- 								<option>5</option> -->
+<!-- 								<option>10</option> -->
+<!-- 								<option>20</option> -->
+<!-- 								<option>30</option> -->
+<!-- 							</select> -->
+<!-- 							<span>entries</span> -->
+<!-- 						</div> -->
 								<!-- 영화 등록버튼 -->
 <!-- 	<section id="buttonArea" > -->
 <!-- 		<input type="button" value="등록" onclick="insertPlay()"> -->
@@ -250,7 +250,7 @@
 			<tr>
 				<td>${play.play_num}</td>
 				<td>${play.play_day}</td>
-				<td>${play.theater_name}</td>
+				<td>${play.play_theater_name}</td>
 				<td>${play.room_num}</td>
 				<td>${play.play_movie_name_kr}</td>
 				<td>${play.play_start_time}</td>

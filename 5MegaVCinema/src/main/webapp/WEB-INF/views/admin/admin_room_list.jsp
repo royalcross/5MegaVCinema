@@ -218,19 +218,19 @@
 			</div>
 		</article>
 					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
+<!-- 						<div> -->
+<!-- 							<span>Show</span> -->
+<!-- 							<select> -->
+<!-- 								<option>5</option> -->
+<!-- 								<option>10</option> -->
+<!-- 								<option>20</option> -->
+<!-- 								<option>30</option> -->
+<!-- 							</select> -->
+<!-- 							<span>entries</span> -->
+<!-- 						</div> -->
 								<!-- 영화 등록버튼 -->
 						
-						<form action="AdminRoomList">
+						<form action="AdminRoom">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -327,8 +327,6 @@
 					        </select>
 				        </div>
 		
-
-				        
 				        
 				        <div>
 				           	<span>극장번호</span> <br>

@@ -30,9 +30,6 @@
 <!-- </div> -->
 
 
-		<div class="modal"> <!-- 등록 -->
-		    <div class="modal_popup">
-		        <h3>상영관 수정</h3>
 				        <div>
 				        <span>지역</span>
 					        <select class="category" id="theater_location"name="theater_location" disabled>

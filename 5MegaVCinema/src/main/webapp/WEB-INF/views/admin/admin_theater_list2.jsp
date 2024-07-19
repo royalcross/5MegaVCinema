@@ -164,16 +164,16 @@
 		
 					
 					<div class="wrapper_top">
-						<div>
-							<span>Show</span>
-							<select>
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-								<option>30</option>
-							</select>
-							<span>entries</span>
-						</div>
+<!-- 						<div> -->
+<!-- 							<span>Show</span> -->
+<!-- 							<select> -->
+<!-- 								<option>5</option> -->
+<!-- 								<option>10</option> -->
+<!-- 								<option>20</option> -->
+<!-- 								<option>30</option> -->
+<!-- 							</select> -->
+<!-- 							<span>entries</span> -->
+<!-- 						</div> -->
 	
 								<!-- 영화 등록버튼 -->
 	<section id="buttonArea" >
