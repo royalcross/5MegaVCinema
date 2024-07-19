@@ -1,7 +1,10 @@
 package com.itwillbs.vCinema.mapper;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +40,34 @@ public interface ReserveMapper {
 
 	// 상영 날짜에 맞는 극장 정보 가져오기
 	List<PlayVO> selectTheaterList(Date play_day);
+
+	
+	
+	// 영화 코드
+	String selectMovieCode(String movie_name);
+
+	// 극장 코드
+	int selectTheaterNum2(String theater_name);
+
+	// 회원 번호
+	int selectMemberNum(String member_id);
+
+	// 상영번호
+	Map<Object, Object> selectPlayNum(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
+					  @Param("time")String time, @Param("movie_date") String movie_date);
+//	PlayVO selectPlayNum(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
+//			@Param("time")String time);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -66,4 +66,44 @@
     	FROM play
     	WHERE play_day = #{play_day}
     </select>
+    
+    
+    <select id="selectMovieCode" resultType="String">
+    	SELECT movie_code
+    	FROM movie
+    	WHERE movie_name_kr = #{movie_name}
+    </select>
+    
+    <!-- 극장 코드 -->
+    <select id="selectTheaterNum2" resultType="int">
+   		SELECT theater_num
+    	FROM theater
+    	WHERE theater_name = #{theater_name}
+    </select>
+    
+     <!-- 회원 번호 -->
+    <select id="selectMemberNum" resultType="int">
+   		SELECT member_num
+    	FROM member
+    	WHERE member_id = #{member_id}
+    </select>
+    
+    <!-- 상영 번호 -->
+    <select id="selectPlayNum" resultType="hashmap">
+    	SELECT play_num
+    	FROM play
+    	WHERE 
+    		play_movie_code = #{movieCode}
+    		AND play_theater_num = #{theaterNum}
+    		AND play_room_num = #{room}
+    		AND play_start_time = #{time}
+    		AND play_day = #{movie_date}
+    </select>
 </mapper>
+
+
+
+
+
+
+

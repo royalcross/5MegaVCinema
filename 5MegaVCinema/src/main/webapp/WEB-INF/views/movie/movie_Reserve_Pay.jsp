@@ -113,7 +113,12 @@
 	
 	#cancel, #payment {
 		text-align: center;
-		width: 60px; height: 40px;
+		width: 60px; 
+		height: 40px;
+	}
+	
+	form {
+		display: inline-block;
 	}
 	
 </style>
@@ -155,13 +160,13 @@
 					<td width="100">가격</td>
 				</tr>
 				<tr height="30">
-					<td id="selectedDate">${order_ticket.order_ticket_date}</td>
-					<td id="selectedTheater">${order_ticket.order_ticket_theater_name}</td>
-					<td id="selectedMovie">${order_ticket.order_ticket_movie_name_kr}</td>
-					<td id="selectedRoom">${order_ticket.order_ticket_room_num}관</td>
-					<td id="selectedTime">${order_ticket.order_ticket_play_start_time}</td>
-					<td id="selectedSeat">${order_ticket.order_ticket_seat_num}</td>
-					<td id="totalPrice">${order_ticket.order_ticket_price} 원</td>
+					<td id="selectedDate">${map.order_ticket_date}</td>
+					<td id="selectedTheater">${map.order_ticket_theater_name}</td>
+					<td id="selectedMovie">${map.order_ticket_movie_name_kr}</td>
+					<td id="selectedRoom">${map.order_ticket_room_num}관</td>
+					<td id="selectedTime">${map.order_ticket_play_start_time}</td>
+					<td id="selectedSeat">${map.order_ticket_seat_num}</td>
+					<td id="totalPrice">${map.order_ticket_price} 원</td>
 				</tr>
 			</table>
 			
@@ -188,7 +193,7 @@
 			<h3>최종 결제</h3>
 			<table>
 				<tr>
-					<td>최종 결제금액<br>${order_ticket.order_ticket_price} 원</td>
+					<td>최종 결제금액<br>${map.order_ticket_price} 원</td>
 				</tr>
 				<tr>
 					<td>
@@ -213,108 +218,125 @@
 					<td>
 						<div id="cancelAndPayment">
 							<input type="button" id="cancel" value="취소">
-							<input type="button" id="payment" value="결제">
+							<form action="CompletePay" method="get" id="reservePayForm">
+				    			<input type="hidden" name="order_ticket_date" id="order_ticket_date" value="${map.order_ticket_date}">
+							    <input type="hidden" name="order_ticket_theater_name" id="order_ticket_theater_name" value="${map.order_ticket_theater_name}">
+							    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="${map.order_ticket_movie_name_kr}">
+							    <input type="hidden" name="order_ticket_room_num" id="order_ticket_room_num" value="${map.order_ticket_room_num}">
+							    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="${map.order_ticket_play_start_time}">
+							    <input type="hidden" name="order_ticket_seat_num" id="order_ticket_seat_num" value="${map.order_ticket_seat_num}">
+							    <input type="hidden" name="order_ticket_price" id="order_ticket_price" value="${map.order_ticket_price}">
+			    			    <input type="hidden" name="order_ticket_how_many_people" id="order_ticket_how_many_people" value="${map.order_ticket_how_many_people}">
+							    <input type="button" id="payment" class="btnsubmit" value="결제하기" >
+							</form>
+<!-- 							<input type="button" value="결제"> -->
 						</div>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</section>
-	<footer>
-		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
-	</footer>
-</body>
-
-<script>
-	$(function() {
-		//결제 수단 목록
-		let payment_method = document.querySelectorAll(".payment_method");
-		
-		// 결제 수단 변경
-		$("#creditCard").click(function() {
-			payment_method[0].classList.remove("on");
-			payment_method[1].classList.remove("on");
+	<script>
+		$(function() {
+			//결제 수단 목록
+			let payment_method = document.querySelectorAll(".payment_method");
 			
-			payment_method[0].classList.add("on");
-		});
-		
-		$("#kakaopay").click(function() {
-			payment_method[0].classList.remove("on");
-			payment_method[1].classList.remove("on");
+			// 결제 수단 변경
+			$("#creditCard").click(function() {
+				payment_method[0].classList.remove("on");
+				payment_method[1].classList.remove("on");
+				
+				payment_method[0].classList.add("on");
+			});
 			
-			payment_method[1].classList.add("on");
-		});
+			$("#kakaopay").click(function() {
+				payment_method[0].classList.remove("on");
+				payment_method[1].classList.remove("on");
+				
+				payment_method[1].classList.add("on");
+			});
+		
+			// 취소 버튼 클릭 시 예매 페이지로 이동
+			$('#cancel').click(function() {
+				location.href = "Reserve";
+			});	
+			
+			let today = new Date();
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds();
+			let makeMerchantUid = "" + hours + minutes + seconds + milliseconds;
+			
 	
-		// 객체 초기화
-		let IMP = window.IMP;
-		IMP.init("imp61351081"); // 가맹점 식별코드
-		
-		let today = new Date();
-		let hours = today.getHours(); // 시
-		let minutes = today.getMinutes();  // 분
-		let seconds = today.getSeconds();  // 초
-		let milliseconds = today.getMilliseconds();
-		let makeMerchantUid = "" + hours + minutes + seconds + milliseconds;
-		
-		// 결제 버튼 클릭 시 결제 유형 및 각 항목 입력 여부 확인 후 결제 진행
-		$("#payment").click(function() {
-			if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드") {
-				if(confirm("${member.member_name}(${member.member_phonenumber})로 영화예매티켓이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-					// 결제창 호출
-					IMP.request_pay({
-						// 파라미터 값 설정
-						pg : "html5_inicis.INIpayTest", // PG사 코드표에서 선택
-						pay_method : "card", // 결제 방식
-						merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-						name : "${order_ticket.order_ticket_movie_name_kr}", // 제품명
-						amount : "${order_ticket.order_ticket_price}", // 금액
-						//구매자 정보 ↓
-						buyer_email : "${member.member_id}",
-						buyer_name : "${member.member_name}",
-						buyer_tel : "${member.member_phonenumber}",
-						// buyer_addr : '서울특별시 강남구 삼성동',
-						// buyer_postcode : '123-456'
-					}, function(rsp) { // callback
-						if(rsp.success) { // 결제 성공시
-							alert("결제가 완료되었습니다(신용/체크카드).");
-							location.href = "MovieReservePro?order_ticket_date=${ticket.order_ticket_date}&order_ticket_theater_name=${ticket.order_ticket_theater_name}&order_ticket_movie_name_kr=${ticket.order_ticket_movie_name_kr}&order_ticket_room_num=${ticket.order_ticket_movie_name_kr}&order_ticket_play_start_time=${ticket.order_ticket_play_start_time}&order_ticket_seat_num=${ticket.order_ticket_seat_num}&order_ticket_price=${ticket.order_ticket_price}";
-						} else if(!rsp.success) { // 결제 실패시
-							alert(rsp.error_msg);
-						}
-					});
-				}
-			} else if($("input:radio[name=payment_method]:checked").val() == "카카오페이") {
-				if(confirm("${member.member_name}(${member.member_phonenumber})로 영화예매티켓이 발송됩니다.\n결제하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
-					// 결제창 호출
+			$("#payment").click(function(){
+// 				alert("onClick 확인");
+				requestPay();
+			});
+			
+			var IMP = window.IMP;
+			IMP.init("imp61351081");
+			
+			function requestPay() {
+				if($("input:radio[name=payment_method]:checked").val() == "신용/체크카드"){
 					IMP.request_pay({
 						// 파라미터 값 설정
 						pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
 						pay_method : "card", // 결제 방식
 						merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
-						name : "${order_ticket.order_ticket_movie_name_kr}", // 제품명
-						amount : "${order_ticket.order_ticket_price}", // 금액
+						name : "${map.order_ticket_movie_name_kr}", // 제품명
+						amount : "${map.order_ticket_price}", // 금액
 						//구매자 정보 ↓
 						buyer_email : "${member.member_id}",
 						buyer_name : "${member.member_name}",
 						buyer_tel : "${member.member_phonenumber}",
-						// buyer_addr : '서울특별시 강남구 삼성동',
-						// buyer_postcode : '123-456'
-					}, function(rsp) { // callback
-						if(rsp.success) { // 결제 성공시
-							alert("결제가 완료되었습니다(카카오페이).");
-							location.href = "MovieReservePro?order_ticket_date=${ticket.order_ticket_date}&order_ticket_theater_name=${ticket.order_ticket_theater_name}&order_ticket_movie_name_kr=${ticket.order_ticket_movie_name_kr}&order_ticket_room_num=${ticket.order_ticket_movie_name_kr}&order_ticket_play_start_time=${ticket.order_ticket_play_start_time}&order_ticket_seat_num=${ticket.order_ticket_seat_num}&order_ticket_price=${ticket.order_ticket_price}";
-						} else if(!rsp.success) { // 결제 실패시
-							alert(rsp.error_msg);
+					
+					}, function(rsp){ // callback
+						if(rsp.success){
+							alert("결제 성공!");
+							$("#reservePayForm").submit();
+						}else {
+							var msg = '결제에 실패하였습니다.';
+					        msg += '에러내용 : ' + rsp.error_msg;
+					        alert(msg);
 						}
-					});
+					
+					});//IMP.request_pay End
+					
+				} else if($("input:radio[name=payment_method]:checked").val() == "카카오페이") {
+					IMP.request_pay({
+						// 파라미터 값 설정
+						pg : "kakaopay.TC0ONETIME", // PG사 코드표에서 선택
+						pay_method : "card", // 결제 방식
+						merchant_uid : "IMP" + makeMerchantUid, // 결제 고유 번호
+						name : "${map.order_ticket_movie_name_kr}", // 제품명
+						amount : "${map.order_ticket_price}", // 금액
+						//구매자 정보 ↓
+						buyer_email : "${member.member_id}",
+						buyer_name : "${member.member_name}",
+						buyer_tel : "${member.member_phonenumber}",
+					
+					}, function(rsp){ // callback
+						if(rsp.success){
+							$("#reservePayForm").submit();
+						}else {
+							var msg = '결제에 실패하였습니다.';
+					        msg += '에러내용 : ' + rsp.error_msg;
+					        alert(msg);
+						}
+					
+					});//IMP.request_pay End
 				}
-			}
-			// 취소 버튼 클릭 시 예매 페이지로 이동
-			$('#cancel').click(function() {
-				location.href = "Reserve";
-			});	
-		}); // $(function 익명함수 종료)
-	});	
-</script>
+				
+			};//requestPay function End
+			
+		});	 // $(function 익명함수 종료)
+	</script>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
+	</footer>
+</body>
+
+		
 
 </html>

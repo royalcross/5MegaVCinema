@@ -150,22 +150,18 @@
 		<div class="ticketTop">
 			<table id="ticket" >
 				<tr>
+					<td width="100">예매번호</td>
 					<td width="100">상영일자</td>
-					<td width="200">극장정보</td>
 					<td width="300">영화정보</td>
-					<td width="100">상영관</td>
-					<td width="100">상영시간</td>
 					<td width="100">좌석</td>
-					<td width="100">가격</td>
+					<td width="100">결제금액</td>
 				</tr>
 				<tr height="30">
-					<td id="selectedDate">${order_ticket.order_ticket_date}</td>
-					<td id="selectedTheater">${order_ticket.order_ticket_theater_name}</td>
-					<td id="selectedMovie">${order_ticket.order_ticket_movie_name_kr}</td>
-					<td id="selectedRoom">${order_ticket.order_ticket_room_num}관</td>
-					<td id="selectedTime">${order_ticket.order_ticket_play_start_time}</td>
-					<td id="selectedSeat">${order_ticket.order_ticket_seat_num}</td>
-					<td id="totalPrice">${order_ticket.order_ticket_price} 원</td>
+					<td id="order_ticket_num"></td>
+					<td id="order_ticket_date">${map.order_ticket_date}</td>
+					<td id="order_ticket_movie">${map.order_ticket_movie_name_kr}</td>
+					<td id="order_ticket_seat">${map.order_ticket_seat_num}</td>
+					<td id="order_ticket_price">${map.order_ticket_price} 원</td>
 				</tr>
 			</table>
 			

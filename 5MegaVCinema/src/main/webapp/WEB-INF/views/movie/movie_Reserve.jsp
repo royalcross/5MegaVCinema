@@ -107,6 +107,7 @@
 			    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="">
 			    <input type="hidden" name="order_ticket_room_num" id="order_ticket_room_num" value="">
 			    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="">
+			    
 			    <input type="submit" class="btnsubmit" value="좌석선택">
 			</form>
 		</div>

@@ -159,7 +159,7 @@
 			    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="${ticket.order_ticket_play_start_time}">
 			    <input type="hidden" name="order_ticket_seat_num" id="order_ticket_seat_num" value="">
 			    <input type="hidden" name="order_ticket_price" id="order_ticket_price" value="">
-			    <input type="hidden" name="order_ticket_people" id="order_ticket_people" value="">
+			    <input type="hidden" name="order_ticket_how_many_people" id="order_ticket_how_many_people" value="${ticket.order_ticket_how_many_people}">
 			    <input type="submit" class="btnsubmit" value="예매하기">
 			</form>
 		</div>
@@ -621,6 +621,7 @@
 			seatResult.innerText = seatArr.join(", ");
 			$("#order_ticket_seat_num").val(seatArr.join(","));
 			$("#selectedSeat").text(seatArr.join(","));
+			$("#order_ticket_how_many_people").val(seatArr.length);
 // 			console.log("order_ticket_seat_num : " + $("#order_ticket_seat_num").val());
 			
 			// --------------------------------------------------------------------------------------------------------
