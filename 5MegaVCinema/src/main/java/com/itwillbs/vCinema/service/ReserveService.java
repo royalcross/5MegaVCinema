@@ -1,7 +1,10 @@
 package com.itwillbs.vCinema.service;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +62,32 @@ public class ReserveService {
 	public List<PlayVO> getTheaterList(Date play_day) {
 		return mapper.selectTheaterList(play_day);
 	}
+	
+	
+	
+	// 영화 코드
+	public String getMovieCode(String movie_name) {
+		return mapper.selectMovieCode(movie_name);
+	}
+
+	// 극장 코드
+	public int getTheaterNum2(String theater_name) {
+		return mapper.selectTheaterNum2(theater_name);
+	}
+
+	// 회원 번호
+	public int getMemberNum(String member_id) {
+		return mapper.selectMemberNum(member_id);
+	}
+
+	// 상영번호
+	public Map<Object, Object> getPlayNum(String movieCode, int theaterNum, String room, String time, String movie_date) {
+		return mapper.selectPlayNum(movieCode, theaterNum, room, time, movie_date);
+	}
+//	public PlayVO getPlayNum(String movieCode, int theaterNum, String room, String time) {
+//		return mapper.selectPlayNum(movieCode, theaterNum, room, time);
+//	}
+
+
 	
 }

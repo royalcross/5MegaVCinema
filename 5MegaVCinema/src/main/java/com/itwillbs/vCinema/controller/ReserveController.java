@@ -1,12 +1,18 @@
 package com.itwillbs.vCinema.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -174,9 +180,16 @@ public class ReserveController {
 	
 	
 	@GetMapping("Reserve_seat")
-	public String reserveSeat(OrderTicketVO ticket, Model model) {
-//		System.out.println("예매내역 : " + ticket);
+	public String reserveSeat(OrderTicketVO ticket, Model model, HttpSession session) {
+		System.out.println("예매내역 ticket: " + ticket);
+		String sId = (String) session.getAttribute("sId");
 		
+		if(sId == null) {
+			model.addAttribute("msg", "로그인 필수!");
+			model.addAttribute("targetURL", "MemberLogin");
+			
+			return "result/fail";
+		}
 		model.addAttribute("ticket", ticket);
 		
 		return "movie/movie_Seat";
@@ -185,8 +198,8 @@ public class ReserveController {
 	
 	// 결제페이지 
 	@PostMapping("Reserve_pay")
-	public String reservePay(OrderTicketVO order_ticket, HttpSession session, Model model) {
-		System.out.println("사용자 예매 정보 : " + order_ticket);
+	public String reservePay(@RequestParam Map<String, String> map, HttpSession session, Model model) {
+		System.out.println("사용자 예매 정보 map : " + map);
 		
 		String sId = (String) session.getAttribute("sId");
 				
@@ -199,19 +212,89 @@ public class ReserveController {
 		
 		MemberVO member = service.getMember(sId);
 		
-		model.addAttribute("order_ticket", order_ticket);
 		model.addAttribute("member", member);
+		model.addAttribute("map", map);
 		
 		return "movie/movie_Reserve_Pay";
 	}
 	
 	
-	// 결제 완료
-	@GetMapping("MovieReservePro")
-	public String movieReservePro(OrderTicketVO order_ticket) {
-		System.out.println("결제 정보 넘어옴 : " + order_ticket);
+	// order_ticket DB에 저장
+	@GetMapping("CompletePay")
+	public String movieReservePro(@RequestParam Map<Object, Object> map, Model model, HttpSession session) {
+		System.out.println("결제 정보 넘어옴 map : " + map);
+		String sId = (String) session.getAttribute("sId");
 		
-		return "";
+		if(sId == null) {
+			model.addAttribute("msg", "로그인 필수!");
+			model.addAttribute("targetURL", "MemberLogin");
+			
+			return "result/fail";
+		}
+		
+		// order_ticket DB에 저장할 때 필요한 정보 구하기
+		// 1. movie_code
+		String movieCode = service.getMovieCode((String) map.get("order_ticket_movie_name_kr")); // 확인 완료
+		System.out.println("movieCode : " + movieCode);
+		
+		// 2. theater_num
+		int theaterNum = service.getTheaterNum2((String) map.get("order_ticket_theater_name")); // 확인 완료
+		
+		
+		// 3. member_num
+		int memberNum = service.getMemberNum(sId); // 확인 완료
+//		System.out.println(memberNum);
+		
+		// 4. seat_row가 필요한데 .. seat 테이블에는 seat_row, seat_num 따로 돼있음 .. 컬럼이 .... 아 ......
+		// 일단 seat2 테이블 만들긴 함 ㅇㅇ
+		
+//		LocalDateTime movie_date =  (LocalDateTime) map.get("order_ticket_date");
+		String movie_date =   (String) map.get("order_ticket_date");
+//		Date movie_date = (Date) map.get("order_ticket_date");
+		System.out.println("movie_date : " + movie_date);
+		
+//		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	    java.util.Date dbDateStr = dbDateFormat.parse(movie_date);
+//	    
+//	    System.out.println("dbDateStr" + dbDateStr);
+		
+//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate inputDate = LocalDate.parse(movie_date, inputFormatter);
+        
+        // 출력 날짜 형식 (시간을 추가하여 LocalDateTime으로 변환)
+//        LocalDateTime dateTime = inputDate.atStartOfDay(); // 시간을 00:00:00으로 설정
+//        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        String outputDateStr = dateTime.format(outputFormatter);
+//		
+//        System.out.println("outputDateStr : " + outputDateStr);
+//		
+		String theater = (String) map.get("order_ticket_theater_name");
+		String movie = (String) map.get("order_ticket_movie_name_kr");
+		String room = (String) map.get("order_ticket_room_num");
+		String time = (String) map.get("order_ticket_play_start_time");
+		
+		// 5. play_num (구하려면 .. 상영날짜, 영화관, 영화, 상영관, 시간 다 있어야하네 .. 흠 )
+		Map<Object, Object> playMap = service.getPlayNum(movieCode, theaterNum, room, time, movie_date);
+		System.out.println("playMap : " + playMap);
+		
+//		System.out.println(theaterNum);
+//		int insertCount = service.registOrderTicket();
+		
+		String seat = (String) map.get("order_ticket_seat_num");
+//		System.out.println("seat : " + seat); // 확인 완료 ..
+		
+		ArrayList<String> seatArr = new ArrayList<String>();
+		for(int i = 0 ; i < seat.length(); i++) {
+			seatArr.add(seat);
+		}
+		
+		System.out.println("seatArr : " + seatArr);
+		
+		model.addAttribute("map", map);
+		
+		
+		
+		return "movie/movie_Reserve_Complete";
 	}
 	
 
