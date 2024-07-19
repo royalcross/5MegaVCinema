@@ -14,10 +14,10 @@
 <!--         FROM theater -->
 <!--     </select> -->
 
-    <select id="selectTheaterList" resultType="play">
-        SELECT *
-        FROM play
-    </select>
+<!--     <select id="selectTheaterList" resultType="play"> -->
+<!--         SELECT * -->
+<!--         FROM play -->
+<!--     </select> -->
     
     <select id="selectTheaterNum" resultType="theater">
         SELECT theater_num
@@ -27,20 +27,43 @@
     </select>
 
 	<select id="selectMovieList3" resultType="play">
-    	SELECT play_movie_name_kr
+    	SELECT *
 		FROM play
-		WHERE play_theater_num = #{theater_num}
+		WHERE 
+			play_theater_num = #{theater_num} 
+			AND play_day = #{play_day}  
     </select>
     
     <select id="selectRoomList" resultType="play">
     	SELECT *
     	FROM play
-    	WHERE play_movie_name_kr = #{play_movie_name_kr}
+    	WHERE 
+    		play_movie_name_kr = #{play_movie_name_kr}
+    		AND play_theater_name = #{play_theater_name} 
+			AND play_day = #{play_day}  
     </select>
     
     <select id="selectMovieTimeList" resultType="play">
     	SELECT *
 		FROM play
-		WHERE play_room_num = #{play_room_num}
+		WHERE 
+			play_room_num = #{play_room_num}
+			AND play_movie_name_kr = #{play_movie_name_kr}
+    		AND play_theater_name = #{play_theater_name} 
+			AND play_day = #{play_day}  
+    </select>
+    
+    
+    <select id="selectMember" resultType="member">
+    	SELECT *
+    	FROM member
+    	WHERE member_id = #{sId}
+    </select>
+    
+    <!-- 상영 날짜에 등록된 극장 가져오기 -->
+    <select id="selectTheaterList" resultType="play">
+    	SELECT *
+    	FROM play
+    	WHERE play_day = #{play_day}
     </select>
 </mapper>

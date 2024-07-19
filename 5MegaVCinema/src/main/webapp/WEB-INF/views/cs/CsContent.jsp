@@ -58,6 +58,10 @@
 		display: flex;
 		justify-content: space-between;
 	}
+	
+	.reply {
+		background-color: #eee;
+	}
 </style>
 </head>
 <body>
@@ -84,16 +88,18 @@
 					<div class="cont">${selectedCs.cs_content}</div>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="4">답변</td>
-			</tr>
-			<tr class="answerArea">
-				<td colspan="4">
-					<div class=answer>${selectedCs.cs_answer}</div>
-				</td>
-			</tr>
+			
+			<c:if test="${not empty selectedCs.cs_answer}">
+				<tr>
+					<td colspan="4" class="reply">답변</td>
+				</tr>
+				<tr class="answerArea">
+					<td colspan="4">
+						<div class=answer>${selectedCs.cs_answer}</div>
+					</td>
+				</tr>
+			</c:if>
 		</table>
-		
 	</section>
 	<footer>		
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>

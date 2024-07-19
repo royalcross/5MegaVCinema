@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -121,32 +123,44 @@
 			<ul class="selector-summary">
 				<li><a href="MyPageMain" class="">예매/취소내역</a></li>
 				<li><a href="MyPage_CouponList" class="selected">관람권/쿠폰</a></li>
-				<li><a href="/Customer/InquiryList" class=" loginpop">나의
+				<li><a href="Cs" class=" loginpop">나의
 						문의내역</a></li>
 			</ul>
 		</div>
-		
-<div class="wrap-list">
-        <table border="1" >
-			<tr>
-				<th>구매상품명</th>
-				<th>구매상품구성</th>
-				<th>구매날짜</th>
-				<th>구매수량</th>
-				
-			</tr>
-			<tr align="center">
-				<td>${store.item_name}</td>
-				<td>${store.item_content}</td>
-				<td>${orderItem.order_item_purchase_date}</td>
-				<td>${orderItem.order_item_sales_rate}개</td>
-				
-			</tr>
-		</table>
-    </div>
-
-
-
+		<div class="content">
+						<table border="1" >
+							<tr>
+								<th width="100px">구매상품명</th>
+								<th width="400px">구매상품구성</th>
+								<th width="200px">구매날짜</th>
+								<th width="120px">구매수량</th>
+							</tr>
+							
+							<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
+							<c:set var="pageNum" value="1" />
+							<%-- pageNum 파라미터 존재할 경우(= 비어있지 않음) 판별 --%>
+							<c:if test="${not empty param.pageNum}">
+								<%-- pageNum 변수에 pageNum 파라미터값 저장 --%>
+								<c:set var="pageNum" value="${param.pageNum}" />
+							</c:if>
+							
+							<c:forEach var="orderItem2" items="${orderItem2}">
+								<tr align="center">
+									<td>${orderItem2.item_name}</td>
+									<td>${orderItem2.item_content}</td>
+									<td><fmt:parseDate value="${orderItem2.order_item_purchase_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
+									<td>${orderItem2.order_item_sales_rate}</td>
+									
+								</tr>
+							</c:forEach>
+							<c:if test="${empty orderItem2}">
+								<tr>
+									<td align="center" colspan="8">검색결과가 없습니다.</td>
+								</tr>
+							</c:if>
+						</table>
+					</div>
 
 
 	</article>

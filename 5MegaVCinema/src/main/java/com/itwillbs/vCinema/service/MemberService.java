@@ -45,9 +45,9 @@ public class MemberService {
 	   return mapper.selectMember_num(id);
    }
 
-   public OrderItemVO getPaymentInfo() {
+   public List<Map<String, String>> getPaymentInfo(int member_num) {
 	   // TODO Auto-generated method stub
-	   return mapper.selectPaymentInfo();
+	   return mapper.selectPaymentInfo(member_num);
    }
 
    public StoreVO getItem(StoreVO store) {

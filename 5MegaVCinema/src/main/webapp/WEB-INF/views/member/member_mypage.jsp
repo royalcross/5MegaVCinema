@@ -123,7 +123,7 @@
 			<ul class="selector-summary">
 				<li><a href="MyPageMain" class="selected">예매/취소내역</a></li>
 				<li><a href="MyPage_CouponList" class="">관람권/쿠폰</a></li>
-				<li><a href="/Customer/InquiryList" class=" loginpop">나의
+				<li><a href="Cs" class=" loginpop">나의
 						문의내역</a></li>
 			</ul>
 		</div>
@@ -159,7 +159,7 @@
 									<td>${orderTicket.order_ticket_member_num}</td>
 									<td>${orderTicket.movie_name_kr}</td> 
 									<td><fmt:parseDate value="${orderTicket.order_ticket_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td> <!-- 2024-07-13 의 형식 -->
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
 									<td>${orderTicket.theater_name}</td>
 									
 								</tr>

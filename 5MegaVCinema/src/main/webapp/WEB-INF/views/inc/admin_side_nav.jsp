@@ -7,7 +7,7 @@
 			<a href="AdminMemberList">회원관리</a>
 			<ul class="depth02">
 				<li><a href="AdminMemberList">회원목록</a></li>
-				<li><a href="AdminMemberReview">회원리뷰</a></li>
+<!-- 				<li><a href="AdminMemberReview">회원리뷰</a></li> -->
 				<li><a href="AdminMemberBook">예매내역</a></li>
 			</ul>			
 		</li>
