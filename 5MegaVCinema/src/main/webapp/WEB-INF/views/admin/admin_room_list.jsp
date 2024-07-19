@@ -415,9 +415,9 @@
 			$(function() {
 				$(modifyBtn).click(function() {
 					$.ajax({
-						url:"AdminStoreModify",
+						url:"AdminRoomModify",
 	    				data:{
-	    					"item_id": $(this).val()
+	    					"room_num": $(this).val()
 	    					},
 	    				method:"get",
 	    				success: function (response) {

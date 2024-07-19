@@ -621,10 +621,10 @@ public class AdminController {
 		
 		// =================================================================================================
 		@GetMapping("AdminRoomModify")
-		public String adminRoomeModify(@RequestParam(defaultValue = "0") int room_num,
+		public String adminRoomModify(@RequestParam(defaultValue = "0") int room_num,
 				@RequestParam(defaultValue = "0") int room_theater_num, Model model) {
 //			System.out.println("item_id : " + item_id);
-			
+			System.out.println("AdminRoomModify");
 			// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
 			List<Map<String, String>> selectedRoom = AdminService.getRoom(room_num, room_theater_num);
 			System.out.println("선택된 room 정보 : " + selectedRoom);
