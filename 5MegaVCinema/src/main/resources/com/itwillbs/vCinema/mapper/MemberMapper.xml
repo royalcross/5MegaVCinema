@@ -118,11 +118,11 @@
 		WHERE order_ticket_member_num = #{member_num}
 	</select>
 	
-	<select id="selectPaymentInfo" resultType="orderItem">
-		SELECT * 
-		FROM order_item
-		WHERE order_item_num = (SELECT MAX(order_item_num) -- 제일 최근 구매정보가 상품 구매번호가 가장 크므로
-								FROM order_item)           -- 이를 기준으로 상품 구매정보 조회
+	<select id="selectPaymentInfo" resultType="hashmap">
+		SELECT o.order_item_purchase_date, o.order_item_sales_rate, o.order_item_num, o.order_item_sales_revenue, i.item_name, i.item_content
+		FROM order_item o join item i
+		on  o.order_item_item_id = i.item_id
+		WHERE order_item_member_num = #{member_num}
 	</select>
 	
 	<select id="selectItem2" resultType="store">

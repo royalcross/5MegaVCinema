@@ -37,7 +37,7 @@ public interface MemberMapper {
 
    int selectMember_num(String id);
  
-   OrderItemVO selectPaymentInfo();
+   List<Map<String, String>> selectPaymentInfo(int member_num);
 
    StoreVO selectItem2(StoreVO store);
 }

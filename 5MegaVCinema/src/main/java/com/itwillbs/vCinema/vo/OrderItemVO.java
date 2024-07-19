@@ -12,4 +12,8 @@ public class OrderItemVO {
 	private int order_item_sales_rate;
 	private int order_item_sales_revenue;
 	private int order_item_member_num;
+	public String getOrder_item_item_id2(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

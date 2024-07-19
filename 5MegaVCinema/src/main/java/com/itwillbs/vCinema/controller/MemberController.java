@@ -364,19 +364,27 @@ public class MemberController {
    }
 
    @GetMapping("MyPage_CouponList")
-   public String myPage_Coupon(StoreVO store, OrderItemVO orderItem, Model model) {
+   public String myPage_Coupon(StoreVO store, OrderItemVO orderItem, Model model, HttpSession session, @RequestParam Map<String, String> map) {
+	   String id = (String)session.getAttribute("sId");
 	   
+		  
+		  int member_num = service.getMember_num(id);
+		  System.out.println("member_num : " + member_num);
+		  
+		  
+	   
+		  List<Map<String, String>> orderItem2 = service.getPaymentInfo(member_num);
+
 	// DB로부터 구매정보를 가져와 OrderItemVO 객체에 저장
-			orderItem = service.getPaymentInfo();
-			// OrderItemVO 객체를 Model 객체에 저장
-			model.addAttribute("orderItem", orderItem);
 			
+			// OrderItemVO 객체를 Model 객체에 저장
+			model.addAttribute("orderItem2", orderItem2);
+			System.out.println("orderItem2" + orderItem2);
 			// 구매한 상품의 상품 아이디를 StoreVO 객체에 저장
-			store.setItem_id(orderItem.getOrder_item_item_id());
-			// DB로부터 상품정보를 가져와 StoreVO 객체에 저장
-			store = service.getItem(store);
-			// StoreVO 객체를 Model 객체에 저장
-			model.addAttribute("store", store);
+			
+			
+			
+		
 	   
 	   
       return "member/member_mypage_coupon";
