@@ -103,7 +103,6 @@
 			, v.movie_name_kr
 			, o.order_ticket_date
 			, t.theater_name
-			, o.order_ticket_seat_num
 			, o.order_ticket_how_many_people
 			, tk.ticket_price
 			, o.order_ticket_status
