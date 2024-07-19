@@ -144,7 +144,7 @@
 <!-- 						</div> -->
 						<!-- 영화 등록버튼 -->
 						
-						<form action="AdminMovie">
+						<form action="AdminMovieList">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -207,7 +207,7 @@
 					
 					<div id="pageList">
 						<input type="button" value="이전" 
-								onclick="location.href='AdminMovie?pageNum=${pageNum - 1}'">
+								onclick="location.href='AdminMovieList?pageNum=${pageNum - 1}'">
 						
 						<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo)를 통해 페이지 번호 출력 --%>
 						<%-- 시작페이지(startPage = begin) 부터 끝페이지(endPage = end)까지 1씩 증가하면서 표시 --%>
@@ -219,7 +219,7 @@
 									<b>${i}</b> <%-- 현재 페이지 번호 --%>
 								</c:when>
 								<c:otherwise>
-									<a href="AdminMovie?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+									<a href="AdminMovieList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -230,7 +230,7 @@
 						<%-- 두 가지 경우의 수에 따라 버튼을 달리 생성하지 않고, disabled 만 추가 여부 설정 --%>
 						<%-- pageNum 파라미터값이 최대 페이지번호 이상일 때 disabled 속성 추가 --%>
 						<input type="button" value="다음" 
-								onclick="location.href='AdminMovie?pageNum=${pageNum + 1}'">
+								onclick="location.href='AdminMovieList?pageNum=${pageNum + 1}'">
 					</div>
 				</article>
 			</section>

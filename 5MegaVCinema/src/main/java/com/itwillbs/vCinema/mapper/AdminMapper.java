@@ -95,7 +95,7 @@ public interface AdminMapper {
 //	int updateRoom(int room_num, int room_theater_num, int room_seats, String theater_location, String theater_name);
 
 	//상영관 상세정보 가져오기
-	List<Map<String, String>> selectRoom(int room_num, int room_theater_num);
+	List<Map<String, String>> selectRoom(@Param("room_num") int room_num, @Param("room_theater_num") int room_theater_num);
 
 	// ------- 상영시간표 ---------
 	
@@ -137,6 +137,11 @@ public interface AdminMapper {
 
 	//영화관 삭제
 	int deleteTheater(@Param("theater_num") int theater_num);
+
+	//상영관 수정
+	int updateRoom(@Param("room_num") int room_num,@Param("room_theater_num")  int room_theater_num, 
+			@Param("room_seats") int room_seats, @Param("theater_location") String theater_location,
+			@Param("theater_name") String theater_name);
 
 
 }

@@ -1,46 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <div> -->
-<!-- 	<span>카테고리</span> <br> -->
-<!-- 	<select class="category" disabled> -->
-<%-- 		<option <c:if test="${selectedItem.item_type eq 'Ticket'}">selected</c:if>>티켓</option> --%>
-<%-- 		<option <c:if test="${selectedItem.item_type eq 'Popcorn'}">selected</c:if>>팝콘</option> --%>
-<%-- 		<option <c:if test="${selectedItem.item_type eq 'Drinks'}">selected</c:if>>음료</option> --%>
-<%-- 		<option <c:if test="${selectedItem.item_type eq 'Goods'}">selected</c:if>>굿즈</option> --%>
-<!-- 	</select> -->
-<!-- </div> -->
-
-<!-- item_id 는 hidden (수정은 불가능하게 할건데 where 절에 써야해서 파라미터 전달해야함 -->
-<%-- <input type="hidden" name="item_id" value="${selectedItem.item_id}" >  --%>
-
-<!-- <div> -->
-<!-- 	<span>상품명</span> <br> -->
-<%-- 	<input type="text" name="item_name" value="${selectedItem.item_name}"> --%>
-<!-- </div> -->
-	
-<!-- <div> -->
-<!-- 	<span>부연설명</span> <br> -->
-<%-- 	<textarea rows="1" cols="40" name="item_content" required>${selectedItem.item_content}</textarea> --%>
-<!-- </div> -->
-
-<!-- <div> -->
-<!-- 	<span>가격</span> <br> -->
-<%-- 	<input type="text" name="item_price" value="${selectedItem.item_price}"> --%>
-<!-- </div> -->
-
 
 				        <div>
-				        <span>지역</span>
-					        <select class="category" id="theater_location"name="theater_location" disabled>
-					        <option value="${selectedRoom.theater_location}" selected="selected"></option>
-					        </select>
+				        <span>지역 (고정값)</span>
+					        <input type="text" name="theater_location" id="theater_location" value="${selectedRoom[0].theater_location}" readonly>
 				        </div>
 				        <div>
-				        <span>극장명</span>
-					        <select class="category" id="theater_name"name="theater_name"  onchange="selectTheaterNum(this.value)">
-					        <option value="${selectedRoom.theater_name}" selected="selected">극장명을 선택하세요.</option>
-					        </select>
+				        <span>극장명 (고정값)</span>
+					        <input type="text" name="theater_name" id="theater_name" value="${selectedRoom[0].theater_name}" readonly>
 				        </div>
 		
 	<script>
@@ -114,18 +82,18 @@
 				        
 				        
 				        <div>
-				           	<span>극장번호</span> <br>
-				        	<input type="text" name="room_theater_num" id="room_theater_num" value="${selectedRoom.room_theater_num}">
+				           	<span>영화관 번호 (고정값)</span> 
+				        	<input type="text" name="room_theater_num" id="room_theater_num" readonly value="${selectedRoom[0].room_theater_num}">
 				        </div>
 				        
 				        <div>
-				        	<span>상영관명</span> <br>
-				        	<input type="number" name="room_num" value="${selectedRoom.room_num}">
+				        	<span>상영관명</span>
+				        	<input type="number" name="room_num" value="${selectedRoom[0].room_num}">
 				        </div>
 				        
 				        <div>
-				        	<span>좌석수</span> <br>
-				        	<input type="text" name="room_seats" value="${selectedRoom.room_seats}">
+				        	<span>좌석수</span>
+				        	<input type="text" name="room_seats" value="${selectedRoom[0].room_seats}">
 				        </div>
 				        
 				        

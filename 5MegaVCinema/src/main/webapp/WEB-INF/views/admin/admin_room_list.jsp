@@ -248,11 +248,12 @@
 					<div class="content">
 						<table border="1" >
 							<tr>
-								<th width="80px">극장명</th>
-								<th width="120px">극장번호</th>
-								<th width="120px">상영관명</th>
-								<th width="300px">좌석수</th>
-								<th width="120px">수정 및 삭제</th>
+<!-- 								<th>지역</th> -->
+								<th>극장명</th>
+								<th>극장번호</th>
+								<th>상영관명</th>
+								<th>좌석수</th>
+								<th>수정 및 삭제</th>
 							</tr>
 							
 			
@@ -266,16 +267,17 @@
 			
 			<%-- JSTL과 EL 활용하여 글목록 표시 작업 반복(boardList 객체 활용) --%>
 			<c:forEach var="room" items="${roomList}">
-			<tr class="theater_location_num_${room.theater_num}">
-				<td>${room.theater_name}</td>
-				<td>${room.room_theater_num}</td>
-				<td>${room.room_num}</td>
-				<td>${room.room_seats}</td>
-				<td>
-			<button value="${room.room_num}" class="modifyBtn">수정</button>
-			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
-				</td>
-			</tr>
+				<tr class="theater_location_num_${room.room_theater_num}">
+<%-- 					<td>${room.theater_location}</td> --%>
+					<td>${room.theater_name}</td>
+					<td class="room_theater_num_${room.room_theater_num}_${room.room_num}">${room.room_theater_num}</td>
+					<td>${room.room_num}</td>
+					<td>${room.room_seats}</td>
+					<td>
+						<button value="${room.room_theater_num}_${room.room_num}" class="modifyBtn">수정</button>
+						<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
+					</td>
+				</tr>
 			</c:forEach>
 			<%--게시물 목록이 하나도 없을 경우 메세지 표시 --%>
 			<c:if test="${empty roomList}">
@@ -288,7 +290,7 @@
 					
 						<div id="pageList">
 						<input type="button" value="이전" 
-								onclick="location.href='AdminRoomList?pageNum=${pageNum - 1}'">
+								onclick="location.href='AdminRoom?pageNum=${pageNum - 1}'">
 						
 						<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 							<c:choose>
@@ -296,12 +298,12 @@
 									<b>${i}</b> <%-- 현재 페이지 번호 --%>
 								</c:when>
 								<c:otherwise>
-									<a href="AdminRoomList?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
+									<a href="AdminRoom?pageNum=${i}">${i}</a> <%-- 다른 페이지 번호 --%>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<input type="button" value="다음" 
-								onclick="location.href='AdminRoomList?pageNum=${pageNum + 1}'">
+								onclick="location.href='AdminRoom?pageNum=${pageNum + 1}'">
 					</div>
 				</article>
 			</section>
@@ -414,10 +416,15 @@
 			// 아이템 상세 내용 가져오는 AJAX - resources 에 js 있어야함 (script 태그에 주소 연결도 해야함)
 			$(function() {
 				$(modifyBtn).click(function() {
+					
+					console.log("(this).val() : " + $(this).val());
+					console.log(".room_theater_num_ + $(this).val().text() : " + $(".room_theater_num_" + $(this).val()).text());
+					console.log(".room_theater_num_ + $(this).val().text() : " + $(".room_theater_num_" + $(this).val()).text());
 					$.ajax({
 						url:"AdminRoomModify",
 	    				data:{
-	    					"room_num": $(this).val()
+	    					"room_num": $(this).val().split("_")[1], 
+	    					"room_theater_num" : $(".room_theater_num_" + $(this).val()).text()
 	    					},
 	    				method:"get",
 	    				success: function (response) {
@@ -540,6 +547,7 @@
  		} else if(theater == "영덕예주") {
  			document.registForm.room_theater_num.value = 1011;
  		}
+ 		console.log(document.registForm.room_theater_num.value);
 	}
 	
 	</script>

@@ -14,7 +14,7 @@
 		<li class="depth01">
 			<a href="AdminMovieList">영화관리</a>
 			<ul class="depth02">
-				<li><a href="AdminMovie">영화정보관리</a></li>
+				<li><a href="AdminMovieList">영화정보관리</a></li>
 				<li><a href="AdminPlay">상영시간표</a></li>
 			</ul>			
 		</li>

@@ -62,7 +62,7 @@ public class AdminController {
 	
 	
 		//연진) 관리자 - 영화관리 - 영화정보관리
-		@GetMapping("AdminMovie")
+		@GetMapping("AdminMovieList")
 		public String adminMovieList(@RequestParam(defaultValue = "") String searchKeyword,
 				@RequestParam(defaultValue = "1") int pageNum, Model model) {
 			//파라미터 : 검색타입(searchType), 검색어(searchKeyword) => 기본값 널스트링("") 설정
@@ -133,7 +133,7 @@ public class AdminController {
 			int insertCount = AdminService.insertMovie(movie);
 //			System.out.println(insertCount);
 			if(insertCount > 0) {
-				return "redirect:/AdminMovie";
+				return "redirect:/AdminMovieList";
 			} else {
 				model.addAttribute("msg", "영화등록에 실패하였습니다. 정보를 확인해주세요.");
 				return "result/fail";
@@ -193,7 +193,7 @@ public class AdminController {
 			
 			if(updateCount > 0) {
 				model.addAttribute("msg", "수정되었습니다.");
-				model.addAttribute("targetURL", "AdminMovie?pageNum=1");
+				model.addAttribute("targetURL", "AdminMovieList?pageNum=1");
 				
 				return "result/success";
 			} else {
@@ -216,7 +216,7 @@ public class AdminController {
 			if(movieDeleteCount > 0) {
 				model.addAttribute("msg", "영화를 삭제했습니다");
 				//삭제 성공 시, 부모창 새로고침 및 자식창 닫기
-				model.addAttribute("targetURL", "AdminMovie?pageNum=1");
+				model.addAttribute("targetURL", "AdminMovieList?pageNum=1");
 				return "result/success";
 			} else {
 				model.addAttribute("msg", "영화삭제를 실패했습니다.");
@@ -462,7 +462,7 @@ public class AdminController {
 				System.out.println("getTheaterNum");
 				System.out.println(play_theater_name);
 				int playTheaterNum = AdminService.getTheaterNum(play_theater_name);
-				System.out.println(playTheaterNum);
+				System.out.println("playTheaterNum" + playTheaterNum);
 				
 //				model.addAttribute("endTimeStr", endTimeStr);
 				return playTheaterNum;
@@ -499,8 +499,17 @@ public class AdminController {
 												@RequestParam(defaultValue = "") String play_end_time) {
 				// 스토어 아이템 수정 (update)
 				// AdminStoreService - adminStoreModify();
+				System.out.println(play_num);
+				System.out.println(play_movie_code);
+				System.out.println(play_day);
+				System.out.println(play_theater_name);
+				System.out.println(play_theater_num);
+				System.out.println(play_room_num);
+				System.out.println(play_start_time);
+				System.out.println(play_end_time);
 				int updateCount = AdminService.adminPlayModify(play_theater_num, play_num,play_movie_code,play_day,
 						play_theater_name, play_room_num, play_start_time, play_end_time);
+				System.out.println("updateCount" + updateCount);
 				
 				if(updateCount > 0) {
 					model.addAttribute("msg", "수정되었습니다.");
@@ -570,6 +579,8 @@ public class AdminController {
 			List<Map<String, String>> roomList = AdminService.getRoomList(startRow, listLimit, searchKeyword);
 			
 			PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
+			System.out.println("listCount" + listCount + "pageListLimit" + pageListLimit+ "maxPage" + maxPage+ 
+					"startPage" + startPage+ "endPage" + endPage);
 			
 			// 스토어(아이템), 페이징 정보 Model 객체에 저장 -> admin_member_list.jsp 로 전달
 			model.addAttribute("roomList", roomList);
@@ -625,9 +636,10 @@ public class AdminController {
 				@RequestParam(defaultValue = "0") int room_theater_num, Model model) {
 //			System.out.println("item_id : " + item_id);
 			System.out.println("AdminRoomModify");
+			System.out.println("room_num" + room_num + ", " + "room_theater_num" + room_theater_num);
 			// 전달 받은 item_id 에 맞는 정보 골라서 ItemVO 에 담아 오기
 			List<Map<String, String>> selectedRoom = AdminService.getRoom(room_num, room_theater_num);
-			System.out.println("선택된 room 정보 : " + selectedRoom);
+//			System.out.println("선택된 room 정보 : " + selectedRoom);
 			// model 객체에 저장해서 전달
 			model.addAttribute("selectedRoom", selectedRoom);
 			
@@ -638,27 +650,33 @@ public class AdminController {
 		
 		
 		
-//		@PostMapping("AdminStoreModify")
-//		public String adminStoreModifyPro (Model model, @RequestParam(defaultValue = "0") int room_num,
-//											@RequestParam(defaultValue = "0") int room_theater_num, 
-//											@RequestParam(defaultValue = "0") int room_seats, 
-//											@RequestParam(defaultValue = "") String theater_location, 
-//											@RequestParam(defaultValue = "") String theater_name) {
-//			// 스토어 아이템 수정 (update)
-//			// AdminStoreService - adminStoreModify();
-//			int updateCount = AdminService.adminRoomodify(room_num,room_theater_num,room_seats,theater_location,theater_name);
-//			
-//			if(updateCount > 0) {
-//				model.addAttribute("msg", "수정되었습니다.");
-//				model.addAttribute("targetURL", "AdminStore?pageNum=1");
-//				
-//				return "result/success";
-//			} else {
-//				model.addAttribute("msg", "아이템 수정에 실패했습니다.");
-//				
-//				return "result/fail";
-//			}
-//		}
+		@PostMapping("AdminRoomModify")
+		public String adminRoomModifyPro (Model model, @RequestParam(defaultValue = "0") int room_num,
+											@RequestParam(defaultValue = "0") int room_theater_num, 
+											@RequestParam(defaultValue = "0") int room_seats, 
+											@RequestParam(defaultValue = "") String theater_location, 
+											@RequestParam(defaultValue = "") String theater_name) {
+			System.out.println("adminRoomModifyPro");
+			System.out.println(room_num);
+			System.out.println(room_theater_num);
+			System.out.println(room_seats);
+			System.out.println(theater_location);
+			System.out.println(theater_name);
+			// 스토어 아이템 수정 (update)
+			// AdminStoreService - adminStoreModify();
+			int updateCount = AdminService.adminRoomodify(room_num,room_theater_num,room_seats,theater_location,theater_name);
+			System.out.println(updateCount);
+			if(updateCount > 0) {
+				model.addAttribute("msg", "수정되었습니다.");
+				model.addAttribute("targetURL", "AdminRoom?pageNum=1");
+				
+				return "result/success";
+			} else {
+				model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+				
+				return "result/fail";
+			}
+		}
 		
 		
 		

@@ -29,7 +29,10 @@ public class AdminService {
 	}
 	
 	public List<MovieVO> getMovieList(String searchKeyword, int startRow, int listLimit) {
+		System.out.println("getMovieList");
+		System.out.println(startRow + ", " + listLimit);
 		return mapper.selectMovieList(startRow, listLimit, searchKeyword);
+		
 	}
 
 	//게시물 총 갯수 조회 요청
@@ -110,6 +113,8 @@ public class AdminService {
 
 	//상영관 목록
 	public List<Map<String, String>> getRoomList(int startRow, int listLimit, String searchKeyword) {
+		System.out.println("getRoomList");
+		System.out.println(startRow + ", " + listLimit);
 		return mapper.selectRoomList(searchKeyword, startRow, listLimit);
 	}
 
@@ -131,6 +136,7 @@ public class AdminService {
 
 	//상영관 상세 정보 가져오기
 	public List<Map<String, String>> getRoom(int room_num, int room_theater_num) {
+		System.out.println("getRoom");
 		return mapper.selectRoom(room_num, room_theater_num);
 	}
 
@@ -203,6 +209,13 @@ public class AdminService {
 	//영화관 삭제
 	public int removeTheater(int theater_num) {
 		return mapper.deleteTheater(theater_num);
+	}
+
+	//상영관 수정
+	public int adminRoomodify(int room_num, int room_theater_num, int room_seats, String theater_location,
+			String theater_name) {
+		return mapper.updateRoom(room_num,room_theater_num,room_seats,theater_location,theater_name);
+	
 	}
 
 	

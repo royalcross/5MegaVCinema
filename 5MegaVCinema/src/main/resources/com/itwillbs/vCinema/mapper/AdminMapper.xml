@@ -453,6 +453,7 @@
 		ON p.play_room_num = r.room_num
         where r.room_theater_num = theater_num and
         p.play_theater_name = #{play_theater_name}
+        limit 1
 	</select>
 	
 	
@@ -467,7 +468,7 @@
 	
 	<!--  상영관 목록 -->
 	<select id="selectRoomList" resultType="hashmap">
-		SELECT t.theater_name, r.room_theater_num, r.room_num, r.room_seats, t.theater_location_num
+		SELECT t.theater_location, r.room_theater_num, t.theater_name, r.room_theater_num, r.room_num, r.room_seats, t.theater_location_num
 		FROM room r join theater t
 		on r.room_theater_num = t.theater_num
 	<if test="!searchKeyword.equals('')">
@@ -477,6 +478,9 @@
 		OR room_num LIKE CONCAT('%', #{searchKeyword}, '%')
 		OR room_seats LIKE CONCAT('%', #{searchKeyword}, '%')
 		OR theater_location_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		LIMIT
+				#{startRow}     -- Mapper 내의 메서드에서 @Param("startRow") 로 지정한 파라미터명 사용
+				, #{listLimit}  -- Mapper 내의 메서드에서 @Param("listLimit") 로 지정한 파라미터명 사용
 	</if>
 	</select>
 	
@@ -534,6 +538,17 @@
 		OR theater_address_detail LIKE CONCAT('%', #{searchKeyword}, '%')
 	</if>
 	</select>
+
+	<update id="updateRoom">
+		UPDATE room
+		SET
+	    	room_num = #{room_num},
+	    	room_theater_num = #{room_theater_num},
+	    	room_seats = #{room_seats}
+<!-- 	    	theater_location = #{theater_location}, -->
+<!-- 	    	theater_name = #{theater_name} -->
+		WHERE room_num = #{room_num} and room_theater_num = #{room_theater_num}
+	</update>
 
 	
 	
