@@ -13,7 +13,7 @@ public class OrderTicketVO {
 	private int order_ticket_theater_num;
 	private int order_ticket_room_num;
 	private int order_ticket_play_num;
-	private String order_ticket_seat_num;
+	private String order_ticket_seat;
 	private int order_ticket_price;
 	private int order_ticket_member_num;
 	private String order_ticket_status;

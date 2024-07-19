@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.vCinema.vo.MemberVO;
 import com.itwillbs.vCinema.vo.MovieVO;
+import com.itwillbs.vCinema.vo.OrderTicketVO;
 import com.itwillbs.vCinema.vo.PlayVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
@@ -57,6 +58,21 @@ public interface ReserveMapper {
 					  @Param("time")String time, @Param("movie_date") String movie_date);
 //	PlayVO selectPlayNum(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
 //			@Param("time")String time);
+
+//	int insertOrderTicket(@Param("movieCode")String movieCode, @Param("theaterNum")int theaterNum, @Param("memberNum")int memberNum, @Param("room")String room, 
+//						  @Param("playNum")int playNum, @Param("movie_date")String movie_date, @Param("time")String time, @Param("people")String people, @Param("seat")String seat);
+//	int insertOrderTicket(@Param("movieCode")String movieCode, @Param("theaterNum")int theaterNum, @Param("memberNum")int memberNum, @Param("room")String room, 
+//			@Param("playNum")int playNum, @Param("movie_date")String movie_date, @Param("time")String time, @Param("people")String people, @Param("seat")String seat);
+
+	int insertOrderTicket(Map<Object, Object> map);
+	
+	
+	
+	
+	OrderTicketVO selectOrderTicket(int order_ticket_id);
+
+	OrderTicketVO selectNowOrderTicket(int order_ticket_id);
+
 
 	
 	

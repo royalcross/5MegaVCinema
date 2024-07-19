@@ -99,6 +99,48 @@
     		AND play_start_time = #{time}
     		AND play_day = #{movie_date}
     </select>
+    
+    
+    
+    <!-- 예매 티켓에 입력 .. -->
+    <insert id="insertOrderTicket">
+    	<selectKey keyProperty="order_ticket_id" resultType="int" order="AFTER">
+    		SELECT order_ticket_id
+    		FROM order_ticket
+    		WHERE 
+    			order_ticket_movie_code = #{movieCode}
+    			AND order_ticket_theater_num = #{theaterNum}
+    			AND order_ticket_seat = #{order_ticket_seat_num}
+    	</selectKey>
+    	INSERT INTO order_ticket
+    	VALUES (
+    		null
+    		, #{movieCode}
+    		, #{theaterNum}
+    		, #{order_ticket_room_num}
+    		, #{playNum}
+    		, 1
+    		, #{memberNum}
+    		, '개봉'
+    		, #{movie_date}
+    		, #{order_ticket_how_many_people}
+    		, #{order_ticket_seat_num}
+    	)
+    </insert>
+    
+    
+    <select id="selectOrderTicket" resultType="orderTicket">
+    	SELECT *
+    	FROM order_ticket
+    	WHERE order_ticket_id = #{order_ticket_id}
+    </select>
+    
+    <select id="selectNowOrderTicket" resultType="orderTicket">
+    	SELECT *
+    	FROM order_ticket
+    	WHERE order_ticket_id = #{order_ticket_id}
+    </select>
+    
 </mapper>
 
 

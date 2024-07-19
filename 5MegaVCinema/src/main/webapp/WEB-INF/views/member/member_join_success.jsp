@@ -53,7 +53,7 @@
 		</header>
 		<article>
 			<div class="logo">
-				<a href="./" class="top_logo"><img src="resources/images/puppy1.jpg"></a>
+				<a href="./" class="top_logo"><img src="resources/images/main_logo.png"></a>
 			</div>
 			
 			<div class="tab">

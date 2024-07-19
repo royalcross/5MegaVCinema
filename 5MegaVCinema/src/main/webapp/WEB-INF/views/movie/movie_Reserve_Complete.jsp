@@ -157,16 +157,19 @@
 					<td width="100">결제금액</td>
 				</tr>
 				<tr height="30">
-					<td id="order_ticket_num"></td>
+					<td id=order_ticket_id>${map.order_ticket_id}</td>
 					<td id="order_ticket_date">${map.order_ticket_date}</td>
 					<td id="order_ticket_movie">${map.order_ticket_movie_name_kr}</td>
-					<td id="order_ticket_seat">${map.order_ticket_seat_num}</td>
+					<td id="order_ticket_seat">${orderTicket.order_ticket_seat}</td>
 					<td id="order_ticket_price">${map.order_ticket_price} 원</td>
 				</tr>
 			</table>
 			
 		</div>
 		
+		<div align="center">
+			<input type="button" value ="홈으로" onclick="location.href='./'">
+		</div>
 	</section>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>

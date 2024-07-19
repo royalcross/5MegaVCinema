@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.vCinema.mapper.ReserveMapper;
 import com.itwillbs.vCinema.vo.MemberVO;
 import com.itwillbs.vCinema.vo.MovieVO;
+import com.itwillbs.vCinema.vo.OrderTicketVO;
 import com.itwillbs.vCinema.vo.PlayVO;
 import com.itwillbs.vCinema.vo.TheaterVO;
 
@@ -87,6 +88,26 @@ public class ReserveService {
 //	public PlayVO getPlayNum(String movieCode, int theaterNum, String room, String time) {
 //		return mapper.selectPlayNum(movieCode, theaterNum, room, time);
 //	}
+
+	// 예매 정보 입력
+	public int registOrderTicket(Map<Object, Object> map) {
+		return mapper.insertOrderTicket(map);
+	}
+//	public int registOrderTicket(String movieCode, int theaterNum, int memberNum, String room, int playNum,
+//			String movie_date, String time, String people, String seat) {
+//		return mapper.insertOrderTicket(movieCode, theaterNum, memberNum, room, playNum, movie_date, time, people, seat);
+//	}
+
+	public OrderTicketVO getOrderTicket(int order_ticket_id) {
+		return mapper.selectOrderTicket(order_ticket_id);
+	}
+
+	public OrderTicketVO getNowOrderTicket(int order_ticket_id) {
+		return mapper.selectNowOrderTicket(order_ticket_id);
+	}
+
+	
+	
 
 
 	
