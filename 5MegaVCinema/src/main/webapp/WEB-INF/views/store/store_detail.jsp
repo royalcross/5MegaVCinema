@@ -165,7 +165,7 @@
 									</li>
 									<li>본 상품은 현금으로 환불이 불가합니다.</li>
 								</c:when>
-								<c:when test="${param.item_type eq 'Popcorn' or param.item_type eq 'Drinks' or param.item_type eq 'Goods'}">
+								<c:when test="${param.item_type eq ('Popcorn' or 'Drinks' or 'Goods')}">
 									<li>
 										이용 안내<br>
 										본 상품의 사용 기한은 구매일로부터 92일까지입니다.
@@ -209,7 +209,7 @@
 									<li>어플 및 홈페이지 예매방법 : 지점 > 영화명 > 시간 > 인원 > 관람권/모바일상품권 > 스토어 관람권으로 전송 받은 PIN번호 16자리 입력 > 결제</li>
 									<li>오메가V시네마 홈페이지 스토어 구매내역에서 PIN 번호 확인이 가능합니다.</li>
 								</c:when>
-								<c:when test="${param.item_type eq 'Popcorn' or param.item_type eq 'Drinks' or param.item_type eq 'Goods'}">
+								<c:when test="${param.item_type eq ('Popcorn' or 'Drinks' or 'Goods')}">
 									<li>
 										사용가능지점
 										<ul>
