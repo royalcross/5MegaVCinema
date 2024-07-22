@@ -13,7 +13,6 @@
 		<style>
 			.main {
 				padding: 1.8rem;
-				height: 100vh;
 			}
 			
 			.main h3 {

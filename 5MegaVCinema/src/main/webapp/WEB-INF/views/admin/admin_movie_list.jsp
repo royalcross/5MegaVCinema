@@ -11,9 +11,6 @@
 		<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 		<link href="${pageContext.request.contextPath}/resources/css/admin_default.css" rel="stylesheet" type="text/css">
 		<style>
-			.inner .wrapper {
-				height: 80vh;
-			}
 			.main {
 				padding: 1.8rem;
 			}
