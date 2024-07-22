@@ -8,7 +8,7 @@ import lombok.Data;
 public class MemberVO {
 	private int member_num;
 	private String member_id;
-	private String preference_theater;
+	private String member_preference_theater;
 	private String member_pw;
 	private String member_name;
 	private Date member_birth;

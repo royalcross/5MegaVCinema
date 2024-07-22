@@ -14,6 +14,7 @@
     let checkPasswdResult = false;
     let checkPasswd2Result = false;
 
+    // 비밀번호 복잡성 검증 함수
     function checkPasswd() {
         let member_pw = $("#member_pw").val();
 
@@ -81,31 +82,38 @@
         $("#member_pw").css("background", bgColor);
     }
 
+    // 비밀번호 확인 함수
     function checkSamePasswd() {
         let member_pw = $("#member_pw").val();
         let member_pw2 = $("#member_pw2").val();
 
         if (member_pw === member_pw2) {
-            document.querySelector("#checkPasswd2Result").innerText = "비밀번호 일치";
-            document.querySelector("#checkPasswd2Result").style.color = "blue";
+            $("#checkPasswd2Result").text("비밀번호 일치");
+            $("#checkPasswd2Result").css("color", "blue");
             checkPasswd2Result = true;
         } else {
-            document.querySelector("#checkPasswd2Result").innerText = "비밀번호 불일치";
-            document.querySelector("#checkPasswd2Result").style.color = "red";
+            $("#checkPasswd2Result").text("비밀번호 불일치");
+            $("#checkPasswd2Result").css("color", "red");
             checkPasswd2Result = false;
         }
     }
 
-    $(function() {
-        $("form").submit(function() {
+    $(document).ready(function() {
+        $("form").submit(function(event) {
+            checkPasswd(); 
+
             if (!checkPasswdResult) {
                 alert("패스워드를 부적합하게 입력했습니다.");
                 $("#member_pw").focus();
-                return false;
-            } else if (!checkPasswd2Result) {
-                alert("패스워드 확인 항목이 일치하지 않습니다!");
-                $("#member_pw2").focus();
-                return false;
+                event.preventDefault();
+            } else {
+                checkSamePasswd();
+
+                if (!checkPasswd2Result) {
+                    alert("패스워드 확인 항목이 일치하지 않습니다!");
+                    $("#member_pw2").focus();
+                    event.preventDefault(); 
+                }
             }
         });
     });
@@ -170,7 +178,7 @@
                         <tr>
                             <td id="td04">새 비밀번호 확인</td>
                             <td>
-                                <input type="password" name="member_pw2" id="member_pw2" size="15" maxlength="16" onblur="checkSamePasswd()" required>                                
+                                <input type="password" name="member_pw2" id="member_pw2" size="15" maxlength="16" onblur="checkSamePasswd()" required>
                                 <div id="checkPasswd2Result"></div>
                             </td>
                         </tr>
@@ -187,7 +195,7 @@
 </section>
 </main>
 <footer>
-    <jsp:include page="/WEB-INF/views//inc/bottom.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
 </body>
 </html>

@@ -241,7 +241,7 @@ public class MemberController {
 			    // 새 비밀번호 입력 여부를 확인하여 새 비밀번호 입력됐을 경우 암호화 수행 필요
 			    String newPasswd = map.get("member_pw");
 			    if (newPasswd != null && !newPasswd.isEmpty()) {
-			        map.put("member_passwd", passwordEncoder.encode(newPasswd)); // 새 비밀번호 암호화
+			        map.put("member_pw", passwordEncoder.encode(newPasswd)); // 새 비밀번호 암호화
 			        System.out.println("map : " + map); // passwd 항목 암호화 결과 확인
 			    }
 

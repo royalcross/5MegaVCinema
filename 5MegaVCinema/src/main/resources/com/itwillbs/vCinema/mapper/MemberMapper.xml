@@ -32,7 +32,7 @@
 	
 	<!--  회원 정보 수정 -->
 	<update id="updateMember">
-		UPDATE member
+		UPDATE member 
 		SET
 			member_preference_theater = #{member_preference_theater}      
 			, member_pw = #{member_pw}
@@ -73,7 +73,7 @@
 		SET 
 			member_pw = #{member_pw}
 		WHERE
-			member_phonenumber = #{member_phonenumber}
+			member_id = #{member_id}
 	</update>
 	
 	<!-- 회원 아이디 찾기, 비밀번호 변경 위한 전화번호 검색 -->
