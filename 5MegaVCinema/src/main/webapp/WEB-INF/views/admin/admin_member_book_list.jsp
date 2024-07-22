@@ -125,6 +125,12 @@
 			}
 			
 		</style>
+		<script>
+			// 게시글 수 
+			function showListLimit(limit){
+				location.href="AdminMemberBook?listLimit=" + limit;
+			}
+		</script>
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	</head>
 	<body>
@@ -137,16 +143,16 @@
 				<article class="main">
 					<h3>예매내역 조회</h3>
 					<div class="wrapper_top">
-<!-- 						<div> -->
-<!-- 							<span>Show</span> -->
-<!-- 							<select> -->
-<!-- 								<option>5</option> -->
-<!-- 								<option>10</option> -->
-<!-- 								<option>20</option> -->
-<!-- 								<option>30</option> -->
-<!-- 							</select> -->
-<!-- 							<span>entries</span> -->
-<!-- 						</div> -->
+						<div>
+							<span>Show</span>
+							<select onchange="showListLimit(this.value)">
+								<option value="5" <c:if test="${param.listLimit eq 5}">selected</c:if>>5</option>
+								<option value="10" <c:if test="${param.listLimit eq 10}">selected</c:if>>10</option>
+								<option value="20" <c:if test="${param.listLimit eq 20}">selected</c:if>>20</option>
+								<option value="30" <c:if test="${param.listLimit eq 30}">selected</c:if>>30</option>
+							</select>
+							<span>entries</span>
+						</div>
 						
 						<form action="AdminMemberBook">
 							<div class="search">

@@ -120,6 +120,13 @@
 			}
 			
 		</style>
+		<script>
+			// 게시글 수 
+			function showListLimit(limit){
+				location.href="AdminCs?listLimit=" + limit;
+			}
+		
+		</script>
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	</head>
 	<body>
@@ -132,16 +139,16 @@
 				<article class="main">
 					<h3>1:1 문의 조회 내역</h3>
 					<div class="wrapper_top">
-<!-- 						<div> -->
-<!-- 							<span>Show</span> -->
-<!-- 							<select> -->
-<!-- 								<option>5</option> -->
-<!-- 								<option>10</option> -->
-<!-- 								<option>20</option> -->
-<!-- 								<option>30</option> -->
-<!-- 							</select> -->
-<!-- 							<span>entries</span> -->
-<!-- 						</div> -->
+						<div>
+							<span>Show</span>
+							<select onchange="showListLimit(this.value)">
+								<option value="5" <c:if test="${param.listLimit eq 5}">selected</c:if>>5</option>
+								<option value="10" <c:if test="${param.listLimit eq 10}">selected</c:if>>10</option>
+								<option value="20" <c:if test="${param.listLimit eq 20}">selected</c:if>>20</option>
+								<option value="30" <c:if test="${param.listLimit eq 30}">selected</c:if>>30</option>
+							</select>
+							<span>entries</span>
+						</div>
 						
 						<form action="AdminCs">
 							<div class="search">

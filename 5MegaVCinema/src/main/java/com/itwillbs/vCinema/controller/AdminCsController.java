@@ -23,10 +23,11 @@ public class AdminCsController {
 	// 관리자 - 공지사항 맵핑
 	@GetMapping("AdminNotice")
 	public String adminNotice(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-			@RequestParam(defaultValue ="") String searchKeyword) {
+			@RequestParam(defaultValue ="") String searchKeyword,
+			@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 	
 		int listCount = service.getNoticeListCount(searchKeyword); // 총 게시물 개수
@@ -146,10 +147,11 @@ public class AdminCsController {
 	// 자주 묻는 질문 (FAQ)
 	@GetMapping("AdminFAQ") // 자주 묻는 질문 - 화면 맵핑
 	public String adminFaq(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-			@RequestParam(defaultValue ="") String searchKeyword) {
+			@RequestParam(defaultValue ="") String searchKeyword,
+			@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 	
 		int listCount = service.getFaqCount(searchKeyword); // 총 게시물 개수
@@ -263,10 +265,11 @@ public class AdminCsController {
 	// 1:1 문의
 	@GetMapping("AdminCs")
 	public String adminCs(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-			@RequestParam(defaultValue ="") String searchKeyword) {
+			@RequestParam(defaultValue ="") String searchKeyword,
+			@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 	
 		int listCount = service.getCsCount(searchKeyword); // 총 게시물 개수

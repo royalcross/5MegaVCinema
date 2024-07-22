@@ -22,10 +22,11 @@ public class AdminMemberController {
 	// 관리자 - 회원관리 - 회원목록
 	@GetMapping("AdminMemberList")
 	public String memberList(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-						@RequestParam(defaultValue ="") String searchKeyword) {
+						@RequestParam(defaultValue ="") String searchKeyword,
+						@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 		
 		// 검색 기능 추가 (0705)
@@ -108,10 +109,11 @@ public class AdminMemberController {
 	// 관리자 - 회원관리 - 회원리뷰
 	@GetMapping("AdminMemberReview")
 	public String memberReview(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-							   @RequestParam(defaultValue ="") String searchKeyword) {
+							   @RequestParam(defaultValue ="") String searchKeyword,
+								@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 		
 		int listCount = service.getReviewListCount(searchKeyword); // 총 게시물 개수
@@ -181,10 +183,11 @@ public class AdminMemberController {
 	// 관리자 - 회원관리 - 예매내역 조회
 	@GetMapping("AdminMemberBook")
 	public String memeberBook(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-			   @RequestParam(defaultValue ="") String searchKeyword) {
+			   @RequestParam(defaultValue ="") String searchKeyword,
+				@RequestParam(defaultValue = "5") int listLimit) {
 		// -------------------------------------------------------------------------------------------
 		// 페이징 처리
-		int listLimit = 5; // 페이지 당 게시물 수
+//		int listLimit = 5; // 페이지 당 게시물 수
 		int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 		
 		int listCount = service.getBookListCount(searchKeyword); // 총 게시물 개수
