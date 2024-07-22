@@ -88,7 +88,6 @@
 		<header>
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 		</header>
-		
 
 		<section align="center" class="content inner">
 			<div class="tab">
