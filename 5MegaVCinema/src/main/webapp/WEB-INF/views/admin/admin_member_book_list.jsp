@@ -101,6 +101,7 @@
 			}
 			
 			.modal .modal_popup .content table {
+				margin: 20px 0;
 				width: 100%;
 			}
 			
@@ -116,6 +117,11 @@
 			
 			.modal.on {
 			    display: block;
+			}
+			
+			/* 팝업 스타일링 */
+			.coloredTh {
+				background-color: #eee;
 			}
 			
 		</style>

@@ -131,7 +131,16 @@
 									<td>${member.member_name}</td>
 									<td>${member.member_join_date}</td>
 									<td>${member.member_status}</td>
-									<td>${member.member_isAdmin}</td>
+									<td>
+										<c:choose>
+											<c:when test="${member.member_isAdmin eq 0}">
+												N
+											</c:when>
+											<c:otherwise>
+												Y
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>
 										<c:choose>
 											<c:when test="${member.member_isAdmin eq 0}">

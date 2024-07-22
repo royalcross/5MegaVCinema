@@ -122,7 +122,7 @@
     		, 1
     		, #{memberNum}
     		, '개봉'
-    		, #{movie_date}
+    		, #{order_ticket_date}
     		, #{order_ticket_how_many_people}
     		, #{order_ticket_seat_num}
     	)

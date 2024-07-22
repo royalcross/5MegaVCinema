@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <table border = "1">
-    <tr>
+    <tr class="coloredTh">
 		<th>예매번호</th>
 		<th>예매자 회원번호</th>
 		<th>영화</th>
@@ -19,8 +20,7 @@
 			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
 		<td>${selectedBook.theater_name}</td>
 	</tr>
-	
-	<tr>
+	<tr class="coloredTh">
 		<th>상영관</th>
 		<th>좌석</th>
 		<th>예매인원</th>
@@ -30,9 +30,9 @@
 	
 	<tr align="center">
 		<td>${selectedBook.order_ticket_room_num}</td>
-		<td>${selectedBook.order_ticket_seat_num}</td>
+		<td>${selectedBook.order_ticket_seat}</td>
 		<td>${selectedBook.order_ticket_how_many_people}</td>
-		<td>${selectedBook.order_ticket_how_many_people * selectedBook.ticket_price}</td>
+		<td>${selectedBook.ticket_price}</td>
 		<td>${selectedBook.order_ticket_status}</td>
 	</tr>
 </table>
