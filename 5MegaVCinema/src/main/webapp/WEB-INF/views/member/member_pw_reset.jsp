@@ -166,7 +166,7 @@
             </section>
             <section id="sec02">
                 <div style="display: flex; justify-content: center;">
-                    <table>
+                    <table>  
                         <tr>
                             <td id="td03">새 비밀번호</td>
                             <td>

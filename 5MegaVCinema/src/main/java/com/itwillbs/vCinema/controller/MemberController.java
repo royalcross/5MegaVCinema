@@ -230,7 +230,7 @@ public class MemberController {
 			@PostMapping("PwResetFinal")
 			public String pwResetFinal(@RequestParam Map<String, String> map, MemberVO member,
 			                           BCryptPasswordEncoder passwordEncoder, Model model) {
-			    // member 정보가 null이 아닌지 확인하여 NullPointerException 방지
+			    // member 정보가 null이 아닌지 확인하여 NullPointerException 방지  
 			    if (member != null) {
 			        member = service.getMember(member); // 기존 member 정보 조회
 			    } else {
