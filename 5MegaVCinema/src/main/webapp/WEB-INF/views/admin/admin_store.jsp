@@ -235,34 +235,28 @@
 				        
 				        <div>
 				        	<span>상품 아이디</span> <br>
-				        	<input type="text" name="item_id" id="item_id">
+				        	<input type="text" name="item_id" id="item_id" required>
 				        </div>
 				        
 				        <div>
 				        	<span>상품명</span> <br>
-				        	<input type="text" name="item_name">
+				        	<input type="text" name="item_name" id="item_name" required>
 				        </div>
 				        
 				        <div>
 				        	<span>부연설명</span> <br>
-				        	<textarea rows="1" cols="40" name="item_content" required></textarea>
+				        	<textarea rows="1" cols="40" name="item_content" id="item_content" required></textarea>
 				        </div>
 				        
 				        <div>
 				        	<span>가격</span> <br>
-				        	<input type="text" name="item_price">
+				        	<input type="text" name="item_price" id="item_price" required>
 				        </div>
 				        
 				        <div>
 				        	<span>상품사진</span> <br>
-				        	<input type="file" name="item_image">
+				        	<input type="file" name="item_image" required>
 				        </div>
-				        
-<!-- 				        <div> -->
-<!-- 				        	<span>수량</span> <br> -->
-<!-- 				        	<input type="number" name="item_quantity"> -->
-<!-- 				        </div> -->
-				        
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">
 				        	<input type="reset" class="reset_btn" value="초기화">

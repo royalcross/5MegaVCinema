@@ -1,5 +1,7 @@
 package com.itwillbs.vCinema.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -10,4 +12,5 @@ public class StoreVO {
 	private String item_content;
 	private int item_price;
 	private String item_image;
+	private MultipartFile image;
 }
