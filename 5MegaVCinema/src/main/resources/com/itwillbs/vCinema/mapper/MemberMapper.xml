@@ -34,7 +34,7 @@
 	<update id="updateMember">
 		UPDATE member
 		SET
-			preference_theater = #{preference_theater}      
+			member_preference_theater = #{member_preference_theater}      
 			, member_pw = #{member_pw}
 		WHERE
 			member_id = #{member_id}
