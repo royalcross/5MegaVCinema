@@ -10,25 +10,29 @@
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<style>
-			.join {
-				width: 300px;
+			.content {
+				padding: 50px 0;
+			}
+		
+			.content .join {
+				width: 350px;
 				margin: 0 auto;
 			}
 			
-			.join_detail {
+			.content .join_detail {
 				padding: 10px 0 ;
-				height: 40px;
 			}
 			
-			.join_detail .title {
+			.content .join_detail .title {
 				display: block;
 				width: 150px;
+				margin-bottom: 7px;
 			}
-			.join_detail .detail2 {
+			.content .join_detail .detail2 {
 				width: 100%;
 			}
 			
-			.join_detail .check {
+			.content .join_detail .check {
 				width: 150px;
 				font-size: 13px; 
 			}
@@ -41,10 +45,13 @@
 			.tab > ul {
 				display: flex;
 				justify-content: space-between;
+				height: 40px;
+				line-height: 2.5;
 			}
 			.tab > ul > li {
 				width:50%;
 				background-color: #eee;
+				
 			}
 			.tab > ul > li a {
 				display: block;
@@ -64,21 +71,16 @@
 			#submit {
 				width: 100%;
 			}
-			.logo {
-				width: 100px;
-				margin: 0 auto;
-			}
 			
-			.logo .main_logo {
-				width: 100%;
-			}
-			
-			.logo .main_logo img {
-				width: 100%;
+			input, select {
+				height: 30px;
 			}
 		</style>
 			
 		<script type="text/javascript">
+			
+			// 비밀번호 정규표현식 사용 필요 !!!!
+			
 		
 			function checkSamePw() {
 		        let passwd = $("#member_pw").val();
@@ -140,13 +142,9 @@
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 		</header>
 		
-		<div class="logo">
-			<a href="./" class="main_logo">
-				<img src="resources/images/main_logo.png">
-			</a>
-		</div>
 
-		<section>
+		<section class="content inner">
+			
 			<div class="tab">
 				<ul>
 					<li class="tabMenu">이메일 입력</li>
@@ -179,7 +177,7 @@
 				</div>
 				<div class="join_detail">
 					<span class="title">비밀번호</span>
-					<input type="password" class="detail2" name="member_pw" id="member_pw" placeholder="영문, 숫자, 특수문자 중 2개 조합 8자 이상" required> <!-- / ^[A-Za-z0-9!@#$%^&*_-+=]{8,}$/ -->
+					<input type="password" class="detail2" name="member_pw" id="member_pw" placeholder="영문, 숫자, 특수문자 중 2개 조합 8자 이상" required onblur="emptyPw()"> <!-- / ^[A-Za-z0-9!@#$%^&*_-+=]{8,}$/ -->
 				</div>
 				<div class="join_detail">
 					<span class="title">비밀번호 확인</span>
