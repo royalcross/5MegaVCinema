@@ -114,7 +114,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td rowspan="6" id="img"><img alt="${store.item_name}" src="${store.item_image}"></td>
+				<td rowspan="6" id="img"><img alt="${store.item_name}" src="${pageContext.request.contextPath}/resources/upload/${store.item_image}"></td>
 				<td>사용극장</td>
 				<td colspan="2"><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장</a></td>
 			</tr>

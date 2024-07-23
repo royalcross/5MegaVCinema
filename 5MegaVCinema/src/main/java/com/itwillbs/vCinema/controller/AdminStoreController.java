@@ -60,7 +60,7 @@ public class AdminStoreController {
 		// 페이지 번호가 1보다 작거나 최대 페이지 번호보다 클 경우
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "해당 페이지는 존재하지 않습니다!");
-			model.addAttribute("targetURL", "AdminStoreList?pageNum=1");
+			model.addAttribute("targetURL", "AdminStore?pageNum=1");
 			return "result/fail";
 		}
 		
@@ -122,10 +122,10 @@ public class AdminStoreController {
 		}
 		// [ 업로드 되는 실제 파일 처리 ]
 		// 실제 파일은 ItemVO 객체의 MultipartFile 타입 객체(멤버변수 image)가 관리함
-//		MultipartFile image = item.getImage();
+		MultipartFile image = item.getImage();
 		// BoardVO 객체에 서브디렉토리명과 함께 파일명 저장
-//		String imageName = image.getOriginalFilename();
-//		item.setItem_image(subDir + "/" + imageName);
+		String imageName = image.getOriginalFilename();
+		item.setItem_image(subDir + "/" + imageName);
 		
 		// AdminStoreService - adminItemRegist() 메서드 호출하여 상품 등록 작업 요청
 		// => 파라미터 : ItemVO 객체   리턴타입 : int(insertCount)
@@ -134,18 +134,18 @@ public class AdminStoreController {
 		
 		// 상품 등록 작업 요청 결과 판별
 		if(insertCount > 0 ) { // 성공
-//			try {
-//				// 업로드 파일들은 MultipartFile 객체에 의해 임시 저장공간에 저장되어 있으며
-//				// 상품 등록 성공 시 임시 저장공간 -> 실제 디렉토리로 이동 작업 필요
-//				// => MultipartFile 객체의 transferTo() 메서드 호출하여 실제 위치로 이동 처리
-//				//    (파라미터 : java.io.File 타입 객체 전달)
-//				// File 객체 생성 시 생성자에 업로드 경로명과 파일명 전달
-//				image.transferTo(new File(realPath, imageName));
-//			} catch (IllegalStateException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				// 업로드 파일들은 MultipartFile 객체에 의해 임시 저장공간에 저장되어 있으며
+				// 상품 등록 성공 시 임시 저장공간 -> 실제 디렉토리로 이동 작업 필요
+				// => MultipartFile 객체의 transferTo() 메서드 호출하여 실제 위치로 이동 처리
+				//    (파라미터 : java.io.File 타입 객체 전달)
+				// File 객체 생성 시 생성자에 업로드 경로명과 파일명 전달
+				image.transferTo(new File(realPath, imageName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			// 성공 시 "성공적으로 처리되었습니다." 메세지 출력 및 "AdminStore?pageNum=1" 서블릿 주소 전달(success.jsp)
 			model.addAttribute("msg", "성공적으로 처리되었습니다.");

@@ -16,15 +16,17 @@
 		width: 1000px;
 	}
 	#payment_page th {padding: 10px;}
-	#payment_page td {padding: 10px;}
-	#payment_title, #item_info {text-align: left;}
+	#payment_title, #item_info {
+		padding: 10px;
+		text-align: left;
+	}
 	#payment_title {font-size: 30px;}
 	#item_info {font-size: 20px;}
-	td>#available_theaters {
+	#available_theaters {
 		color: blue;
 		text-decoration: underline;
 	}
-	td>img {width: 60px; height: 70px;}
+	#item_img {width: 100px; height: 100px;}
 	#item_nameAndContent {width: 400px;}
 	#gift_message, #final_payment {
 		text-align: left;
@@ -76,7 +78,7 @@
 				<th>총 상품금액</th>
 			</tr>
 			<tr>
-				<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/img/popcorn.jpg" id="item_img"></td>
+				<td><img alt="item_img" src="${pageContext.request.contextPath}/resources/upload/${store.item_image}" id="item_img"></td>
 				<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
 				<td><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장 확인</a></td>
 				<td>${param.count}</td>

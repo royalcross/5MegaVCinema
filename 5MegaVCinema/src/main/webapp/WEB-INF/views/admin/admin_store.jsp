@@ -222,7 +222,7 @@
 		    <div class="modal_popup">
 		        <h3>스토어 등록</h3>
 		        <div class="content">
-		        	<form action="AdminItemRegist" method="post" name="registForm">
+		        	<form action="AdminItemRegist" method="post" name="registForm" enctype="multipart/form-data">
 				        <div>
 					        <select class="category" name="item_type" onchange="selectCategory(this.value)">
 					        	<option value="">선택</option>
@@ -255,7 +255,7 @@
 				        
 				        <div>
 				        	<span>상품사진</span> <br>
-				        	<input type="file" name="item_image" required>
+				        	<input type="file" name="image" required>
 				        </div>
 						<div class="btnArea" style="text-align : center">
 				        	<input type="submit" class="regist_btn" value="등록">

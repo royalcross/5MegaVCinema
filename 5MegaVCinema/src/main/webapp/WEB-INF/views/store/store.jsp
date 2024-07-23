@@ -115,7 +115,7 @@
 				<c:if test="${storeList[status.index] != null and storeList[status.index].item_type eq 'Ticket' and limit < 5}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
-							<img alt="${storeList[status.index].item_name}" src="${storeList[status.index].item_image}">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
 							<p class="item_price">${storeList[status.index].item_price}원</p>
@@ -136,7 +136,7 @@
 				<c:if test="${storeList[status.index] != null and (storeList[status.index].item_type eq 'Popcorn' or storeList[status.index].item_type eq 'Drinks' or storeList[status.index].item_type eq 'Goods') and limit < 5}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
-							<img alt="${storeList[status.index].item_name}" src="${storeList[status.index].item_image}">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
 							<p class="item_price">${storeList[status.index].item_price}원</p>
@@ -156,7 +156,7 @@
 				<c:if test="${storeList[status.index] != null and storeList[status.index].item_type eq 'Ticket'}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
-							<img alt="${storeList[status.index].item_name}" src="${storeList[status.index].item_image}">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
 							<p class="item_price">${storeList[status.index].item_price}원</p>
@@ -174,7 +174,7 @@
 				<c:if test="${storeList[status.index] != null and (storeList[status.index].item_type eq 'Popcorn' or storeList[status.index].item_type eq 'Drinks' or storeList[status.index].item_type eq 'Goods')}">
 					<div class="photo">
 						<button type="button" onclick="location.href='StoreDetail?item_id=${storeList[status.index].item_id}&item_type=${storeList[status.index].item_type}'">
-							<img alt="${storeList[status.index].item_name}" src="${storeList[status.index].item_image}">
+							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
 							<p class="item_price">${storeList[status.index].item_price}원</p>
