@@ -13,9 +13,10 @@ a {
     text-decoration: none;
 }
 
-header {
-	background-color: #eee;
+header, body, bar {
+    background-color: #f0f8ff; 
 }
+
 
 .inner {
 	line-height: 1;
@@ -74,7 +75,7 @@ article table {
 .inner>nav .simple_order {
 	width: 90px;
 	height: 80px;
-	background-color: olive;
+	background-color: red;
 	color: #fff;
 	text-align: center;
 	display: block;
@@ -167,7 +168,7 @@ article table {
 #bar {
 	width: 100%;
 	height: 50px;
-	background-color: #ddd;
+/* 	background-color: #ddd; */
 /* 	display: none; */
 }
 
@@ -184,4 +185,3 @@ article table {
 	display: inline-block;
 	margin-right: 10px;
 }
-

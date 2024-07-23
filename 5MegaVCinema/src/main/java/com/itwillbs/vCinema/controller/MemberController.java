@@ -279,14 +279,12 @@ public class MemberController {
    }
    @PostMapping("MyPageMain")
    public String mypageinfo2(@RequestParam Map<String, String> map, MemberVO member, BCryptPasswordEncoder passwordEncoder, Model model) {
-	  
-	   
-	   
-	   
-         
+	     
 	   return "member/member_mypage";
    }
 
+
+   
    @GetMapping("MemberInfo")
    public String memberInfo(MemberVO member, HttpSession session, Model model) {
       String id = (String)session.getAttribute("sId");

@@ -142,7 +142,7 @@
 								<th width="160px">영화</th>
 								<th width="120px">상영일</th>
 								<th width="160px">극장</th>
-								
+								<th width="120px">예매상태</th>								
 							</tr>
 							
 							<%-- 페이지번호(pageNum 파라미터) 가져와서 저장(없을 경우 기본값 1로 설정) --%>
@@ -154,16 +154,26 @@
 							</c:if>
 							
 							<c:forEach var="orderTicket" items="${orderticket2}">
-								<tr align="center">
-									<td>${orderTicket.order_ticket_id}</td>
-									<td>${orderTicket.order_ticket_member_num}</td>
-									<td>${orderTicket.movie_name_kr}</td> 
-									<td><fmt:parseDate value="${orderTicket.order_ticket_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
-									<td>${orderTicket.theater_name}</td>
-									
-								</tr>
+							    <tr align="center">
+							        <td>${orderTicket.order_ticket_id}</td>
+							        <td>${orderTicket.order_ticket_member_num}</td>
+							        <td>${orderTicket.movie_name_kr}</td>
+							        <td>
+							            <fmt:parseDate value="${orderTicket.order_ticket_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+							            <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+							        </td>
+							        <td>${orderTicket.theater_name}</td>
+							        <td>
+							            ${orderTicket.order_ticket_status}
+							            <form action="" method="post">
+							                <input type="hidden" name="orderId" value="${orderTicket.order_ticket_id}">
+							                <input type="submit" value="취소">
+							            </form>
+							        </td>
+							    </tr>
 							</c:forEach>
+
+							
 							<c:if test="${empty orderticket2}">
 								<tr>
 									<td align="center" colspan="8">검색결과가 없습니다.</td>

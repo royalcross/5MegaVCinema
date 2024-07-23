@@ -11,13 +11,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #eee;
     padding: 10px 0;
 }
 
