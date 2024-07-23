@@ -74,9 +74,6 @@
 		
 	/*--------------------------------------------------------------------------------------------------*/	
 		
-				.inner .wrapper {
-				height: 80vh;
-			}
 			.main {
 				padding: 1.8rem;
 			}
@@ -182,6 +179,12 @@
 				margin-top: 30px;
 			}
 		</style>
+		<script>
+			// 게시글 수 
+			function showListLimit(limit){
+				location.href="AdminRoom?listLimit=" + limit;
+			}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -218,17 +221,16 @@
 			</div>
 		</article>
 					<div class="wrapper_top">
-<!-- 						<div> -->
-<!-- 							<span>Show</span> -->
-<!-- 							<select> -->
-<!-- 								<option>5</option> -->
-<!-- 								<option>10</option> -->
-<!-- 								<option>20</option> -->
-<!-- 								<option>30</option> -->
-<!-- 							</select> -->
-<!-- 							<span>entries</span> -->
-<!-- 						</div> -->
-								<!-- 영화 등록버튼 -->
+						<div>
+							<span>Show</span>
+							<select onchange="showListLimit(this.value)">
+								<option value="5" <c:if test="${param.listLimit eq 5}">selected</c:if>>5</option>
+								<option value="10" <c:if test="${param.listLimit eq 10}">selected</c:if>>10</option>
+								<option value="20" <c:if test="${param.listLimit eq 20}">selected</c:if>>20</option>
+								<option value="30" <c:if test="${param.listLimit eq 30}">selected</c:if>>30</option>
+							</select>
+							<span>entries</span>
+						</div>
 						
 						<form action="AdminRoom">
 							<div class="search">

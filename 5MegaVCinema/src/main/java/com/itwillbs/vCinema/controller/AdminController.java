@@ -64,12 +64,13 @@ public class AdminController {
 		//연진) 관리자 - 영화관리 - 영화정보관리
 		@GetMapping("AdminMovieList")
 		public String adminMovieList(@RequestParam(defaultValue = "") String searchKeyword,
-				@RequestParam(defaultValue = "1") int pageNum, Model model) {
+				@RequestParam(defaultValue = "1") int pageNum, Model model,
+				@RequestParam(defaultValue = "5") int listLimit) {
 			//파라미터 : 검색타입(searchType), 검색어(searchKeyword) => 기본값 널스트링("") 설정
 			//			 페이지번호(pageNum) => 기본값 1 설정
 			// ---------------------------------------------------------------
 			// 페이징 처리
-			int listLimit = 10; //페이지 당 게시물 수
+//			int listLimit = 5; // 페이지 당 게시물 수
 			int startRow = (pageNum - 1) * listLimit; //조회할 게시물의 행 번호
 			
 			//페이징 처리를 위한 계산 작업
@@ -243,10 +244,11 @@ public class AdminController {
 		//상영시간표 목록 
 		@GetMapping("AdminPlay")
 		public String adminPlay(@RequestParam(defaultValue = "") String searchKeyword,
-				@RequestParam(defaultValue = "1") int pageNum, Model model) {
+				@RequestParam(defaultValue = "1") int pageNum, Model model,
+				@RequestParam(defaultValue = "5") int listLimit) {
 					// ---------------------------------------------------------------
 					// 페이징 처리
-					int listLimit = 10; //페이지 당 게시물 수
+//					int listLimit = 5; // 페이지 당 게시물 수
 					int startRow = (pageNum - 1) * listLimit; //조회할 게시물의 행 번호
 					
 					//페이징 처리를 위한 계산 작업
@@ -537,10 +539,11 @@ public class AdminController {
 		
 		@GetMapping("AdminRoom")
 		public String adminRoomList(@RequestParam(defaultValue = "1") int pageNum, Model model, 
-				@RequestParam(defaultValue ="") String searchKeyword) {
+				@RequestParam(defaultValue ="") String searchKeyword,
+				@RequestParam(defaultValue = "5") int listLimit) {
 			// -------------------------------------------------------------------------------------------
 			// 페이징 처리
-			int listLimit = 5; // 페이지 당 게시물 수
+//			int listLimit = 5; // 페이지 당 게시물 수
 			int startRow = (pageNum - 1) * listLimit; // 조회할 게시물의 행 번호
 			
 			int listCount = AdminService.getRoomListCount(searchKeyword); // 총 게시물 개수
@@ -696,10 +699,11 @@ public class AdminController {
 		//연진) 관리자 - 극장관리 - 영화관 관리
 		@GetMapping("AdminTheater")
 		public String adminTheaterList(@RequestParam(defaultValue = "") String searchKeyword,
-				@RequestParam(defaultValue = "1") int pageNum, Model model) { 
+				@RequestParam(defaultValue = "1") int pageNum, Model model,
+				@RequestParam(defaultValue = "5") int listLimit) { 
 			
 			//페이징 처리를 위해 조회 목록 갯수 조절에 사용될 변수 선언
-			int listLimit = 10; //페이지 당 게시물 수
+//			int listLimit = 10; //페이지 당 게시물 수
 			int startRow = (pageNum - 1) * listLimit; //조회할 게시물의 행 번호
 			
 			//페이징 처리를 위한 계산 작업

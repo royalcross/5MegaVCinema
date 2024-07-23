@@ -19,7 +19,7 @@
 			</ul>			
 		</li>
 		<li class="depth01">
-			<a href="AdminTheaterList">극장관리</a>
+			<a href="AdminTheater">극장관리</a>
 			<ul class="depth02">
 				<li><a href="AdminTheater">영화관관리</a></li>
 				<li><a href="AdminRoom">상영관관리</a></li>

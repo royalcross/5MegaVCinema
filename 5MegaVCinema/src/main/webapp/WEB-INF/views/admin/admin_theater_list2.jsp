@@ -128,20 +128,10 @@
 				}
 			})
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			// 게시글 수 
+			function showListLimit(limit){
+				location.href="AdminTheater?listLimit=" + limit;
+			}
 		</script>
 	</head>
 	<body>
@@ -154,26 +144,26 @@
 				<article class="main">
 					<h3>극장 조회 페이지</h3>
 					
-						<div class="tab">
-			<ul>
-				<li class="tabMenu on" id="seoul" value="1000" name=""><a href="#">서울/경기/인천</a></li>
-				<li class="tabMenu" id="chung" value="1001" name><a href="#">충청</a></li>
-				<li class="tabMenu" id="kyung" value="1002"><a href="#">경상</a></li>
-			</ul>
-		</div>
+					<div class="tab">
+						<ul>
+							<li class="tabMenu on" id="seoul" value="1000" name=""><a href="#">서울/경기/인천</a></li>
+							<li class="tabMenu" id="chung" value="1001" name><a href="#">충청</a></li>
+							<li class="tabMenu" id="kyung" value="1002"><a href="#">경상</a></li>
+						</ul>
+					</div>
 		
 					
 					<div class="wrapper_top">
-<!-- 						<div> -->
-<!-- 							<span>Show</span> -->
-<!-- 							<select> -->
-<!-- 								<option>5</option> -->
-<!-- 								<option>10</option> -->
-<!-- 								<option>20</option> -->
-<!-- 								<option>30</option> -->
-<!-- 							</select> -->
-<!-- 							<span>entries</span> -->
-<!-- 						</div> -->
+						<div>
+							<span>Show</span>
+							<select onchange="showListLimit(this.value)">
+								<option value="5" <c:if test="${param.listLimit eq 5}">selected</c:if>>5</option>
+								<option value="10" <c:if test="${param.listLimit eq 10}">selected</c:if>>10</option>
+								<option value="20" <c:if test="${param.listLimit eq 20}">selected</c:if>>20</option>
+								<option value="30" <c:if test="${param.listLimit eq 30}">selected</c:if>>30</option>
+							</select>
+							<span>entries</span>
+						</div>
 	
 								<!-- 영화 등록버튼 -->
 	<section id="buttonArea" >

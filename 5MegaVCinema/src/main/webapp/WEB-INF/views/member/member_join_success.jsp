@@ -9,17 +9,8 @@
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<style>
-			.logo {
-				width: 100px;
-				margin: 0 auto;
-			}
-			
-			.logo .top_logo {
-				width: 100%;
-			}
-			
-			.logo .top_logo img {
-				width: 100%;
+			.content {
+				padding: 50px 0;
 			}
 			
 			.tab{
@@ -30,10 +21,13 @@
 			.tab > ul {
 				display: flex;
 				justify-content: space-between;
+				height: 40px;
+				line-height: 2.5;
 			}
 			.tab > ul > li {
 				width:50%;
 				background-color: #eee;
+				
 			}
 			.tab > ul > li a {
 				display: block;
@@ -51,16 +45,12 @@
 		<header>
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 		</header>
-		<article>
-			<div class="logo">
-				<a href="./" class="top_logo"><img src="resources/images/main_logo.png"></a>
-			</div>
-			
+		<article class="content inner">
 			<div class="tab">
 				<ul>
 					<li class="tabMenu">이메일 입력</li>
-					<li class="tabMenu on">회원정보 입력</li>
-					<li class="tabMenu">가입 완료</li>
+					<li class="tabMenu">회원정보 입력</li>
+					<li class="tabMenu on">가입 완료</li>
 				</ul>
 			</div>
 			

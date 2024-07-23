@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MemberController {
@@ -28,11 +29,31 @@ public class MemberController {
    // 회원 가입 -------------------------------------------------------------------------------------------
    @GetMapping("MemberJoin")
    public String memberJoin() {
+	   
       return "member/member_join";
    }
 
+   // 0722 수정 -> 중복확인
+   @PostMapping("MemberJoin")
+   public String memberDupId(MemberVO member, Model model) {
+	  MemberVO dbmember = service.getMember(member);
+		  
+	  System.out.println("찾은 id : " + dbmember);
+	  String member_id = member.getMember_id();
+	  
+	  if(dbmember != null) {
+		  model.addAttribute("msg", "중복되는 아이디입니다");
+		  
+		  return "result/fail";
+	  } else {
+		  return "redirect:/MemberJoinForm?member_id=" + member_id;
+	  }
+   }
+   
+   // 0722 수정
    @GetMapping("MemberJoinForm")
-   public String memberJoinForm(MemberVO member) {
+   public String memberJoinForm(@RequestParam(defaultValue = "") String member_id) {
+//	  System.out.println("넘어온 member_id 확인 : " + member_id);
       return "member/member_join_form";
    }
 

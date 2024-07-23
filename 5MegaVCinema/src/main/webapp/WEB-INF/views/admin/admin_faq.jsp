@@ -13,7 +13,6 @@
 		<style>
 			.main {
 				padding: 1.8rem;
-				height: 100vh;
 			}
 			
 			.main h3 {
@@ -131,6 +130,11 @@
 		</style>
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 		<script>
+			// 게시글 수 
+			function showListLimit(limit){
+				location.href="AdminFAQ?listLimit=" + limit;
+			}
+		
 			function confirmDelete(notice_num){
 				if(confirm("공지사항을 삭제하시겠습니까?")){
 					location.href="AdminNoticeDelete?notice_num=" + notice_num;
@@ -148,17 +152,16 @@
 				<article class="main">
 					<h3>자주 묻는 질문 조회</h3>
 					<div class="wrapper_top">
-<!-- 						<div> -->
-<!-- 							<span>Show</span> -->
-<!-- 							<select> -->
-<!-- 								<option>5</option> -->
-<!-- 								<option>10</option> -->
-<!-- 								<option>20</option> -->
-<!-- 								<option>30</option> -->
-<!-- 							</select> -->
-<!-- 							<span>entries</span> -->
-<!-- 						</div> -->
-						
+						<div>
+							<span>Show</span>
+							<select onchange="showListLimit(this.value)">
+								<option value="5" <c:if test="${param.listLimit eq 5}">selected</c:if>>5</option>
+								<option value="10" <c:if test="${param.listLimit eq 10}">selected</c:if>>10</option>
+								<option value="20" <c:if test="${param.listLimit eq 20}">selected</c:if>>20</option>
+								<option value="30" <c:if test="${param.listLimit eq 30}">selected</c:if>>30</option>
+							</select>
+							<span>entries</span>
+						</div>						
 						<form action="AdminFAQ">
 							<div class="search">
 								<span>Search</span>

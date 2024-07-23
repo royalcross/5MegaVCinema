@@ -9,6 +9,10 @@
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<style>
+			.content {
+				padding: 50px 0;
+			}
+			
 			div ul li{
 				display: inline-block;
 			}
@@ -21,10 +25,13 @@
 			.tab > ul {
 				display: flex;
 				justify-content: space-between;
+				height: 40px;
+				line-height: 2.5;
 			}
 			.tab > ul > li {
 				width:50%;
 				background-color: #eee;
+				
 			}
 			.tab > ul > li a {
 				display: block;
@@ -45,29 +52,34 @@
 				width: 150px;
 			}
 			
-			.logo {
-				width: 100px;
-				margin: 0 auto;
+			
+			.content .join {
+				margin: 30px auto;
 			}
 			
-			.logo .main_logo {
-				width: 100%;
+			.content .join .join_email {
+				margin-bottom: 30px; 
 			}
 			
-			.logo .main_logo img {
-				width: 100%;
+			
+			#member_id {
+				width: 200px;			
 			}
+			
+			
 		</style>
 		<script type="text/javascript">
-			// 이메일 유효성 검사
 			
 			function checkId() {
+				// 이메일 유효성 검사
 				let email = $("#member_id").val();
 				let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 				
-				if(!regex.exec(email)) {
+				if(!regex.exec(email) || email == "") {
 					alert("올바른 이메일이 아닙니다.");
-				}
+					
+					return false;
+				} 
 				
 			}
 		</script>
@@ -76,14 +88,8 @@
 		<header>
 			<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 		</header>
-		
-		<div class="logo">
-			<a href="./" class="top_logo">
-				<img src="resources/images/main_logo.png">
-			</a>
-		</div>
 
-		<section align="center">
+		<section align="center" class="content inner">
 			<div class="tab">
 				<ul>
 					<li class="tabMenu on">이메일 입력</li>
@@ -92,23 +98,16 @@
 				</ul>
 			</div>
 			
-			<form class="join" action="MemberJoinForm">
-<!-- 				<div class="social"> -->
-<!-- 					<ul> -->
-<!-- 						<li>소셜 계정으로 가입</li> -->
-<!-- 						<li><input class="social_btn" type="button" value="네이버"></li> -->
-<!-- 						<li><input class="social_btn" type="button" value="카카오"></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
+			<form class="join" action="MemberJoin" method="post">
 				
-				<div class="vCinema">
+				<div class="join_email">
 					<ul>
 						<li>이메일 주소로 가입</li>
-						<li><input type="text" name="member_id" id="member_id" placeholder="이메일 주소를 입력해주세요." onblur="checkId()"></li>
+						<li><input type="text" name="member_id" id="member_id" placeholder="이메일 주소를 입력해주세요." onblur="checkId()" ></li>
 					</ul>
 				</div>
 				
-				<input id="submit" type="submit" value="가입하기">
+				<input id="submit" type="submit" value="가입하기" >
 			</form>
 		</section>
 				
@@ -116,6 +115,7 @@
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 		</footer>
 	</body>
+	
 </html>
 
 
