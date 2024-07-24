@@ -71,7 +71,7 @@ public class AdminStoreController {
 		
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		
-		// 스토어(아이템), 페이징 정보 Model 객체에 저장 -> admin_member_list.jsp 로 전달
+		// 스토어(상품), 페이징 정보 Model 객체에 저장 -> admin_store.jsp 로 전달
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -79,31 +79,11 @@ public class AdminStoreController {
 	}
 	
 	// =================================================================================================
-	
-	@GetMapping("AdminStoreDelete")
-	public String adminStoreDelete(@RequestParam(defaultValue = "") String item_id, Model model) {
-		
-		// 아이템 찾아서 delete 실행 ~
-		int deleteCount = service.removeItem(item_id);
-		
-		if(deleteCount > 0) {
-			model.addAttribute("msg", "성공적으로 처리되었습니다.");
-			model.addAttribute("targetURL", "AdminStore?pageNum=1");
-			
-			return "result/success";
-		} else {
-			model.addAttribute("msg", "삭제에 실패했습니다.");
-			
-			return "result/fail";
-		}
-	}
-	
-	// =================================================================================================
-	// 아이템 등록
+	// 상품 등록
 	@PostMapping("AdminItemRegist")
 	public String adminItemRegist(ItemVO item, Model model, String item_type, HttpSession session) {
 //		System.out.println(item);
-		// [ 파일 업로드 경로 관리 ]
+		// [ 이미지 업로드 경로 관리 ]
 		String realPath = session.getServletContext().getRealPath(uploadPath);
 		String subDir = "item";
 		realPath += "/" + subDir;
@@ -120,10 +100,10 @@ public class AdminStoreController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// [ 업로드 되는 실제 파일 처리 ]
-		// 실제 파일은 ItemVO 객체의 MultipartFile 타입 객체(멤버변수 image)가 관리함
+		// [ 업로드 되는 실제 이미지 처리 ]
+		// 실제 이미지는 ItemVO 객체의 MultipartFile 타입 객체(멤버변수 image)가 관리함
 		MultipartFile image = item.getImage();
-		// BoardVO 객체에 서브디렉토리명과 함께 파일명 저장
+		// ItemVO 객체에 서브디렉토리명과 함께 이미지명 저장
 		String imageName = image.getOriginalFilename();
 		item.setItem_image(subDir + "/" + imageName);
 		
@@ -135,7 +115,7 @@ public class AdminStoreController {
 		// 상품 등록 작업 요청 결과 판별
 		if(insertCount > 0 ) { // 성공
 			try {
-				// 업로드 파일들은 MultipartFile 객체에 의해 임시 저장공간에 저장되어 있으며
+				// 업로드 이미지들은 MultipartFile 객체에 의해 임시 저장공간에 저장되어 있으며
 				// 상품 등록 성공 시 임시 저장공간 -> 실제 디렉토리로 이동 작업 필요
 				// => MultipartFile 객체의 transferTo() 메서드 호출하여 실제 위치로 이동 처리
 				//    (파라미터 : java.io.File 타입 객체 전달)
@@ -152,14 +132,15 @@ public class AdminStoreController {
 			model.addAttribute("targetURL", "AdminStore?pageNum=1");
 			return "result/success";
 		} else { // 실패
-			// 실패 시 "아이템 등록에 실패했습니다." 메세지 출력 및 이전페이지 처리(fail.jsp)
-			model.addAttribute("msg", "아이템 등록에 실패했습니다.");
+			// 실패 시 "상품 등록에 실패했습니다." 메세지 출력 및 이전페이지 처리(fail.jsp)
+			model.addAttribute("msg", "상품 등록에 실패했습니다.");
 			return "result/fail";
 		}
 		
 	}
 	
-	// 아이템 수정 ...
+	// =================================================================================================
+	// 상품 수정 ...
 	// 첫번째 수정 버튼은 팝업은 뜨지만 파라미터가 전달되지 않고,
 	// 나머지 수정 버튼은 파라미터는 전달되지만 팝업이 안 뜬다 ,,,, 모지 ,,,,
 	// 0709 성공
@@ -182,7 +163,7 @@ public class AdminStoreController {
 										@RequestParam(defaultValue = "") String item_name, 
 										@RequestParam(defaultValue = "") String item_content,
 										@RequestParam(defaultValue = "0") int item_price) {
-		// 스토어 아이템 수정 (update)
+		// 스토어 상품 수정 (update)
 		// AdminStoreService - adminStoreModify();
 		int updateCount = service.adminItemModify(item_id,item_name,item_content,item_price);
 		
@@ -192,7 +173,55 @@ public class AdminStoreController {
 			
 			return "result/success";
 		} else {
-			model.addAttribute("msg", "아이템 수정에 실패했습니다.");
+			model.addAttribute("msg", "상품 수정에 실패했습니다.");
+			
+			return "result/fail";
+		}
+	}
+	
+	// =================================================================================================
+	// 상품 삭제
+	@GetMapping("AdminStoreDelete")
+	public String adminStoreDelete(@RequestParam(defaultValue = "") String item_id, Model model, HttpSession session) throws Exception {
+		// 상품 삭제 시 실제 업로드 된 이미지도 삭제해야하므로 
+		// DB 에서 상품 정보 삭제 전 이미지명을 미리 조회하기 위해
+		// AdminStoreService - getItem() 메서드 재사용하여 상품 상세정보 조회 요청
+		ItemVO item = service.getItem(item_id);
+//		System.out.println(item);
+		
+		// 상품이 존재하지 않을 경우
+		// "잘못된 접근입니다!" 출력 및 이전 페이지 돌아가기 처리
+		if(item == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			return "result/fail";
+		}
+		
+		// 상품 찾아서 delete 실행 ~
+		int deleteCount = service.removeItem(item_id);
+		
+		if(deleteCount > 0) {
+			// DB에서 상품 정보 삭제 완료 시 실제 업로드 된 이미지 삭제 처리
+			// 실제 업로드 경로 알아내기
+			String realPath = session.getServletContext().getRealPath(uploadPath);
+			
+			String imageName = item.getItem_image();
+			
+			// 이미지명이 널스트링("")이 아닐 경우 판별하여 이미지 삭제
+			if(!imageName.equals("")) {
+				// 업로드 경로와 이미지명(서브디렉토리 경로 포함) 결합하여 Path 객체 생성
+				Path path = Paths.get(realPath, imageName);
+				System.out.println("실제 삭제 대상 : " + path.toString());
+				
+				// Files 클래스의 deleteIfExists() 메서드 호출하여 이미지 존재할 경우 삭제 처리
+				Files.deleteIfExists(path);
+			}
+			
+			model.addAttribute("msg", "성공적으로 처리되었습니다.");
+			model.addAttribute("targetURL", "AdminStore?pageNum=1");
+			
+			return "result/success";
+		} else {
+			model.addAttribute("msg", "삭제에 실패했습니다.");
 			
 			return "result/fail";
 		}
