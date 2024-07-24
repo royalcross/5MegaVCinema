@@ -74,7 +74,18 @@ public interface AdminMapper {
 	//영화관 상세 정보 가져오기
 	TheaterVO selectTheater(@Param("theater_num") int theater_num);
 	
-	
+	//영화관 번호 가져오기
+	int selectTheaterNum(@Param("play_theater_name") String play_theater_name);
+
+	//영화관 수정
+	int updateTheater(@Param("theater_location") String theater_location, @Param("theater_location_num") int theater_location_num, 
+			@Param("theater_num") int theater_num, @Param("theater_name") String theater_name,
+			@Param("theater_content") String theater_content, 
+			@Param("theater_post_code") String theater_post_code, @Param("theater_address") String theater_address,
+			@Param("theater_address_detail") String theater_address_detail);
+
+	//영화관 삭제
+	int deleteTheater(@Param("theater_num") int theater_num);
 	
 	// ------- 상영관 ---------
 	
@@ -96,6 +107,15 @@ public interface AdminMapper {
 
 	//상영관 상세정보 가져오기
 	List<Map<String, String>> selectRoom(@Param("room_num") int room_num, @Param("room_theater_num") int room_theater_num);
+	
+	//상영관 수정
+	int updateRoom(@Param("room_num") int room_num,@Param("room_theater_num")  int room_theater_num, 
+			@Param("room_seats") int room_seats, @Param("theater_location") String theater_location,
+			@Param("theater_name") String theater_name);
+
+
+
+	
 
 	// ------- 상영시간표 ---------
 	
@@ -124,24 +144,10 @@ public interface AdminMapper {
 	//상영시간표 목록 조회
 	List<Map<String, String>> selectPlayList(@Param("startRow") int startRow,
 			@Param("listLimit") int listLimit, @Param("searchKeyword") String searchKeyword);
+	
+	//상영시간표 삭제
+	int deletePlay(int play_num);
 
-	//영화관 번호 가져오기
-	int selectTheaterNum(@Param("play_theater_name") String play_theater_name);
-
-	//영화관 수정
-	int updateTheater(@Param("theater_location") String theater_location, @Param("theater_location_num") int theater_location_num, 
-			@Param("theater_num") int theater_num, @Param("theater_name") String theater_name,
-			@Param("theater_content") String theater_content, 
-			@Param("theater_post_code") String theater_post_code, @Param("theater_address") String theater_address,
-			@Param("theater_address_detail") String theater_address_detail);
-
-	//영화관 삭제
-	int deleteTheater(@Param("theater_num") int theater_num);
-
-	//상영관 수정
-	int updateRoom(@Param("room_num") int room_num,@Param("room_theater_num")  int room_theater_num, 
-			@Param("room_seats") int room_seats, @Param("theater_location") String theater_location,
-			@Param("theater_name") String theater_name);
 
 
 }

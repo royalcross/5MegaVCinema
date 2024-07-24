@@ -281,6 +281,7 @@
 		ON p.play_theater_num = t.theater_num
 		JOIN room r
 		ON p.play_room_num = r.room_num
+		
 	</select>
 	
     <!--   상영시간표 목록 조회   -->		
@@ -309,6 +310,17 @@
 		JOIN room r
 		ON p.play_room_num = r.room_num
         where r.room_theater_num = theater_num
+        <if test="!searchKeyword.equals('')">
+		AND 
+			movie_code LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_num LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_day LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_theater_name LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR room_num LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_movie_name_kr LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_start_time LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR play_end_time LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
 			LIMIT
 				#{startRow}     -- Mapper 내의 메서드에서 @Param("startRow") 로 지정한 파라미터명 사용
 				, #{listLimit}  -- Mapper 내의 메서드에서 @Param("listLimit") 로 지정한 파라미터명 사용			
@@ -456,7 +468,11 @@
         limit 1
 	</select>
 	
-	
+		<!-- 영화관 삭제 -->
+	<delete id="deletePlay">
+		DELETE FROM play
+		WHERE play_num = #{play_num}
+	</delete>	
 	
 	
 	

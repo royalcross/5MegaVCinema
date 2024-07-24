@@ -525,7 +525,23 @@ public class AdminController {
 				}
 			}
 		
-		
+			@GetMapping("AdminPlayDelete")
+			public String adminPlayDelete(@RequestParam(defaultValue = "1") int play_num, Model model) {
+				
+				// 아이템 찾아서 delete 실행 ~
+				int deleteCount = AdminService.removePlay(play_num);
+				
+				if(deleteCount > 0) {
+					model.addAttribute("msg", "성공적으로 처리되었습니다.");
+					model.addAttribute("targetURL", "AdminPlay?pageNum=1");
+					
+					return "result/success";
+				} else {
+					model.addAttribute("msg", "리뷰 삭제에 실패했습니다.");
+					
+					return "result/fail";
+				}
+			}
 		
 		
 		
