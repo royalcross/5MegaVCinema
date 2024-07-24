@@ -233,7 +233,7 @@
 							<span>entries</span>
 						</div>
 						
-						<form action="AdmintTheater">
+						<form action="AdminTheater">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >

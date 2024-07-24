@@ -190,7 +190,7 @@
 									<td>${movie.movie_grade}</td>
 									<td>${movie.movie_release_date}</td>
 									<td>${movie.movie_status}</td>
-									<td>${movie.movie_running_time}</td>
+									<td>${movie.movie_running_time}분</td>
 									<td>
 										<button value="${movie.movie_code}" class="modifyBtn">수정</button>
 										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${movie.movie_code}')">
@@ -278,8 +278,8 @@
 		<label for="movie_name_en">영화제목(영문)</label>
 		<input type="text" id="movie_name_en" name="movie_name_en" required><br>
 		
-		<label for="movie_running_time">러닝타임</label>
-		<input type="text" id="movie_running_time" name="movie_running_time" required><br>
+		<label for="movie_running_time">러닝타임(분)</label>
+		<input type="number" id="movie_running_time" name="movie_running_time" placeholder="단위 : 분" min="0" required><br>
 		
 		<label for="movie_genre">장르</label>
 		<select id="movie_genre" name="movie_genre" required>

@@ -209,7 +209,7 @@
 <!-- 	<section id="buttonArea" > -->
 <!-- 		<input type="button" value="등록" onclick="insertPlay()"> -->
 						
-						<form action="AdminPlayList">
+						<form action="AdminPlay">
 							<div class="search">
 								<span>Search</span>
 								<input type="search" name="searchKeyword" value="${param.searchKeyword}" >
@@ -262,7 +262,7 @@
 <!-- 				<input type="button" value="상세보기"> -->
 <!-- 				<input type="button" value="상영종료"> -->
 					<button value="${play.play_num}" class="modifyBtn">수정</button>
-			<input type="button" value="삭제" onclick="confirmDelete('${room.room_num}', '${room.room_theater_num}')">
+			<input type="button" value="삭제" onclick="confirmDelete('${play.play_num}')">
 				<%--수정을 위한 상영시간표 번호  --%>
 				<input type="hidden" value="${play.play_num}">
 				</td>
@@ -347,9 +347,9 @@
 			let categoryBtn = document.querySelector('#categoryBtn');
 			
 			// 아이템 삭제
-			function confirmDelete(room_num, room_theater_num){
+			function confirmDelete(play_num){
 				if(confirm("삭제하시겠습니까?")) {
-					location.href="AdminRoomDelete?room_num=" + room_num + "&room_theater_num=" + room_theater_num;
+					location.href="AdminPlayDelete?play_num=" + play_num;
 				}
 			}
 

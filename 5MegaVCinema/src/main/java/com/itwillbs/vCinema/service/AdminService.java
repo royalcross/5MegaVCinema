@@ -48,9 +48,7 @@ public class AdminService {
 		return mapper.selectTheaterListCount(searchKeyword);
 	}
 
-	public List<TheaterVO> getTheaterList(String searchKeyword, int startRow, int listLimit) {
-		return mapper.selectTheaterList(startRow, listLimit, searchKeyword);
-	}
+
 	
 	//영화 수정 
 	public MovieVO getMovie(String movie_code) {
@@ -70,6 +68,10 @@ public class AdminService {
 	public int deleteMovie(String movie_code) {
 		return mapper.deleteMovie(movie_code);
 	}
+	
+	
+	
+	
 
 	// ------- 영화관 ---------
 	//영화관 등록
@@ -82,7 +84,9 @@ public class AdminService {
 		return mapper.selectNewTheaterNum();
 	}
 	
-	
+	public List<TheaterVO> getTheaterList(String searchKeyword, int startRow, int listLimit) {
+		return mapper.selectTheaterList(startRow, listLimit, searchKeyword);
+	}
 	
 	//게시물 총 갯수 조회 요청
 	public int getPlayListCount(String searchKeyword) {
@@ -100,7 +104,25 @@ public class AdminService {
 	}
 
 	
+	//영화관 상세 정보 가져오기
+	public TheaterVO getTheater(int theater_num) {
+		// TODO Auto-generated method stub
+		return mapper.selectTheater(theater_num);
+	}
 	
+	//영화관 수정
+	public int adminTheaterModify(String theater_location, int theater_location_num, int theater_num,
+			String theater_name, String theater_content, String theater_post_code,
+			String theater_address, String theater_address_detail) {
+		return mapper.updateTheater(theater_location,theater_location_num,theater_num,theater_name,
+				theater_content, theater_post_code, theater_address, theater_address_detail);
+	}
+
+	//영화관 삭제
+	public int removeTheater(int theater_num) {
+		return mapper.deleteTheater(theater_num);
+	}
+
 	
 	
 	// ------- 상영관 ---------
@@ -140,6 +162,12 @@ public class AdminService {
 		return mapper.selectRoom(room_num, room_theater_num);
 	}
 
+	//상영관 수정
+	public int adminRoomodify(int room_num, int room_theater_num, int room_seats, String theater_location,
+			String theater_name) {
+		return mapper.updateRoom(room_num,room_theater_num,room_seats,theater_location,theater_name);
+	
+	}
 	
 	// ------- 상영시간표 ---------
 	
@@ -191,32 +219,13 @@ public class AdminService {
 		System.out.println(play_theater_name);
 		return mapper.selectTheaterNum(play_theater_name);
 	}
-	
-	//영화관 상세 정보 가져오기
-	public TheaterVO getTheater(int theater_num) {
-		// TODO Auto-generated method stub
-		return mapper.selectTheater(theater_num);
-	}
-	
-	//영화관 수정
-	public int adminTheaterModify(String theater_location, int theater_location_num, int theater_num,
-			String theater_name, String theater_content, String theater_post_code,
-			String theater_address, String theater_address_detail) {
-		return mapper.updateTheater(theater_location,theater_location_num,theater_num,theater_name,
-				theater_content, theater_post_code, theater_address, theater_address_detail);
-	}
 
-	//영화관 삭제
-	public int removeTheater(int theater_num) {
-		return mapper.deleteTheater(theater_num);
+	//상영시간표 삭제
+	public int removePlay(int play_num) {
+		return mapper.deletePlay(play_num);
 	}
-
-	//상영관 수정
-	public int adminRoomodify(int room_num, int room_theater_num, int room_seats, String theater_location,
-			String theater_name) {
-		return mapper.updateRoom(room_num,room_theater_num,room_seats,theater_location,theater_name);
 	
-	}
+
 
 	
 	
