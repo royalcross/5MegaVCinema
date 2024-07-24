@@ -151,7 +151,7 @@
 									<td><fmt:parseDate value="${orderItem2.order_item_purchase_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
 			<fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/></td>
 									<td>${orderItem2.order_item_sales_rate}</td>
-									
+								 	
 								</tr>
 							</c:forEach>
 							<c:if test="${empty orderItem2}">
