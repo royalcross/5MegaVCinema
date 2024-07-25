@@ -41,6 +41,7 @@
 	
 	#selectTr {
 		vertical-align: top;
+		height: 300px;
 	}
 	
 	.dateInfo {
@@ -66,6 +67,11 @@
 	#ticket {
 		text-align: center;
 	}
+	
+	.title {
+		background-color: #eee;
+		font-weight: bold;
+	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
@@ -83,7 +89,7 @@
 			</div>
 			<div>
 				<table border="1" id="ticket" >
-					<tr>
+					<tr class="title">
 						<td width="100">날짜</td>
 						<td width="200">영화관</td>
 						<td width="300">영화</td>
@@ -101,7 +107,7 @@
 					</tr>
 				</table>
 			</div>
-			<form action="Reserve_seat" onsubmit="return subBtn()" method="get">
+			<form action="Reserve_seat" method="get">
 			    <input type="hidden" name="order_ticket_date" id="order_ticket_date" value="">
 			    <input type="hidden" name="order_ticket_theater_name" id="order_ticket_theater_name" value="">
 			    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="">
@@ -112,7 +118,7 @@
 			</form>
 		</div>
 		<table border="1">
-			<tr>
+			<tr class="title">
 				<th>영화관</th>
 				<th>영화</th>
 				<th>상영관</th>
@@ -120,20 +126,8 @@
 			</tr>
 			<tr id="selectTr">
 				<td class="theater_select">
-<%-- 						<c:forEach var="theater" items="${newTheaterList}"> --%>
-<%-- 							<button type="button" class="theaterBtn Btn"  value="${theater.play_theater_name}" > --%>
-<%-- 								${theater.play_theater_name} --%>
-<!-- 							</button>	 -->
-<%-- 						</c:forEach> --%>
 				</td>
 				<td class="movie_select">
-<%-- 						<c:forEach var="movie" items="${movieList}"> --%>
-<%-- 							<button value="${movie.movie_name_kr}"  --%>
-<!-- 							style="width: 100% ; padding: 10px; margin-bottom : 10px; background-color: #eee ; border: 0;"> -->
-<%-- 								${movie.movie_name_kr} --%>
-<!-- 							</button>	 -->
-<%-- 						</c:forEach> --%>
-					<span>영화관을 먼저 선택해주세요</span>
 				</td>
 				<td class="room_select">
 				</td>
@@ -144,6 +138,24 @@
 	</section>
 	<script>
 		$(function() {
+			// 표출 날짜 제한 (0723 추가)
+			
+			// 시작날짜(min 속성)
+			let sDate = new Date();
+			
+			// 종료날짜(max 속성)
+			let eDate = new Date();
+			
+			sDate.setDate(sDate.getDate());     // 시작날짜 (오늘)
+			eDate.setDate(eDate.getDate() + 13);   // 종료날짜 (오늘 + 13일)
+
+			let minStr = sDate.toISOString().split('T')[0];
+			let maxStr = eDate.toISOString().split('T')[0];
+
+			$("#date").prop("min", minStr);
+			$("#date").prop("max", maxStr);
+			
+			// -----------------------------------------------------------------------
 			// 날짜 선택하면 그에 맞는 극장 표출 !!!!!!!!!!
 			let dateBtn = document.querySelector('#dateBtn');
 			
@@ -204,6 +216,8 @@
 			    
 			    // 클릭 시 예매내역에 출력되게 하기
 			    let theater = $(".theaterBtn.selected").val();
+			    
+// 			    console.log("선택된 영화관 : " + $(".theaterBtn.selected").val())
 			    
 				let theaterName = JSON.stringify(theater).replaceAll('"', ''); // stringify 시 붙는 "" 삭제
 			    $("#selectedTheater").text(theaterName);
@@ -267,8 +281,6 @@
 			    
 				// 예매내역(input hidden 에 value 값 넣어주기)
 				$("#order_ticket_movie_name_kr").val(movie);
-				 
-				console.log("영화 클릭 시 나타나는 극장명 : " + $("#selectedTheater").val())
 				
 				$(".room_select").html("");
 				$(".time_select").html("");
@@ -386,46 +398,34 @@
 				
 			});
 			
-			
-			function param() {
-				// 선택된 각 속성을 각각의 hidden input 태그에 설정
-				document.querySelector("#")
-			}
-			
 		});
 		
-		function subBtn(){
-			let sId = '<%= session.getAttribute("sId") %>';   	
-			if(sId == null){
-				if(confirm("로그인이 필요한서비스입니다.")){
-					location.href = "MemberLogin";
-				}
-				
+		$(document).on('click', '.btnsubmit', function(){
+			if($("#selectedDate").text() == ""){
+				alert("날짜를 선택해주세요!")
 				return false;
 			}
 			
-			if($("#theater_name").val()==""){
-				alert("극장선택 필수!")
+			if($("#selectedTheater").text() == ""){
+				alert("극장을 선택해주세요!")
 				return false;
 			}
 			
-			if($("#movie_name").val()==""){
-				alert("영화선택 필수!")
+			if($("#selectedMovie").text() == ""){
+				alert("영화를 선택해주세요!")
 				return false;
 			}
 			
-			
-			if($("#play_date").val()==""){
-				alert("날짜선택 필수!")
+			if($("#selectedRoom").text() == ""){
+				alert("상영관을 선택해주세요!")
 				return false;
 			}
 			
-			if($("#play_start_time").val()==""){
-				alert("시간선택 필수!")
+			if($("#selectedTime").text() == ""){
+				alert("시간을 선택해주세요!")
 				return false;
 			}
-		}
-		
+		});
 	</script>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>

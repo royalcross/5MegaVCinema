@@ -82,8 +82,12 @@ public class ReserveService {
 	}
 
 	// 상영번호
-	public Map<Object, Object> getPlayNum(String movieCode, int theaterNum, String room, String time, String movie_date) {
-		return mapper.selectPlayNum(movieCode, theaterNum, room, time, movie_date);
+	public int getPlayNum(Map<Object, Object> map) {
+		return mapper.selectPlayNum(map);
+	}
+	
+	public Map<Object, Object> getPlayNum2(String movieCode, int theaterNum, String room, String time, String movie_date) {
+		return mapper.selectPlayNum2(movieCode, theaterNum, room, time, movie_date);
 	}
 //	public PlayVO getPlayNum(String movieCode, int theaterNum, String room, String time) {
 //		return mapper.selectPlayNum(movieCode, theaterNum, room, time);
@@ -104,6 +108,12 @@ public class ReserveService {
 
 	public OrderTicketVO getNowOrderTicket(int order_ticket_id) {
 		return mapper.selectNowOrderTicket(order_ticket_id);
+	}
+
+	// 좌석 가져오기
+//	public List<Object> getSeats(int play_num) {
+	public String[] getSeats(int play_num) {
+		return mapper.selectSeats(play_num);
 	}
 
 	

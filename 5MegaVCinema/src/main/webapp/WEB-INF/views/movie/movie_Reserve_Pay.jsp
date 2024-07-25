@@ -121,6 +121,10 @@
 		display: inline-block;
 	}
 	
+	.title {
+		background-color: #eee;
+		font-weight: bold;
+	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
@@ -165,7 +169,7 @@
 					<td id="selectedMovie">${map.order_ticket_movie_name_kr}</td>
 					<td id="selectedRoom">${map.order_ticket_room_num}관</td>
 					<td id="selectedTime">${map.order_ticket_play_start_time}</td>
-					<td id="selectedSeat">${map.order_ticket_seat_num}</td>
+					<td id="selectedSeat">${map.order_ticket_seat}</td>
 					<td id="totalPrice">${map.order_ticket_price} 원</td>
 				</tr>
 			</table>
@@ -176,9 +180,9 @@
 			<h3>예약자 정보 확인</h3>
 			<table>
 				<tr>
-					<th>성함</th>
+					<th class="title">성함</th>
 					<td><input type="text" value="${member.member_name}" readOnly></td>
-					<th>전화번호</th>
+					<th class="title">전화번호</th>
 					<td><input type="text" value="${member.member_phonenumber}" readOnly></td>
 				</tr>
 			</table>
@@ -224,7 +228,7 @@
 							    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="${map.order_ticket_movie_name_kr}">
 							    <input type="hidden" name="order_ticket_room_num" id="order_ticket_room_num" value="${map.order_ticket_room_num}">
 							    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="${map.order_ticket_play_start_time}">
-							    <input type="hidden" name="order_ticket_seat_num" id="order_ticket_seat_num" value="${map.order_ticket_seat_num}">
+							    <input type="hidden" name="order_ticket_seat" id="order_ticket_seat" value="${map.order_ticket_seat}">
 							    <input type="hidden" name="order_ticket_price" id="order_ticket_price" value="${map.order_ticket_price}">
 			    			    <input type="hidden" name="order_ticket_how_many_people" id="order_ticket_how_many_people" value="${map.order_ticket_how_many_people}">
 							    <input type="button" id="payment" class="btnsubmit" value="결제하기" >

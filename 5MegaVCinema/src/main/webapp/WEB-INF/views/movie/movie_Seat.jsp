@@ -59,7 +59,7 @@
 	}
 	
 	.mainWrapper {
-		background-color: #eee;
+		background-color: #f9f9f9;
 		display: flex;
 		justify-content: center;
 		padding: 30px;
@@ -120,8 +120,73 @@
 	#seats .row .choose-seat:checked + label{
 		background-color: red;
 	}
+	
+	#seats .row .choose-seat.reserved + label {
+		background-image: url("${pageContext.request.contextPath}/resources/images/seat-disabled.png");
+		background-size: cover;
+		text-indent: -100000em;
+	}
+	
+	.title {
+		background-color: #eee;
+		font-weight: bold;
+	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+<script>
+	$(document).ready(function() {
+		let checkboxes = document.querySelectorAll('.choose-seat');
+		
+		let seat = new Array();
+		
+		for(let i = 0 ; i < checkboxes.length ; i++){
+// 			console.log(checkboxes[i].value);
+			seat.push(checkboxes[i].value); // 좌석 배열에 저장 완료
+		}
+		console.log(seat.toString());
+		
+		$.ajax({
+	    	// 이선좌 ..
+			url: "ReservedSeatCheck",
+			type : "get",
+			async: false,
+			data:{
+				order_ticket_date : $("#order_ticket_date").val(),
+				order_ticket_theater_name : $("#order_ticket_theater_name").val(),
+				order_ticket_movie_name_kr : $("#order_ticket_movie_name_kr").val(),
+				order_ticket_room_num : $("#order_ticket_room_num").val(),
+				order_ticket_play_start_time : $("#order_ticket_play_start_time").val()
+			},
+			dataType: "JSON",
+			success: function (response) {
+// 				alert("이선좌 넘기기 성공!");
+// 				console.log(response);
+				
+				for(let i = 0 ; i < seat.length ; i++) {
+					
+					let seatValue = seat[i];
+					
+					if(response.includes(seatValue)){
+						
+						console.log("seatValue : " + seatValue); // 이거까진 나오는데 ... ... seatValue : C7
+						
+// 						let selector = `.choose-seat[id="C6"]`; // 이건 되는데
+// 						let selector = `.choose-seat[id="${seatValue}"]`; // 왜 이건 안 되냐고
+						
+// 						console.log(selector);
+						
+						 $('#'+ seatValue).addClass("reserved");	
+						 // 됐다 ㅜ  $(`.choose-seat[value="${seat[i]}"]`).addClass("reserved"); -> 이거 안 됨 ㅡㅡ 
+					}
+				}
+			},
+			error : function (response) {
+				alert("이선좌 실패");
+			}
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<header>
@@ -132,7 +197,7 @@
 		<div>
 			<div class="ticketTop">
 				<table border="1" id="ticket" >
-					<tr>
+					<tr class="title">
 						<td width="100">날짜</td>
 						<td width="130">영화관</td>
 						<td width="200">영화</td>
@@ -151,13 +216,13 @@
 				</table>
 				
 			</div>
-			<form action="Reserve_pay" onsubmit="return subBtn()" method="post">
+			<form action="Reserve_pay" method="post">
 			    <input type="hidden" name="order_ticket_date" id="order_ticket_date" value="${ticket.order_ticket_date}">
 			    <input type="hidden" name="order_ticket_theater_name" id="order_ticket_theater_name" value="${ticket.order_ticket_theater_name}">
 			    <input type="hidden" name="order_ticket_movie_name_kr" id="order_ticket_movie_name_kr" value="${ticket.order_ticket_movie_name_kr}">
 			    <input type="hidden" name="order_ticket_room_num" id="order_ticket_room_num" value="${ticket.order_ticket_room_num}">
 			    <input type="hidden" name="order_ticket_play_start_time" id="order_ticket_play_start_time" value="${ticket.order_ticket_play_start_time}">
-			    <input type="hidden" name="order_ticket_seat_num" id="order_ticket_seat_num" value="">
+			    <input type="hidden" name="order_ticket_seat" id="order_ticket_seat" value="">
 			    <input type="hidden" name="order_ticket_price" id="order_ticket_price" value="">
 			    <input type="hidden" name="order_ticket_how_many_people" id="order_ticket_how_many_people" value="${ticket.order_ticket_how_many_people}">
 			    <input type="submit" class="btnsubmit" value="예매하기">
@@ -431,19 +496,19 @@
 					</ul>
 				</div>
 			</div>
-				
-<!-- 			<div class="section-bottom"> -->
-<!-- 		        <div class="wrap-rsv-select"> -->
-<!-- 		            <a href="#" class="btn-rsv-cancel2">이전</a> -->
-<!-- 		            <a href="#" class="btn-rsv-next2">다음</a> -->
-<!-- 		        </div> -->
-<!-- 		    </div> -->
 		</article>
 	</section>
 </body>
 
 <script>
 	$(function() {
+		
+		$(".choose-seat.reserved").click(function(){
+			$(this).attr("disabled", true); // 체크 해제
+			return false;
+		});
+		
+		// ------------------------------------------------------------------------------------
 		// 유형별 인원수 표시할 곳 변수 지정
 		let normal = document.querySelector(".count.nor");
 		let student = document.querySelector(".count.stu");
@@ -463,10 +528,9 @@
 		
 		let peopleArr = new Array();
 		
-		// 일반 고객
+		// 일반 고객 인원수 표시
 		$(normal).text(nor_count);
-// 		let amountNum = count*${store.item_price};
-// 		$("#amount").text(amountNum.toLocaleString() + '원');
+		
 		// 수량 증가 버튼
 		$(".plus.nor").click(function() {
 			if(nor_count < 8) {
@@ -477,9 +541,8 @@
 					return false;
 				}
 					
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#norNumber").text("일반 " + nor_count + "명");
+				
 			}
 		});
 		
@@ -487,8 +550,6 @@
 		$(".minus.nor").click(function() {
 			if(nor_count > 0) {
 				$(normal).text(--nor_count);
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#norNumber").text("일반 " + nor_count + "명");
 				total--;
 				if(total > 8) {
@@ -499,12 +560,12 @@
 			if(nor_count == 0) {
 				$("#norNumber").text("");
 			}
+			
 		});
 		
-		// 청소년 고객
+		// 청소년 고객 인원수 표시
 		$(student).text(stu_count);
-// 		let amountNum = count*${store.item_price};
-// 		$("#amount").text(amountNum.toLocaleString() + '원');
+		
 		// 수량 증가 버튼
 		$(".plus.stu").click(function() {
 			if(stu_count < 8) {
@@ -514,9 +575,8 @@
 					alert("최대 8명까지 가능합니다!");
 					return false;
 				}
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#stuNumber").text("청소년 " + stu_count + "명");
+
 			}
 		});
 		// 수량 감소 버튼
@@ -528,19 +588,17 @@
 					alert("최대 8명까지 가능합니다!");
 					return false;
 				}
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#stuNumber").text("청소년 " + stu_count + "명");
 			}
 			if(stu_count == 0) {
 				$("#stuNumber").text("");
 			}
+
 		});
 		
-		// 우대 고객
+		// 우대 고객 인원수 표시
 		$(senior).text(sen_count);
-// 		let amountNum = count*${store.item_price};
-// 		$("#amount").text(amountNum.toLocaleString() + '원');
+		
 		// 수량 증가 버튼
 		$(".plus.sen").click(function() {
 			if(sen_count < 8) {
@@ -550,10 +608,9 @@
 					alert("최대 8명까지 가능합니다!");
 					return false;
 				}
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#senNumber").text("우대 " + sen_count + "명");
 			}
+
 		});
 		// 수량 감소 버튼
 		$(".minus.sen").click(function() {
@@ -565,21 +622,14 @@
 					return false;
 					
 				}
-// 				amountNum = count*${store.item_price};
-// 				$("#amount").text(amountNum.toLocaleString() + '원');
 				$("#senNumber").text("우대 " + sen_count + "명");
 			}
 			if(sen_count == 0) {
 				$("#senNumber").text("");
 			}
+
 		});
 		
-		// 예매 인원 정보 저장
-		// 배열로 ..? 일단 .. 패ㅑ스 ...		
-		
-		
-		
-		// --------------------------------------------------------------------------------------------------------
 		// 좌석 선택
 		// 선택한 인원수보다 많은 좌석을 골랐을 때
 		// 선택한 좌석을 배열로 저장해서 length 구하면 알 수 있지 않을까
@@ -596,7 +646,6 @@
 				return false;
 			}
 			
-			
 			console.log("seatArr.length : " + seatArr.length + ", total : " + total);
 			console.log("$(this).is(':checked') : " + $(this).is(':checked'));
 // 			console.log("$(checkboxes).is(':checked') : " + $(checkboxes).is(':checked'));
@@ -605,12 +654,20 @@
 					seatArr.push($(this).val()); // 배열에 저장 
 					console.log(seatArr.join(", ")); // 이건 이제 되고
 				} 
+			
+// 				// 선택된 좌석에 클래스 추가
+// 				$(this).addClass("reserved");
+				
 			} else if(seatArr.indexOf(value) >= 0) { // 기존 선택 좌석 클릭 시
 				// 기존 좌석 제거
 				console.log("삭제 전 : " + seatArr); // 이건 이제 되고
 				seatArr.splice(seatArr.indexOf(value), 1);
 				console.log("삭제 후 : " + seatArr); // 이건 이제 되고
 				$(this).prop("checked", false); // 체크 해제
+				
+// 				// 선택 취소된 좌석에 클래스 삭제
+// 				$(this).removeClass("reserved");
+				
 			} else { // 선택 좌석 수가 총 인원수와 같거나 클 때 빈 좌석 선택 시
 				alert("선택한 인원수를 초과하였습니다.");
 				$(this).prop("checked", false); // 체크 해제
@@ -619,10 +676,10 @@
 			
 			// 좌석 선택 값 표출 및 input-hidden 태그에 저장 (예매하기로 넘겨야함)
 			seatResult.innerText = seatArr.join(", ");
-			$("#order_ticket_seat_num").val(seatArr.join(","));
+			$("#order_ticket_seat").val(seatArr.join(","));
 			$("#selectedSeat").text(seatArr.join(","));
 			$("#order_ticket_how_many_people").val(seatArr.length);
-// 			console.log("order_ticket_seat_num : " + $("#order_ticket_seat_num").val());
+// 			console.log("order_ticket_seat : " + $("#order_ticket_seat").val());
 			
 			// --------------------------------------------------------------------------------------------------------
 			// 유형별 가격 구하기
@@ -659,7 +716,9 @@
 			moneyResult.innerText = totalPrice + "원";
 			$("#order_ticket_price").val(totalPrice);
 		});
-	
+		
+		// ------------------------------------------------------------------------------------
+		
 	
 	
 	});

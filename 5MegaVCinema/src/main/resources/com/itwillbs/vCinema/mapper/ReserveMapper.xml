@@ -89,7 +89,19 @@
     </select>
     
     <!-- 상영 번호 -->
-    <select id="selectPlayNum" resultType="hashmap">
+    <select id="selectPlayNum" resultType="int">
+    	SELECT play_num
+    	FROM play
+    	WHERE 
+    		play_movie_code = #{order_ticket_movie_code}
+    		AND play_theater_num = #{order_ticket_theater_num}
+    		AND play_room_num = #{order_ticket_room_num}
+    		AND play_start_time = #{order_ticket_play_start_time}
+    		AND play_day = #{order_ticket_date}
+    		
+    </select>
+    
+    <select id="selectPlayNum2" resultType="hashmap">
     	SELECT play_num
     	FROM play
     	WHERE 
@@ -110,7 +122,7 @@
     		WHERE 
     			order_ticket_movie_code = #{movieCode}
     			AND order_ticket_theater_num = #{theaterNum}
-    			AND order_ticket_seat = #{order_ticket_seat_num}
+    			AND order_ticket_seat = #{order_ticket_seat}
     	</selectKey>
     	INSERT INTO order_ticket
     	VALUES (
@@ -121,10 +133,10 @@
     		, #{playNum}
     		, 1
     		, #{memberNum}
-    		, '개봉'
+    		, '예매완료'
     		, #{order_ticket_date}
     		, #{order_ticket_how_many_people}
-    		, #{order_ticket_seat_num}
+    		, #{order_ticket_seat}
     	)
     </insert>
     
@@ -141,6 +153,13 @@
     	WHERE order_ticket_id = #{order_ticket_id}
     </select>
     
+    <!-- 좌석 가져오기 -->
+    <select id="selectSeats" resultType="string">
+    	SELECT order_ticket_seat 
+    	FROM order_ticket
+    	WHERE 
+    		order_ticket_play_num = #{play_num}
+    </select>
 </mapper>
 
 

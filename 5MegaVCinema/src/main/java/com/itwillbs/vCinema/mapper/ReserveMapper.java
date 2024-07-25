@@ -54,24 +54,21 @@ public interface ReserveMapper {
 	int selectMemberNum(String member_id);
 
 	// 상영번호
-	Map<Object, Object> selectPlayNum(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
+	int selectPlayNum(Map<Object, Object> map);
+	
+	Map<Object, Object> selectPlayNum2(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
 					  @Param("time")String time, @Param("movie_date") String movie_date);
-//	PlayVO selectPlayNum(@Param("movieCode") String movieCode, @Param("theaterNum")int theaterNum, @Param("room")String room, 
-//			@Param("time")String time);
-
-//	int insertOrderTicket(@Param("movieCode")String movieCode, @Param("theaterNum")int theaterNum, @Param("memberNum")int memberNum, @Param("room")String room, 
-//						  @Param("playNum")int playNum, @Param("movie_date")String movie_date, @Param("time")String time, @Param("people")String people, @Param("seat")String seat);
-//	int insertOrderTicket(@Param("movieCode")String movieCode, @Param("theaterNum")int theaterNum, @Param("memberNum")int memberNum, @Param("room")String room, 
-//			@Param("playNum")int playNum, @Param("movie_date")String movie_date, @Param("time")String time, @Param("people")String people, @Param("seat")String seat);
+	
 
 	int insertOrderTicket(Map<Object, Object> map);
-	
-	
-	
 	
 	OrderTicketVO selectOrderTicket(int order_ticket_id);
 
 	OrderTicketVO selectNowOrderTicket(int order_ticket_id);
+
+	// 좌석 가져오기
+//	List<Object> selectSeats(int play_num);
+	String[] selectSeats(int play_num);
 
 
 	
