@@ -91,11 +91,11 @@
 		});
 		// 선물 버튼
 		$("#gift").click(function() {
-			location.href = "StorePayment?paymentType=gift&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text() + "&amountNum=" + amountNum;
+			location.href = "StorePayment?paymentType=gift&item_id=${param.item_id}&count=" + count + "&amountNum=" + amountNum;
 		});
 		// 구매 버튼
 		$("#purchase").click(function() {
-			location.href = "StorePayment?paymentType=purchase&item_id=${param.item_id}&count=" + $('#count').text() + "&amount=" + $('#amount').text() + "&amountNum=" + amountNum;
+			location.href = "StorePayment?paymentType=purchase&item_id=${param.item_id}&count=" + count + "&amountNum=" + amountNum;
 		});
 	});
 </script>

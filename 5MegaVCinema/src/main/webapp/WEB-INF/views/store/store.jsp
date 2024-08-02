@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +119,7 @@
 							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
-							<p class="item_price">${storeList[status.index].item_price}원</p>
+							<p class="item_price"><fmt:formatNumber value="${storeList[status.index].item_price}" pattern="#,###" />원</p>
 						</button>
 					</div>
 					<%-- 상품 목록이 하나 추가될 때마다 limit 변수의 값을 1씩 증가 --%>
@@ -139,7 +140,7 @@
 							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
-							<p class="item_price">${storeList[status.index].item_price}원</p>
+							<p class="item_price"><fmt:formatNumber value="${storeList[status.index].item_price}" pattern="#,###" />원</p>
 						</button>
 					</div>
 					<%-- 상품 목록이 하나 추가될 때마다 limit 변수의 값을 1씩 증가 --%>
@@ -159,7 +160,7 @@
 							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
-							<p class="item_price">${storeList[status.index].item_price}원</p>
+							<p class="item_price"><fmt:formatNumber value="${storeList[status.index].item_price}" pattern="#,###" />원</p>
 						</button>
 					</div>
 				</c:if>
@@ -177,7 +178,7 @@
 							<img alt="${storeList[status.index].item_name}" src="${pageContext.request.contextPath}/resources/upload/${storeList[status.index].item_image}">
 							<p class="item_name"><b>${storeList[status.index].item_name}</b></p>
 							<p class="item_content">${storeList[status.index].item_content}</p>
-							<p class="item_price">${storeList[status.index].item_price}원</p>
+							<p class="item_price"><fmt:formatNumber value="${storeList[status.index].item_price}" pattern="#,###" />원</p>
 						</button>
 					</div>
 				</c:if>

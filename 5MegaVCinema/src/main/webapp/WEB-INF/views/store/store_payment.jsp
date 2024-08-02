@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +83,7 @@
 				<td id="item_nameAndContent">${store.item_name}<br>${store.item_content}</td>
 				<td><a href="javascript:availableTheaters()" id="available_theaters">사용가능극장 확인</a></td>
 				<td>${param.count}</td>
-				<td id="amount">${param.amount}</td>
+				<td id="amount"><fmt:formatNumber value="${param.amountNum}" pattern="#,###" />원</td>
 			</tr>
 		</table>
 		<br>
@@ -139,7 +140,10 @@
 				<td id="final_payment">최종결제</td>
 			</tr>
 			<tr>
-				<td>최종 결제금액<br>${param.amount}</td>
+				<td>
+					최종 결제금액<br>
+					<fmt:formatNumber value="${param.amountNum}" pattern="#,###" />원
+				</td>
 			</tr>
 			<tr>
 				<td>

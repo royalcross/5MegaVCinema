@@ -160,10 +160,10 @@
 					<div class="content">
 						<table border="1" >
 							<tr>
-								<th width="80px">상품 번호</th>
+								<th width="80px">상품번호</th>
 								<th width="120px">카테고리</th>
 								<th width="120px">상품명</th>
-								<th width="300px">부연설명</th>
+								<th width="300px">상품구성</th>
 								<th width="100px">가격</th>
 								<th width="120px">수정 및 삭제</th>
 							</tr>
@@ -182,7 +182,7 @@
 									<td>${item.item_type}</td>
 									<td>${item.item_name}</td>
 									<td>${item.item_content}</td>
-									<td>${item.item_price}</td>
+									<td><fmt:formatNumber value="${item.item_price}" pattern="#,###" />원</td>
 									<td>
 										<button value="${item.item_id}" class="modifyBtn">수정</button>
 										<input type="button" class="delete" value="삭제" onclick="confirmDelete('${item.item_id}')">

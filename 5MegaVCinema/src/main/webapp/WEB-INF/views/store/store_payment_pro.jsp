@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,13 +24,6 @@
 </style>
 <%-- jquery 라이브러리 포함시키기 --%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-<script type="text/javascript">
-	$(function() {
-		// 결제금액은 toLocaleString() 처리
-		let orderItemSalesRevenue = ${orderItem.order_item_sales_revenue};
-		$("#orderItemSalesRevenue").text(orderItemSalesRevenue.toLocaleString() + "원");
-	});
-</script>
 </head>
 <body>
 	<header>
@@ -52,10 +46,7 @@
 				<td>${store.item_content}</td>
 				<td>${orderItem.order_item_purchase_date}</td>
 				<td>${orderItem.order_item_sales_rate}개</td>
-				<%-- 결제금액은 자바스크립트에서 toLocaleString() 처리 후 출력 --%>
-				<td id="orderItemSalesRevenue">
-					<%-- $("#orderItemSalesRevenue").text(orderItemSalesRevenue.toLocaleString() + "원"); --%>
-				</td>
+				<td><fmt:formatNumber value="${orderItem.order_item_sales_revenue}" pattern="#,###" />원</td>
 			</tr>
 		</table>
 		<br>
