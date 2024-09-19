@@ -60,6 +60,12 @@ public class CsController {
 		
 		// -------------------------------------------------------------------------------------------
 		
+		if(session.getAttribute("sId") == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지입니다.");
+			model.addAttribute("targetURL", "./");
+			return "result/fail";
+		}
+		
 		String id = (String)session.getAttribute("sId");
 		
 		Boolean isAdmin ;

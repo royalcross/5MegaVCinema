@@ -31,7 +31,8 @@
 	}
 	
 	.Btn.selected {
-		background-color: yellow;		
+		background-color: #ffab40;
+    	color: #fff;	
 	}
 	
 	.inner.cont{
@@ -71,6 +72,7 @@
 	.title {
 		background-color: #eee;
 		font-weight: bold;
+	    height: 30px;
 	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>

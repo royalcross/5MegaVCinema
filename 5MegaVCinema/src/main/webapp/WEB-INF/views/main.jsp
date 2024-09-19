@@ -105,24 +105,30 @@
 	}
 	
 	
-	h1 {text-align: center;}
-		
-	<!-- 영화 리스트 슬라이드 -->
-	#movie_list {
-		margin-top: 100px;
-		margin-bottom: 100px;
+	h1 {
+		text-align: center;
 	}
+		
+	/* 영화 슬라이드 */
 	
 	#movie_list table {
-		margin: 0 auto;
+		margin: 100px auto 30px;
 		width: 500px;
 		text-align: center;
-		margin-top: 100px;
-		margin-bottom: 30px;
 	}
 	
 	#movie_list table tr {
 		height: 50px;
+	}
+	
+	#movie_list table tr td {
+		border: 1px solid #eee;
+	}
+	
+	#movie_list table tr td a {
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 	
 	.swiper {
@@ -183,6 +189,7 @@
 	#notice {
 		position: relative;
 		height: 350px;
+		margin: 100px 0;
 	}
 	#notice>h1 {
 		font-size: 25px;
@@ -190,36 +197,44 @@
 	}
 	#notice>#notice_list {
 		border: 1px solid black;
-		position: relative;
-		position: absolute;
 		left: 180px;
-		width: 935px; height: 200px;
+		width: 100%; 
+		height: 250px;
 		text-align: center;
 		font-size: 18px;
-		overflow: scroll;
+		overflow-Y: scroll;
+		margin: 0 auto;
 	}
-	#notice>#notice_list>ul {
-		position: absolute;
-		left: 90px;
-		width: 735px;
-	}
+	
 	#notice>#notice_list>ul>li {
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid #ddd;
 		padding: 15px;
+		font-size: 16px;
 	}
-	.notice_info {color: gray;}
-	.notice_info:hover {color: black;}
+	.notice_info {
+		color: gray;
+	}
+	
+	.notice_info:hover {
+		color: black;
+	}
+	
 	.notice_subject, .notice_date {
 		display: inline-block;
 		width: 345px;
 	}
-	.notice_subject {text-align: left;}
-	.notice_date {text-align: right;}
+	
+	.notice_subject {
+		text-align: left;
+	}
+	
+	.notice_date {
+		text-align: right;
+	}
+	
 	#notice>#notice_list_more {
-		position: absolute;
-		top: 245px;
-		left: 180px;
-		width: 935px; height: 35px;
+		width: 100%; 
+		height: 35px;
 		cursor: pointer;
 	}
 </style>
@@ -301,7 +316,7 @@
 	</section>
 	<section class="inner">
 		<section id="movie_list">
-			<table border="1">
+			<table>
 				<tr>
 					<%-- 각 항목 선택 시 항목에 맞는 영화 목록 표시 --%>
 					<td id="movie_list1"><a href="Boxoffice">박스오피스</a></td>

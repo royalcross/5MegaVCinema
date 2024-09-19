@@ -163,7 +163,7 @@ public class ReserveController {
 		String seatrepl = seatString.replaceAll("\\[","").replaceAll("\\]",""); // 문자열에 있는 대괄호 없애기
 //		System.out.println("seatrepl : " + seatrepl);
 		
-		seatrepl = seatrepl.replace(" " , ""); // 공백있어서 공배 제거
+		seatrepl = seatrepl.replace(" " , ""); // 공백있어서 공백 제거
 		
 		String[] seatArr = seatrepl.split(","); // 문자열을 , 로 분리해서 배열에 저장
 		System.out.println("seatArr : " + Arrays.toString(seatArr));

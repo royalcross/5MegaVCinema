@@ -12,7 +12,7 @@
 		<style>
 			.logo {
 				width: 100px;
-				margin: 0 auto;
+				margin: 30px auto;
 			}
 			
 			.logo .main_logo {
@@ -35,6 +35,8 @@
 				justify-content: space-between;
 			}
 			.tab > ul > li {
+			    height: 40px;
+    			align-content: center;
 				width:50%;
 				background-color: #eee;
 			}
@@ -53,7 +55,7 @@
 			
 			article {
 				width: 500px;
-				margin: 0 auto;
+				margin: 50px auto;
 			}
 			
 			article form {
@@ -65,6 +67,8 @@
 				width: 100%;
 				display: flex;
 				justify-content: center;
+				margin-bottom: 10px;
+				align-items: center;
 			} 
 			
 			article form .info span {
@@ -74,11 +78,11 @@
 			
 			article form .info input {
 				width: 70%;
+				height: 30px;
 			}
 			
 			article form .search {
 				text-align: left;
-				margin-bottom: 30px;
 			}
 			 
 			article form ul li {
@@ -88,6 +92,8 @@
 			
 			article form #login_btn {
 				width: 100%;
+			    height: 30px; 
+			    margin: 30px 0;
 			} 
 						
 			<%-- 비회원 로그인 --%>
@@ -157,7 +163,7 @@
 					
 					<div class="search">
 						<div>
-							<input type="checkbox" name="rememberId" <c:if test="${not empty cookie.rememberId}">checked</c:if>>아이디 기억<br>
+							<input type="checkbox" name="rememberId" <c:if test="${not empty cookie.rememberId}">checked</c:if> style="margin-right: 10px;">아이디 기억<br>
 						</div>
 					</div>
 					<!--  체크박스 생성 시 value 속성 지정하지 않으면 체크값이 "on", 미체크는 "null" -->
