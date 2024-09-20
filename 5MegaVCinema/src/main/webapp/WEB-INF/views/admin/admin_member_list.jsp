@@ -42,6 +42,11 @@
 			
 			.main .content table th {
 				background-color: #eee;
+				height: 30px;
+			}
+			
+			.main .content table td {
+				height: 30px;
 			}
 			
 			.main .content table #yAdmin {
@@ -51,6 +56,7 @@
 			/* 페이징 처리 */
 			.main #pageList {
 				text-align: center;
+				margin-top: 30px;
 			}
 		</style>
 		<script>
