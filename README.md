@@ -62,28 +62,40 @@ PW asdf1234!
 
 |메인페이지|
 |------|
-|<img src="https://github.com/user-attachments/assets/5fa420ca-3627-4092-8888-a4632c954178"  width="800" height="750"/>|
+|<img src="https://github.com/user-attachments/assets/4838eca5-6096-4848-98ff-89869894f599"  width="800" height="750"/>|
 |- 이미지 슬라이드<br>- 카테고리 상품<br>- 인기 상품<br>- 최근 업데이트 상품|
 
 |로그인|회원가입|
 |------|---|
-|<img src="https://github.com/user-attachments/assets/f1b86b94-54f0-4a4d-8b08-d6e312053da0"  width="300" height="500"/>|<img src="https://github.com/user-attachments/assets/7822c9c5-a6b6-4288-a6d8-c560a1eb4fe9"  width="400" height="200"/>|
+|<img src="https://github.com/user-attachments/assets/02ed6958-574c-4998-9bd5-8bee71bd0ab4"  width="300" height="500"/>|<img src="https://github.com/user-attachments/assets/f5135e23-fcf8-4ad2-be52-6c4a8a0fe2e9"  width="400" height="200"/>|
 |- 카카오톡 연동 로그인<br>- 아이디, 비밀번호 찾기|- COOLSMS 문자인증 서비스를 통한 본인 인증|
 
-
-|마이페이지|
+|박스오피스|
 |------|
-|<img src="https://github.com/user-attachments/assets/aa177e7e-7943-4fbc-a100-2d9bb114727c"  width="800" height="600"/>|
+|<img src="https://github.com/user-attachments/assets/bf63f01d-363c-440b-8b40-dcb5dd020eee"  width="800" height="600"/>|
+|- 판매내역<br>- 구매내역<br>- 찜한상품<br>- 회원정보 수정|
+
+|영화 상세정보|
+|------|
+|<img src="https://github.com/user-attachments/assets/a80a2784-375d-433d-8ffa-45616c8c75d5"  width="800" height="600"/>|
+|- 판매내역<br>- 구매내역<br>- 찜한상품<br>- 회원정보 수정|
+
+|영화관|
+|------|
+|<img src="https://github.com/user-attachments/assets/77cab703-f836-4cb3-b1fc-fa5e5d78aec9"  width="800" height="600"/>|
 |- 판매내역<br>- 구매내역<br>- 찜한상품<br>- 회원정보 수정|
 
 |스토어 상품|결제|
 |------|------|
-|<img src="https://github.com/user-attachments/assets/056aa97c-5f95-4f9f-b857-418d2e8286e4"  width="400" height="300"/>|<img src="https://github.com/user-attachments/assets/4024a029-bbab-4c1b-b7ff-70e87f455c5a"  width="400" height="300"/>|
+|<img src="https://github.com/user-attachments/assets/6892a689-56cc-4565-bbb8-04db1acc9d57"  width="400" height="300"/>|<img src="![image](https://github.com/user-attachments/assets/4d236d4e-d78c-4d1c-bfa3-669ac9c110a7)
+"  width="400" height="300"/>|
 |- 상세 이미지 확대<br>- 수량 변경|- 카카오페이 결제|
 
-|채팅|채팅 알림|
+관리자페이
+|회원관리|영화관리|
 |------|------|
-|<img src="https://github.com/user-attachments/assets/da0b6dfc-eaa6-4c1b-b2b1-78f62b7601ac"  width="400" height="300"/>|<img src="https://github.com/user-attachments/assets/fee04af6-5d43-4c19-931e-ab12cc4a37b6"  width="400" height="300"/>|
+|<img src="https://github.com/user-attachments/assets/981d29a2-7ea6-4b39-9e17-9d78289fe81a"  width="400" height="300"/>|<img src="![image](https://github.com/user-attachments/assets/7014c03e-3817-4165-aefb-ddfe88ef0a15)
+"  width="400" height="300"/>|
 |- 1:1채팅<br>- 버튼 통해 판매자는 금액 입력 및 구매자는 결제 가능<br>- 채팅 신고하기<br>- 채팅 종료|- 미확인 채팅 알림 메뉴 위 적색 아이콘으로 표시<br>- 수신된 채팅 내용을 알림 메뉴에서 확인 가능|
 
 |최근 검색어|인기 검색어|
