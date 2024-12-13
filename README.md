@@ -98,14 +98,4 @@ PW asdf1234!
 "  width="400" height="300"/>|
 |- 1:1채팅<br>- 버튼 통해 판매자는 금액 입력 및 구매자는 결제 가능<br>- 채팅 신고하기<br>- 채팅 종료|- 미확인 채팅 알림 메뉴 위 적색 아이콘으로 표시<br>- 수신된 채팅 내용을 알림 메뉴에서 확인 가능|
 
-|최근 검색어|인기 검색어|
-|------|------|
-|<img src="https://github.com/user-attachments/assets/55c1ee20-209f-4ed6-9cf1-f8307c130cc2"  width="400" height="300"/>|<img src="https://github.com/user-attachments/assets/c720475e-1593-43e5-82f4-31952df56875"  width="400" height="300"/>|
-|- 최근 검색어 확인|- 인기 검색어 1~20위 확인|
 
-|상품 목록|상품 상세|
-|------|------|
-|<img src="https://github.com/user-attachments/assets/12da34f9-a662-44ea-a0b8-d7a1c8be7069"  width="400" height="300"/>|<img src="https://github.com/user-attachments/assets/daabd340-8ef4-4a44-88bd-7d46d993792f"  width="400" height="300"/>|
-|- 카테고리 선택 <br>- 아래로 스크롤 시 게시글 자동 로딩|- 상품의 이미지가 슬라이드 형식으로 출력<br>- 거래하기, 찜하기 버튼 및 판매자 정보<br>- 판매자 본인은 수정하기/삭제하기/끌어올리기 가능
-
-|
